@@ -1,0 +1,28 @@
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/model/DashboardSpec.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/model/DashboardSpec.kt
+deleted file mode 100644
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/model/DashboardSpec.kt
++++ /dev/null
+@@ -1,23 +0,0 @@
+-package com.movefuel.mufil2.ui.model
+-
+-import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+-
+-data class DashboardSection(
+-    val title: String,
+-    val description: String,
+-    val value: String? = null,
+-)
+-
+-data class DashboardAction(
+-    val label: String,
+-    val destination: MoveFuelRoute? = null,
+-)
+-
+-data class DashboardSpec(
+-    val id: String,
+-    val title: String,
+-    val subtitle: String,
+-    val sections: List<DashboardSection>,
+-    val primaryAction: DashboardAction? = null,
+-    val secondaryActions: List<DashboardAction> = emptyList(),
+-)
