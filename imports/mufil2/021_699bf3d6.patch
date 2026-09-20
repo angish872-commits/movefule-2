@@ -1,0 +1,1125 @@
+diff --git a/Mufil-2/database/architecture/FULL_PRODUCT_SCHEMA_EXPANSION.md b/Mufil-2/database/architecture/FULL_PRODUCT_SCHEMA_EXPANSION.md
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/database/architecture/FULL_PRODUCT_SCHEMA_EXPANSION.md
+@@ -0,0 +1,74 @@
++# MoveFuel Full-Product Schema Expansion
++
++## What the 400-screen audit changes
++The **81-table core is a proven baseline**, but it does not fully normalize every durable capability exposed by the 400-screen UI.
++
++### Draft additions
++- Recipe + YouTube/Web/Text import: **12**
++- Meal planning: **7**
++- Shopping + pantry: **5**
++- Soreness/readiness: **3**
++- Progress media/body observations: **2**
++- Proposed private-core additions: **29**
++- Baseline 81 + 29 = **~110 private core tables** if all survive reconciliation.
++
++### Shared food/barcode catalog
++A separate shared catalog proposal adds **15 tables**. It stores normalized USDA/Open Food Facts/product/barcode/reference facts, not private meal history.
++
++## Barcode flow
++
++```mermaid
++flowchart LR
++ SCAN[Camera barcode scan] --> DEC[Normalize UPC/EAN/GTIN]
++ DEC --> BAR[barcode]
++ BAR --> BP[branded_product]
++ BP --> FOOD[food + food_revision]
++ FOOD --> NUT[food_nutrient + serving]
++ NUT --> REVIEW[Serving review]
++ REVIEW --> MD[core meal_draft]
++ MD --> CONFIRM[Confirm]
++ CONFIRM --> MEAL[core meal / meal_item / meal_revision]
++```
++
++## YouTube recipe flow
++
++```mermaid
++flowchart TD
++ URL[YouTube/Web/Text] --> SRC[recipe_source]
++ SRC --> JOB[recipe_import_job]
++ JOB --> EVENT[recipe_import_event]
++ JOB --> AI[AI extraction evidence]
++ AI --> CAND[recipe_import_candidate]
++ CAND --> MATCH[recipe_food_match]
++ MATCH --> ISSUE{Unresolved?}
++ ISSUE -- yes --> FIX[recipe_import_issue + user correction]
++ ISSUE -- no --> CALC[Deterministic nutrition]
++ FIX --> CALC
++ CALC --> SNAP[recipe_nutrition_snapshot]
++ SNAP --> CONFIRM[User confirmation]
++ CONFIRM --> REC[recipe / revision / ingredient / step]
++ REC --> PLAN[planned_meal]
++ REC --> SHOP[shopping_item]
++ REC --> LOG[meal draft -> confirmed meal]
++```
++
++AI extracts candidates; **MoveFuel nutrition logic + trusted food data remain authoritative**.
++
++## Training connection
++
++```mermaid
++flowchart LR
++ CORE[Private MoveFuel facts] --> SAFE[Safety / eligibility]
++ KNOW[141-table training platform] --> SAFE
++ SAFE --> ALG[Training algorithms 59-78]
++ ALG --> PLAN[workout_plan / revision / step]
++ PLAN --> EXEC[Phone / Watch execution]
++ EXEC --> EVT[workout_event / session_revision]
++ EVT --> PROG[Progression / readiness]
++ PROG --> ALG
++```
++
++## Count warning
++Raw architecture counts can exceed 250 logical tables if you simply add 110 private core + 15 food catalog + all 141 training-platform tables. **Do not do that blindly.** The 141 training matrix contains athlete/device/governance concepts that overlap the core.
++
++The next database task is a **deduplication/authority reconciliation**: one canonical owner for every noun, then final SQL migrations.
+diff --git a/Mufil-2/database/azure-sql/010_draft_full_product_additions_29.sql b/Mufil-2/database/azure-sql/010_draft_full_product_additions_29.sql
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/database/azure-sql/010_draft_full_product_additions_29.sql
+@@ -0,0 +1,473 @@
++-- DRAFT ONLY: MoveFuel full-product additive core tables
++-- 29 proposed tables. Applying all would move the private core from 81 to ~110 tables.
++-- Requires authority/deduplication review before migration.
++
++IF OBJECT_ID(N'dbo.recipe',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe] (
++    recipeId NVARCHAR(128) PRIMARY KEY,
++    userId NVARCHAR(128) NOT NULL,
++    name NVARCHAR(256) NOT NULL,
++    status NVARCHAR(32) NOT NULL,
++    currentRevision BIGINT NOT NULL,
++    createdAt DATETIME2(3) NOT NULL,
++    updatedAt DATETIME2(3) NOT NULL,
++    deletedAt DATETIME2(3) NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.recipe_revision',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe_revision] (
++    recipeRevisionId NVARCHAR(128) PRIMARY KEY,
++    recipeId NVARCHAR(128) NOT NULL,
++    userId NVARCHAR(128) NOT NULL,
++    revision BIGINT NOT NULL,
++    servings FLOAT NULL,
++    sourceId NVARCHAR(128) NULL,
++    nutritionSnapshotId NVARCHAR(128) NULL,
++    payloadHash NVARCHAR(128) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.recipe_ingredient',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe_ingredient] (
++    ingredientId NVARCHAR(128) PRIMARY KEY,
++    recipeRevisionId NVARCHAR(128) NOT NULL,
++    sortOrder BIGINT NOT NULL,
++    rawText NVARCHAR(2048) NOT NULL,
++    foodId NVARCHAR(128) NULL,
++    quantity FLOAT NULL,
++    unit NVARCHAR(64) NULL,
++    grams FLOAT NULL,
++    matchConfidence FLOAT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.recipe_step',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe_step] (
++    stepId NVARCHAR(128) PRIMARY KEY,
++    recipeRevisionId NVARCHAR(128) NOT NULL,
++    stepNumber BIGINT NOT NULL,
++    instruction NVARCHAR(MAX) NOT NULL,
++    durationSeconds BIGINT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.recipe_source',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe_source] (
++    sourceId NVARCHAR(128) PRIMARY KEY,
++    userId NVARCHAR(128) NOT NULL,
++    sourceType NVARCHAR(32) NOT NULL,
++    sourceUrl NVARCHAR(2048) NULL,
++    externalId NVARCHAR(256) NULL,
++    title NVARCHAR(512) NULL,
++    sourceHash NVARCHAR(128) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.recipe_import_job',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe_import_job] (
++    jobId NVARCHAR(128) PRIMARY KEY,
++    userId NVARCHAR(128) NOT NULL,
++    sourceId NVARCHAR(128) NOT NULL,
++    state NVARCHAR(32) NOT NULL,
++    stage NVARCHAR(64) NOT NULL,
++    idempotencyKey NVARCHAR(128) NOT NULL,
++    schemaVersion BIGINT NOT NULL,
++    createdAt DATETIME2(3) NOT NULL,
++    updatedAt DATETIME2(3) NOT NULL,
++    completedAt DATETIME2(3) NULL,
++    errorCode NVARCHAR(128) NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.recipe_import_event',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe_import_event] (
++    eventId NVARCHAR(128) PRIMARY KEY,
++    jobId NVARCHAR(128) NOT NULL,
++    sequence BIGINT NOT NULL,
++    stage NVARCHAR(64) NOT NULL,
++    status NVARCHAR(32) NOT NULL,
++    userSafeCode NVARCHAR(128) NULL,
++    occurredAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.recipe_import_candidate',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe_import_candidate] (
++    candidateId NVARCHAR(128) PRIMARY KEY,
++    jobId NVARCHAR(128) NOT NULL,
++    candidateType NVARCHAR(64) NOT NULL,
++    payloadJson NVARCHAR(MAX) NOT NULL,
++    confidence FLOAT NULL,
++    providerRef NVARCHAR(128) NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.recipe_import_issue',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe_import_issue] (
++    issueId NVARCHAR(128) PRIMARY KEY,
++    jobId NVARCHAR(128) NOT NULL,
++    candidateId NVARCHAR(128) NULL,
++    issueType NVARCHAR(64) NOT NULL,
++    state NVARCHAR(32) NOT NULL,
++    detailsJson NVARCHAR(MAX) NOT NULL,
++    resolvedAt DATETIME2(3) NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.recipe_food_match',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe_food_match] (
++    matchId NVARCHAR(128) PRIMARY KEY,
++    jobId NVARCHAR(128) NOT NULL,
++    candidateId NVARCHAR(128) NOT NULL,
++    foodId NVARCHAR(128) NULL,
++    sourceRevision NVARCHAR(128) NULL,
++    confidence FLOAT NULL,
++    confirmedByUser BIT NOT NULL DEFAULT(0),
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.recipe_nutrition_snapshot',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe_nutrition_snapshot] (
++    nutritionSnapshotId NVARCHAR(128) PRIMARY KEY,
++    recipeRevisionId NVARCHAR(128) NOT NULL,
++    energyKcal FLOAT NULL,
++    proteinG FLOAT NULL,
++    carbG FLOAT NULL,
++    fatG FLOAT NULL,
++    fiberG FLOAT NULL,
++    micronutrientsJson NVARCHAR(MAX) NULL,
++    completeness FLOAT NULL,
++    sourceRevisionHash NVARCHAR(128) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.recipe_media_ref',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[recipe_media_ref] (
++    mediaRefId NVARCHAR(128) PRIMARY KEY,
++    recipeId NVARCHAR(128) NOT NULL,
++    sourceId NVARCHAR(128) NULL,
++    mediaType NVARCHAR(32) NOT NULL,
++    objectId NVARCHAR(256) NULL,
++    externalUrl NVARCHAR(2048) NULL,
++    rightsState NVARCHAR(32) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.meal_plan',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[meal_plan] (
++    planId NVARCHAR(128) PRIMARY KEY,
++    userId NVARCHAR(128) NOT NULL,
++    name NVARCHAR(256) NOT NULL,
++    status NVARCHAR(32) NOT NULL,
++    currentRevision BIGINT NOT NULL,
++    createdAt DATETIME2(3) NOT NULL,
++    updatedAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.meal_plan_revision',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[meal_plan_revision] (
++    planRevisionId NVARCHAR(128) PRIMARY KEY,
++    planId NVARCHAR(128) NOT NULL,
++    userId NVARCHAR(128) NOT NULL,
++    revision BIGINT NOT NULL,
++    startDate DATE NOT NULL,
++    endDate DATE NOT NULL,
++    constraintHash NVARCHAR(128) NOT NULL,
++    algorithmVersion NVARCHAR(64) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.planned_meal',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[planned_meal] (
++    plannedMealId NVARCHAR(128) PRIMARY KEY,
++    planRevisionId NVARCHAR(128) NOT NULL,
++    userId NVARCHAR(128) NOT NULL,
++    localDate DATE NOT NULL,
++    mealTime TIME NULL,
++    recipeId NVARCHAR(128) NULL,
++    status NVARCHAR(32) NOT NULL,
++    payloadJson NVARCHAR(MAX) NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.planned_meal_item',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[planned_meal_item] (
++    plannedMealItemId NVARCHAR(128) PRIMARY KEY,
++    plannedMealId NVARCHAR(128) NOT NULL,
++    foodId NVARCHAR(128) NULL,
++    quantity FLOAT NULL,
++    unit NVARCHAR(64) NULL,
++    grams FLOAT NULL,
++    payloadJson NVARCHAR(MAX) NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.meal_plan_constraint',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[meal_plan_constraint] (
++    constraintId NVARCHAR(128) PRIMARY KEY,
++    planId NVARCHAR(128) NOT NULL,
++    userId NVARCHAR(128) NOT NULL,
++    constraintType NVARCHAR(64) NOT NULL,
++    valueJson NVARCHAR(MAX) NOT NULL,
++    active BIT NOT NULL DEFAULT(1),
++    updatedAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.meal_plan_conflict',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[meal_plan_conflict] (
++    conflictId NVARCHAR(128) PRIMARY KEY,
++    planRevisionId NVARCHAR(128) NOT NULL,
++    userId NVARCHAR(128) NOT NULL,
++    conflictType NVARCHAR(64) NOT NULL,
++    detailsJson NVARCHAR(MAX) NOT NULL,
++    state NVARCHAR(32) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL,
++    resolvedAt DATETIME2(3) NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.meal_plan_swap',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[meal_plan_swap] (
++    swapId NVARCHAR(128) PRIMARY KEY,
++    plannedMealId NVARCHAR(128) NOT NULL,
++    userId NVARCHAR(128) NOT NULL,
++    fromRecipeId NVARCHAR(128) NULL,
++    toRecipeId NVARCHAR(128) NULL,
++    reasonCode NVARCHAR(64) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.shopping_list',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[shopping_list] (
++    shoppingListId NVARCHAR(128) PRIMARY KEY,
++    userId NVARCHAR(128) NOT NULL,
++    name NVARCHAR(256) NOT NULL,
++    state NVARCHAR(32) NOT NULL,
++    revision BIGINT NOT NULL,
++    updatedAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.shopping_item',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[shopping_item] (
++    shoppingItemId NVARCHAR(128) PRIMARY KEY,
++    shoppingListId NVARCHAR(128) NOT NULL,
++    userId NVARCHAR(128) NOT NULL,
++    displayName NVARCHAR(256) NOT NULL,
++    quantity FLOAT NULL,
++    unit NVARCHAR(64) NULL,
++    foodId NVARCHAR(128) NULL,
++    purchased BIT NOT NULL DEFAULT(0),
++    updatedAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.pantry_item',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[pantry_item] (
++    pantryItemId NVARCHAR(128) PRIMARY KEY,
++    userId NVARCHAR(128) NOT NULL,
++    foodId NVARCHAR(128) NULL,
++    displayName NVARCHAR(256) NOT NULL,
++    quantity FLOAT NULL,
++    unit NVARCHAR(64) NULL,
++    expiresOn DATE NULL,
++    revision BIGINT NOT NULL,
++    updatedAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.pantry_revision',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[pantry_revision] (
++    pantryRevisionId NVARCHAR(128) PRIMARY KEY,
++    userId NVARCHAR(128) NOT NULL,
++    revision BIGINT NOT NULL,
++    changeHash NVARCHAR(128) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.shopping_source_link',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[shopping_source_link] (
++    sourceLinkId NVARCHAR(128) PRIMARY KEY,
++    shoppingItemId NVARCHAR(128) NOT NULL,
++    sourceType NVARCHAR(64) NOT NULL,
++    sourceId NVARCHAR(128) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.soreness_observation',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[soreness_observation] (
++    sorenessObservationId NVARCHAR(128) PRIMARY KEY,
++    userId NVARCHAR(128) NOT NULL,
++    observedAt DATETIME2(3) NOT NULL,
++    overallSeverity FLOAT NULL,
++    source NVARCHAR(32) NOT NULL,
++    schemaVersion BIGINT NOT NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.soreness_region',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[soreness_region] (
++    sorenessRegionId NVARCHAR(128) PRIMARY KEY,
++    sorenessObservationId NVARCHAR(128) NOT NULL,
++    regionCode NVARCHAR(64) NOT NULL,
++    severity FLOAT NOT NULL,
++    painFlag BIT NOT NULL DEFAULT(0),
++    note NVARCHAR(2048) NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.readiness_decision',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[readiness_decision] (
++    readinessDecisionId NVARCHAR(128) PRIMARY KEY,
++    userId NVARCHAR(128) NOT NULL,
++    localDate DATE NOT NULL,
++    state NVARCHAR(32) NOT NULL,
++    inputRevisionHash NVARCHAR(128) NOT NULL,
++    reasonCodesJson NVARCHAR(MAX) NOT NULL,
++    confidence FLOAT NULL,
++    algorithmVersion NVARCHAR(64) NOT NULL,
++    policyVersion NVARCHAR(64) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.progress_media',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[progress_media] (
++    progressMediaId NVARCHAR(128) PRIMARY KEY,
++    userId NVARCHAR(128) NOT NULL,
++    objectId NVARCHAR(256) NOT NULL,
++    localDate DATE NOT NULL,
++    mediaType NVARCHAR(32) NOT NULL,
++    state NVARCHAR(32) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL,
++    deletedAt DATETIME2(3) NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.body_observation',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[body_observation] (
++    bodyObservationId NVARCHAR(128) PRIMARY KEY,
++    userId NVARCHAR(128) NOT NULL,
++    localDate DATE NOT NULL,
++    weightG BIGINT NULL,
++    bodyFatPct FLOAT NULL,
++    waistMm BIGINT NULL,
++    hipMm BIGINT NULL,
++    source NVARCHAR(64) NOT NULL,
++    provenanceHash NVARCHAR(128) NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_recipe_revision_recipeId_recipe') ALTER TABLE dbo.[recipe_revision] ADD CONSTRAINT [FK_recipe_revision_recipeId_recipe] FOREIGN KEY ([recipeId]) REFERENCES dbo.[recipe] ([recipeId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_recipe_ingredient_recipeRevisionId_recipe_revision') ALTER TABLE dbo.[recipe_ingredient] ADD CONSTRAINT [FK_recipe_ingredient_recipeRevisionId_recipe_revision] FOREIGN KEY ([recipeRevisionId]) REFERENCES dbo.[recipe_revision] ([recipeRevisionId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_recipe_step_recipeRevisionId_recipe_revision') ALTER TABLE dbo.[recipe_step] ADD CONSTRAINT [FK_recipe_step_recipeRevisionId_recipe_revision] FOREIGN KEY ([recipeRevisionId]) REFERENCES dbo.[recipe_revision] ([recipeRevisionId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_recipe_import_job_sourceId_recipe_source') ALTER TABLE dbo.[recipe_import_job] ADD CONSTRAINT [FK_recipe_import_job_sourceId_recipe_source] FOREIGN KEY ([sourceId]) REFERENCES dbo.[recipe_source] ([sourceId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_recipe_import_event_jobId_recipe_import_job') ALTER TABLE dbo.[recipe_import_event] ADD CONSTRAINT [FK_recipe_import_event_jobId_recipe_import_job] FOREIGN KEY ([jobId]) REFERENCES dbo.[recipe_import_job] ([jobId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_recipe_import_candidate_jobId_recipe_import_job') ALTER TABLE dbo.[recipe_import_candidate] ADD CONSTRAINT [FK_recipe_import_candidate_jobId_recipe_import_job] FOREIGN KEY ([jobId]) REFERENCES dbo.[recipe_import_job] ([jobId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_recipe_import_issue_jobId_recipe_import_job') ALTER TABLE dbo.[recipe_import_issue] ADD CONSTRAINT [FK_recipe_import_issue_jobId_recipe_import_job] FOREIGN KEY ([jobId]) REFERENCES dbo.[recipe_import_job] ([jobId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_recipe_food_match_jobId_recipe_import_job') ALTER TABLE dbo.[recipe_food_match] ADD CONSTRAINT [FK_recipe_food_match_jobId_recipe_import_job] FOREIGN KEY ([jobId]) REFERENCES dbo.[recipe_import_job] ([jobId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_recipe_food_match_candidateId_recipe_import_candidate') ALTER TABLE dbo.[recipe_food_match] ADD CONSTRAINT [FK_recipe_food_match_candidateId_recipe_import_candidate] FOREIGN KEY ([candidateId]) REFERENCES dbo.[recipe_import_candidate] ([candidateId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_recipe_nutrition_snapshot_recipeRevisionId_recipe_revision') ALTER TABLE dbo.[recipe_nutrition_snapshot] ADD CONSTRAINT [FK_recipe_nutrition_snapshot_recipeRevisionId_recipe_revision] FOREIGN KEY ([recipeRevisionId]) REFERENCES dbo.[recipe_revision] ([recipeRevisionId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_recipe_media_ref_recipeId_recipe') ALTER TABLE dbo.[recipe_media_ref] ADD CONSTRAINT [FK_recipe_media_ref_recipeId_recipe] FOREIGN KEY ([recipeId]) REFERENCES dbo.[recipe] ([recipeId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_meal_plan_revision_planId_meal_plan') ALTER TABLE dbo.[meal_plan_revision] ADD CONSTRAINT [FK_meal_plan_revision_planId_meal_plan] FOREIGN KEY ([planId]) REFERENCES dbo.[meal_plan] ([planId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_planned_meal_planRevisionId_meal_plan_revision') ALTER TABLE dbo.[planned_meal] ADD CONSTRAINT [FK_planned_meal_planRevisionId_meal_plan_revision] FOREIGN KEY ([planRevisionId]) REFERENCES dbo.[meal_plan_revision] ([planRevisionId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_planned_meal_item_plannedMealId_planned_meal') ALTER TABLE dbo.[planned_meal_item] ADD CONSTRAINT [FK_planned_meal_item_plannedMealId_planned_meal] FOREIGN KEY ([plannedMealId]) REFERENCES dbo.[planned_meal] ([plannedMealId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_meal_plan_constraint_planId_meal_plan') ALTER TABLE dbo.[meal_plan_constraint] ADD CONSTRAINT [FK_meal_plan_constraint_planId_meal_plan] FOREIGN KEY ([planId]) REFERENCES dbo.[meal_plan] ([planId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_meal_plan_conflict_planRevisionId_meal_plan_revision') ALTER TABLE dbo.[meal_plan_conflict] ADD CONSTRAINT [FK_meal_plan_conflict_planRevisionId_meal_plan_revision] FOREIGN KEY ([planRevisionId]) REFERENCES dbo.[meal_plan_revision] ([planRevisionId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_meal_plan_swap_plannedMealId_planned_meal') ALTER TABLE dbo.[meal_plan_swap] ADD CONSTRAINT [FK_meal_plan_swap_plannedMealId_planned_meal] FOREIGN KEY ([plannedMealId]) REFERENCES dbo.[planned_meal] ([plannedMealId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_shopping_item_shoppingListId_shopping_list') ALTER TABLE dbo.[shopping_item] ADD CONSTRAINT [FK_shopping_item_shoppingListId_shopping_list] FOREIGN KEY ([shoppingListId]) REFERENCES dbo.[shopping_list] ([shoppingListId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_shopping_source_link_shoppingItemId_shopping_item') ALTER TABLE dbo.[shopping_source_link] ADD CONSTRAINT [FK_shopping_source_link_shoppingItemId_shopping_item] FOREIGN KEY ([shoppingItemId]) REFERENCES dbo.[shopping_item] ([shoppingItemId]);
++GO
++IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name=N'FK_soreness_region_sorenessObservationId_soreness_observation') ALTER TABLE dbo.[soreness_region] ADD CONSTRAINT [FK_soreness_region_sorenessObservationId_soreness_observation] FOREIGN KEY ([sorenessObservationId]) REFERENCES dbo.[soreness_observation] ([sorenessObservationId]);
++GO
+diff --git a/Mufil-2/database/azure-sql/020_draft_food_barcode_catalog_15.sql b/Mufil-2/database/azure-sql/020_draft_food_barcode_catalog_15.sql
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/database/azure-sql/020_draft_food_barcode_catalog_15.sql
+@@ -0,0 +1,205 @@
++-- DRAFT shared food/barcode catalog schema
++-- Separate from private MoveFuel user meals.
++
++IF OBJECT_ID(N'dbo.catalog_source',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[catalog_source] (
++    sourceId NVARCHAR(128) PRIMARY KEY,
++    name NVARCHAR(256) NOT NULL,
++    providerType NVARCHAR(64) NOT NULL,
++    licenseRef NVARCHAR(256) NULL,
++    active BIT NOT NULL DEFAULT(1),
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.catalog_release',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[catalog_release] (
++    releaseId NVARCHAR(128) PRIMARY KEY,
++    sourceId NVARCHAR(128) NOT NULL,
++    sourceVersion NVARCHAR(128) NOT NULL,
++    checksum NVARCHAR(128) NOT NULL,
++    importedAt DATETIME2(3) NOT NULL,
++    state NVARCHAR(32) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.food',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[food] (
++    foodId NVARCHAR(128) PRIMARY KEY,
++    canonicalName NVARCHAR(512) NOT NULL,
++    foodType NVARCHAR(64) NOT NULL,
++    currentRevision BIGINT NOT NULL,
++    state NVARCHAR(32) NOT NULL,
++    updatedAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.food_revision',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[food_revision] (
++    foodRevisionId NVARCHAR(128) PRIMARY KEY,
++    foodId NVARCHAR(128) NOT NULL,
++    revision BIGINT NOT NULL,
++    releaseId NVARCHAR(128) NOT NULL,
++    sourceRecordId NVARCHAR(256) NOT NULL,
++    payloadHash NVARCHAR(128) NOT NULL,
++    createdAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.food_alias',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[food_alias] (
++    foodAliasId NVARCHAR(128) PRIMARY KEY,
++    foodId NVARCHAR(128) NOT NULL,
++    alias NVARCHAR(512) NOT NULL,
++    locale NVARCHAR(32) NULL,
++    sourceId NVARCHAR(128) NULL,
++    confidence FLOAT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.barcode',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[barcode] (
++    barcodeId NVARCHAR(128) PRIMARY KEY,
++    code NVARCHAR(64) NOT NULL,
++    normalizedCode NVARCHAR(64) NOT NULL,
++    symbology NVARCHAR(32) NOT NULL,
++    brandedProductId NVARCHAR(128) NOT NULL,
++    releaseId NVARCHAR(128) NOT NULL,
++    state NVARCHAR(32) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.branded_product',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[branded_product] (
++    brandedProductId NVARCHAR(128) PRIMARY KEY,
++    foodId NVARCHAR(128) NOT NULL,
++    brand NVARCHAR(256) NULL,
++    productName NVARCHAR(512) NOT NULL,
++    packageSize NVARCHAR(128) NULL,
++    countryCode NVARCHAR(8) NULL,
++    currentRevision BIGINT NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.nutrient_definition',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[nutrient_definition] (
++    nutrientId NVARCHAR(128) PRIMARY KEY,
++    code NVARCHAR(64) NOT NULL,
++    name NVARCHAR(256) NOT NULL,
++    unit NVARCHAR(32) NOT NULL,
++    nutrientClass NVARCHAR(64) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.food_nutrient',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[food_nutrient] (
++    foodNutrientId NVARCHAR(128) PRIMARY KEY,
++    foodRevisionId NVARCHAR(128) NOT NULL,
++    nutrientId NVARCHAR(128) NOT NULL,
++    amountPer100g FLOAT NULL,
++    amountPerServing FLOAT NULL,
++    dataQuality NVARCHAR(32) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.serving_unit',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[serving_unit] (
++    servingUnitId NVARCHAR(128) PRIMARY KEY,
++    code NVARCHAR(64) NOT NULL,
++    displayName NVARCHAR(128) NOT NULL,
++    dimension NVARCHAR(32) NOT NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.food_serving',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[food_serving] (
++    foodServingId NVARCHAR(128) PRIMARY KEY,
++    foodRevisionId NVARCHAR(128) NOT NULL,
++    servingUnitId NVARCHAR(128) NOT NULL,
++    amount FLOAT NOT NULL,
++    grams FLOAT NULL,
++    description NVARCHAR(256) NULL,
++    sourceId NVARCHAR(128) NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.product_ingredient',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[product_ingredient] (
++    productIngredientId NVARCHAR(128) PRIMARY KEY,
++    brandedProductId NVARCHAR(128) NOT NULL,
++    sortOrder BIGINT NOT NULL,
++    rawText NVARCHAR(2048) NOT NULL,
++    matchedFoodId NVARCHAR(128) NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.product_allergen',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[product_allergen] (
++    productAllergenId NVARCHAR(128) PRIMARY KEY,
++    brandedProductId NVARCHAR(128) NOT NULL,
++    allergenCode NVARCHAR(64) NOT NULL,
++    declarationType NVARCHAR(32) NOT NULL,
++    sourceText NVARCHAR(2048) NULL
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.catalog_ingestion_run',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[catalog_ingestion_run] (
++    ingestionRunId NVARCHAR(128) PRIMARY KEY,
++    sourceId NVARCHAR(128) NOT NULL,
++    releaseId NVARCHAR(128) NULL,
++    state NVARCHAR(32) NOT NULL,
++    startedAt DATETIME2(3) NOT NULL,
++    completedAt DATETIME2(3) NULL,
++    recordCount BIGINT NOT NULL DEFAULT(0),
++    errorCount BIGINT NOT NULL DEFAULT(0)
++  );
++END;
++GO
++
++IF OBJECT_ID(N'dbo.catalog_ingestion_error',N'U') IS NULL
++BEGIN
++  CREATE TABLE dbo.[catalog_ingestion_error] (
++    ingestionErrorId NVARCHAR(128) PRIMARY KEY,
++    ingestionRunId NVARCHAR(128) NOT NULL,
++    sourceRecordId NVARCHAR(256) NULL,
++    errorCode NVARCHAR(128) NOT NULL,
++    details NVARCHAR(MAX) NULL,
++    occurredAt DATETIME2(3) NOT NULL
++  );
++END;
++GO
++
++CREATE UNIQUE INDEX UQ_barcode_normalized ON dbo.[barcode]([normalizedCode]);
++GO
++CREATE INDEX IX_food_alias_alias ON dbo.[food_alias]([alias]);
++GO
++CREATE INDEX IX_food_nutrient_food ON dbo.[food_nutrient]([foodRevisionId],[nutrientId]);
++GO
+diff --git a/Mufil-2/database/training/TRAINING_141_CONNECTION_MAP.md b/Mufil-2/database/training/TRAINING_141_CONNECTION_MAP.md
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/database/training/TRAINING_141_CONNECTION_MAP.md
+@@ -0,0 +1,205 @@
++# MoveFuel Training Platform — 141-Table Connection Map
++
++This matrix is a separate training knowledge/evidence/platform design. It connects through the MoveFuel backend and must not become a second private-user authority.
++
++## Domain counts
++- **Catalog, source & labels: 20 tables**
++- **All sports: 16 tables**
++- **Anatomy, safety & substitutions: 18 tables**
++- **Photos & videos: 13 tables**
++- **Programs & algorithms: 18 tables**
++- **Athlete performance: 20 tables**
++- **Coach & client collaboration: 15 tables**
++- **Devices, imports & governance: 21 tables**
++
++## High-level connection graph
++
++```mermaid
++flowchart LR
++ SRC["Catalog / source / labels<br/>20"] --> SPORT["All sports<br/>16"]
++ SRC --> SAFE["Anatomy / safety / substitutions<br/>18"]
++ SRC --> MEDIA["Photos / videos<br/>13"]
++ SPORT --> PROGRAM["Programs / algorithms<br/>18"]
++ SAFE --> PROGRAM
++ MEDIA --> PROGRAM
++ PROGRAM --> API["MoveFuel backend bridge"]
++ API --> ATH["Athlete performance<br/>20"]
++ ATH --> PROGRAM
++ DEV["Devices / imports / governance<br/>21"] --> ATH
++ DEV --> API
++ COACH["Coach / client collaboration<br/>15"] --> ATH
++```
++
++## Reconciliation rule
++
++- **85 tables** in Catalog + Sports + Anatomy/Safety + Media + Programs/Algorithms are mostly reusable shared knowledge/evidence infrastructure.
++- **20 Athlete Performance tables** overlap private MoveFuel workout/profile/health state; map them through the backend instead of duplicating canonical user truth.
++- **21 Devices/Imports/Governance tables** overlap core device, consent, sync, import and audit resources; reconcile before deployment.
++- **15 Coach/Client tables** are future collaboration scope and should not block the consumer app.
++
++## Full inventory
++
++### Catalog, source & labels
++
++- `catalog_release`
++- `source_provider`
++- `source_dataset`
++- `source_record`
++- `source_record_version`
++- `source_license`
++- `source_license_evidence`
++- `exercise`
++- `exercise_revision`
++- `exercise_alias`
++- `exercise_instruction`
++- `exercise_instruction_step`
++- `exercise_taxonomy_map`
++- `exercise_equipment_map`
++- `exercise_muscle_map`
++- `exercise_movement_map`
++- `exercise_environment_map`
++- `exercise_sport_map`
++- `exercise_relation`
++- `catalog_review_state`
++
++### All sports
++
++- `sport`
++- `sport_discipline`
++- `sport_event`
++- `sport_position`
++- `sport_skill`
++- `sport_drill`
++- `sport_drill_revision`
++- `sport_drill_step`
++- `sport_metric_definition`
++- `sport_metric_unit`
++- `sport_test_protocol`
++- `sport_test_step`
++- `sport_equipment_rule`
++- `sport_environment_rule`
++- `sport_season_rule`
++- `sport_taxonomy_map`
++
++### Anatomy, safety & substitutions
++
++- `anatomy_region`
++- `muscle_group`
++- `muscle`
++- `joint`
++- `movement_pattern`
++- `movement_plane`
++- `movement_constraint`
++- `condition`
++- `contraindication`
++- `condition_exercise_rule`
++- `safety_screen_definition`
++- `safety_screen_rule`
++- `exercise_safety_rule`
++- `progression_rule`
++- `regression_rule`
++- `substitution_group`
++- `substitution_rule`
++- `load_model`
++
++### Photos & videos
++
++- `media_asset`
++- `media_asset_revision`
++- `media_variant`
++- `media_license`
++- `media_rights_evidence`
++- `media_source_link`
++- `media_ingestion_job`
++- `media_transcode_job`
++- `media_quality_review`
++- `media_attribution`
++- `media_access_policy`
++- `media_deletion_request`
++- `media_delivery_audit`
++
++### Programs & algorithms
++
++- `training_goal`
++- `program_template`
++- `template_revision`
++- `template_block`
++- `template_session`
++- `template_session_item`
++- `workout_plan`
++- `plan_revision`
++- `planned_session`
++- `planned_session_item`
++- `program_phase`
++- `progression_policy`
++- `deload_policy`
++- `session_requirement`
++- `algorithm_release`
++- `algorithm_rule_set`
++- `algorithm_run`
++- `algorithm_decision`
++
++### Athlete performance
++
++- `training_account`
++- `athlete_profile`
++- `athlete_sport_profile`
++- `athlete_goal`
++- `athlete_equipment`
++- `athlete_limitation`
++- `athlete_availability`
++- `readiness_checkin`
++- `workout_session`
++- `workout_session_revision`
++- `workout_event`
++- `performed_exercise`
++- `performed_set`
++- `set_metric`
++- `rest_interval`
++- `session_metric`
++- `workout_summary`
++- `personal_record`
++- `sport_activity`
++- `sport_lap_split`
++
++### Coach & client collaboration
++
++- `coach_profile`
++- `coach_client_relationship`
++- `coaching_invitation`
++- `coach_note`
++- `coach_note_revision`
++- `comment_thread`
++- `comment`
++- `comment_attachment`
++- `coaching_task`
++- `coaching_task_update`
++- `checkin_request`
++- `progress_review`
++- `message_thread`
++- `message`
++- `message_attachment`
++
++### Devices, imports & governance
++
++- `device`
++- `device_authorization`
++- `device_sync_cursor`
++- `health_observation`
++- `health_observation_source`
++- `body_measurement`
++- `fitness_baseline`
++- `import_run`
++- `import_item`
++- `import_error`
++- `export_run`
++- `export_item`
++- `audit_event`
++- `access_grant`
++- `consent_record`
++- `retention_policy`
++- `deletion_request`
++- `review_queue`
++- `review_decision`
++- `notification`
++- `notification_delivery`
+diff --git a/Mufil-2/database/training/TRAINING_141_TABLE_INDEX.csv b/Mufil-2/database/training/TRAINING_141_TABLE_INDEX.csv
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/database/training/TRAINING_141_TABLE_INDEX.csv
+@@ -0,0 +1,142 @@
++"table","domain","owner_model","time_horizon","fact_evidence_class","algorithm_gate"
++"catalog_release","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"source_provider","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"source_dataset","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"source_record","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"source_record_version","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"source_license","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"source_license_evidence","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise_revision","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise_alias","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise_instruction","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise_instruction_step","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise_taxonomy_map","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise_equipment_map","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise_muscle_map","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise_movement_map","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise_environment_map","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise_sport_map","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"exercise_relation","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"catalog_review_state","Catalog, source & labels","Platform-owned","Immediate + intermediate","Source fact; provenance; review fact","Source and review required"
++"sport","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_discipline","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_event","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_position","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_skill","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_drill","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_drill_revision","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_drill_step","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_metric_definition","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_metric_unit","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_test_protocol","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_test_step","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_equipment_rule","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_environment_rule","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_season_rule","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"sport_taxonomy_map","All sports","Platform-owned","Intermediate","Licensed source fact; test-protocol evidence","Source and protocol review required"
++"anatomy_region","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"muscle_group","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"muscle","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"joint","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"movement_pattern","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"movement_plane","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"movement_constraint","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"condition","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"contraindication","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"condition_exercise_rule","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"safety_screen_definition","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"safety_screen_rule","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"exercise_safety_rule","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"progression_rule","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"regression_rule","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"substitution_group","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"substitution_rule","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"load_model","Anatomy, safety & substitutions","Platform policy","Intermediate + scientific","Scientific evidence; expert policy; unknown","Scientific/expert review required"
++"media_asset","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_asset_revision","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_variant","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_license","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_rights_evidence","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_source_link","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_ingestion_job","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_transcode_job","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_quality_review","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_attribution","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_access_policy","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_deletion_request","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"media_delivery_audit","Photos & videos","Platform-owned","Immediate + intermediate","Rights, license, attribution evidence","Rights approval required"
++"training_goal","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"program_template","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"template_revision","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"template_block","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"template_session","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"template_session_item","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"workout_plan","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"plan_revision","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"planned_session","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"planned_session_item","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"program_phase","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"progression_policy","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"deload_policy","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"session_requirement","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"algorithm_release","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"algorithm_rule_set","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"algorithm_run","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"algorithm_decision","Programs & algorithms","Platform + athlete scoped","Immediate + intermediate","Algorithm policy; controlled validation","Release validation required"
++"training_account","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"athlete_profile","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"athlete_sport_profile","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"athlete_goal","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"athlete_equipment","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"athlete_limitation","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"athlete_availability","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"readiness_checkin","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"workout_session","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"workout_session_revision","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"workout_event","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"performed_exercise","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"performed_set","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"set_metric","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"rest_interval","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"session_metric","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"workout_summary","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"personal_record","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"sport_activity","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"sport_lap_split","Athlete performance","Athlete scoped","Immediate","User-performed or device observation","Observational; not scientific truth"
++"coach_profile","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"coach_client_relationship","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"coaching_invitation","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"coach_note","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"coach_note_revision","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"comment_thread","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"comment","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"comment_attachment","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"coaching_task","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"coaching_task_update","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"checkin_request","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"progress_review","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"message_thread","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"message","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"message_attachment","Coach & client collaboration","Relationship scoped","Intermediate","Private coach/client report","Access and audit control required"
++"device","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"device_authorization","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"device_sync_cursor","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"health_observation","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"health_observation_source","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"body_measurement","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"fitness_baseline","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"import_run","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"import_item","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"import_error","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"export_run","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"export_item","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"audit_event","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"access_grant","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"consent_record","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"retention_policy","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"deletion_request","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"review_queue","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"review_decision","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"notification","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
++"notification_delivery","Devices, imports & governance","Platform or athlete scoped","Immediate + intermediate","Operational, consent, audit, import fact","Audit/review required"
+\ No newline at end of file
