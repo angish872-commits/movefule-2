@@ -1,0 +1,3116 @@
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_001_CalendarDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_001_CalendarDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_001_CalendarDashboard.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL001CalendarDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_001",
++            title = "Calendar Dashboard",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Calendar Dashboard rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL001CalendarDashboardScreenPreview() = MoveFuelTheme { CAL001CalendarDashboardScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_002_MonthView.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_002_MonthView.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_002_MonthView.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL002MonthViewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_002",
++            title = "Month View",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Month View rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL002MonthViewScreenPreview() = MoveFuelTheme { CAL002MonthViewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_003_WeekView.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_003_WeekView.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_003_WeekView.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL003WeekViewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_003",
++            title = "Week View",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Week View rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL003WeekViewScreenPreview() = MoveFuelTheme { CAL003WeekViewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_004_DayView.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_004_DayView.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_004_DayView.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL004DayViewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_004",
++            title = "Day View",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Day View rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL004DayViewScreenPreview() = MoveFuelTheme { CAL004DayViewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_005_SelectedDate.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_005_SelectedDate.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_005_SelectedDate.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL005SelectedDateScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_005",
++            title = "Selected Date",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Selected Date rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL005SelectedDateScreenPreview() = MoveFuelTheme { CAL005SelectedDateScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_006_WorkoutEvent.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_006_WorkoutEvent.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_006_WorkoutEvent.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL006WorkoutEventScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_006",
++            title = "Workout Event",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Workout Event rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL006WorkoutEventScreenPreview() = MoveFuelTheme { CAL006WorkoutEventScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_007_MealEvent.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_007_MealEvent.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_007_MealEvent.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL007MealEventScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_007",
++            title = "Meal Event",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Meal Event rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL007MealEventScreenPreview() = MoveFuelTheme { CAL007MealEventScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_008_RecoveryEvent.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_008_RecoveryEvent.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_008_RecoveryEvent.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL008RecoveryEventScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_008",
++            title = "Recovery Event",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Recovery Event rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL008RecoveryEventScreenPreview() = MoveFuelTheme { CAL008RecoveryEventScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_009_RescheduleEvent.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_009_RescheduleEvent.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_009_RescheduleEvent.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL009RescheduleEventScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_009",
++            title = "Reschedule Event",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Reschedule Event rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL009RescheduleEventScreenPreview() = MoveFuelTheme { CAL009RescheduleEventScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_010_ChooseDate.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_010_ChooseDate.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_010_ChooseDate.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL010ChooseDateScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_010",
++            title = "Choose Date",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Choose Date rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL010ChooseDateScreenPreview() = MoveFuelTheme { CAL010ChooseDateScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_011_ChooseTime.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_011_ChooseTime.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_011_ChooseTime.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL011ChooseTimeScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_011",
++            title = "Choose Time",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Choose Time rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL011ChooseTimeScreenPreview() = MoveFuelTheme { CAL011ChooseTimeScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_012_CalendarConflict.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_012_CalendarConflict.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_012_CalendarConflict.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL012CalendarConflictScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_012",
++            title = "Calendar Conflict",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Calendar Conflict rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL012CalendarConflictScreenPreview() = MoveFuelTheme { CAL012CalendarConflictScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_013_ConflictExplanation.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_013_ConflictExplanation.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_013_ConflictExplanation.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL013ConflictExplanationScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_013",
++            title = "Conflict Explanation",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Conflict Explanation rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL013ConflictExplanationScreenPreview() = MoveFuelTheme { CAL013ConflictExplanationScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_014_SuggestedAlternatives.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_014_SuggestedAlternatives.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_014_SuggestedAlternatives.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL014SuggestedAlternativesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_014",
++            title = "Suggested Alternatives",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Suggested Alternatives rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL014SuggestedAlternativesScreenPreview() = MoveFuelTheme { CAL014SuggestedAlternativesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_015_ConfirmReschedule.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_015_ConfirmReschedule.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_015_ConfirmReschedule.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL015ConfirmRescheduleScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_015",
++            title = "Confirm Reschedule",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Confirm Reschedule rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL015ConfirmRescheduleScreenPreview() = MoveFuelTheme { CAL015ConfirmRescheduleScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_016_MissedWorkout.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_016_MissedWorkout.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_016_MissedWorkout.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL016MissedWorkoutScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_016",
++            title = "Missed Workout",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Missed Workout rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_017),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL016MissedWorkoutScreenPreview() = MoveFuelTheme { CAL016MissedWorkoutScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_017_MissedMeal.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_017_MissedMeal.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_017_MissedMeal.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL017MissedMealScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_017",
++            title = "Missed Meal",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Missed Meal rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_018),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL017MissedMealScreenPreview() = MoveFuelTheme { CAL017MissedMealScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_018_CalendarOffline.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_018_CalendarOffline.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_018_CalendarOffline.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.cal
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAL018CalendarOfflineScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAL_018",
++            title = "Calendar Offline",
++            subtitle = "One canonical MoveFuel calendar shared by nutrition and training.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Calendar Offline rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Fuel and Train deep-link to this same calendar; schedule changes never create a second calendar source of truth."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_017)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAL018CalendarOfflineScreenPreview() = MoveFuelTheme { CAL018CalendarOfflineScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_001_ExerciseLibrary.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_001_ExerciseLibrary.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_001_ExerciseLibrary.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR001ExerciseLibraryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_001",
++            title = "Exercise Library",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Exercise Library rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RDY_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR001ExerciseLibraryScreenPreview() = MoveFuelTheme { EXR001ExerciseLibraryScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_002_ExerciseSearch.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_002_ExerciseSearch.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_002_ExerciseSearch.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR002ExerciseSearchScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_002",
++            title = "Exercise Search",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Exercise Search rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR002ExerciseSearchScreenPreview() = MoveFuelTheme { EXR002ExerciseSearchScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_003_ExerciseFilters.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_003_ExerciseFilters.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_003_ExerciseFilters.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR003ExerciseFiltersScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_003",
++            title = "Exercise Filters",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Exercise Filters rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR003ExerciseFiltersScreenPreview() = MoveFuelTheme { EXR003ExerciseFiltersScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_004_FilterEquipment.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_004_FilterEquipment.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_004_FilterEquipment.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR004FilterEquipmentScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_004",
++            title = "Filter Equipment",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Filter Equipment rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR004FilterEquipmentScreenPreview() = MoveFuelTheme { EXR004FilterEquipmentScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_005_FilterMovement.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_005_FilterMovement.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_005_FilterMovement.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR005FilterMovementScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_005",
++            title = "Filter Movement",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Filter Movement rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR005FilterMovementScreenPreview() = MoveFuelTheme { EXR005FilterMovementScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_006_FilterMuscle.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_006_FilterMuscle.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_006_FilterMuscle.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR006FilterMuscleScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_006",
++            title = "Filter Muscle",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Filter Muscle rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR006FilterMuscleScreenPreview() = MoveFuelTheme { EXR006FilterMuscleScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_007_FilterEnvironment.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_007_FilterEnvironment.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_007_FilterEnvironment.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR007FilterEnvironmentScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_007",
++            title = "Filter Environment",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Filter Environment rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR007FilterEnvironmentScreenPreview() = MoveFuelTheme { EXR007FilterEnvironmentScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_008_FilterDifficulty.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_008_FilterDifficulty.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_008_FilterDifficulty.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR008FilterDifficultyScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_008",
++            title = "Filter Difficulty",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Filter Difficulty rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR008FilterDifficultyScreenPreview() = MoveFuelTheme { EXR008FilterDifficultyScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_009_ExerciseResults.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_009_ExerciseResults.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_009_ExerciseResults.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR009ExerciseResultsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_009",
++            title = "Exercise Results",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Exercise Results rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR009ExerciseResultsScreenPreview() = MoveFuelTheme { EXR009ExerciseResultsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_010_ExerciseDetail.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_010_ExerciseDetail.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_010_ExerciseDetail.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR010ExerciseDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_010",
++            title = "Exercise Detail",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Exercise Detail rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR010ExerciseDetailScreenPreview() = MoveFuelTheme { EXR010ExerciseDetailScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_011_ExerciseMedia.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_011_ExerciseMedia.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_011_ExerciseMedia.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR011ExerciseMediaScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_011",
++            title = "Exercise Media",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Exercise Media rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR011ExerciseMediaScreenPreview() = MoveFuelTheme { EXR011ExerciseMediaScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_012_ExerciseSetup.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_012_ExerciseSetup.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_012_ExerciseSetup.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR012ExerciseSetupScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_012",
++            title = "Exercise Setup",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Exercise Setup rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR012ExerciseSetupScreenPreview() = MoveFuelTheme { EXR012ExerciseSetupScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_013_ExerciseExecution.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_013_ExerciseExecution.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_013_ExerciseExecution.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR013ExerciseExecutionScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_013",
++            title = "Exercise Execution",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Exercise Execution rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR013ExerciseExecutionScreenPreview() = MoveFuelTheme { EXR013ExerciseExecutionScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_014_TechniqueCues.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_014_TechniqueCues.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_014_TechniqueCues.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR014TechniqueCuesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_014",
++            title = "Technique Cues",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Technique Cues rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR014TechniqueCuesScreenPreview() = MoveFuelTheme { EXR014TechniqueCuesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_015_CommonMistakes.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_015_CommonMistakes.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_015_CommonMistakes.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR015CommonMistakesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_015",
++            title = "Common Mistakes",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Common Mistakes rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.EXR_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR015CommonMistakesScreenPreview() = MoveFuelTheme { EXR015CommonMistakesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_016_ExerciseSubstitutions.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_016_ExerciseSubstitutions.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_016_ExerciseSubstitutions.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.exr
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun EXR016ExerciseSubstitutionsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "EXR_016",
++            title = "Exercise Substitutions",
++            subtitle = "Searchable exercise reference with technique, media, filters, and substitutions.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Exercise Substitutions rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "This screen stays refactored and delegates reusable presentation to shared components."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAL_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.EXR_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun EXR016ExerciseSubstitutionsScreenPreview() = MoveFuelTheme { EXR016ExerciseSubstitutionsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_001_ProgressDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_001_ProgressDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_001_ProgressDashboard.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG001ProgressDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_001",
++            title = "Progress Dashboard",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Progress Dashboard rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAL_018)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG001ProgressDashboardScreenPreview() = MoveFuelTheme { PRG001ProgressDashboardScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_002_MetricSelector.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_002_MetricSelector.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_002_MetricSelector.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG002MetricSelectorScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_002",
++            title = "Metric Selector",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Metric Selector rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG002MetricSelectorScreenPreview() = MoveFuelTheme { PRG002MetricSelectorScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_003_Range7Days.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_003_Range7Days.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_003_Range7Days.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG003Range7DaysScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_003",
++            title = "Range 7 Days",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Range 7 Days rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG003Range7DaysScreenPreview() = MoveFuelTheme { PRG003Range7DaysScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_004_Range30Days.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_004_Range30Days.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_004_Range30Days.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG004Range30DaysScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_004",
++            title = "Range 30 Days",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Range 30 Days rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG004Range30DaysScreenPreview() = MoveFuelTheme { PRG004Range30DaysScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_005_Range3Months.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_005_Range3Months.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_005_Range3Months.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG005Range3MonthsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_005",
++            title = "Range 3 Months",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Range 3 Months rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG005Range3MonthsScreenPreview() = MoveFuelTheme { PRG005Range3MonthsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_006_Range6Months.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_006_Range6Months.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_006_Range6Months.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG006Range6MonthsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_006",
++            title = "Range 6 Months",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Range 6 Months rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG006Range6MonthsScreenPreview() = MoveFuelTheme { PRG006Range6MonthsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_007_Range1Year.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_007_Range1Year.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_007_Range1Year.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG007Range1YearScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_007",
++            title = "Range 1 Year",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Range 1 Year rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG007Range1YearScreenPreview() = MoveFuelTheme { PRG007Range1YearScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_008_RangeAll.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_008_RangeAll.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_008_RangeAll.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG008RangeAllScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_008",
++            title = "Range All",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Range All rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG008RangeAllScreenPreview() = MoveFuelTheme { PRG008RangeAllScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_009_ExpandedGraph.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_009_ExpandedGraph.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_009_ExpandedGraph.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG009ExpandedGraphScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_009",
++            title = "Expanded Graph",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Expanded Graph rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG009ExpandedGraphScreenPreview() = MoveFuelTheme { PRG009ExpandedGraphScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_010_ExactDataPoint.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_010_ExactDataPoint.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_010_ExactDataPoint.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG010ExactDataPointScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_010",
++            title = "Exact Data Point",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Exact Data Point rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG010ExactDataPointScreenPreview() = MoveFuelTheme { PRG010ExactDataPointScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_011_MissingDataPeriod.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_011_MissingDataPeriod.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_011_MissingDataPeriod.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG011MissingDataPeriodScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_011",
++            title = "Missing Data Period",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Missing Data Period rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG011MissingDataPeriodScreenPreview() = MoveFuelTheme { PRG011MissingDataPeriodScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_012_DataCoverage.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_012_DataCoverage.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_012_DataCoverage.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG012DataCoverageScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_012",
++            title = "Data Coverage",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Data Coverage rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG012DataCoverageScreenPreview() = MoveFuelTheme { PRG012DataCoverageScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_013_GoalProgress.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_013_GoalProgress.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_013_GoalProgress.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG013GoalProgressScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_013",
++            title = "Goal Progress",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Goal Progress rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG013GoalProgressScreenPreview() = MoveFuelTheme { PRG013GoalProgressScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_014_TargetRevisionMarker.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_014_TargetRevisionMarker.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_014_TargetRevisionMarker.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG014TargetRevisionMarkerScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_014",
++            title = "Target Revision Marker",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Target Revision Marker rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG014TargetRevisionMarkerScreenPreview() = MoveFuelTheme { PRG014TargetRevisionMarkerScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_015_MilestoneDetail.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_015_MilestoneDetail.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_015_MilestoneDetail.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG015MilestoneDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_015",
++            title = "Milestone Detail",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Milestone Detail rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG015MilestoneDetailScreenPreview() = MoveFuelTheme { PRG015MilestoneDetailScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_016_PersonalRecords.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_016_PersonalRecords.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_016_PersonalRecords.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG016PersonalRecordsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_016",
++            title = "Personal Records",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Personal Records rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_017),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG016PersonalRecordsScreenPreview() = MoveFuelTheme { PRG016PersonalRecordsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_017_TrainingProgress.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_017_TrainingProgress.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_017_TrainingProgress.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG017TrainingProgressScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_017",
++            title = "Training Progress",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Training Progress rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_018),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG017TrainingProgressScreenPreview() = MoveFuelTheme { PRG017TrainingProgressScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_018_StrengthProgress.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_018_StrengthProgress.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_018_StrengthProgress.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG018StrengthProgressScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_018",
++            title = "Strength Progress",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Strength Progress rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_019),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_017)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG018StrengthProgressScreenPreview() = MoveFuelTheme { PRG018StrengthProgressScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_019_TrainingVolume.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_019_TrainingVolume.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_019_TrainingVolume.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG019TrainingVolumeScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_019",
++            title = "Training Volume",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Training Volume rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_020),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_018)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG019TrainingVolumeScreenPreview() = MoveFuelTheme { PRG019TrainingVolumeScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_020_WorkoutConsistency.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_020_WorkoutConsistency.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_020_WorkoutConsistency.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG020WorkoutConsistencyScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_020",
++            title = "Workout Consistency",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Workout Consistency rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_021),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_019)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG020WorkoutConsistencyScreenPreview() = MoveFuelTheme { PRG020WorkoutConsistencyScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_021_WorkoutDuration.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_021_WorkoutDuration.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_021_WorkoutDuration.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG021WorkoutDurationScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_021",
++            title = "Workout Duration",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Workout Duration rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_022),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_020)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG021WorkoutDurationScreenPreview() = MoveFuelTheme { PRG021WorkoutDurationScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_022_NutritionProgress.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_022_NutritionProgress.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_022_NutritionProgress.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG022NutritionProgressScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_022",
++            title = "Nutrition Progress",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Nutrition Progress rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_023),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_021)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG022NutritionProgressScreenPreview() = MoveFuelTheme { PRG022NutritionProgressScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_023_NutritionAverages.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_023_NutritionAverages.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_023_NutritionAverages.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG023NutritionAveragesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_023",
++            title = "Nutrition Averages",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Nutrition Averages rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_024),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_022)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG023NutritionAveragesScreenPreview() = MoveFuelTheme { PRG023NutritionAveragesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_024_ProteinTrend.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_024_ProteinTrend.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_024_ProteinTrend.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG024ProteinTrendScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_024",
++            title = "Protein Trend",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Protein Trend rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_025),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_023)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG024ProteinTrendScreenPreview() = MoveFuelTheme { PRG024ProteinTrendScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_025_FiberTrend.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_025_FiberTrend.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_025_FiberTrend.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG025FiberTrendScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_025",
++            title = "Fiber Trend",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Fiber Trend rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_026),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_024)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG025FiberTrendScreenPreview() = MoveFuelTheme { PRG025FiberTrendScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_026_ActivityProgress.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_026_ActivityProgress.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_026_ActivityProgress.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG026ActivityProgressScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_026",
++            title = "Activity Progress",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Activity Progress rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_027),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_025)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG026ActivityProgressScreenPreview() = MoveFuelTheme { PRG026ActivityProgressScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_027_RunningProgress.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_027_RunningProgress.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_027_RunningProgress.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG027RunningProgressScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_027",
++            title = "Running Progress",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Running Progress rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_028),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_026)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG027RunningProgressScreenPreview() = MoveFuelTheme { PRG027RunningProgressScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_028_SwimmingProgress.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_028_SwimmingProgress.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_028_SwimmingProgress.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG028SwimmingProgressScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_028",
++            title = "Swimming Progress",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Swimming Progress rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_029),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_027)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG028SwimmingProgressScreenPreview() = MoveFuelTheme { PRG028SwimmingProgressScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_029_WeeklyReport.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_029_WeeklyReport.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_029_WeeklyReport.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG029WeeklyReportScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_029",
++            title = "Weekly Report",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Weekly Report rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRG_030),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_028)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG029WeeklyReportScreenPreview() = MoveFuelTheme { PRG029WeeklyReportScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_030_MonthlyReport.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_030_MonthlyReport.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_030_MonthlyReport.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.prg
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRG030MonthlyReportScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRG_030",
++            title = "Monthly Report",
++            subtitle = "Graph-first progress UI using real observations, explicit gaps, target revisions, and coverage.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Monthly Report rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "No fake interpolation. Missing periods remain gaps, and historical targets remain historical."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_029)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRG030MonthlyReportScreenPreview() = MoveFuelTheme { PRG030MonthlyReportScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_001_ProfileDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_001_ProfileDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_001_ProfileDashboard.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO001ProfileDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_001",
++            title = "Profile Dashboard",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Profile Dashboard rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRG_030)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO001ProfileDashboardScreenPreview() = MoveFuelTheme { PRO001ProfileDashboardScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_002_PersonalDetails.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_002_PersonalDetails.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_002_PersonalDetails.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO002PersonalDetailsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_002",
++            title = "Personal Details",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Personal Details rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO002PersonalDetailsScreenPreview() = MoveFuelTheme { PRO002PersonalDetailsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_003_TargetsAndGoals.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_003_TargetsAndGoals.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_003_TargetsAndGoals.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO003TargetsAndGoalsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_003",
++            title = "Targets and Goals",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Targets and Goals rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO003TargetsAndGoalsScreenPreview() = MoveFuelTheme { PRO003TargetsAndGoalsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_004_EditTarget.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_004_EditTarget.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_004_EditTarget.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO004EditTargetScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_004",
++            title = "Edit Target",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Edit Target rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO004EditTargetScreenPreview() = MoveFuelTheme { PRO004EditTargetScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_005_TargetPreview.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_005_TargetPreview.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_005_TargetPreview.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO005TargetPreviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_005",
++            title = "Target Preview",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Target Preview rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO005TargetPreviewScreenPreview() = MoveFuelTheme { PRO005TargetPreviewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_006_TargetRevisionHistory.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_006_TargetRevisionHistory.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_006_TargetRevisionHistory.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO006TargetRevisionHistoryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_006",
++            title = "Target Revision History",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Target Revision History rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO006TargetRevisionHistoryScreenPreview() = MoveFuelTheme { PRO006TargetRevisionHistoryScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_007_Units.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_007_Units.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_007_Units.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO007UnitsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_007",
++            title = "Units",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Units rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO007UnitsScreenPreview() = MoveFuelTheme { PRO007UnitsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_008_LanguageAndRegion.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_008_LanguageAndRegion.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_008_LanguageAndRegion.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO008LanguageAndRegionScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_008",
++            title = "Language and Region",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Language and Region rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO008LanguageAndRegionScreenPreview() = MoveFuelTheme { PRO008LanguageAndRegionScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_009_Appearance.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_009_Appearance.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_009_Appearance.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO009AppearanceScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_009",
++            title = "Appearance",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Appearance rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO009AppearanceScreenPreview() = MoveFuelTheme { PRO009AppearanceScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_010_SoundAndHaptics.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_010_SoundAndHaptics.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_010_SoundAndHaptics.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO010SoundAndHapticsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_010",
++            title = "Sound and Haptics",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Sound and Haptics rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO010SoundAndHapticsScreenPreview() = MoveFuelTheme { PRO010SoundAndHapticsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_011_Notifications.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_011_Notifications.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_011_Notifications.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO011NotificationsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_011",
++            title = "Notifications",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Notifications rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO011NotificationsScreenPreview() = MoveFuelTheme { PRO011NotificationsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_012_PrivacyAndData.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_012_PrivacyAndData.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_012_PrivacyAndData.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO012PrivacyAndDataScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_012",
++            title = "Privacy and Data",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Privacy and Data rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO012PrivacyAndDataScreenPreview() = MoveFuelTheme { PRO012PrivacyAndDataScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_013_ExportData.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_013_ExportData.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_013_ExportData.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO013ExportDataScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_013",
++            title = "Export Data",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Export Data rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO013ExportDataScreenPreview() = MoveFuelTheme { PRO013ExportDataScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_014_DeleteAccount.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_014_DeleteAccount.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_014_DeleteAccount.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO014DeleteAccountScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_014",
++            title = "Delete Account",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Delete Account rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO014DeleteAccountScreenPreview() = MoveFuelTheme { PRO014DeleteAccountScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_015_TermsAndPrivacy.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_015_TermsAndPrivacy.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_015_TermsAndPrivacy.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO015TermsAndPrivacyScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_015",
++            title = "Terms and Privacy",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Terms and Privacy rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO015TermsAndPrivacyScreenPreview() = MoveFuelTheme { PRO015TermsAndPrivacyScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_016_HelpCenter.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_016_HelpCenter.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_016_HelpCenter.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO016HelpCenterScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_016",
++            title = "Help Center",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Help Center rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_017),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO016HelpCenterScreenPreview() = MoveFuelTheme { PRO016HelpCenterScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_017_FinishPersonalization.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_017_FinishPersonalization.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_017_FinishPersonalization.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO017FinishPersonalizationScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_017",
++            title = "Finish Personalization",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Finish Personalization rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.PRO_018),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO017FinishPersonalizationScreenPreview() = MoveFuelTheme { PRO017FinishPersonalizationScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_018_ProfileOffline.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_018_ProfileOffline.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_018_ProfileOffline.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.pro
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun PRO018ProfileOfflineScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "PRO_018",
++            title = "Profile Offline",
++            subtitle = "Account, targets, preferences, appearance, privacy, notifications, and support settings.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Profile Offline rendered as an individual Compose destination."),
++                DashboardSection("Product rule", "Target changes affect future recommendations and never rewrite historical days."),
++                DashboardSection("Preview workflow", "Open this file in Android Studio and use its @Preview to inspect only this destination without opening the full app."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_017)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun PRO018ProfileOfflineScreenPreview() = MoveFuelTheme { PRO018ProfileOfflineScreen {} }
