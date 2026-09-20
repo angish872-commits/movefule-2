@@ -1,0 +1,1976 @@
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_001_BillingDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_001_BillingDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_001_BillingDashboard.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.bil
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BIL001BillingDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BIL_001",
++            title = "Billing Dashboard",
++            subtitle = "Plan and billing states without hardcoded final pricing.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Billing Dashboard as its own refactored Compose destination."),
++                DashboardSection("Product rule", "UI does not invent final prices. Purchase, pending, failure, restore, and platform-management states stay distinct."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BIL_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BIL001BillingDashboardScreenPreview() = MoveFuelTheme { BIL001BillingDashboardScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_002_CurrentPlan.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_002_CurrentPlan.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_002_CurrentPlan.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.bil
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BIL002CurrentPlanScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BIL_002",
++            title = "Current Plan",
++            subtitle = "Plan and billing states without hardcoded final pricing.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Current Plan as its own refactored Compose destination."),
++                DashboardSection("Product rule", "UI does not invent final prices. Purchase, pending, failure, restore, and platform-management states stay distinct."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BIL_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BIL_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BIL002CurrentPlanScreenPreview() = MoveFuelTheme { BIL002CurrentPlanScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_003_ComparePlans.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_003_ComparePlans.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_003_ComparePlans.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.bil
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BIL003ComparePlansScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BIL_003",
++            title = "Compare Plans",
++            subtitle = "Plan and billing states without hardcoded final pricing.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Compare Plans as its own refactored Compose destination."),
++                DashboardSection("Product rule", "UI does not invent final prices. Purchase, pending, failure, restore, and platform-management states stay distinct."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BIL_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BIL_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BIL003ComparePlansScreenPreview() = MoveFuelTheme { BIL003ComparePlansScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_004_PlanDetail.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_004_PlanDetail.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_004_PlanDetail.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.bil
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BIL004PlanDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BIL_004",
++            title = "Plan Detail",
++            subtitle = "Plan and billing states without hardcoded final pricing.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Plan Detail as its own refactored Compose destination."),
++                DashboardSection("Product rule", "UI does not invent final prices. Purchase, pending, failure, restore, and platform-management states stay distinct."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BIL_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BIL_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BIL004PlanDetailScreenPreview() = MoveFuelTheme { BIL004PlanDetailScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_005_PurchaseConfirmation.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_005_PurchaseConfirmation.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_005_PurchaseConfirmation.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.bil
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BIL005PurchaseConfirmationScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BIL_005",
++            title = "Purchase Confirmation",
++            subtitle = "Plan and billing states without hardcoded final pricing.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Purchase Confirmation as its own refactored Compose destination."),
++                DashboardSection("Product rule", "UI does not invent final prices. Purchase, pending, failure, restore, and platform-management states stay distinct."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BIL_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BIL_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BIL005PurchaseConfirmationScreenPreview() = MoveFuelTheme { BIL005PurchaseConfirmationScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_006_PurchaseProcessing.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_006_PurchaseProcessing.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_006_PurchaseProcessing.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.bil
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BIL006PurchaseProcessingScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BIL_006",
++            title = "Purchase Processing",
++            subtitle = "Plan and billing states without hardcoded final pricing.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Purchase Processing as its own refactored Compose destination."),
++                DashboardSection("Product rule", "UI does not invent final prices. Purchase, pending, failure, restore, and platform-management states stay distinct."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BIL_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BIL_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BIL006PurchaseProcessingScreenPreview() = MoveFuelTheme { BIL006PurchaseProcessingScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_007_PurchaseResult.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_007_PurchaseResult.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_007_PurchaseResult.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.bil
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BIL007PurchaseResultScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BIL_007",
++            title = "Purchase Result",
++            subtitle = "Plan and billing states without hardcoded final pricing.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Purchase Result as its own refactored Compose destination."),
++                DashboardSection("Product rule", "UI does not invent final prices. Purchase, pending, failure, restore, and platform-management states stay distinct."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BIL_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BIL_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BIL007PurchaseResultScreenPreview() = MoveFuelTheme { BIL007PurchaseResultScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_008_RestorePurchase.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_008_RestorePurchase.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_008_RestorePurchase.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.bil
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BIL008RestorePurchaseScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BIL_008",
++            title = "Restore Purchase",
++            subtitle = "Plan and billing states without hardcoded final pricing.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Restore Purchase as its own refactored Compose destination."),
++                DashboardSection("Product rule", "UI does not invent final prices. Purchase, pending, failure, restore, and platform-management states stay distinct."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BIL_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BIL008RestorePurchaseScreenPreview() = MoveFuelTheme { BIL008RestorePurchaseScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_001_DevicesDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_001_DevicesDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_001_DevicesDashboard.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV001DevicesDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_001",
++            title = "Devices Dashboard",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Devices Dashboard as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.PRO_018)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV001DevicesDashboardScreenPreview() = MoveFuelTheme { DEV001DevicesDashboardScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_002_ConnectWearOS.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_002_ConnectWearOS.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_002_ConnectWearOS.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV002ConnectWearOSScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_002",
++            title = "Connect Wear OS",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Connect Wear OS as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV002ConnectWearOSScreenPreview() = MoveFuelTheme { DEV002ConnectWearOSScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_003_DeviceDiscovery.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_003_DeviceDiscovery.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_003_DeviceDiscovery.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV003DeviceDiscoveryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_003",
++            title = "Device Discovery",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Device Discovery as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV003DeviceDiscoveryScreenPreview() = MoveFuelTheme { DEV003DeviceDiscoveryScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_004_DeviceFound.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_004_DeviceFound.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_004_DeviceFound.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV004DeviceFoundScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_004",
++            title = "Device Found",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Device Found as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV004DeviceFoundScreenPreview() = MoveFuelTheme { DEV004DeviceFoundScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_005_Pairing.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_005_Pairing.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_005_Pairing.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV005PairingScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_005",
++            title = "Pairing",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Pairing as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV005PairingScreenPreview() = MoveFuelTheme { DEV005PairingScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_006_ConnectedDevice.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_006_ConnectedDevice.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_006_ConnectedDevice.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV006ConnectedDeviceScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_006",
++            title = "Connected Device",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Connected Device as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV006ConnectedDeviceScreenPreview() = MoveFuelTheme { DEV006ConnectedDeviceScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_007_DeviceDetail.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_007_DeviceDetail.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_007_DeviceDetail.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV007DeviceDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_007",
++            title = "Device Detail",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Device Detail as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV007DeviceDetailScreenPreview() = MoveFuelTheme { DEV007DeviceDetailScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_008_DevicePermissions.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_008_DevicePermissions.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_008_DevicePermissions.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV008DevicePermissionsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_008",
++            title = "Device Permissions",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Device Permissions as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV008DevicePermissionsScreenPreview() = MoveFuelTheme { DEV008DevicePermissionsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_009_ManualSync.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_009_ManualSync.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_009_ManualSync.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV009ManualSyncScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_009",
++            title = "Manual Sync",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Manual Sync as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV009ManualSyncScreenPreview() = MoveFuelTheme { DEV009ManualSyncScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_010_StaleDevice.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_010_StaleDevice.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_010_StaleDevice.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV010StaleDeviceScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_010",
++            title = "Stale Device",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Stale Device as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV010StaleDeviceScreenPreview() = MoveFuelTheme { DEV010StaleDeviceScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_011_ReconnectDevice.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_011_ReconnectDevice.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_011_ReconnectDevice.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV011ReconnectDeviceScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_011",
++            title = "Reconnect Device",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Reconnect Device as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.DEV_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV011ReconnectDeviceScreenPreview() = MoveFuelTheme { DEV011ReconnectDeviceScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_012_DisconnectDevice.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_012_DisconnectDevice.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_012_DisconnectDevice.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.dev
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun DEV012DisconnectDeviceScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "DEV_012",
++            title = "Disconnect Device",
++            subtitle = "Device pairing, connection, permissions, sync freshness, and revocation.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Disconnect Device as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Bluetooth alone never implies MoveFuel sync; app/account/peer verification and freshness remain visible."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BIL_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.DEV_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun DEV012DisconnectDeviceScreenPreview() = MoveFuelTheme { DEV012DisconnectDeviceScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_001_SystemLoading.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_001_SystemLoading.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_001_SystemLoading.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS001SystemLoadingScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_001",
++            title = "System Loading",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "System Loading as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS001SystemLoadingScreenPreview() = MoveFuelTheme { SYS001SystemLoadingScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_002_SystemEmpty.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_002_SystemEmpty.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_002_SystemEmpty.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS002SystemEmptyScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_002",
++            title = "System Empty",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "System Empty as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS002SystemEmptyScreenPreview() = MoveFuelTheme { SYS002SystemEmptyScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_003_SystemUnknown.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_003_SystemUnknown.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_003_SystemUnknown.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS003SystemUnknownScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_003",
++            title = "System Unknown",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "System Unknown as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS003SystemUnknownScreenPreview() = MoveFuelTheme { SYS003SystemUnknownScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_004_SystemPartialData.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_004_SystemPartialData.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_004_SystemPartialData.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS004SystemPartialDataScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_004",
++            title = "System Partial Data",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "System Partial Data as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS004SystemPartialDataScreenPreview() = MoveFuelTheme { SYS004SystemPartialDataScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_005_SystemOffline.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_005_SystemOffline.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_005_SystemOffline.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS005SystemOfflineScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_005",
++            title = "System Offline",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "System Offline as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS005SystemOfflineScreenPreview() = MoveFuelTheme { SYS005SystemOfflineScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_006_SystemSavedOffline.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_006_SystemSavedOffline.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_006_SystemSavedOffline.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS006SystemSavedOfflineScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_006",
++            title = "System Saved Offline",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "System Saved Offline as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS006SystemSavedOfflineScreenPreview() = MoveFuelTheme { SYS006SystemSavedOfflineScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_007_SystemStale.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_007_SystemStale.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_007_SystemStale.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS007SystemStaleScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_007",
++            title = "System Stale",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "System Stale as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS007SystemStaleScreenPreview() = MoveFuelTheme { SYS007SystemStaleScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_008_RetryableError.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_008_RetryableError.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_008_RetryableError.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS008RetryableErrorScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_008",
++            title = "Retryable Error",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Retryable Error as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS008RetryableErrorScreenPreview() = MoveFuelTheme { SYS008RetryableErrorScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_009_UnavailableState.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_009_UnavailableState.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_009_UnavailableState.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS009UnavailableStateScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_009",
++            title = "Unavailable State",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Unavailable State as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS009UnavailableStateScreenPreview() = MoveFuelTheme { SYS009UnavailableStateScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_010_PermissionRequired.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_010_PermissionRequired.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_010_PermissionRequired.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS010PermissionRequiredScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_010",
++            title = "Permission Required",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Permission Required as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS010PermissionRequiredScreenPreview() = MoveFuelTheme { SYS010PermissionRequiredScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_011_PermissionDenied.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_011_PermissionDenied.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_011_PermissionDenied.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS011PermissionDeniedScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_011",
++            title = "Permission Denied",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Permission Denied as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS011PermissionDeniedScreenPreview() = MoveFuelTheme { SYS011PermissionDeniedScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_012_UnsavedChanges.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_012_UnsavedChanges.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_012_UnsavedChanges.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS012UnsavedChangesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_012",
++            title = "Unsaved Changes",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Unsaved Changes as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS012UnsavedChangesScreenPreview() = MoveFuelTheme { SYS012UnsavedChangesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_013_DestructiveConfirmation.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_013_DestructiveConfirmation.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_013_DestructiveConfirmation.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS013DestructiveConfirmationScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_013",
++            title = "Destructive Confirmation",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Destructive Confirmation as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS013DestructiveConfirmationScreenPreview() = MoveFuelTheme { SYS013DestructiveConfirmationScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_014_SuccessState.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_014_SuccessState.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_014_SuccessState.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS014SuccessStateScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_014",
++            title = "Success State",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Success State as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS014SuccessStateScreenPreview() = MoveFuelTheme { SYS014SuccessStateScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_015_Syncing.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_015_Syncing.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_015_Syncing.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS015SyncingScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_015",
++            title = "Syncing",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Syncing as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS015SyncingScreenPreview() = MoveFuelTheme { SYS015SyncingScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_016_SyncPending.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_016_SyncPending.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_016_SyncPending.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS016SyncPendingScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_016",
++            title = "Sync Pending",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Sync Pending as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_017),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS016SyncPendingScreenPreview() = MoveFuelTheme { SYS016SyncPendingScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_017_SyncFailed.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_017_SyncFailed.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_017_SyncFailed.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS017SyncFailedScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_017",
++            title = "Sync Failed",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Sync Failed as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_018),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS017SyncFailedScreenPreview() = MoveFuelTheme { SYS017SyncFailedScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_018_ConflictReview.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_018_ConflictReview.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_018_ConflictReview.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS018ConflictReviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_018",
++            title = "Conflict Review",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Conflict Review as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_019),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_017)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS018ConflictReviewScreenPreview() = MoveFuelTheme { SYS018ConflictReviewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_019_InterruptedFlow.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_019_InterruptedFlow.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_019_InterruptedFlow.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS019InterruptedFlowScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_019",
++            title = "Interrupted Flow",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Interrupted Flow as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_020),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_018)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS019InterruptedFlowScreenPreview() = MoveFuelTheme { SYS019InterruptedFlowScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_020_RestoredFlow.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_020_RestoredFlow.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_020_RestoredFlow.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.sys
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun SYS020RestoredFlowScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "SYS_020",
++            title = "Restored Flow",
++            subtitle = "Reusable product-wide reliability, permission, offline, error, conflict, and recovery states.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Restored Flow as its own refactored Compose destination."),
++                DashboardSection("Product rule", "Every reliability state answers: what happened, whether data was saved, and what the user can do next."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.MASTER_TODAY),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.SYS_019)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun SYS020RestoredFlowScreenPreview() = MoveFuelTheme { SYS020RestoredFlowScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_001_WearToday.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_001_WearToday.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_001_WearToday.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR001WearTodayScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_001",
++            title = "Wear Today",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Today as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BIL_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR001WearTodayScreenPreview() = MoveFuelTheme { WAR001WearTodayScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_002_WearReadiness.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_002_WearReadiness.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_002_WearReadiness.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR002WearReadinessScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_002",
++            title = "Wear Readiness",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Readiness as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR002WearReadinessScreenPreview() = MoveFuelTheme { WAR002WearReadinessScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_003_WearWorkoutPreview.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_003_WearWorkoutPreview.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_003_WearWorkoutPreview.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR003WearWorkoutPreviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_003",
++            title = "Wear Workout Preview",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Workout Preview as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR003WearWorkoutPreviewScreenPreview() = MoveFuelTheme { WAR003WearWorkoutPreviewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_004_WearActiveExercise.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_004_WearActiveExercise.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_004_WearActiveExercise.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR004WearActiveExerciseScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_004",
++            title = "Wear Active Exercise",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Active Exercise as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR004WearActiveExerciseScreenPreview() = MoveFuelTheme { WAR004WearActiveExerciseScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_005_WearSetInput.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_005_WearSetInput.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_005_WearSetInput.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR005WearSetInputScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_005",
++            title = "Wear Set Input",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Set Input as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR005WearSetInputScreenPreview() = MoveFuelTheme { WAR005WearSetInputScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_006_WearCompleteSet.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_006_WearCompleteSet.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_006_WearCompleteSet.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR006WearCompleteSetScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_006",
++            title = "Wear Complete Set",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Complete Set as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR006WearCompleteSetScreenPreview() = MoveFuelTheme { WAR006WearCompleteSetScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_007_WearRestTimer.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_007_WearRestTimer.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_007_WearRestTimer.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR007WearRestTimerScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_007",
++            title = "Wear Rest Timer",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Rest Timer as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR007WearRestTimerScreenPreview() = MoveFuelTheme { WAR007WearRestTimerScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_008_WearSubstitute.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_008_WearSubstitute.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_008_WearSubstitute.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR008WearSubstituteScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_008",
++            title = "Wear Substitute",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Substitute as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR008WearSubstituteScreenPreview() = MoveFuelTheme { WAR008WearSubstituteScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_009_WearPause.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_009_WearPause.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_009_WearPause.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR009WearPauseScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_009",
++            title = "Wear Pause",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Pause as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR009WearPauseScreenPreview() = MoveFuelTheme { WAR009WearPauseScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_010_WearFinish.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_010_WearFinish.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_010_WearFinish.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR010WearFinishScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_010",
++            title = "Wear Finish",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Finish as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR010WearFinishScreenPreview() = MoveFuelTheme { WAR010WearFinishScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_011_WearSummary.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_011_WearSummary.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_011_WearSummary.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR011WearSummaryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_011",
++            title = "Wear Summary",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Summary as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.WAR_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR011WearSummaryScreenPreview() = MoveFuelTheme { WAR011WearSummaryScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_012_WearSyncPending.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_012_WearSyncPending.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_012_WearSyncPending.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.war
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun WAR012WearSyncPendingScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "WAR_012",
++            title = "Wear Sync Pending",
++            subtitle = "Glanceable Wear OS execution companion; phone/backend remains canonical.",
++            sections = listOf(
++                DashboardSection("Visible UI", "Wear Sync Pending as its own refactored Compose destination."),
++                DashboardSection("Product rule", "The watch records performed facts and retains them until the phone/backend acknowledges sync."),
++                DashboardSection("Shared system", "Uses the same Sage palette, spacing, radius, motion, buttons, cards, and navigation contracts as the rest of MoveFuel."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.SYS_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.WAR_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun WAR012WearSyncPendingScreenPreview() = MoveFuelTheme { WAR012WearSyncPendingScreen {} }
