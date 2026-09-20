@@ -1,0 +1,3724 @@
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_001_SecureRestore.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_001_SecureRestore.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_001_SecureRestore.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH001SecureRestoreScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_001",
++            title = "Secure Restore",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Secure Restore rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Secure Restore screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.AUTH_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.MASTER_PROGRESS)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH001SecureRestoreScreenPreview() {
++    MoveFuelTheme { AUTH001SecureRestoreScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_002_SignIn.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_002_SignIn.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_002_SignIn.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH002SignInScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_002",
++            title = "Sign In",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Sign In rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Sign In screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.AUTH_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH002SignInScreenPreview() {
++    MoveFuelTheme { AUTH002SignInScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_003_CreateAccount.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_003_CreateAccount.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_003_CreateAccount.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH003CreateAccountScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_003",
++            title = "Create Account",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Create Account rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Create Account screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.AUTH_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH003CreateAccountScreenPreview() {
++    MoveFuelTheme { AUTH003CreateAccountScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_004_VerifyEmail.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_004_VerifyEmail.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_004_VerifyEmail.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH004VerifyEmailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_004",
++            title = "Verify Email",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Verify Email rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Verify Email screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.AUTH_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH004VerifyEmailScreenPreview() {
++    MoveFuelTheme { AUTH004VerifyEmailScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_005_ResendVerification.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_005_ResendVerification.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_005_ResendVerification.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH005ResendVerificationScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_005",
++            title = "Resend Verification",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Resend Verification rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Resend Verification screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.AUTH_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH005ResendVerificationScreenPreview() {
++    MoveFuelTheme { AUTH005ResendVerificationScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_006_VerificationSuccess.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_006_VerificationSuccess.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_006_VerificationSuccess.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH006VerificationSuccessScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_006",
++            title = "Verification Success",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Verification Success rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Verification Success screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.AUTH_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH006VerificationSuccessScreenPreview() {
++    MoveFuelTheme { AUTH006VerificationSuccessScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_007_VerificationExpired.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_007_VerificationExpired.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_007_VerificationExpired.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH007VerificationExpiredScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_007",
++            title = "Verification Expired",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Verification Expired rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Verification Expired screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.AUTH_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH007VerificationExpiredScreenPreview() {
++    MoveFuelTheme { AUTH007VerificationExpiredScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_008_ForgotPassword.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_008_ForgotPassword.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_008_ForgotPassword.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH008ForgotPasswordScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_008",
++            title = "Forgot Password",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Forgot Password rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Forgot Password screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.AUTH_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH008ForgotPasswordScreenPreview() {
++    MoveFuelTheme { AUTH008ForgotPasswordScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_009_ResetPassword.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_009_ResetPassword.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_009_ResetPassword.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH009ResetPasswordScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_009",
++            title = "Reset Password",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Reset Password rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Reset Password screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.AUTH_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH009ResetPasswordScreenPreview() {
++    MoveFuelTheme { AUTH009ResetPasswordScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_010_PasswordResetSuccess.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_010_PasswordResetSuccess.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_010_PasswordResetSuccess.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH010PasswordResetSuccessScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_010",
++            title = "Password Reset Success",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Password Reset Success rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Password Reset Success screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.AUTH_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH010PasswordResetSuccessScreenPreview() {
++    MoveFuelTheme { AUTH010PasswordResetSuccessScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_011_OfflineAccountState.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_011_OfflineAccountState.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_011_OfflineAccountState.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH011OfflineAccountStateScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_011",
++            title = "Offline Account State",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Offline Account State rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Offline Account State screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.AUTH_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH011OfflineAccountStateScreenPreview() {
++    MoveFuelTheme { AUTH011OfflineAccountStateScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_012_SessionExpired.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_012_SessionExpired.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_012_SessionExpired.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.auth
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun AUTH012SessionExpiredScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "AUTH_012",
++            title = "Session Expired",
++            subtitle = "Account access, recovery, verification, and secure session states.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Session Expired rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Session Expired screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun AUTH012SessionExpiredScreenPreview() {
++    MoveFuelTheme { AUTH012SessionExpiredScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_001_BarcodeScanner.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_001_BarcodeScanner.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_001_BarcodeScanner.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR001BarcodeScannerScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_001",
++            title = "Barcode Scanner",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Barcode Scanner rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Barcode Scanner screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_018)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR001BarcodeScannerScreenPreview() {
++    MoveFuelTheme { BAR001BarcodeScannerScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_002_Scanning.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_002_Scanning.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_002_Scanning.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR002ScanningScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_002",
++            title = "Scanning",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Scanning rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Scanning screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR002ScanningScreenPreview() {
++    MoveFuelTheme { BAR002ScanningScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_003_BarcodeDetected.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_003_BarcodeDetected.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_003_BarcodeDetected.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR003BarcodeDetectedScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_003",
++            title = "Barcode Detected",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Barcode Detected rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Barcode Detected screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR003BarcodeDetectedScreenPreview() {
++    MoveFuelTheme { BAR003BarcodeDetectedScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_004_ProductLookup.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_004_ProductLookup.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_004_ProductLookup.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR004ProductLookupScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_004",
++            title = "Product Lookup",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Product Lookup rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Product Lookup screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR004ProductLookupScreenPreview() {
++    MoveFuelTheme { BAR004ProductLookupScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_005_ProductFound.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_005_ProductFound.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_005_ProductFound.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR005ProductFoundScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_005",
++            title = "Product Found",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Product Found rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Product Found screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR005ProductFoundScreenPreview() {
++    MoveFuelTheme { BAR005ProductFoundScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_006_ServingSelector.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_006_ServingSelector.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_006_ServingSelector.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR006ServingSelectorScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_006",
++            title = "Serving Selector",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Serving Selector rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Serving Selector screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR006ServingSelectorScreenPreview() {
++    MoveFuelTheme { BAR006ServingSelectorScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_007_ExpandedNutrition.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_007_ExpandedNutrition.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_007_ExpandedNutrition.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR007ExpandedNutritionScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_007",
++            title = "Expanded Nutrition",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Expanded Nutrition rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Expanded Nutrition screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR007ExpandedNutritionScreenPreview() {
++    MoveFuelTheme { BAR007ExpandedNutritionScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_008_IngredientsAndAllergens.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_008_IngredientsAndAllergens.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_008_IngredientsAndAllergens.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR008IngredientsAndAllergensScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_008",
++            title = "Ingredients and Allergens",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Ingredients and Allergens rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Ingredients and Allergens screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR008IngredientsAndAllergensScreenPreview() {
++    MoveFuelTheme { BAR008IngredientsAndAllergensScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_009_AddToMeal.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_009_AddToMeal.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_009_AddToMeal.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR009AddToMealScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_009",
++            title = "Add to Meal",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Add to Meal rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Add to Meal screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR009AddToMealScreenPreview() {
++    MoveFuelTheme { BAR009AddToMealScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_010_MealSelector.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_010_MealSelector.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_010_MealSelector.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR010MealSelectorScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_010",
++            title = "Meal Selector",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Meal Selector rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Meal Selector screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR010MealSelectorScreenPreview() {
++    MoveFuelTheme { BAR010MealSelectorScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_011_ConfirmProduct.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_011_ConfirmProduct.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_011_ConfirmProduct.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR011ConfirmProductScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_011",
++            title = "Confirm Product",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Confirm Product rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Confirm Product screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR011ConfirmProductScreenPreview() {
++    MoveFuelTheme { BAR011ConfirmProductScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_012_AddToShop.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_012_AddToShop.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_012_AddToShop.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR012AddToShopScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_012",
++            title = "Add to Shop",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Add to Shop rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Add to Shop screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR012AddToShopScreenPreview() {
++    MoveFuelTheme { BAR012AddToShopScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_013_ProductNotFound.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_013_ProductNotFound.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_013_ProductNotFound.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR013ProductNotFoundScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_013",
++            title = "Product Not Found",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Product Not Found rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Product Not Found screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR013ProductNotFoundScreenPreview() {
++    MoveFuelTheme { BAR013ProductNotFoundScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_014_NutritionLabelCamera.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_014_NutritionLabelCamera.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_014_NutritionLabelCamera.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR014NutritionLabelCameraScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_014",
++            title = "Nutrition Label Camera",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Nutrition Label Camera rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Nutrition Label Camera screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR014NutritionLabelCameraScreenPreview() {
++    MoveFuelTheme { BAR014NutritionLabelCameraScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_015_LabelReview.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_015_LabelReview.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_015_LabelReview.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR015LabelReviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_015",
++            title = "Label Review",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Label Review rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Label Review screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR015LabelReviewScreenPreview() {
++    MoveFuelTheme { BAR015LabelReviewScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_016_CustomProduct.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_016_CustomProduct.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_016_CustomProduct.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.bar
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun BAR016CustomProductScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "BAR_016",
++            title = "Custom Product",
++            subtitle = "Barcode/product capture, lookup, serving selection, and fallback entry.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Custom Product rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Custom Product screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun BAR016CustomProductScreenPreview() {
++    MoveFuelTheme { BAR016CustomProductScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_001_FoodCamera.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_001_FoodCamera.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_001_FoodCamera.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM001FoodCameraScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_001",
++            title = "Food Camera",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Food Camera rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Food Camera screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM001FoodCameraScreenPreview() {
++    MoveFuelTheme { CAM001FoodCameraScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_002_CameraPermission.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_002_CameraPermission.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_002_CameraPermission.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM002CameraPermissionScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_002",
++            title = "Camera Permission",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Camera Permission rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Camera Permission screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM002CameraPermissionScreenPreview() {
++    MoveFuelTheme { CAM002CameraPermissionScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_003_FoodFraming.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_003_FoodFraming.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_003_FoodFraming.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM003FoodFramingScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_003",
++            title = "Food Framing",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Food Framing rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Food Framing screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM003FoodFramingScreenPreview() {
++    MoveFuelTheme { CAM003FoodFramingScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_004_GalleryPicker.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_004_GalleryPicker.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_004_GalleryPicker.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM004GalleryPickerScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_004",
++            title = "Gallery Picker",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Gallery Picker rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Gallery Picker screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM004GalleryPickerScreenPreview() {
++    MoveFuelTheme { CAM004GalleryPickerScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_005_ImagePreview.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_005_ImagePreview.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_005_ImagePreview.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM005ImagePreviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_005",
++            title = "Image Preview",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Image Preview rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Image Preview screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM005ImagePreviewScreenPreview() {
++    MoveFuelTheme { CAM005ImagePreviewScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_006_CheckingImage.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_006_CheckingImage.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_006_CheckingImage.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM006CheckingImageScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_006",
++            title = "Checking Image",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Checking Image rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Checking Image screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM006CheckingImageScreenPreview() {
++    MoveFuelTheme { CAM006CheckingImageScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_007_DetectingFoods.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_007_DetectingFoods.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_007_DetectingFoods.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM007DetectingFoodsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_007",
++            title = "Detecting Foods",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Detecting Foods rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Detecting Foods screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM007DetectingFoodsScreenPreview() {
++    MoveFuelTheme { CAM007DetectingFoodsScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_008_MultiFoodDetection.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_008_MultiFoodDetection.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_008_MultiFoodDetection.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM008MultiFoodDetectionScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_008",
++            title = "Multi Food Detection",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Multi Food Detection rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Multi Food Detection screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM008MultiFoodDetectionScreenPreview() {
++    MoveFuelTheme { CAM008MultiFoodDetectionScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_009_EstimatingPortions.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_009_EstimatingPortions.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_009_EstimatingPortions.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM009EstimatingPortionsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_009",
++            title = "Estimating Portions",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Estimating Portions rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Estimating Portions screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM009EstimatingPortionsScreenPreview() {
++    MoveFuelTheme { CAM009EstimatingPortionsScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_010_NutritionMatching.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_010_NutritionMatching.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_010_NutritionMatching.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM010NutritionMatchingScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_010",
++            title = "Nutrition Matching",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Nutrition Matching rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Nutrition Matching screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM010NutritionMatchingScreenPreview() {
++    MoveFuelTheme { CAM010NutritionMatchingScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_011_DetectedFoodReview.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_011_DetectedFoodReview.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_011_DetectedFoodReview.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM011DetectedFoodReviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_011",
++            title = "Detected Food Review",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Detected Food Review rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Detected Food Review screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM011DetectedFoodReviewScreenPreview() {
++    MoveFuelTheme { CAM011DetectedFoodReviewScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_012_EditFoodIdentity.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_012_EditFoodIdentity.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_012_EditFoodIdentity.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM012EditFoodIdentityScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_012",
++            title = "Edit Food Identity",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Edit Food Identity rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Edit Food Identity screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM012EditFoodIdentityScreenPreview() {
++    MoveFuelTheme { CAM012EditFoodIdentityScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_013_EditPortion.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_013_EditPortion.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_013_EditPortion.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM013EditPortionScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_013",
++            title = "Edit Portion",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Edit Portion rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Edit Portion screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM013EditPortionScreenPreview() {
++    MoveFuelTheme { CAM013EditPortionScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_014_AddMissedFood.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_014_AddMissedFood.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_014_AddMissedFood.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM014AddMissedFoodScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_014",
++            title = "Add Missed Food",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Add Missed Food rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Add Missed Food screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM014AddMissedFoodScreenPreview() {
++    MoveFuelTheme { CAM014AddMissedFoodScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_015_LowConfidenceClarification.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_015_LowConfidenceClarification.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_015_LowConfidenceClarification.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM015LowConfidenceClarificationScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_015",
++            title = "Low Confidence Clarification",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Low Confidence Clarification rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Low Confidence Clarification screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM015LowConfidenceClarificationScreenPreview() {
++    MoveFuelTheme { CAM015LowConfidenceClarificationScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_016_NutritionUnavailable.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_016_NutritionUnavailable.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_016_NutritionUnavailable.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM016NutritionUnavailableScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_016",
++            title = "Nutrition Unavailable",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Nutrition Unavailable rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Nutrition Unavailable screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_017),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM016NutritionUnavailableScreenPreview() {
++    MoveFuelTheme { CAM016NutritionUnavailableScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_017_FinalMealReview.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_017_FinalMealReview.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_017_FinalMealReview.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM017FinalMealReviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_017",
++            title = "Final Meal Review",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Final Meal Review rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Final Meal Review screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_018),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM017FinalMealReviewScreenPreview() {
++    MoveFuelTheme { CAM017FinalMealReviewScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_018_AnalysisFailure.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_018_AnalysisFailure.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_018_AnalysisFailure.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.cam
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun CAM018AnalysisFailureScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "CAM_018",
++            title = "Analysis Failure",
++            subtitle = "Food-photo capture, gallery import, analysis, correction, and confirmation.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Analysis Failure rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Analysis Failure screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.BAR_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.CAM_017)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun CAM018AnalysisFailureScreenPreview() {
++    MoveFuelTheme { CAM018AnalysisFailureScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_001_Welcome.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_001_Welcome.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_001_Welcome.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB001WelcomeScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_001",
++            title = "Welcome",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Welcome rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Welcome screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.AUTH_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB001WelcomeScreenPreview() {
++    MoveFuelTheme { ONB001WelcomeScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_002_SetupChoice.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_002_SetupChoice.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_002_SetupChoice.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB002SetupChoiceScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_002",
++            title = "Setup Choice",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Setup Choice rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Setup Choice screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB002SetupChoiceScreenPreview() {
++    MoveFuelTheme { ONB002SetupChoiceScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_003_Name.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_003_Name.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_003_Name.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB003NameScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_003",
++            title = "Name",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Name rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Name screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB003NameScreenPreview() {
++    MoveFuelTheme { ONB003NameScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_004_DateOfBirth.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_004_DateOfBirth.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_004_DateOfBirth.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB004DateOfBirthScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_004",
++            title = "Date of Birth",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Date of Birth rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Date of Birth screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB004DateOfBirthScreenPreview() {
++    MoveFuelTheme { ONB004DateOfBirthScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_005_CountryLanguageTimezone.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_005_CountryLanguageTimezone.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_005_CountryLanguageTimezone.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB005CountryLanguageTimezoneScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_005",
++            title = "Country Language Timezone",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Country Language Timezone rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Country Language Timezone screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB005CountryLanguageTimezoneScreenPreview() {
++    MoveFuelTheme { ONB005CountryLanguageTimezoneScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_006_Units.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_006_Units.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_006_Units.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB006UnitsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_006",
++            title = "Units",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Units rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Units screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB006UnitsScreenPreview() {
++    MoveFuelTheme { ONB006UnitsScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_007_Height.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_007_Height.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_007_Height.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB007HeightScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_007",
++            title = "Height",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Height rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Height screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB007HeightScreenPreview() {
++    MoveFuelTheme { ONB007HeightScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_008_CurrentWeight.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_008_CurrentWeight.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_008_CurrentWeight.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB008CurrentWeightScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_008",
++            title = "Current Weight",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Current Weight rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Current Weight screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB008CurrentWeightScreenPreview() {
++    MoveFuelTheme { ONB008CurrentWeightScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_009_EnergyEstimationSetting.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_009_EnergyEstimationSetting.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_009_EnergyEstimationSetting.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB009EnergyEstimationSettingScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_009",
++            title = "Energy Estimation Setting",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Energy Estimation Setting rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Energy Estimation Setting screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB009EnergyEstimationSettingScreenPreview() {
++    MoveFuelTheme { ONB009EnergyEstimationSettingScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_010_DailyActivity.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_010_DailyActivity.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_010_DailyActivity.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB010DailyActivityScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_010",
++            title = "Daily Activity",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Daily Activity rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Daily Activity screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB010DailyActivityScreenPreview() {
++    MoveFuelTheme { ONB010DailyActivityScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_011_OptionalBodyComposition.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_011_OptionalBodyComposition.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_011_OptionalBodyComposition.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB011OptionalBodyCompositionScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_011",
++            title = "Optional Body Composition",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Optional Body Composition rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Optional Body Composition screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB011OptionalBodyCompositionScreenPreview() {
++    MoveFuelTheme { ONB011OptionalBodyCompositionScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_012_PrimaryGoal.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_012_PrimaryGoal.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_012_PrimaryGoal.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB012PrimaryGoalScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_012",
++            title = "Primary Goal",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Primary Goal rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Primary Goal screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB012PrimaryGoalScreenPreview() {
++    MoveFuelTheme { ONB012PrimaryGoalScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_013_TargetContext.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_013_TargetContext.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_013_TargetContext.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB013TargetContextScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_013",
++            title = "Target Context",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Target Context rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Target Context screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB013TargetContextScreenPreview() {
++    MoveFuelTheme { ONB013TargetContextScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_014_TrainingFrequency.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_014_TrainingFrequency.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_014_TrainingFrequency.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB014TrainingFrequencyScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_014",
++            title = "Training Frequency",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Training Frequency rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Training Frequency screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB014TrainingFrequencyScreenPreview() {
++    MoveFuelTheme { ONB014TrainingFrequencyScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_015_SessionDuration.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_015_SessionDuration.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_015_SessionDuration.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB015SessionDurationScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_015",
++            title = "Session Duration",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Session Duration rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Session Duration screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB015SessionDurationScreenPreview() {
++    MoveFuelTheme { ONB015SessionDurationScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_016_DietaryPreferences.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_016_DietaryPreferences.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_016_DietaryPreferences.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB016DietaryPreferencesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_016",
++            title = "Dietary Preferences",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Dietary Preferences rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Dietary Preferences screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_017),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB016DietaryPreferencesScreenPreview() {
++    MoveFuelTheme { ONB016DietaryPreferencesScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_017_AllergiesAndExclusions.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_017_AllergiesAndExclusions.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_017_AllergiesAndExclusions.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB017AllergiesAndExclusionsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_017",
++            title = "Allergies and Exclusions",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Allergies and Exclusions rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Allergies and Exclusions screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.ONB_018),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB017AllergiesAndExclusionsScreenPreview() {
++    MoveFuelTheme { ONB017AllergiesAndExclusionsScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_018_TargetReviewAndFinish.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_018_TargetReviewAndFinish.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_018_TargetReviewAndFinish.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.onb
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ONB018TargetReviewAndFinishScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "ONB_018",
++            title = "Target Review and Finish",
++            subtitle = "Progressive first-run personalization that ends at Today.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Target Review and Finish rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Target Review and Finish screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_017)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ONB018TargetReviewAndFinishScreenPreview() {
++    MoveFuelTheme { ONB018TargetReviewAndFinishScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_001_TodayDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_001_TodayDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_001_TodayDashboard.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD001TodayDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_001",
++            title = "Today Dashboard",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Today Dashboard rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Today Dashboard screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.ONB_018)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD001TodayDashboardScreenPreview() {
++    MoveFuelTheme { TOD001TodayDashboardScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_002_NutritionExpanded.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_002_NutritionExpanded.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_002_NutritionExpanded.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD002NutritionExpandedScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_002",
++            title = "Nutrition Expanded",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Nutrition Expanded rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Nutrition Expanded screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD002NutritionExpandedScreenPreview() {
++    MoveFuelTheme { TOD002NutritionExpandedScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_003_NextActionDetail.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_003_NextActionDetail.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_003_NextActionDetail.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD003NextActionDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_003",
++            title = "Next Action Detail",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Next Action Detail rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Next Action Detail screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD003NextActionDetailScreenPreview() {
++    MoveFuelTheme { TOD003NextActionDetailScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_004_DeviceStatus.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_004_DeviceStatus.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_004_DeviceStatus.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD004DeviceStatusScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_004",
++            title = "Device Status",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Device Status rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Device Status screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD004DeviceStatusScreenPreview() {
++    MoveFuelTheme { TOD004DeviceStatusScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_005_TodayWorkoutPreview.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_005_TodayWorkoutPreview.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_005_TodayWorkoutPreview.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD005TodayWorkoutPreviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_005",
++            title = "Today Workout Preview",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Today Workout Preview rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Today Workout Preview screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD005TodayWorkoutPreviewScreenPreview() {
++    MoveFuelTheme { TOD005TodayWorkoutPreviewScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_006_TodayMealPlan.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_006_TodayMealPlan.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_006_TodayMealPlan.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD006TodayMealPlanScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_006",
++            title = "Today Meal Plan",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Today Meal Plan rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Today Meal Plan screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD006TodayMealPlanScreenPreview() {
++    MoveFuelTheme { TOD006TodayMealPlanScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_007_ConfirmedMeals.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_007_ConfirmedMeals.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_007_ConfirmedMeals.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD007ConfirmedMealsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_007",
++            title = "Confirmed Meals",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Confirmed Meals rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Confirmed Meals screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD007ConfirmedMealsScreenPreview() {
++    MoveFuelTheme { TOD007ConfirmedMealsScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_008_TodayLoading.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_008_TodayLoading.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_008_TodayLoading.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD008TodayLoadingScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_008",
++            title = "Today Loading",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Today Loading rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Today Loading screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD008TodayLoadingScreenPreview() {
++    MoveFuelTheme { TOD008TodayLoadingScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_009_TodayEmpty.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_009_TodayEmpty.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_009_TodayEmpty.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD009TodayEmptyScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_009",
++            title = "Today Empty",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Today Empty rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Today Empty screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD009TodayEmptyScreenPreview() {
++    MoveFuelTheme { TOD009TodayEmptyScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_010_TodayUnknown.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_010_TodayUnknown.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_010_TodayUnknown.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD010TodayUnknownScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_010",
++            title = "Today Unknown",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Today Unknown rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Today Unknown screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD010TodayUnknownScreenPreview() {
++    MoveFuelTheme { TOD010TodayUnknownScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_011_TodayOffline.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_011_TodayOffline.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_011_TodayOffline.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD011TodayOfflineScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_011",
++            title = "Today Offline",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Today Offline rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Today Offline screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TOD_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD011TodayOfflineScreenPreview() {
++    MoveFuelTheme { TOD011TodayOfflineScreen {} }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_012_TodayStale.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_012_TodayStale.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_012_TodayStale.kt
+@@ -0,0 +1,44 @@
++package com.movefuel.mufil2.ui.screens.tod
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TOD012TodayStaleScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "TOD_012",
++            title = "Today Stale",
++            subtitle = "Daily status, next action, device context, meals, and training overview.",
++            sections = listOf(
++                DashboardSection(
++                    title = "What the user sees",
++                    description = "Today Stale rendered with the shared MoveFuel Sage design system.",
++                ),
++                DashboardSection(
++                    title = "State behavior",
++                    description = "Supports loading, unknown, error, offline, retry, and success treatment when applicable. UNKNOWN is never displayed as zero.",
++                ),
++                DashboardSection(
++                    title = "Refactoring boundary",
++                    description = "This file owns only the Today Stale screen composition. Shared cards, buttons, media loading, progress, navigation, colors, spacing, and motion stay in reusable components.",
++                ),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.CAM_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.TOD_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TOD012TodayStaleScreenPreview() {
++    MoveFuelTheme { TOD012TodayStaleScreen {} }
++}
