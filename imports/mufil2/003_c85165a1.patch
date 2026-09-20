@@ -1,0 +1,711 @@
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/MoveFuelApp.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/MoveFuelApp.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/MoveFuelApp.kt
+@@ -0,0 +1,11 @@
++package com.movefuel.mufil2.ui
++
++import androidx.compose.runtime.Composable
++import androidx.navigation.compose.rememberNavController
++import com.movefuel.mufil2.ui.navigation.MoveFuelNavGraph
++
++@Composable
++fun MoveFuelApp() {
++    val navController = rememberNavController()
++    MoveFuelNavGraph(navController)
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTrendGraph.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTrendGraph.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTrendGraph.kt
+@@ -0,0 +1,40 @@
++package com.movefuel.mufil2.ui.components
++
++import androidx.compose.foundation.Canvas
++import androidx.compose.foundation.layout.fillMaxWidth
++import androidx.compose.foundation.layout.height
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.geometry.Offset
++import androidx.compose.ui.graphics.Path
++import androidx.compose.ui.graphics.drawscope.Stroke
++import androidx.compose.ui.unit.dp
++import com.movefuel.mufil2.ui.design.MoveFuelColors
++
++@Composable
++fun MFTrendGraph(
++    points: List<Float>,
++    modifier: Modifier = Modifier,
++) {
++    Canvas(modifier.fillMaxWidth().height(180.dp)) {
++        if (points.size < 2) return@Canvas
++        val min = points.minOrNull() ?: 0f
++        val max = points.maxOrNull() ?: 1f
++        val range = (max - min).takeIf { it > 0f } ?: 1f
++        val stepX = size.width / (points.size - 1)
++        val path = Path()
++        points.forEachIndexed { index, value ->
++            val x = index * stepX
++            val normalized = (value - min) / range
++            val y = size.height - normalized * size.height
++            if (index == 0) path.moveTo(x, y) else path.lineTo(x, y)
++        }
++        drawPath(path, MoveFuelColors.ProgressAccent, style = Stroke(width = 5.dp.toPx()))
++        points.forEachIndexed { index, value ->
++            val x = index * stepX
++            val normalized = (value - min) / range
++            val y = size.height - normalized * size.height
++            drawCircle(MoveFuelColors.Sage, radius = 4.dp.toPx(), center = Offset(x, y))
++        }
++    }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/FuelMasterDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/FuelMasterDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/FuelMasterDashboard.kt
+@@ -0,0 +1,53 @@
++package com.movefuel.mufil2.ui.master
++
++import androidx.compose.foundation.layout.*
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.*
++import com.movefuel.mufil2.ui.design.*
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FuelMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
++    Column(
++        Modifier.fillMaxSize().padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
++        verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
++    ) {
++        MFTopBar("MoveFuel")
++        Text("Fuel", style = MaterialTheme.typography.displaySmall)
++        Text("Now · Plan · Shop · Recipes", color = MoveFuelColors.FuelAccent)
++
++        MFCard(Modifier.fillMaxWidth()) {
++            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
++                Column { Text("Energy"); Text("1,742 / 2,180", color = MoveFuelColors.Sage) }
++                Column { Text("Protein"); Text("116 / 145 g", color = MoveFuelColors.Sage) }
++                Column { Text("Fiber"); Text("24 g", color = MoveFuelColors.Sage) }
++            }
++            Spacer(Modifier.height(MoveFuelSpacing.Md))
++            Text("Carbs 186 / 245g · Fat 58 / 72g", color = MoveFuelColors.TextSecondary)
++            Text("Nutrition coverage 92%", color = MoveFuelColors.TextMuted)
++        }
++
++        listOf(
++            "Breakfast" to "Oats · yogurt · banana · confirmed",
++            "Lunch" to "Chicken rice bowl · planned",
++            "Dinner" to "Recipe plan · 19:30",
++        ).forEach { (name, detail) ->
++            MFCard(Modifier.fillMaxWidth()) {
++                Text(name, style = MaterialTheme.typography.titleMedium)
++                Text(detail, color = MoveFuelColors.TextSecondary)
++            }
++        }
++
++        MFPrimaryButton("Add food") { onNavigate(MoveFuelRoute.CAM_001) }
++        Spacer(Modifier.weight(1f))
++        MFBottomNav("Fuel", onNavigate)
++    }
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FuelMasterPreview() = MoveFuelTheme { FuelMasterDashboard {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/ProgressMasterDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/ProgressMasterDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/ProgressMasterDashboard.kt
+@@ -0,0 +1,48 @@
++package com.movefuel.mufil2.ui.master
++
++import androidx.compose.foundation.layout.*
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.*
++import com.movefuel.mufil2.ui.design.*
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun ProgressMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
++    Column(
++        Modifier.fillMaxSize().padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
++        verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
++    ) {
++        MFTopBar("MoveFuel")
++        Text("Progress", style = MaterialTheme.typography.displaySmall)
++        Text("Overview · Training · Nutrition · Activity", color = MoveFuelColors.ProgressAccent)
++
++        MFCard(Modifier.fillMaxWidth()) {
++            Text("Training Volume · 30 days", style = MaterialTheme.typography.titleLarge)
++            Spacer(Modifier.height(MoveFuelSpacing.Base))
++            MFTrendGraph(listOf(18f, 22f, 20f, 28f, 26f, 35f, 31f, 39f))
++            Text("7D   30D   3M   6M   1Y   All", color = MoveFuelColors.TextSecondary)
++        }
++
++        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Md)) {
++            MFCard(Modifier.weight(1f)) { Text("11 workouts"); Text("This month", color = MoveFuelColors.TextMuted) }
++            MFCard(Modifier.weight(1f)) { Text("96%"); Text("Data coverage", color = MoveFuelColors.TextMuted) }
++            MFCard(Modifier.weight(1f)) { Text("2 PRs"); Text("Milestones", color = MoveFuelColors.TextMuted) }
++        }
++
++        MFCard(Modifier.fillMaxWidth()) {
++            Text("Weekly report ready", style = MaterialTheme.typography.titleMedium)
++            Text("Open your latest report and exact data points.", color = MoveFuelColors.TextSecondary)
++        }
++
++        Spacer(Modifier.weight(1f))
++        MFBottomNav("Progress", onNavigate)
++    }
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun ProgressMasterPreview() = MoveFuelTheme { ProgressMasterDashboard {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TodayMasterDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TodayMasterDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TodayMasterDashboard.kt
+@@ -0,0 +1,68 @@
++package com.movefuel.mufil2.ui.master
++
++import androidx.compose.foundation.layout.*
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.*
++import com.movefuel.mufil2.ui.design.*
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TodayMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
++    Column(
++        Modifier.fillMaxSize().padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
++        verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
++    ) {
++        MFTopBar("MoveFuel")
++        Text("Today", style = MaterialTheme.typography.displaySmall)
++        Text("Your day at a glance", color = MoveFuelColors.TextSecondary)
++
++        MFCard(Modifier.fillMaxWidth()) {
++            Text("Daily status", style = MaterialTheme.typography.titleLarge)
++            Spacer(Modifier.height(MoveFuelSpacing.Base))
++            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
++                Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {
++                    MFMetricRing(.72f, "1,742")
++                    Text("Energy", color = MoveFuelColors.TextSecondary)
++                }
++                Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {
++                    MFMetricRing(.80f, "116g")
++                    Text("Protein", color = MoveFuelColors.TextSecondary)
++                }
++                Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {
++                    MFMetricRing(.63f, "38m")
++                    Text("Movement", color = MoveFuelColors.TextSecondary)
++                }
++            }
++        }
++
++        MFCard(Modifier.fillMaxWidth()) {
++            Text("Next Action", color = MoveFuelColors.Sage)
++            Text("Review your planned lunch", style = MaterialTheme.typography.titleMedium)
++            Text("One prioritized action instead of a noisy dashboard.", color = MoveFuelColors.TextSecondary)
++        }
++        MFCard(Modifier.fillMaxWidth()) {
++            Text("Pixel Watch", style = MaterialTheme.typography.titleMedium)
++            Text("Connected · synced recently", color = MoveFuelColors.TextSecondary)
++        }
++        MFCard(Modifier.fillMaxWidth()) {
++            Text("Upper Strength A", style = MaterialTheme.typography.titleLarge)
++            Text("46 min · 5 exercises · readiness reduced", color = MoveFuelColors.TextSecondary)
++            Spacer(Modifier.height(MoveFuelSpacing.Md))
++            MFPrimaryButton("Open workout") { onNavigate(MoveFuelRoute.TRN_001) }
++        }
++        MFCard(Modifier.fillMaxWidth()) {
++            Text("Today's meals", style = MaterialTheme.typography.titleMedium)
++            Text("Breakfast confirmed · Lunch planned · Dinner planned", color = MoveFuelColors.TextSecondary)
++        }
++        Spacer(Modifier.weight(1f))
++        MFBottomNav("Today", onNavigate)
++    }
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TodayMasterPreview() = MoveFuelTheme { TodayMasterDashboard {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TrainMasterDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TrainMasterDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TrainMasterDashboard.kt
+@@ -0,0 +1,48 @@
++package com.movefuel.mufil2.ui.master
++
++import androidx.compose.foundation.layout.*
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.*
++import com.movefuel.mufil2.ui.design.*
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun TrainMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
++    Column(
++        Modifier.fillMaxSize().padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
++        verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
++    ) {
++        MFTopBar("MoveFuel")
++        Text("Train", style = MaterialTheme.typography.displaySmall)
++        Text("Now · Soreness · Exercises · Calendar", color = MoveFuelColors.TrainAccent)
++
++        MFCard(Modifier.fillMaxWidth()) {
++            Text("Readiness · Reduced", color = MoveFuelColors.Warning)
++            Text("Today's plan is adapted to your current inputs.", color = MoveFuelColors.TextSecondary)
++        }
++
++        MFMediaLoading("Loading exercise media…")
++
++        MFCard(Modifier.fillMaxWidth()) {
++            Text("Upper Strength A", style = MaterialTheme.typography.titleLarge)
++            Text("46 min · 5 exercises", color = MoveFuelColors.TextSecondary)
++            Spacer(Modifier.height(MoveFuelSpacing.Md))
++            MFPrimaryButton("Start workout") { onNavigate(MoveFuelRoute.WRK_001) }
++        }
++        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Md)) {
++            MFCard(Modifier.weight(1f)) { Text("Quick Start"); Text("Flexible session", color = MoveFuelColors.TextMuted) }
++            MFCard(Modifier.weight(1f)) { Text("Weekly Plan"); Text("View schedule", color = MoveFuelColors.TextMuted) }
++        }
++
++        Spacer(Modifier.weight(1f))
++        MFBottomNav("Train", onNavigate)
++    }
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun TrainMasterPreview() = MoveFuelTheme { TrainMasterDashboard {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/navigation/MoveFuelRoute.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/navigation/MoveFuelRoute.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/navigation/MoveFuelRoute.kt
+@@ -0,0 +1,408 @@
++package com.movefuel.mufil2.ui.navigation
++
++enum class MoveFuelRoute(val path: String) {
++    MASTER_TODAY("master/today"),
++    MASTER_FUEL("master/fuel"),
++    MASTER_TRAIN("master/train"),
++    MASTER_PROGRESS("master/progress"),
++    AUTH_001("auth/001"),
++    AUTH_002("auth/002"),
++    AUTH_003("auth/003"),
++    AUTH_004("auth/004"),
++    AUTH_005("auth/005"),
++    AUTH_006("auth/006"),
++    AUTH_007("auth/007"),
++    AUTH_008("auth/008"),
++    AUTH_009("auth/009"),
++    AUTH_010("auth/010"),
++    AUTH_011("auth/011"),
++    AUTH_012("auth/012"),
++    ONB_001("onb/001"),
++    ONB_002("onb/002"),
++    ONB_003("onb/003"),
++    ONB_004("onb/004"),
++    ONB_005("onb/005"),
++    ONB_006("onb/006"),
++    ONB_007("onb/007"),
++    ONB_008("onb/008"),
++    ONB_009("onb/009"),
++    ONB_010("onb/010"),
++    ONB_011("onb/011"),
++    ONB_012("onb/012"),
++    ONB_013("onb/013"),
++    ONB_014("onb/014"),
++    ONB_015("onb/015"),
++    ONB_016("onb/016"),
++    ONB_017("onb/017"),
++    ONB_018("onb/018"),
++    TOD_001("tod/001"),
++    TOD_002("tod/002"),
++    TOD_003("tod/003"),
++    TOD_004("tod/004"),
++    TOD_005("tod/005"),
++    TOD_006("tod/006"),
++    TOD_007("tod/007"),
++    TOD_008("tod/008"),
++    TOD_009("tod/009"),
++    TOD_010("tod/010"),
++    TOD_011("tod/011"),
++    TOD_012("tod/012"),
++    CAM_001("cam/001"),
++    CAM_002("cam/002"),
++    CAM_003("cam/003"),
++    CAM_004("cam/004"),
++    CAM_005("cam/005"),
++    CAM_006("cam/006"),
++    CAM_007("cam/007"),
++    CAM_008("cam/008"),
++    CAM_009("cam/009"),
++    CAM_010("cam/010"),
++    CAM_011("cam/011"),
++    CAM_012("cam/012"),
++    CAM_013("cam/013"),
++    CAM_014("cam/014"),
++    CAM_015("cam/015"),
++    CAM_016("cam/016"),
++    CAM_017("cam/017"),
++    CAM_018("cam/018"),
++    BAR_001("bar/001"),
++    BAR_002("bar/002"),
++    BAR_003("bar/003"),
++    BAR_004("bar/004"),
++    BAR_005("bar/005"),
++    BAR_006("bar/006"),
++    BAR_007("bar/007"),
++    BAR_008("bar/008"),
++    BAR_009("bar/009"),
++    BAR_010("bar/010"),
++    BAR_011("bar/011"),
++    BAR_012("bar/012"),
++    BAR_013("bar/013"),
++    BAR_014("bar/014"),
++    BAR_015("bar/015"),
++    BAR_016("bar/016"),
++    FNO_001("fno/001"),
++    FNO_002("fno/002"),
++    FNO_003("fno/003"),
++    FNO_004("fno/004"),
++    FNO_005("fno/005"),
++    FNO_006("fno/006"),
++    FNO_007("fno/007"),
++    FNO_008("fno/008"),
++    FNO_009("fno/009"),
++    FNO_010("fno/010"),
++    FNO_011("fno/011"),
++    FNO_012("fno/012"),
++    FNO_013("fno/013"),
++    FNO_014("fno/014"),
++    FNO_015("fno/015"),
++    FNO_016("fno/016"),
++    FNO_017("fno/017"),
++    FNO_018("fno/018"),
++    FPL_001("fpl/001"),
++    FPL_002("fpl/002"),
++    FPL_003("fpl/003"),
++    FPL_004("fpl/004"),
++    FPL_005("fpl/005"),
++    FPL_006("fpl/006"),
++    FPL_007("fpl/007"),
++    FPL_008("fpl/008"),
++    FPL_009("fpl/009"),
++    FPL_010("fpl/010"),
++    FPL_011("fpl/011"),
++    FPL_012("fpl/012"),
++    FPL_013("fpl/013"),
++    FPL_014("fpl/014"),
++    FPL_015("fpl/015"),
++    FPL_016("fpl/016"),
++    FPL_017("fpl/017"),
++    FPL_018("fpl/018"),
++    FPL_019("fpl/019"),
++    FPL_020("fpl/020"),
++    FPL_021("fpl/021"),
++    FPL_022("fpl/022"),
++    FPL_023("fpl/023"),
++    FPL_024("fpl/024"),
++    FSH_001("fsh/001"),
++    FSH_002("fsh/002"),
++    FSH_003("fsh/003"),
++    FSH_004("fsh/004"),
++    FSH_005("fsh/005"),
++    FSH_006("fsh/006"),
++    FSH_007("fsh/007"),
++    FSH_008("fsh/008"),
++    FSH_009("fsh/009"),
++    FSH_010("fsh/010"),
++    FSH_011("fsh/011"),
++    FSH_012("fsh/012"),
++    FSH_013("fsh/013"),
++    FSH_014("fsh/014"),
++    FSH_015("fsh/015"),
++    FSH_016("fsh/016"),
++    RCP_001("rcp/001"),
++    RCP_002("rcp/002"),
++    RCP_003("rcp/003"),
++    RCP_004("rcp/004"),
++    RCP_005("rcp/005"),
++    RCP_006("rcp/006"),
++    RCP_007("rcp/007"),
++    RCP_008("rcp/008"),
++    RCP_009("rcp/009"),
++    RCP_010("rcp/010"),
++    RCP_011("rcp/011"),
++    RCP_012("rcp/012"),
++    RCP_013("rcp/013"),
++    RCP_014("rcp/014"),
++    RCP_015("rcp/015"),
++    RCP_016("rcp/016"),
++    RCP_017("rcp/017"),
++    RCP_018("rcp/018"),
++    RCP_019("rcp/019"),
++    RCP_020("rcp/020"),
++    RCP_021("rcp/021"),
++    RCP_022("rcp/022"),
++    RCP_023("rcp/023"),
++    RCP_024("rcp/024"),
++    RCP_025("rcp/025"),
++    RCP_026("rcp/026"),
++    RCP_027("rcp/027"),
++    RCP_028("rcp/028"),
++    RCP_029("rcp/029"),
++    RCP_030("rcp/030"),
++    RCP_031("rcp/031"),
++    RCP_032("rcp/032"),
++    RCP_033("rcp/033"),
++    RCP_034("rcp/034"),
++    RCP_035("rcp/035"),
++    RCP_036("rcp/036"),
++    TRS_001("trs/001"),
++    TRS_002("trs/002"),
++    TRS_003("trs/003"),
++    TRS_004("trs/004"),
++    TRS_005("trs/005"),
++    TRS_006("trs/006"),
++    TRS_007("trs/007"),
++    TRS_008("trs/008"),
++    TRS_009("trs/009"),
++    TRS_010("trs/010"),
++    TRS_011("trs/011"),
++    TRS_012("trs/012"),
++    TRS_013("trs/013"),
++    TRS_014("trs/014"),
++    TRS_015("trs/015"),
++    TRS_016("trs/016"),
++    TRS_017("trs/017"),
++    TRS_018("trs/018"),
++    TRS_019("trs/019"),
++    TRS_020("trs/020"),
++    TRN_001("trn/001"),
++    TRN_002("trn/002"),
++    TRN_003("trn/003"),
++    TRN_004("trn/004"),
++    TRN_005("trn/005"),
++    TRN_006("trn/006"),
++    TRN_007("trn/007"),
++    TRN_008("trn/008"),
++    TRN_009("trn/009"),
++    TRN_010("trn/010"),
++    TRN_011("trn/011"),
++    TRN_012("trn/012"),
++    TRN_013("trn/013"),
++    TRN_014("trn/014"),
++    TRN_015("trn/015"),
++    TRN_016("trn/016"),
++    TRN_017("trn/017"),
++    TRN_018("trn/018"),
++    TRN_019("trn/019"),
++    TRN_020("trn/020"),
++    TRN_021("trn/021"),
++    TRN_022("trn/022"),
++    TRN_023("trn/023"),
++    TRN_024("trn/024"),
++    WRK_001("wrk/001"),
++    WRK_002("wrk/002"),
++    WRK_003("wrk/003"),
++    WRK_004("wrk/004"),
++    WRK_005("wrk/005"),
++    WRK_006("wrk/006"),
++    WRK_007("wrk/007"),
++    WRK_008("wrk/008"),
++    WRK_009("wrk/009"),
++    WRK_010("wrk/010"),
++    WRK_011("wrk/011"),
++    WRK_012("wrk/012"),
++    WRK_013("wrk/013"),
++    WRK_014("wrk/014"),
++    WRK_015("wrk/015"),
++    WRK_016("wrk/016"),
++    WRK_017("wrk/017"),
++    WRK_018("wrk/018"),
++    WRK_019("wrk/019"),
++    WRK_020("wrk/020"),
++    WRK_021("wrk/021"),
++    WRK_022("wrk/022"),
++    WRK_023("wrk/023"),
++    WRK_024("wrk/024"),
++    WRK_025("wrk/025"),
++    WRK_026("wrk/026"),
++    WRK_027("wrk/027"),
++    WRK_028("wrk/028"),
++    WRK_029("wrk/029"),
++    WRK_030("wrk/030"),
++    WRK_031("wrk/031"),
++    WRK_032("wrk/032"),
++    SOR_001("sor/001"),
++    SOR_002("sor/002"),
++    SOR_003("sor/003"),
++    SOR_004("sor/004"),
++    SOR_005("sor/005"),
++    SOR_006("sor/006"),
++    SOR_007("sor/007"),
++    SOR_008("sor/008"),
++    SOR_009("sor/009"),
++    SOR_010("sor/010"),
++    RDY_001("rdy/001"),
++    RDY_002("rdy/002"),
++    RDY_003("rdy/003"),
++    RDY_004("rdy/004"),
++    RDY_005("rdy/005"),
++    RDY_006("rdy/006"),
++    RDY_007("rdy/007"),
++    RDY_008("rdy/008"),
++    RDY_009("rdy/009"),
++    RDY_010("rdy/010"),
++    EXR_001("exr/001"),
++    EXR_002("exr/002"),
++    EXR_003("exr/003"),
++    EXR_004("exr/004"),
++    EXR_005("exr/005"),
++    EXR_006("exr/006"),
++    EXR_007("exr/007"),
++    EXR_008("exr/008"),
++    EXR_009("exr/009"),
++    EXR_010("exr/010"),
++    EXR_011("exr/011"),
++    EXR_012("exr/012"),
++    EXR_013("exr/013"),
++    EXR_014("exr/014"),
++    EXR_015("exr/015"),
++    EXR_016("exr/016"),
++    CAL_001("cal/001"),
++    CAL_002("cal/002"),
++    CAL_003("cal/003"),
++    CAL_004("cal/004"),
++    CAL_005("cal/005"),
++    CAL_006("cal/006"),
++    CAL_007("cal/007"),
++    CAL_008("cal/008"),
++    CAL_009("cal/009"),
++    CAL_010("cal/010"),
++    CAL_011("cal/011"),
++    CAL_012("cal/012"),
++    CAL_013("cal/013"),
++    CAL_014("cal/014"),
++    CAL_015("cal/015"),
++    CAL_016("cal/016"),
++    CAL_017("cal/017"),
++    CAL_018("cal/018"),
++    PRG_001("prg/001"),
++    PRG_002("prg/002"),
++    PRG_003("prg/003"),
++    PRG_004("prg/004"),
++    PRG_005("prg/005"),
++    PRG_006("prg/006"),
++    PRG_007("prg/007"),
++    PRG_008("prg/008"),
++    PRG_009("prg/009"),
++    PRG_010("prg/010"),
++    PRG_011("prg/011"),
++    PRG_012("prg/012"),
++    PRG_013("prg/013"),
++    PRG_014("prg/014"),
++    PRG_015("prg/015"),
++    PRG_016("prg/016"),
++    PRG_017("prg/017"),
++    PRG_018("prg/018"),
++    PRG_019("prg/019"),
++    PRG_020("prg/020"),
++    PRG_021("prg/021"),
++    PRG_022("prg/022"),
++    PRG_023("prg/023"),
++    PRG_024("prg/024"),
++    PRG_025("prg/025"),
++    PRG_026("prg/026"),
++    PRG_027("prg/027"),
++    PRG_028("prg/028"),
++    PRG_029("prg/029"),
++    PRG_030("prg/030"),
++    PRO_001("pro/001"),
++    PRO_002("pro/002"),
++    PRO_003("pro/003"),
++    PRO_004("pro/004"),
++    PRO_005("pro/005"),
++    PRO_006("pro/006"),
++    PRO_007("pro/007"),
++    PRO_008("pro/008"),
++    PRO_009("pro/009"),
++    PRO_010("pro/010"),
++    PRO_011("pro/011"),
++    PRO_012("pro/012"),
++    PRO_013("pro/013"),
++    PRO_014("pro/014"),
++    PRO_015("pro/015"),
++    PRO_016("pro/016"),
++    PRO_017("pro/017"),
++    PRO_018("pro/018"),
++    DEV_001("dev/001"),
++    DEV_002("dev/002"),
++    DEV_003("dev/003"),
++    DEV_004("dev/004"),
++    DEV_005("dev/005"),
++    DEV_006("dev/006"),
++    DEV_007("dev/007"),
++    DEV_008("dev/008"),
++    DEV_009("dev/009"),
++    DEV_010("dev/010"),
++    DEV_011("dev/011"),
++    DEV_012("dev/012"),
++    BIL_001("bil/001"),
++    BIL_002("bil/002"),
++    BIL_003("bil/003"),
++    BIL_004("bil/004"),
++    BIL_005("bil/005"),
++    BIL_006("bil/006"),
++    BIL_007("bil/007"),
++    BIL_008("bil/008"),
++    WAR_001("war/001"),
++    WAR_002("war/002"),
++    WAR_003("war/003"),
++    WAR_004("war/004"),
++    WAR_005("war/005"),
++    WAR_006("war/006"),
++    WAR_007("war/007"),
++    WAR_008("war/008"),
++    WAR_009("war/009"),
++    WAR_010("war/010"),
++    WAR_011("war/011"),
++    WAR_012("war/012"),
++    SYS_001("sys/001"),
++    SYS_002("sys/002"),
++    SYS_003("sys/003"),
++    SYS_004("sys/004"),
++    SYS_005("sys/005"),
++    SYS_006("sys/006"),
++    SYS_007("sys/007"),
++    SYS_008("sys/008"),
++    SYS_009("sys/009"),
++    SYS_010("sys/010"),
++    SYS_011("sys/011"),
++    SYS_012("sys/012"),
++    SYS_013("sys/013"),
++    SYS_014("sys/014"),
++    SYS_015("sys/015"),
++    SYS_016("sys/016"),
++    SYS_017("sys/017"),
++    SYS_018("sys/018"),
++    SYS_019("sys/019"),
++    SYS_020("sys/020");
++}
