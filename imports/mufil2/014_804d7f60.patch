@@ -1,0 +1,516 @@
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMasterScaffold.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMasterScaffold.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMasterScaffold.kt
+@@ -0,0 +1,59 @@
++package com.movefuel.mufil2.ui.components
++
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.rememberScrollState
++import androidx.compose.foundation.verticalScroll
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.unit.dp
++import com.movefuel.mufil2.ui.design.MoveFuelColors
++import com.movefuel.mufil2.ui.design.MoveFuelSpacing
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun MFMasterScaffold(
++    active: String,
++    title: String,
++    subtitle: String,
++    tabs: List<String>? = null,
++    selectedTab: String? = null,
++    onNavigate: (MoveFuelRoute) -> Unit,
++    content: @Composable ColumnScope.() -> Unit,
++) {
++    MFPremiumBackground {
++        Box(Modifier.fillMaxSize()) {
++            Column(
++                Modifier
++                    .fillMaxSize()
++                    .verticalScroll(rememberScrollState())
++                    .padding(
++                        start = MoveFuelSpacing.Base,
++                        end = MoveFuelSpacing.Base,
++                        top = MoveFuelSpacing.Lg,
++                        bottom = 118.dp,
++                    ),
++                verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
++            ) {
++                MFTopBar()
++                Spacer(Modifier.height(MoveFuelSpacing.Xs))
++                Text(title, style = MaterialTheme.typography.displaySmall, color = MoveFuelColors.Text)
++                Text(subtitle, color = MoveFuelColors.TextSecondary)
++                if (tabs != null && selectedTab != null) {
++                    MFTabStrip(tabs, selectedTab)
++                }
++                content()
++            }
++            Box(
++                Modifier
++                    .align(Alignment.BottomCenter)
++                    .fillMaxWidth()
++                    .padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Base)
++            ) {
++                MFBottomNav(active, onNavigate)
++            }
++        }
++    }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt
+@@ -1,14 +1,13 @@
+ package com.movefuel.mufil2.ui.components
+ 
+-import androidx.compose.animation.core.animateFloatAsState
++import androidx.compose.animation.core.Animatable
+ import androidx.compose.foundation.Canvas
+ import androidx.compose.foundation.layout.Box
+ import androidx.compose.foundation.layout.matchParentSize
+ import androidx.compose.foundation.layout.size
+ import androidx.compose.material3.MaterialTheme
+ import androidx.compose.material3.Text
+-import androidx.compose.runtime.Composable
+-import androidx.compose.runtime.getValue
++import androidx.compose.runtime.*
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.geometry.Offset
+@@ -29,11 +28,10 @@ fun MFMetricRing(
+     size: Dp = 92.dp,
+     modifier: Modifier = Modifier,
+ ) {
+-    val animated by animateFloatAsState(
+-        targetValue = progress.coerceIn(0f, 1f),
+-        animationSpec = MoveFuelMotion.data(),
+-        label = "mfRingProgress",
+-    )
++    val animated = remember { Animatable(0f) }
++    LaunchedEffect(progress) {
++        animated.animateTo(progress.coerceIn(0f, 1f), animationSpec = MoveFuelMotion.data())
++    }
+     Box(modifier.size(size), contentAlignment = Alignment.Center) {
+         Canvas(Modifier.matchParentSize()) {
+             val stroke = 8.dp.toPx()
+@@ -50,7 +48,7 @@ fun MFMetricRing(
+             drawArc(
+                 color = color,
+                 startAngle = -90f,
+-                sweepAngle = 360f * animated,
++                sweepAngle = 360f * animated.value,
+                 useCenter = false,
+                 topLeft = Offset(inset, inset),
+                 size = Size(this.size.width - stroke, this.size.height - stroke),
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFScreenFrame.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFScreenFrame.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFScreenFrame.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFScreenFrame.kt
+@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
+ import androidx.compose.runtime.*
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.draw.alpha
++import androidx.compose.ui.unit.dp
+ import com.movefuel.mufil2.ui.design.*
+ import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+ 
+@@ -33,7 +34,7 @@ fun MFScreenFrame(
+         label = "screenAlpha",
+     )
+     val y by animateDpAsState(
+-        if (entered) MoveFuelSpacing.Xs else MoveFuelSpacing.Lg,
++        if (entered) 0.dp else 18.dp,
+         animationSpec = MoveFuelMotion.enter(),
+         label = "screenOffset",
+     )
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTrendGraph.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTrendGraph.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTrendGraph.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTrendGraph.kt
+@@ -1,11 +1,10 @@
+ package com.movefuel.mufil2.ui.components
+ 
+-import androidx.compose.animation.core.animateFloatAsState
++import androidx.compose.animation.core.Animatable
+ import androidx.compose.foundation.Canvas
+ import androidx.compose.foundation.layout.fillMaxWidth
+ import androidx.compose.foundation.layout.height
+-import androidx.compose.runtime.Composable
+-import androidx.compose.runtime.getValue
++import androidx.compose.runtime.*
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.geometry.Offset
+ import androidx.compose.ui.graphics.Path
+@@ -19,11 +18,11 @@ fun MFTrendGraph(
+     points: List<Float>,
+     modifier: Modifier = Modifier,
+ ) {
+-    val reveal by animateFloatAsState(
+-        targetValue = 1f,
+-        animationSpec = MoveFuelMotion.data(),
+-        label = "graphReveal",
+-    )
++    val reveal = remember { Animatable(0f) }
++    LaunchedEffect(points) {
++        reveal.snapTo(0f)
++        reveal.animateTo(1f, animationSpec = MoveFuelMotion.data())
++    }
+     Canvas(modifier.fillMaxWidth().height(180.dp)) {
+         repeat(4) { i ->
+             val y = size.height * i / 3f
+@@ -38,7 +37,7 @@ fun MFTrendGraph(
+         val min = points.minOrNull() ?: 0f
+         val max = points.maxOrNull() ?: 1f
+         val range = (max - min).takeIf { it > 0f } ?: 1f
+-        val visibleCount = ((points.size - 1) * reveal).toInt().coerceAtLeast(1)
++        val visibleCount = ((points.size - 1) * reveal.value).toInt().coerceAtLeast(1)
+         val stepX = size.width / (points.size - 1)
+         val path = Path()
+         points.forEachIndexed { index, value ->
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/FuelMasterDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/FuelMasterDashboard.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/FuelMasterDashboard.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/FuelMasterDashboard.kt
+@@ -4,47 +4,65 @@ import androidx.compose.foundation.layout.*
+ import androidx.compose.material3.MaterialTheme
+ import androidx.compose.material3.Text
+ import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.tooling.preview.Preview
++import androidx.compose.ui.unit.dp
+ import com.movefuel.mufil2.ui.components.*
+ import com.movefuel.mufil2.ui.design.*
+ import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+ 
+ @Composable
+ fun FuelMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
+-    Column(
+-        Modifier.fillMaxSize().padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
+-        verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
++    MFMasterScaffold(
++        active = "Fuel",
++        title = "Fuel",
++        subtitle = "Confirmed intake · Today",
++        tabs = listOf("Now", "Plan", "Shop", "Recipes"),
++        selectedTab = "Now",
++        onNavigate = onNavigate,
+     ) {
+-        MFTopBar("MoveFuel")
+-        Text("Fuel", style = MaterialTheme.typography.displaySmall)
+-        Text("Now · Plan · Shop · Recipes", color = MoveFuelColors.FuelAccent)
+-
+         MFCard(Modifier.fillMaxWidth()) {
+-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+-                Column { Text("Energy"); Text("1,742 / 2,180", color = MoveFuelColors.Sage) }
+-                Column { Text("Protein"); Text("116 / 145 g", color = MoveFuelColors.Sage) }
+-                Column { Text("Fiber"); Text("24 g", color = MoveFuelColors.Sage) }
++            MFSectionHeading("Nutrition", "92% coverage")
++            Spacer(Modifier.height(MoveFuelSpacing.Base))
++            Row(
++                Modifier.fillMaxWidth(),
++                horizontalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Lg),
++                verticalAlignment = Alignment.CenterVertically,
++            ) {
++                Column(horizontalAlignment = Alignment.CenterHorizontally) {
++                    MFMetricRing(.80f, "1,742", MoveFuelColors.FuelAccent, size = 118.dp)
++                    Spacer(Modifier.height(MoveFuelSpacing.Sm))
++                    Text("of 2,180 kcal", color = MoveFuelColors.TextMuted, style = MaterialTheme.typography.labelMedium)
++                }
++                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Sm)) {
++                    MFMetricRow("Protein" to "116g", "Fiber" to "24g")
++                    Text("Carbs 186 / 245g", color = MoveFuelColors.TextSecondary)
++                    Text("Fat 58 / 72g", color = MoveFuelColors.TextSecondary)
++                }
+             }
+-            Spacer(Modifier.height(MoveFuelSpacing.Md))
+-            Text("Carbs 186 / 245g · Fat 58 / 72g", color = MoveFuelColors.TextSecondary)
+-            Text("Nutrition coverage 92%", color = MoveFuelColors.TextMuted)
++            Spacer(Modifier.height(MoveFuelSpacing.Base))
++            MFMacroBars(.80f, .80f, .76f, .81f)
+         }
+ 
+-        listOf(
+-            "Breakfast" to "Oats · yogurt · banana · confirmed",
+-            "Lunch" to "Chicken rice bowl · planned",
+-            "Dinner" to "Recipe plan · 19:30",
+-        ).forEach { (name, detail) ->
+-            MFCard(Modifier.fillMaxWidth()) {
+-                Text(name, style = MaterialTheme.typography.titleMedium)
+-                Text(detail, color = MoveFuelColors.TextSecondary)
+-            }
+-        }
++        MFSectionHeading("Meals", "See all")
++        MFMealCard("Breakfast", "Oats · yogurt · banana · confirmed", "480 kcal", MoveFuelColors.FuelAccent)
++        MFMealCard("Lunch", "Chicken rice bowl · confirmed", "675 kcal", MoveFuelColors.SageStrong)
++        MFMealCard("Dinner", "Salmon bowl · planned", "610 kcal", MoveFuelColors.Info)
+ 
+         MFPrimaryButton("Add food") { onNavigate(MoveFuelRoute.CAM_001) }
+-        Spacer(Modifier.weight(1f))
+-        MFBottomNav("Fuel", onNavigate)
++
++        MFSectionHeading("Quick add")
++        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Md)) {
++            MFCard(Modifier.weight(1f)) {
++                Text("Camera", style = MaterialTheme.typography.titleMedium)
++                Text("Photo meal", color = MoveFuelColors.TextMuted)
++            }
++            MFCard(Modifier.weight(1f)) {
++                Text("Barcode", style = MaterialTheme.typography.titleMedium)
++                Text("Packaged food", color = MoveFuelColors.TextMuted)
++            }
++        }
+     }
+ }
+ 
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/ProgressMasterDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/ProgressMasterDashboard.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/ProgressMasterDashboard.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/ProgressMasterDashboard.kt
+@@ -12,34 +12,46 @@ import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+ 
+ @Composable
+ fun ProgressMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
+-    Column(
+-        Modifier.fillMaxSize().padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
+-        verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
++    MFMasterScaffold(
++        active = "Progress",
++        title = "Progress",
++        subtitle = "Measured change · Actual outcomes",
++        tabs = listOf("Overview", "Training", "Nutrition", "Activity"),
++        selectedTab = "Overview",
++        onNavigate = onNavigate,
+     ) {
+-        MFTopBar("MoveFuel")
+-        Text("Progress", style = MaterialTheme.typography.displaySmall)
+-        Text("Overview · Training · Nutrition · Activity", color = MoveFuelColors.ProgressAccent)
+-
+         MFCard(Modifier.fillMaxWidth()) {
+-            Text("Training Volume · 30 days", style = MaterialTheme.typography.titleLarge)
++            MFSectionHeading("Training volume", "30 days")
+             Spacer(Modifier.height(MoveFuelSpacing.Base))
+             MFTrendGraph(listOf(18f, 22f, 20f, 28f, 26f, 35f, 31f, 39f))
+-            Text("7D   30D   3M   6M   1Y   All", color = MoveFuelColors.TextSecondary)
++            Spacer(Modifier.height(MoveFuelSpacing.Md))
++            MFRangeStrip(selected = "30D")
+         }
+ 
+-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Md)) {
+-            MFCard(Modifier.weight(1f)) { Text("11 workouts"); Text("This month", color = MoveFuelColors.TextMuted) }
+-            MFCard(Modifier.weight(1f)) { Text("96%"); Text("Data coverage", color = MoveFuelColors.TextMuted) }
+-            MFCard(Modifier.weight(1f)) { Text("2 PRs"); Text("Milestones", color = MoveFuelColors.TextMuted) }
+-        }
++        MFMetricRow(
++            "Workouts" to "11",
++            "Coverage" to "96%",
++            "PRs" to "2",
++        )
+ 
++        MFSectionHeading("Key progress")
+         MFCard(Modifier.fillMaxWidth()) {
+-            Text("Weekly report ready", style = MaterialTheme.typography.titleMedium)
+-            Text("Open your latest report and exact data points.", color = MoveFuelColors.TextSecondary)
++            Text("+8%", style = MaterialTheme.typography.displaySmall, color = MoveFuelColors.Sage)
++            Text("Training volume vs previous 30 days", color = MoveFuelColors.TextSecondary)
+         }
+ 
+-        Spacer(Modifier.weight(1f))
+-        MFBottomNav("Progress", onNavigate)
++        MFSectionHeading("Milestones", "View all")
++        MFListItem("Bench Press PR", "75 kg · September 14", "PR")
++        MFListItem("Consistency", "4-week training streak", "✓")
++
++        MFSectionHeading("Reports")
++        MFListItem("Weekly report", "Training · nutrition · activity", "Ready")
++        MFListItem("Monthly report", "30-day trend summary", "Open")
++
++        MFNotice(
++            title = "Data integrity",
++            body = "Missing periods stay visible as gaps. Planned workouts and planned meals never count as actual progress.",
++        )
+     }
+ }
+ 
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TodayMasterDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TodayMasterDashboard.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TodayMasterDashboard.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TodayMasterDashboard.kt
+@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
+ import androidx.compose.material3.MaterialTheme
+ import androidx.compose.material3.Text
+ import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.tooling.preview.Preview
+ import com.movefuel.mufil2.ui.components.*
+@@ -12,54 +13,55 @@ import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+ 
+ @Composable
+ fun TodayMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
+-    Column(
+-        Modifier.fillMaxSize().padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
+-        verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
++    MFMasterScaffold(
++        active = "Today",
++        title = "Today",
++        subtitle = "Saturday · September 19",
++        onNavigate = onNavigate,
+     ) {
+-        MFTopBar("MoveFuel")
+-        Text("Today", style = MaterialTheme.typography.displaySmall)
+-        Text("Your day at a glance", color = MoveFuelColors.TextSecondary)
++        Text("Good evening", style = MaterialTheme.typography.titleMedium, color = MoveFuelColors.TextSecondary)
+ 
+         MFCard(Modifier.fillMaxWidth()) {
+-            Text("Daily status", style = MaterialTheme.typography.titleLarge)
++            MFSectionHeading("Daily status", "More nutrition")
+             Spacer(Modifier.height(MoveFuelSpacing.Base))
+-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+-                Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {
+-                    MFMetricRing(.72f, "1,742")
+-                    Text("Energy", color = MoveFuelColors.TextSecondary)
++            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceAround) {
++                Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Sm)) {
++                    MFMetricRing(.80f, "1,742")
++                    Text("Energy", color = MoveFuelColors.TextSecondary, style = MaterialTheme.typography.labelMedium)
++                    Text("of 2,180", color = MoveFuelColors.TextMuted, style = MaterialTheme.typography.labelMedium)
+                 }
+-                Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {
+-                    MFMetricRing(.80f, "116g")
+-                    Text("Protein", color = MoveFuelColors.TextSecondary)
++                Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Sm)) {
++                    MFMetricRing(.80f, "116g", MoveFuelColors.SageStrong)
++                    Text("Protein", color = MoveFuelColors.TextSecondary, style = MaterialTheme.typography.labelMedium)
++                    Text("of 145g", color = MoveFuelColors.TextMuted, style = MaterialTheme.typography.labelMedium)
+                 }
+-                Column(horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally) {
+-                    MFMetricRing(.63f, "38m")
+-                    Text("Movement", color = MoveFuelColors.TextSecondary)
++                Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Sm)) {
++                    MFMetricRing(.63f, "38m", MoveFuelColors.Info)
++                    Text("Movement", color = MoveFuelColors.TextSecondary, style = MaterialTheme.typography.labelMedium)
++                    Text("of 60m", color = MoveFuelColors.TextMuted, style = MaterialTheme.typography.labelMedium)
+                 }
+             }
+         }
+ 
+-        MFCard(Modifier.fillMaxWidth()) {
+-            Text("Next Action", color = MoveFuelColors.Sage)
+-            Text("Review your planned lunch", style = MaterialTheme.typography.titleMedium)
+-            Text("One prioritized action instead of a noisy dashboard.", color = MoveFuelColors.TextSecondary)
+-        }
+-        MFCard(Modifier.fillMaxWidth()) {
+-            Text("Pixel Watch", style = MaterialTheme.typography.titleMedium)
+-            Text("Connected · synced recently", color = MoveFuelColors.TextSecondary)
+-        }
+-        MFCard(Modifier.fillMaxWidth()) {
+-            Text("Upper Strength A", style = MaterialTheme.typography.titleLarge)
+-            Text("46 min · 5 exercises · readiness reduced", color = MoveFuelColors.TextSecondary)
+-            Spacer(Modifier.height(MoveFuelSpacing.Md))
+-            MFPrimaryButton("Open workout") { onNavigate(MoveFuelRoute.TRN_001) }
+-        }
+-        MFCard(Modifier.fillMaxWidth()) {
+-            Text("Today's meals", style = MaterialTheme.typography.titleMedium)
+-            Text("Breakfast confirmed · Lunch planned · Dinner planned", color = MoveFuelColors.TextSecondary)
+-        }
+-        Spacer(Modifier.weight(1f))
+-        MFBottomNav("Today", onNavigate)
++        MFNextActionCard(
++            title = "Review your planned lunch",
++            supporting = "One clear priority keeps the dashboard useful instead of noisy.",
++        )
++
++        MFSectionHeading("Connected device")
++        MFDeviceCard("Pixel Watch", "Synced recently · workout ready")
++
++        MFSectionHeading("Today's workout", "View Train")
++        MFWorkoutHero(
++            title = "Upper Strength A",
++            meta = "46 min · 5 exercises · readiness reduced",
++            onStart = { onNavigate(MoveFuelRoute.WRK_001) },
++        )
++
++        MFSectionHeading("Today's meals", "View Fuel")
++        MFMealCard("Breakfast", "Oats · yogurt · banana · confirmed", "480 kcal", MoveFuelColors.FuelAccent)
++        MFMealCard("Lunch", "Chicken rice bowl · planned", "610 kcal", MoveFuelColors.SageStrong)
++        MFMealCard("Snack", "Apple · yogurt · confirmed", "220 kcal", MoveFuelColors.Info)
+     }
+ }
+ 
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TrainMasterDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TrainMasterDashboard.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TrainMasterDashboard.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/master/TrainMasterDashboard.kt
+@@ -12,34 +12,51 @@ import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+ 
+ @Composable
+ fun TrainMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
+-    Column(
+-        Modifier.fillMaxSize().padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
+-        verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
++    MFMasterScaffold(
++        active = "Train",
++        title = "Train",
++        subtitle = "Adaptive training · Today",
++        tabs = listOf("Now", "Soreness", "Exercises", "Calendar"),
++        selectedTab = "Now",
++        onNavigate = onNavigate,
+     ) {
+-        MFTopBar("MoveFuel")
+-        Text("Train", style = MaterialTheme.typography.displaySmall)
+-        Text("Now · Soreness · Exercises · Calendar", color = MoveFuelColors.TrainAccent)
++        MFStatusBanner(
++            title = "Readiness · Reduced",
++            body = "Lower-body soreness changed today’s plan. Tap to see why.",
++            tone = MoveFuelColors.Warning,
++        )
+ 
+-        MFCard(Modifier.fillMaxWidth()) {
+-            Text("Readiness · Reduced", color = MoveFuelColors.Warning)
+-            Text("Today's plan is adapted to your current inputs.", color = MoveFuelColors.TextSecondary)
+-        }
++        MFSectionHeading("Today's workout", "Why adapted")
++        MFWorkoutHero(
++            title = "Upper Strength A",
++            meta = "46 min · 5 exercises · adapted for today",
++            loadingMedia = true,
++            onStart = { onNavigate(MoveFuelRoute.WRK_001) },
++        )
+ 
+-        MFMediaLoading("Loading exercise media…")
++        MFNotice(
++            title = "Media is loading",
++            body = "Workout controls stay usable while exercise media buffers. This state looks intentional instead of frozen.",
++        )
+ 
+-        MFCard(Modifier.fillMaxWidth()) {
+-            Text("Upper Strength A", style = MaterialTheme.typography.titleLarge)
+-            Text("46 min · 5 exercises", color = MoveFuelColors.TextSecondary)
+-            Spacer(Modifier.height(MoveFuelSpacing.Md))
+-            MFPrimaryButton("Start workout") { onNavigate(MoveFuelRoute.WRK_001) }
+-        }
+         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Md)) {
+-            MFCard(Modifier.weight(1f)) { Text("Quick Start"); Text("Flexible session", color = MoveFuelColors.TextMuted) }
+-            MFCard(Modifier.weight(1f)) { Text("Weekly Plan"); Text("View schedule", color = MoveFuelColors.TextMuted) }
++            MFCard(Modifier.weight(1f)) {
++                Text("Quick Start", style = MaterialTheme.typography.titleMedium)
++                Text("Flexible session", color = MoveFuelColors.TextMuted)
++            }
++            MFCard(Modifier.weight(1f)) {
++                Text("Weekly Plan", style = MaterialTheme.typography.titleMedium)
++                Text("3 sessions", color = MoveFuelColors.TextMuted)
++            }
+         }
+ 
+-        Spacer(Modifier.weight(1f))
+-        MFBottomNav("Train", onNavigate)
++        MFSectionHeading("Workout preview", "View details")
++        MFListItem("Bench Press", "4 × 8 · 60 kg target", "1")
++        MFListItem("Seated Row", "3 × 10 · controlled", "2")
++        MFListItem("Shoulder Press", "3 × 10", "3")
++
++        MFSectionHeading("Recovery context")
++        MFMetricRow("Energy" to "Good", "Fatigue" to "Medium", "Soreness" to "Legs")
+     }
+ }
+ 
