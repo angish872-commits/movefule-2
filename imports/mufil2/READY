@@ -1,0 +1,7 @@
+source_repository=angish872-commits/movefule_1
+source_branch=ui-test
+source_commit=699bf3d6bda7949d3d10bf320fa0ecfbf495016c
+patch_count=21
+expected_domain_screens=400
+expected_kotlin_files=428
+expected_registry_rows=404
