@@ -5,3 +5,5 @@ patch_count=21
 expected_domain_screens=400
 expected_kotlin_files=428
 expected_registry_rows=404
+
+retry=2
