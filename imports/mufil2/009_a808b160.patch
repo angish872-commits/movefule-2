@@ -1,0 +1,1086 @@
+diff --git a/Mufil-2/.gitignore b/Mufil-2/.gitignore
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/.gitignore
+@@ -0,0 +1,8 @@
++.gradle/
++.idea/
++local.properties
++build/
++**/build/
++captures/
++.externalNativeBuild/
++.cxx/
+diff --git a/Mufil-2/BUILD_STATUS.md b/Mufil-2/BUILD_STATUS.md
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/BUILD_STATUS.md
+@@ -0,0 +1,28 @@
++# Build Status
++
++## Generated
++
++- 404 Compose dashboard/routes are present in source.
++- 4 custom master dashboards: Today, Fuel, Train, Progress.
++- 400 individual domain/state screen files.
++- Every generated screen has an `@Preview`.
++- Central route catalog and NavHost wiring are present.
++- Shared Sage design tokens/components are present.
++
++## Toolchain
++
++- Android Gradle Plugin: 9.4.1
++- Built-in Kotlin: enabled (AGP 9)
++- Compose compiler plugin: 2.2.10
++- Compose BOM: 2026.09.00
++- Navigation Compose: 2.10.1
++- compileSdk / targetSdk: 37
++- minSdk: 24
++- JDK: 17
++
++## Important
++
++The parent repository does not currently contain a Gradle wrapper at `gradle/wrapper/gradle-wrapper.properties`.
++Open the `Mufil-2` folder directly in Android Studio and let the IDE sync it with Gradle 9.6+ / JDK 17, or generate a wrapper locally with a compatible Gradle installation.
++
++This branch was statically generated and audited for route/screen counts, but no Android build was executed by this chat environment.
+diff --git a/Mufil-2/README.md b/Mufil-2/README.md
+--- a/Mufil-2/README.md
++++ b/Mufil-2/README.md
+@@ -1,3 +1,91 @@
+-# Mufil-2
++# Mufil-2 — MoveFuel Compose UI Prototype
+ 
+-Isolated Jetpack Compose dashboard prototype inside the ui-test branch.
++This is an isolated nested Android/Jetpack Compose project inside the `ui-test` branch of `movefule_1`.
++
++## 404 dashboards
++
++- **4 custom visual-target master dashboards**: Today, Fuel, Train, Progress.
++- **400 individual domain/state screens**.
++- Every screen/state is stored in its own Kotlin file.
++- Every screen/state has an `@Preview` for individual inspection in Android Studio.
++- All routes are registered in one central navigation graph.
++
++## Open an individual dashboard
++
++Open any file under:
++
++`app/src/main/java/com/movefuel/mufil2/ui/screens/`
++
++Then open its Compose Preview.
++
++The four visual anchors are here:
++
++`app/src/main/java/com/movefuel/mufil2/ui/master/`
++
++## Refactoring rule
++
++Screen files own screen composition only. Reusable UI stays in:
++
++`ui/components/`
++
++Global styling stays in:
++
++`ui/design/`
++
++Navigation stays in:
++
++`ui/navigation/`
++
++Business algorithms do **not** belong inside dashboard files.
++
++## Navigation
++
++- Route catalog: `ui/navigation/MoveFuelRoute.kt`
++- Full 404-route graph: `ui/navigation/MoveFuelNavGraph.kt`
++- Screen registry: `SCREEN_REGISTRY_404.csv`
++
++## Visual source of truth
++
++The four custom master dashboards use the approved MoveFuel Sage/forest direction:
++
++- premium dark background
++- Sage identity
++- restrained Fuel/Train/Progress marker accents
++- 4/8/12/16/24/32 spacing rhythm
++- refactored shared cards/buttons/rings/loading components
++- Today/Fuel/Train/Progress bottom navigation
++
++## Loading and media
++
++Shared components include:
++
++- skeleton loading
++- circular media loading
++- progress rings
++- trend graph
++- reusable cards/buttons
++- explicit loading/offline/error screen families
++
++Train/recipe/media flows should show loading or staged processing instead of appearing frozen.
++
++## Import/build
++
++The parent repository has no Gradle wrapper committed.
++
++Open the `Mufil-2` directory as an Android Studio project and sync with:
++
++- JDK 17
++- Gradle 9.6+
++- Android SDK 37
++
++If you prefer a wrapper, generate one locally after opening the project.
++
++## Product invariants
++
++- UNKNOWN != ZERO
++- Planned meal != consumed meal
++- Planned workout != performed workout
++- AI result is a draft until user confirmation
++- Pain != soreness
++- Historical days are not rewritten by later target changes
++- Watch performed facts remain pending until acknowledged by phone/backend
+diff --git a/Mufil-2/SCREEN_REGISTRY_404.csv b/Mufil-2/SCREEN_REGISTRY_404.csv
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/SCREEN_REGISTRY_404.csv
+@@ -0,0 +1,404 @@
++MASTER_TODAY,"Today Master Dashboard",app/src/main/java/com/movefuel/mufil2/ui/master/TodayMasterDashboard.kt,TodayMasterDashboard
++MASTER_FUEL,"Fuel Master Dashboard",app/src/main/java/com/movefuel/mufil2/ui/master/FuelMasterDashboard.kt,FuelMasterDashboard
++MASTER_TRAIN,"Train Master Dashboard",app/src/main/java/com/movefuel/mufil2/ui/master/TrainMasterDashboard.kt,TrainMasterDashboard
++MASTER_PROGRESS,"Progress Master Dashboard",app/src/main/java/com/movefuel/mufil2/ui/master/ProgressMasterDashboard.kt,ProgressMasterDashboard
++AUTH_001,"Secure Restore",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_001_SecureRestore.kt,AUTH001SecureRestoreScreen
++AUTH_002,"Sign In",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_002_SignIn.kt,AUTH002SignInScreen
++AUTH_003,"Create Account",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_003_CreateAccount.kt,AUTH003CreateAccountScreen
++AUTH_004,"Verify Email",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_004_VerifyEmail.kt,AUTH004VerifyEmailScreen
++AUTH_005,"Resend Verification",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_005_ResendVerification.kt,AUTH005ResendVerificationScreen
++AUTH_006,"Verification Success",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_006_VerificationSuccess.kt,AUTH006VerificationSuccessScreen
++AUTH_007,"Verification Expired",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_007_VerificationExpired.kt,AUTH007VerificationExpiredScreen
++AUTH_008,"Forgot Password",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_008_ForgotPassword.kt,AUTH008ForgotPasswordScreen
++AUTH_009,"Reset Password",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_009_ResetPassword.kt,AUTH009ResetPasswordScreen
++AUTH_010,"Password Reset Success",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_010_PasswordResetSuccess.kt,AUTH010PasswordResetSuccessScreen
++AUTH_011,"Offline Account State",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_011_OfflineAccountState.kt,AUTH011OfflineAccountStateScreen
++AUTH_012,"Session Expired",app/src/main/java/com/movefuel/mufil2/ui/screens/auth/AUTH_012_SessionExpired.kt,AUTH012SessionExpiredScreen
++ONB_001,"Welcome",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_001_Welcome.kt,ONB001WelcomeScreen
++ONB_002,"Setup Choice",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_002_SetupChoice.kt,ONB002SetupChoiceScreen
++ONB_003,"Name",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_003_Name.kt,ONB003NameScreen
++ONB_004,"Date of Birth",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_004_DateOfBirth.kt,ONB004DateOfBirthScreen
++ONB_005,"Country Language Timezone",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_005_CountryLanguageTimezone.kt,ONB005CountryLanguageTimezoneScreen
++ONB_006,"Units",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_006_Units.kt,ONB006UnitsScreen
++ONB_007,"Height",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_007_Height.kt,ONB007HeightScreen
++ONB_008,"Current Weight",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_008_CurrentWeight.kt,ONB008CurrentWeightScreen
++ONB_009,"Energy Estimation Setting",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_009_EnergyEstimationSetting.kt,ONB009EnergyEstimationSettingScreen
++ONB_010,"Daily Activity",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_010_DailyActivity.kt,ONB010DailyActivityScreen
++ONB_011,"Optional Body Composition",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_011_OptionalBodyComposition.kt,ONB011OptionalBodyCompositionScreen
++ONB_012,"Primary Goal",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_012_PrimaryGoal.kt,ONB012PrimaryGoalScreen
++ONB_013,"Target Context",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_013_TargetContext.kt,ONB013TargetContextScreen
++ONB_014,"Training Frequency",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_014_TrainingFrequency.kt,ONB014TrainingFrequencyScreen
++ONB_015,"Session Duration",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_015_SessionDuration.kt,ONB015SessionDurationScreen
++ONB_016,"Dietary Preferences",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_016_DietaryPreferences.kt,ONB016DietaryPreferencesScreen
++ONB_017,"Allergies and Exclusions",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_017_AllergiesAndExclusions.kt,ONB017AllergiesAndExclusionsScreen
++ONB_018,"Target Review and Finish",app/src/main/java/com/movefuel/mufil2/ui/screens/onb/ONB_018_TargetReviewAndFinish.kt,ONB018TargetReviewAndFinishScreen
++TOD_001,"Today Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_001_TodayDashboard.kt,TOD001TodayDashboardScreen
++TOD_002,"Nutrition Expanded",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_002_NutritionExpanded.kt,TOD002NutritionExpandedScreen
++TOD_003,"Next Action Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_003_NextActionDetail.kt,TOD003NextActionDetailScreen
++TOD_004,"Device Status",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_004_DeviceStatus.kt,TOD004DeviceStatusScreen
++TOD_005,"Today Workout Preview",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_005_TodayWorkoutPreview.kt,TOD005TodayWorkoutPreviewScreen
++TOD_006,"Today Meal Plan",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_006_TodayMealPlan.kt,TOD006TodayMealPlanScreen
++TOD_007,"Confirmed Meals",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_007_ConfirmedMeals.kt,TOD007ConfirmedMealsScreen
++TOD_008,"Today Loading",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_008_TodayLoading.kt,TOD008TodayLoadingScreen
++TOD_009,"Today Empty",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_009_TodayEmpty.kt,TOD009TodayEmptyScreen
++TOD_010,"Today Unknown",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_010_TodayUnknown.kt,TOD010TodayUnknownScreen
++TOD_011,"Today Offline",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_011_TodayOffline.kt,TOD011TodayOfflineScreen
++TOD_012,"Today Stale",app/src/main/java/com/movefuel/mufil2/ui/screens/tod/TOD_012_TodayStale.kt,TOD012TodayStaleScreen
++CAM_001,"Food Camera",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_001_FoodCamera.kt,CAM001FoodCameraScreen
++CAM_002,"Camera Permission",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_002_CameraPermission.kt,CAM002CameraPermissionScreen
++CAM_003,"Food Framing",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_003_FoodFraming.kt,CAM003FoodFramingScreen
++CAM_004,"Gallery Picker",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_004_GalleryPicker.kt,CAM004GalleryPickerScreen
++CAM_005,"Image Preview",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_005_ImagePreview.kt,CAM005ImagePreviewScreen
++CAM_006,"Checking Image",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_006_CheckingImage.kt,CAM006CheckingImageScreen
++CAM_007,"Detecting Foods",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_007_DetectingFoods.kt,CAM007DetectingFoodsScreen
++CAM_008,"Multi Food Detection",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_008_MultiFoodDetection.kt,CAM008MultiFoodDetectionScreen
++CAM_009,"Estimating Portions",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_009_EstimatingPortions.kt,CAM009EstimatingPortionsScreen
++CAM_010,"Nutrition Matching",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_010_NutritionMatching.kt,CAM010NutritionMatchingScreen
++CAM_011,"Detected Food Review",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_011_DetectedFoodReview.kt,CAM011DetectedFoodReviewScreen
++CAM_012,"Edit Food Identity",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_012_EditFoodIdentity.kt,CAM012EditFoodIdentityScreen
++CAM_013,"Edit Portion",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_013_EditPortion.kt,CAM013EditPortionScreen
++CAM_014,"Add Missed Food",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_014_AddMissedFood.kt,CAM014AddMissedFoodScreen
++CAM_015,"Low Confidence Clarification",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_015_LowConfidenceClarification.kt,CAM015LowConfidenceClarificationScreen
++CAM_016,"Nutrition Unavailable",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_016_NutritionUnavailable.kt,CAM016NutritionUnavailableScreen
++CAM_017,"Final Meal Review",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_017_FinalMealReview.kt,CAM017FinalMealReviewScreen
++CAM_018,"Analysis Failure",app/src/main/java/com/movefuel/mufil2/ui/screens/cam/CAM_018_AnalysisFailure.kt,CAM018AnalysisFailureScreen
++BAR_001,"Barcode Scanner",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_001_BarcodeScanner.kt,BAR001BarcodeScannerScreen
++BAR_002,"Scanning",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_002_Scanning.kt,BAR002ScanningScreen
++BAR_003,"Barcode Detected",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_003_BarcodeDetected.kt,BAR003BarcodeDetectedScreen
++BAR_004,"Product Lookup",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_004_ProductLookup.kt,BAR004ProductLookupScreen
++BAR_005,"Product Found",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_005_ProductFound.kt,BAR005ProductFoundScreen
++BAR_006,"Serving Selector",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_006_ServingSelector.kt,BAR006ServingSelectorScreen
++BAR_007,"Expanded Nutrition",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_007_ExpandedNutrition.kt,BAR007ExpandedNutritionScreen
++BAR_008,"Ingredients and Allergens",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_008_IngredientsAndAllergens.kt,BAR008IngredientsAndAllergensScreen
++BAR_009,"Add to Meal",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_009_AddToMeal.kt,BAR009AddToMealScreen
++BAR_010,"Meal Selector",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_010_MealSelector.kt,BAR010MealSelectorScreen
++BAR_011,"Confirm Product",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_011_ConfirmProduct.kt,BAR011ConfirmProductScreen
++BAR_012,"Add to Shop",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_012_AddToShop.kt,BAR012AddToShopScreen
++BAR_013,"Product Not Found",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_013_ProductNotFound.kt,BAR013ProductNotFoundScreen
++BAR_014,"Nutrition Label Camera",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_014_NutritionLabelCamera.kt,BAR014NutritionLabelCameraScreen
++BAR_015,"Label Review",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_015_LabelReview.kt,BAR015LabelReviewScreen
++BAR_016,"Custom Product",app/src/main/java/com/movefuel/mufil2/ui/screens/bar/BAR_016_CustomProduct.kt,BAR016CustomProductScreen
++FNO_001,"Fuel Now Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_001_FuelNowDashboard.kt,FNO001FuelNowDashboardScreen
++FNO_002,"Selected Date",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_002_SelectedDate.kt,FNO002SelectedDateScreen
++FNO_003,"Nutrition Summary",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_003_NutritionSummary.kt,FNO003NutritionSummaryScreen
++FNO_004,"Expanded Nutrition",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_004_ExpandedNutrition.kt,FNO004ExpandedNutritionScreen
++FNO_005,"Meal Groups",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_005_MealGroups.kt,FNO005MealGroupsScreen
++FNO_006,"Meal Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_006_MealDetail.kt,FNO006MealDetailScreen
++FNO_007,"Edit Meal",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_007_EditMeal.kt,FNO007EditMealScreen
++FNO_008,"Delete Meal Confirmation",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_008_DeleteMealConfirmation.kt,FNO008DeleteMealConfirmationScreen
++FNO_009,"Add Food Menu",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_009_AddFoodMenu.kt,FNO009AddFoodMenuScreen
++FNO_010,"Food Search",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_010_FoodSearch.kt,FNO010FoodSearchScreen
++FNO_011,"Food Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_011_FoodDetail.kt,FNO011FoodDetailScreen
++FNO_012,"Serving Selector",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_012_ServingSelector.kt,FNO012ServingSelectorScreen
++FNO_013,"Recent Foods",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_013_RecentFoods.kt,FNO013RecentFoodsScreen
++FNO_014,"Frequent Foods",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_014_FrequentFoods.kt,FNO014FrequentFoodsScreen
++FNO_015,"Favorites",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_015_Favorites.kt,FNO015FavoritesScreen
++FNO_016,"Saved Meals",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_016_SavedMeals.kt,FNO016SavedMealsScreen
++FNO_017,"Fuel Empty",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_017_FuelEmpty.kt,FNO017FuelEmptyScreen
++FNO_018,"Fuel Offline",app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_018_FuelOffline.kt,FNO018FuelOfflineScreen
++FPL_001,"Fuel Plan Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_001_FuelPlanDashboard.kt,FPL001FuelPlanDashboardScreen
++FPL_002,"Plan Day View",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_002_PlanDayView.kt,FPL002PlanDayViewScreen
++FPL_003,"Plan Week View",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_003_PlanWeekView.kt,FPL003PlanWeekViewScreen
++FPL_004,"Plan Month View",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_004_PlanMonthView.kt,FPL004PlanMonthViewScreen
++FPL_005,"Plan Preferences",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_005_PlanPreferences.kt,FPL005PlanPreferencesScreen
++FPL_006,"Diet Preferences",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_006_DietPreferences.kt,FPL006DietPreferencesScreen
++FPL_007,"Allergy Rules",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_007_AllergyRules.kt,FPL007AllergyRulesScreen
++FPL_008,"Cuisine Preferences",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_008_CuisinePreferences.kt,FPL008CuisinePreferencesScreen
++FPL_009,"Cooking Preferences",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_009_CookingPreferences.kt,FPL009CookingPreferencesScreen
++FPL_010,"Budget Preferences",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_010_BudgetPreferences.kt,FPL010BudgetPreferencesScreen
++FPL_011,"Pantry Context",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_011_PantryContext.kt,FPL011PantryContextScreen
++FPL_012,"Training Context",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_012_TrainingContext.kt,FPL012TrainingContextScreen
++FPL_013,"Plan Setup Review",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_013_PlanSetupReview.kt,FPL013PlanSetupReviewScreen
++FPL_014,"Generating Meal Plan",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_014_GeneratingMealPlan.kt,FPL014GeneratingMealPlanScreen
++FPL_015,"Weekly Proposal",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_015_WeeklyProposal.kt,FPL015WeeklyProposalScreen
++FPL_016,"Day Proposal",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_016_DayProposal.kt,FPL016DayProposalScreen
++FPL_017,"Planned Meal Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_017_PlannedMealDetail.kt,FPL017PlannedMealDetailScreen
++FPL_018,"Swap Meal",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_018_SwapMeal.kt,FPL018SwapMealScreen
++FPL_019,"Meal Alternatives",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_019_MealAlternatives.kt,FPL019MealAlternativesScreen
++FPL_020,"Serving Change",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_020_ServingChange.kt,FPL020ServingChangeScreen
++FPL_021,"Move Meal",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_021_MoveMeal.kt,FPL021MoveMealScreen
++FPL_022,"Plan Conflict",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_022_PlanConflict.kt,FPL022PlanConflictScreen
++FPL_023,"Confirm Plan",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_023_ConfirmPlan.kt,FPL023ConfirmPlanScreen
++FPL_024,"Plan Revision History",app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_024_PlanRevisionHistory.kt,FPL024PlanRevisionHistoryScreen
++FSH_001,"Shop Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_001_ShopDashboard.kt,FSH001ShopDashboardScreen
++FSH_002,"Shopping List",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_002_ShoppingList.kt,FSH002ShoppingListScreen
++FSH_003,"Shopping Item Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_003_ShoppingItemDetail.kt,FSH003ShoppingItemDetailScreen
++FSH_004,"Edit Shopping Item",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_004_EditShoppingItem.kt,FSH004EditShoppingItemScreen
++FSH_005,"Mark Purchased",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_005_MarkPurchased.kt,FSH005MarkPurchasedScreen
++FSH_006,"Undo Purchased",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_006_UndoPurchased.kt,FSH006UndoPurchasedScreen
++FSH_007,"Add Shopping Item",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_007_AddShoppingItem.kt,FSH007AddShoppingItemScreen
++FSH_008,"Search Grocery",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_008_SearchGrocery.kt,FSH008SearchGroceryScreen
++FSH_009,"Manual Grocery Item",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_009_ManualGroceryItem.kt,FSH009ManualGroceryItemScreen
++FSH_010,"Scan Grocery Barcode",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_010_ScanGroceryBarcode.kt,FSH010ScanGroceryBarcodeScreen
++FSH_011,"Plan Requirements",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_011_PlanRequirements.kt,FSH011PlanRequirementsScreen
++FSH_012,"Consolidated Ingredients",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_012_ConsolidatedIngredients.kt,FSH012ConsolidatedIngredientsScreen
++FSH_013,"Recipe Ingredients",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_013_RecipeIngredients.kt,FSH013RecipeIngredientsScreen
++FSH_014,"Pantry",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_014_Pantry.kt,FSH014PantryScreen
++FSH_015,"Shopping Empty",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_015_ShoppingEmpty.kt,FSH015ShoppingEmptyScreen
++FSH_016,"Shopping Offline",app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_016_ShoppingOffline.kt,FSH016ShoppingOfflineScreen
++RCP_001,"Recipes Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_001_RecipesDashboard.kt,RCP001RecipesDashboardScreen
++RCP_002,"Saved Recipes",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_002_SavedRecipes.kt,RCP002SavedRecipesScreen
++RCP_003,"Recipe Search",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_003_RecipeSearch.kt,RCP003RecipeSearchScreen
++RCP_004,"Recipe Results",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_004_RecipeResults.kt,RCP004RecipeResultsScreen
++RCP_005,"Recipe Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_005_RecipeDetail.kt,RCP005RecipeDetailScreen
++RCP_006,"Recipe Nutrition",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_006_RecipeNutrition.kt,RCP006RecipeNutritionScreen
++RCP_007,"Recipe Ingredients",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_007_RecipeIngredients.kt,RCP007RecipeIngredientsScreen
++RCP_008,"Cooking Mode",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_008_CookingMode.kt,RCP008CookingModeScreen
++RCP_009,"Cooking Timer",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_009_CookingTimer.kt,RCP009CookingTimerScreen
++RCP_010,"Serving Adjust",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_010_ServingAdjust.kt,RCP010ServingAdjustScreen
++RCP_011,"Ingredient Substitution",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_011_IngredientSubstitution.kt,RCP011IngredientSubstitutionScreen
++RCP_012,"Add Recipe to Plan",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_012_AddRecipeToPlan.kt,RCP012AddRecipeToPlanScreen
++RCP_013,"Add Recipe to Shop",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_013_AddRecipeToShop.kt,RCP013AddRecipeToShopScreen
++RCP_014,"Log Recipe as Meal",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_014_LogRecipeAsMeal.kt,RCP014LogRecipeAsMealScreen
++RCP_015,"Create Recipe",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_015_CreateRecipe.kt,RCP015CreateRecipeScreen
++RCP_016,"Create Recipe Metadata",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_016_CreateRecipeMetadata.kt,RCP016CreateRecipeMetadataScreen
++RCP_017,"Create Recipe Ingredients",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_017_CreateRecipeIngredients.kt,RCP017CreateRecipeIngredientsScreen
++RCP_018,"Create Recipe Steps",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_018_CreateRecipeSteps.kt,RCP018CreateRecipeStepsScreen
++RCP_019,"Create Recipe Review",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_019_CreateRecipeReview.kt,RCP019CreateRecipeReviewScreen
++RCP_020,"Import Source Choice",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_020_ImportSourceChoice.kt,RCP020ImportSourceChoiceScreen
++RCP_021,"YouTube Import",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_021_YouTubeImport.kt,RCP021YouTubeImportScreen
++RCP_022,"Web Import",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_022_WebImport.kt,RCP022WebImportScreen
++RCP_023,"Text Import",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_023_TextImport.kt,RCP023TextImportScreen
++RCP_024,"Validate Import Source",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_024_ValidateImportSource.kt,RCP024ValidateImportSourceScreen
++RCP_025,"Import Queued",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_025_ImportQueued.kt,RCP025ImportQueuedScreen
++RCP_026,"Reading Source",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_026_ReadingSource.kt,RCP026ReadingSourceScreen
++RCP_027,"Extracting Recipe Evidence",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_027_ExtractingRecipeEvidence.kt,RCP027ExtractingRecipeEvidenceScreen
++RCP_028,"Normalizing Ingredients",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_028_NormalizingIngredients.kt,RCP028NormalizingIngredientsScreen
++RCP_029,"Matching Trusted Foods",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_029_MatchingTrustedFoods.kt,RCP029MatchingTrustedFoodsScreen
++RCP_030,"Checking Nutrition Eligibility",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_030_CheckingNutritionEligibility.kt,RCP030CheckingNutritionEligibilityScreen
++RCP_031,"Import Needs Review",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_031_ImportNeedsReview.kt,RCP031ImportNeedsReviewScreen
++RCP_032,"Unresolved Ingredient",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_032_UnresolvedIngredient.kt,RCP032UnresolvedIngredientScreen
++RCP_033,"Missing Quantity",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_033_MissingQuantity.kt,RCP033MissingQuantityScreen
++RCP_034,"Missing Servings",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_034_MissingServings.kt,RCP034MissingServingsScreen
++RCP_035,"Recipe Import Confirmation",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_035_RecipeImportConfirmation.kt,RCP035RecipeImportConfirmationScreen
++RCP_036,"Recipe Import Failure",app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_036_RecipeImportFailure.kt,RCP036RecipeImportFailureScreen
++TRS_001,"Train Setup Welcome",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_001_TrainSetupWelcome.kt,TRS001TrainSetupWelcomeScreen
++TRS_002,"Training Experience",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_002_TrainingExperience.kt,TRS002TrainingExperienceScreen
++TRS_003,"Activity Experience",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_003_ActivityExperience.kt,TRS003ActivityExperienceScreen
++TRS_004,"Training Goal",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_004_TrainingGoal.kt,TRS004TrainingGoalScreen
++TRS_005,"Preferred Activities",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_005_PreferredActivities.kt,TRS005PreferredActivitiesScreen
++TRS_006,"Environment",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_006_Environment.kt,TRS006EnvironmentScreen
++TRS_007,"Equipment",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_007_Equipment.kt,TRS007EquipmentScreen
++TRS_008,"Weekly Availability",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_008_WeeklyAvailability.kt,TRS008WeeklyAvailabilityScreen
++TRS_009,"Preferred Days",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_009_PreferredDays.kt,TRS009PreferredDaysScreen
++TRS_010,"Preferred Time",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_010_PreferredTime.kt,TRS010PreferredTimeScreen
++TRS_011,"Session Duration",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_011_SessionDuration.kt,TRS011SessionDurationScreen
++TRS_012,"Exercise Preferences",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_012_ExercisePreferences.kt,TRS012ExercisePreferencesScreen
++TRS_013,"Exercise Dislikes",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_013_ExerciseDislikes.kt,TRS013ExerciseDislikesScreen
++TRS_014,"Movement Limitations",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_014_MovementLimitations.kt,TRS014MovementLimitationsScreen
++TRS_015,"Long Term Restrictions",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_015_LongTermRestrictions.kt,TRS015LongTermRestrictionsScreen
++TRS_016,"Pain Safety",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_016_PainSafety.kt,TRS016PainSafetyScreen
++TRS_017,"Soreness Setup",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_017_SorenessSetup.kt,TRS017SorenessSetupScreen
++TRS_018,"Readiness Setup",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_018_ReadinessSetup.kt,TRS018ReadinessSetupScreen
++TRS_019,"Performance Baseline",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_019_PerformanceBaseline.kt,TRS019PerformanceBaselineScreen
++TRS_020,"Plan Preview",app/src/main/java/com/movefuel/mufil2/ui/screens/trs/TRS_020_PlanPreview.kt,TRS020PlanPreviewScreen
++TRN_001,"Train Now Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_001_TrainNowDashboard.kt,TRN001TrainNowDashboardScreen
++TRN_002,"Readiness Summary",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_002_ReadinessSummary.kt,TRN002ReadinessSummaryScreen
++TRN_003,"Readiness Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_003_ReadinessDetail.kt,TRN003ReadinessDetailScreen
++TRN_004,"Why Adapted",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_004_WhyAdapted.kt,TRN004WhyAdaptedScreen
++TRN_005,"Today Workout",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_005_TodayWorkout.kt,TRN005TodayWorkoutScreen
++TRN_006,"Workout Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_006_WorkoutDetail.kt,TRN006WorkoutDetailScreen
++TRN_007,"Start Workout",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_007_StartWorkout.kt,TRN007StartWorkoutScreen
++TRN_008,"Reschedule Workout",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_008_RescheduleWorkout.kt,TRN008RescheduleWorkoutScreen
++TRN_009,"Quick Start",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_009_QuickStart.kt,TRN009QuickStartScreen
++TRN_010,"Weekly Plan",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_010_WeeklyPlan.kt,TRN010WeeklyPlanScreen
++TRN_011,"Weekly Day Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_011_WeeklyDayDetail.kt,TRN011WeeklyDayDetailScreen
++TRN_012,"Less Time Today",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_012_LessTimeToday.kt,TRN012LessTimeTodayScreen
++TRN_013,"Equipment Unavailable",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_013_EquipmentUnavailable.kt,TRN013EquipmentUnavailableScreen
++TRN_014,"Replacement Options",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_014_ReplacementOptions.kt,TRN014ReplacementOptionsScreen
++TRN_015,"Recovery Day",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_015_RecoveryDay.kt,TRN015RecoveryDayScreen
++TRN_016,"Missed Workout",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_016_MissedWorkout.kt,TRN016MissedWorkoutScreen
++TRN_017,"Program Settings",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_017_ProgramSettings.kt,TRN017ProgramSettingsScreen
++TRN_018,"Program Revision History",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_018_ProgramRevisionHistory.kt,TRN018ProgramRevisionHistoryScreen
++TRN_019,"Recent Workouts",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_019_RecentWorkouts.kt,TRN019RecentWorkoutsScreen
++TRN_020,"Train Loading",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_020_TrainLoading.kt,TRN020TrainLoadingScreen
++TRN_021,"Train Empty",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_021_TrainEmpty.kt,TRN021TrainEmptyScreen
++TRN_022,"Train Unknown",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_022_TrainUnknown.kt,TRN022TrainUnknownScreen
++TRN_023,"Train Offline",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_023_TrainOffline.kt,TRN023TrainOfflineScreen
++TRN_024,"Train Stale",app/src/main/java/com/movefuel/mufil2/ui/screens/trn/TRN_024_TrainStale.kt,TRN024TrainStaleScreen
++WRK_001,"Pre Workout",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_001_PreWorkout.kt,WRK001PreWorkoutScreen
++WRK_002,"Workout Start",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_002_WorkoutStart.kt,WRK002WorkoutStartScreen
++WRK_003,"Active Exercise",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_003_ActiveExercise.kt,WRK003ActiveExerciseScreen
++WRK_004,"Exercise Media Loading",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_004_ExerciseMediaLoading.kt,WRK004ExerciseMediaLoadingScreen
++WRK_005,"Exercise Instructions",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_005_ExerciseInstructions.kt,WRK005ExerciseInstructionsScreen
++WRK_006,"Set Input",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_006_SetInput.kt,WRK006SetInputScreen
++WRK_007,"Reps Input",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_007_RepsInput.kt,WRK007RepsInputScreen
++WRK_008,"Load Input",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_008_LoadInput.kt,WRK008LoadInputScreen
++WRK_009,"Time Input",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_009_TimeInput.kt,WRK009TimeInputScreen
++WRK_010,"Distance Input",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_010_DistanceInput.kt,WRK010DistanceInputScreen
++WRK_011,"RPE Input",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_011_RPEInput.kt,WRK011RPEInputScreen
++WRK_012,"Review Set",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_012_ReviewSet.kt,WRK012ReviewSetScreen
++WRK_013,"Complete Set",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_013_CompleteSet.kt,WRK013CompleteSetScreen
++WRK_014,"Rest Timer",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_014_RestTimer.kt,WRK014RestTimerScreen
++WRK_015,"Extend Rest",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_015_ExtendRest.kt,WRK015ExtendRestScreen
++WRK_016,"Skip Rest",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_016_SkipRest.kt,WRK016SkipRestScreen
++WRK_017,"Next Set",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_017_NextSet.kt,WRK017NextSetScreen
++WRK_018,"Exercise Complete",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_018_ExerciseComplete.kt,WRK018ExerciseCompleteScreen
++WRK_019,"Next Exercise",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_019_NextExercise.kt,WRK019NextExerciseScreen
++WRK_020,"Substitute Exercise",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_020_SubstituteExercise.kt,WRK020SubstituteExerciseScreen
++WRK_021,"Substitution Candidates",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_021_SubstitutionCandidates.kt,WRK021SubstitutionCandidatesScreen
++WRK_022,"Substitution Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_022_SubstitutionDetail.kt,WRK022SubstitutionDetailScreen
++WRK_023,"Confirm Substitute",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_023_ConfirmSubstitute.kt,WRK023ConfirmSubstituteScreen
++WRK_024,"Skip Set",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_024_SkipSet.kt,WRK024SkipSetScreen
++WRK_025,"Skip Exercise",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_025_SkipExercise.kt,WRK025SkipExerciseScreen
++WRK_026,"Workout Note",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_026_WorkoutNote.kt,WRK026WorkoutNoteScreen
++WRK_027,"Pause Workout",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_027_PauseWorkout.kt,WRK027PauseWorkoutScreen
++WRK_028,"Resume Workout",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_028_ResumeWorkout.kt,WRK028ResumeWorkoutScreen
++WRK_029,"Pain Safety Pause",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_029_PainSafetyPause.kt,WRK029PainSafetyPauseScreen
++WRK_030,"Finish Early Confirmation",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_030_FinishEarlyConfirmation.kt,WRK030FinishEarlyConfirmationScreen
++WRK_031,"Post Workout Check In",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_031_PostWorkoutCheckIn.kt,WRK031PostWorkoutCheckInScreen
++WRK_032,"Workout Summary",app/src/main/java/com/movefuel/mufil2/ui/screens/wrk/WRK_032_WorkoutSummary.kt,WRK032WorkoutSummaryScreen
++SOR_001,"Soreness Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/sor/SOR_001_SorenessDashboard.kt,SOR001SorenessDashboardScreen
++SOR_002,"Front Body Map",app/src/main/java/com/movefuel/mufil2/ui/screens/sor/SOR_002_FrontBodyMap.kt,SOR002FrontBodyMapScreen
++SOR_003,"Back Body Map",app/src/main/java/com/movefuel/mufil2/ui/screens/sor/SOR_003_BackBodyMap.kt,SOR003BackBodyMapScreen
++SOR_004,"Select Region",app/src/main/java/com/movefuel/mufil2/ui/screens/sor/SOR_004_SelectRegion.kt,SOR004SelectRegionScreen
++SOR_005,"Soreness Severity",app/src/main/java/com/movefuel/mufil2/ui/screens/sor/SOR_005_SorenessSeverity.kt,SOR005SorenessSeverityScreen
++SOR_006,"Multiple Region Review",app/src/main/java/com/movefuel/mufil2/ui/screens/sor/SOR_006_MultipleRegionReview.kt,SOR006MultipleRegionReviewScreen
++SOR_007,"Save Soreness",app/src/main/java/com/movefuel/mufil2/ui/screens/sor/SOR_007_SaveSoreness.kt,SOR007SaveSorenessScreen
++SOR_008,"Current Soreness Summary",app/src/main/java/com/movefuel/mufil2/ui/screens/sor/SOR_008_CurrentSorenessSummary.kt,SOR008CurrentSorenessSummaryScreen
++SOR_009,"Soreness History",app/src/main/java/com/movefuel/mufil2/ui/screens/sor/SOR_009_SorenessHistory.kt,SOR009SorenessHistoryScreen
++SOR_010,"Pain Safety Route",app/src/main/java/com/movefuel/mufil2/ui/screens/sor/SOR_010_PainSafetyRoute.kt,SOR010PainSafetyRouteScreen
++RDY_001,"Readiness Check In",app/src/main/java/com/movefuel/mufil2/ui/screens/rdy/RDY_001_ReadinessCheckIn.kt,RDY001ReadinessCheckInScreen
++RDY_002,"Energy Check",app/src/main/java/com/movefuel/mufil2/ui/screens/rdy/RDY_002_EnergyCheck.kt,RDY002EnergyCheckScreen
++RDY_003,"Fatigue Check",app/src/main/java/com/movefuel/mufil2/ui/screens/rdy/RDY_003_FatigueCheck.kt,RDY003FatigueCheckScreen
++RDY_004,"Recovery Sleep Check",app/src/main/java/com/movefuel/mufil2/ui/screens/rdy/RDY_004_RecoverySleepCheck.kt,RDY004RecoverySleepCheckScreen
++RDY_005,"Soreness Check",app/src/main/java/com/movefuel/mufil2/ui/screens/rdy/RDY_005_SorenessCheck.kt,RDY005SorenessCheckScreen
++RDY_006,"Evaluating Readiness",app/src/main/java/com/movefuel/mufil2/ui/screens/rdy/RDY_006_EvaluatingReadiness.kt,RDY006EvaluatingReadinessScreen
++RDY_007,"Readiness Full",app/src/main/java/com/movefuel/mufil2/ui/screens/rdy/RDY_007_ReadinessFull.kt,RDY007ReadinessFullScreen
++RDY_008,"Readiness Reduced",app/src/main/java/com/movefuel/mufil2/ui/screens/rdy/RDY_008_ReadinessReduced.kt,RDY008ReadinessReducedScreen
++RDY_009,"Readiness Recovery",app/src/main/java/com/movefuel/mufil2/ui/screens/rdy/RDY_009_ReadinessRecovery.kt,RDY009ReadinessRecoveryScreen
++RDY_010,"Readiness Stop",app/src/main/java/com/movefuel/mufil2/ui/screens/rdy/RDY_010_ReadinessStop.kt,RDY010ReadinessStopScreen
++EXR_001,"Exercise Library",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_001_ExerciseLibrary.kt,EXR001ExerciseLibraryScreen
++EXR_002,"Exercise Search",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_002_ExerciseSearch.kt,EXR002ExerciseSearchScreen
++EXR_003,"Exercise Filters",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_003_ExerciseFilters.kt,EXR003ExerciseFiltersScreen
++EXR_004,"Filter Equipment",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_004_FilterEquipment.kt,EXR004FilterEquipmentScreen
++EXR_005,"Filter Movement",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_005_FilterMovement.kt,EXR005FilterMovementScreen
++EXR_006,"Filter Muscle",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_006_FilterMuscle.kt,EXR006FilterMuscleScreen
++EXR_007,"Filter Environment",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_007_FilterEnvironment.kt,EXR007FilterEnvironmentScreen
++EXR_008,"Filter Difficulty",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_008_FilterDifficulty.kt,EXR008FilterDifficultyScreen
++EXR_009,"Exercise Results",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_009_ExerciseResults.kt,EXR009ExerciseResultsScreen
++EXR_010,"Exercise Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_010_ExerciseDetail.kt,EXR010ExerciseDetailScreen
++EXR_011,"Exercise Media",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_011_ExerciseMedia.kt,EXR011ExerciseMediaScreen
++EXR_012,"Exercise Setup",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_012_ExerciseSetup.kt,EXR012ExerciseSetupScreen
++EXR_013,"Exercise Execution",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_013_ExerciseExecution.kt,EXR013ExerciseExecutionScreen
++EXR_014,"Technique Cues",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_014_TechniqueCues.kt,EXR014TechniqueCuesScreen
++EXR_015,"Common Mistakes",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_015_CommonMistakes.kt,EXR015CommonMistakesScreen
++EXR_016,"Exercise Substitutions",app/src/main/java/com/movefuel/mufil2/ui/screens/exr/EXR_016_ExerciseSubstitutions.kt,EXR016ExerciseSubstitutionsScreen
++CAL_001,"Calendar Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_001_CalendarDashboard.kt,CAL001CalendarDashboardScreen
++CAL_002,"Month View",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_002_MonthView.kt,CAL002MonthViewScreen
++CAL_003,"Week View",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_003_WeekView.kt,CAL003WeekViewScreen
++CAL_004,"Day View",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_004_DayView.kt,CAL004DayViewScreen
++CAL_005,"Selected Date",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_005_SelectedDate.kt,CAL005SelectedDateScreen
++CAL_006,"Workout Event",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_006_WorkoutEvent.kt,CAL006WorkoutEventScreen
++CAL_007,"Meal Event",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_007_MealEvent.kt,CAL007MealEventScreen
++CAL_008,"Recovery Event",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_008_RecoveryEvent.kt,CAL008RecoveryEventScreen
++CAL_009,"Reschedule Event",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_009_RescheduleEvent.kt,CAL009RescheduleEventScreen
++CAL_010,"Choose Date",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_010_ChooseDate.kt,CAL010ChooseDateScreen
++CAL_011,"Choose Time",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_011_ChooseTime.kt,CAL011ChooseTimeScreen
++CAL_012,"Calendar Conflict",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_012_CalendarConflict.kt,CAL012CalendarConflictScreen
++CAL_013,"Conflict Explanation",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_013_ConflictExplanation.kt,CAL013ConflictExplanationScreen
++CAL_014,"Suggested Alternatives",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_014_SuggestedAlternatives.kt,CAL014SuggestedAlternativesScreen
++CAL_015,"Confirm Reschedule",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_015_ConfirmReschedule.kt,CAL015ConfirmRescheduleScreen
++CAL_016,"Missed Workout",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_016_MissedWorkout.kt,CAL016MissedWorkoutScreen
++CAL_017,"Missed Meal",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_017_MissedMeal.kt,CAL017MissedMealScreen
++CAL_018,"Calendar Offline",app/src/main/java/com/movefuel/mufil2/ui/screens/cal/CAL_018_CalendarOffline.kt,CAL018CalendarOfflineScreen
++PRG_001,"Progress Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_001_ProgressDashboard.kt,PRG001ProgressDashboardScreen
++PRG_002,"Metric Selector",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_002_MetricSelector.kt,PRG002MetricSelectorScreen
++PRG_003,"Range 7 Days",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_003_Range7Days.kt,PRG003Range7DaysScreen
++PRG_004,"Range 30 Days",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_004_Range30Days.kt,PRG004Range30DaysScreen
++PRG_005,"Range 3 Months",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_005_Range3Months.kt,PRG005Range3MonthsScreen
++PRG_006,"Range 6 Months",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_006_Range6Months.kt,PRG006Range6MonthsScreen
++PRG_007,"Range 1 Year",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_007_Range1Year.kt,PRG007Range1YearScreen
++PRG_008,"Range All",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_008_RangeAll.kt,PRG008RangeAllScreen
++PRG_009,"Expanded Graph",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_009_ExpandedGraph.kt,PRG009ExpandedGraphScreen
++PRG_010,"Exact Data Point",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_010_ExactDataPoint.kt,PRG010ExactDataPointScreen
++PRG_011,"Missing Data Period",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_011_MissingDataPeriod.kt,PRG011MissingDataPeriodScreen
++PRG_012,"Data Coverage",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_012_DataCoverage.kt,PRG012DataCoverageScreen
++PRG_013,"Goal Progress",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_013_GoalProgress.kt,PRG013GoalProgressScreen
++PRG_014,"Target Revision Marker",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_014_TargetRevisionMarker.kt,PRG014TargetRevisionMarkerScreen
++PRG_015,"Milestone Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_015_MilestoneDetail.kt,PRG015MilestoneDetailScreen
++PRG_016,"Personal Records",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_016_PersonalRecords.kt,PRG016PersonalRecordsScreen
++PRG_017,"Training Progress",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_017_TrainingProgress.kt,PRG017TrainingProgressScreen
++PRG_018,"Strength Progress",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_018_StrengthProgress.kt,PRG018StrengthProgressScreen
++PRG_019,"Training Volume",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_019_TrainingVolume.kt,PRG019TrainingVolumeScreen
++PRG_020,"Workout Consistency",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_020_WorkoutConsistency.kt,PRG020WorkoutConsistencyScreen
++PRG_021,"Workout Duration",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_021_WorkoutDuration.kt,PRG021WorkoutDurationScreen
++PRG_022,"Nutrition Progress",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_022_NutritionProgress.kt,PRG022NutritionProgressScreen
++PRG_023,"Nutrition Averages",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_023_NutritionAverages.kt,PRG023NutritionAveragesScreen
++PRG_024,"Protein Trend",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_024_ProteinTrend.kt,PRG024ProteinTrendScreen
++PRG_025,"Fiber Trend",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_025_FiberTrend.kt,PRG025FiberTrendScreen
++PRG_026,"Activity Progress",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_026_ActivityProgress.kt,PRG026ActivityProgressScreen
++PRG_027,"Running Progress",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_027_RunningProgress.kt,PRG027RunningProgressScreen
++PRG_028,"Swimming Progress",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_028_SwimmingProgress.kt,PRG028SwimmingProgressScreen
++PRG_029,"Weekly Report",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_029_WeeklyReport.kt,PRG029WeeklyReportScreen
++PRG_030,"Monthly Report",app/src/main/java/com/movefuel/mufil2/ui/screens/prg/PRG_030_MonthlyReport.kt,PRG030MonthlyReportScreen
++PRO_001,"Profile Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_001_ProfileDashboard.kt,PRO001ProfileDashboardScreen
++PRO_002,"Personal Details",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_002_PersonalDetails.kt,PRO002PersonalDetailsScreen
++PRO_003,"Targets and Goals",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_003_TargetsAndGoals.kt,PRO003TargetsAndGoalsScreen
++PRO_004,"Edit Target",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_004_EditTarget.kt,PRO004EditTargetScreen
++PRO_005,"Target Preview",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_005_TargetPreview.kt,PRO005TargetPreviewScreen
++PRO_006,"Target Revision History",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_006_TargetRevisionHistory.kt,PRO006TargetRevisionHistoryScreen
++PRO_007,"Units",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_007_Units.kt,PRO007UnitsScreen
++PRO_008,"Language and Region",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_008_LanguageAndRegion.kt,PRO008LanguageAndRegionScreen
++PRO_009,"Appearance",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_009_Appearance.kt,PRO009AppearanceScreen
++PRO_010,"Sound and Haptics",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_010_SoundAndHaptics.kt,PRO010SoundAndHapticsScreen
++PRO_011,"Notifications",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_011_Notifications.kt,PRO011NotificationsScreen
++PRO_012,"Privacy and Data",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_012_PrivacyAndData.kt,PRO012PrivacyAndDataScreen
++PRO_013,"Export Data",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_013_ExportData.kt,PRO013ExportDataScreen
++PRO_014,"Delete Account",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_014_DeleteAccount.kt,PRO014DeleteAccountScreen
++PRO_015,"Terms and Privacy",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_015_TermsAndPrivacy.kt,PRO015TermsAndPrivacyScreen
++PRO_016,"Help Center",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_016_HelpCenter.kt,PRO016HelpCenterScreen
++PRO_017,"Finish Personalization",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_017_FinishPersonalization.kt,PRO017FinishPersonalizationScreen
++PRO_018,"Profile Offline",app/src/main/java/com/movefuel/mufil2/ui/screens/pro/PRO_018_ProfileOffline.kt,PRO018ProfileOfflineScreen
++DEV_001,"Devices Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_001_DevicesDashboard.kt,DEV001DevicesDashboardScreen
++DEV_002,"Connect Wear OS",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_002_ConnectWearOS.kt,DEV002ConnectWearOSScreen
++DEV_003,"Device Discovery",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_003_DeviceDiscovery.kt,DEV003DeviceDiscoveryScreen
++DEV_004,"Device Found",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_004_DeviceFound.kt,DEV004DeviceFoundScreen
++DEV_005,"Pairing",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_005_Pairing.kt,DEV005PairingScreen
++DEV_006,"Connected Device",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_006_ConnectedDevice.kt,DEV006ConnectedDeviceScreen
++DEV_007,"Device Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_007_DeviceDetail.kt,DEV007DeviceDetailScreen
++DEV_008,"Device Permissions",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_008_DevicePermissions.kt,DEV008DevicePermissionsScreen
++DEV_009,"Manual Sync",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_009_ManualSync.kt,DEV009ManualSyncScreen
++DEV_010,"Stale Device",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_010_StaleDevice.kt,DEV010StaleDeviceScreen
++DEV_011,"Reconnect Device",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_011_ReconnectDevice.kt,DEV011ReconnectDeviceScreen
++DEV_012,"Disconnect Device",app/src/main/java/com/movefuel/mufil2/ui/screens/dev/DEV_012_DisconnectDevice.kt,DEV012DisconnectDeviceScreen
++BIL_001,"Billing Dashboard",app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_001_BillingDashboard.kt,BIL001BillingDashboardScreen
++BIL_002,"Current Plan",app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_002_CurrentPlan.kt,BIL002CurrentPlanScreen
++BIL_003,"Compare Plans",app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_003_ComparePlans.kt,BIL003ComparePlansScreen
++BIL_004,"Plan Detail",app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_004_PlanDetail.kt,BIL004PlanDetailScreen
++BIL_005,"Purchase Confirmation",app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_005_PurchaseConfirmation.kt,BIL005PurchaseConfirmationScreen
++BIL_006,"Purchase Processing",app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_006_PurchaseProcessing.kt,BIL006PurchaseProcessingScreen
++BIL_007,"Purchase Result",app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_007_PurchaseResult.kt,BIL007PurchaseResultScreen
++BIL_008,"Restore Purchase",app/src/main/java/com/movefuel/mufil2/ui/screens/bil/BIL_008_RestorePurchase.kt,BIL008RestorePurchaseScreen
++WAR_001,"Wear Today",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_001_WearToday.kt,WAR001WearTodayScreen
++WAR_002,"Wear Readiness",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_002_WearReadiness.kt,WAR002WearReadinessScreen
++WAR_003,"Wear Workout Preview",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_003_WearWorkoutPreview.kt,WAR003WearWorkoutPreviewScreen
++WAR_004,"Wear Active Exercise",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_004_WearActiveExercise.kt,WAR004WearActiveExerciseScreen
++WAR_005,"Wear Set Input",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_005_WearSetInput.kt,WAR005WearSetInputScreen
++WAR_006,"Wear Complete Set",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_006_WearCompleteSet.kt,WAR006WearCompleteSetScreen
++WAR_007,"Wear Rest Timer",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_007_WearRestTimer.kt,WAR007WearRestTimerScreen
++WAR_008,"Wear Substitute",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_008_WearSubstitute.kt,WAR008WearSubstituteScreen
++WAR_009,"Wear Pause",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_009_WearPause.kt,WAR009WearPauseScreen
++WAR_010,"Wear Finish",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_010_WearFinish.kt,WAR010WearFinishScreen
++WAR_011,"Wear Summary",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_011_WearSummary.kt,WAR011WearSummaryScreen
++WAR_012,"Wear Sync Pending",app/src/main/java/com/movefuel/mufil2/ui/screens/war/WAR_012_WearSyncPending.kt,WAR012WearSyncPendingScreen
++SYS_001,"System Loading",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_001_SystemLoading.kt,SYS001SystemLoadingScreen
++SYS_002,"System Empty",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_002_SystemEmpty.kt,SYS002SystemEmptyScreen
++SYS_003,"System Unknown",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_003_SystemUnknown.kt,SYS003SystemUnknownScreen
++SYS_004,"System Partial Data",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_004_SystemPartialData.kt,SYS004SystemPartialDataScreen
++SYS_005,"System Offline",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_005_SystemOffline.kt,SYS005SystemOfflineScreen
++SYS_006,"System Saved Offline",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_006_SystemSavedOffline.kt,SYS006SystemSavedOfflineScreen
++SYS_007,"System Stale",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_007_SystemStale.kt,SYS007SystemStaleScreen
++SYS_008,"Retryable Error",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_008_RetryableError.kt,SYS008RetryableErrorScreen
++SYS_009,"Unavailable State",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_009_UnavailableState.kt,SYS009UnavailableStateScreen
++SYS_010,"Permission Required",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_010_PermissionRequired.kt,SYS010PermissionRequiredScreen
++SYS_011,"Permission Denied",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_011_PermissionDenied.kt,SYS011PermissionDeniedScreen
++SYS_012,"Unsaved Changes",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_012_UnsavedChanges.kt,SYS012UnsavedChangesScreen
++SYS_013,"Destructive Confirmation",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_013_DestructiveConfirmation.kt,SYS013DestructiveConfirmationScreen
++SYS_014,"Success State",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_014_SuccessState.kt,SYS014SuccessStateScreen
++SYS_015,"Syncing",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_015_Syncing.kt,SYS015SyncingScreen
++SYS_016,"Sync Pending",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_016_SyncPending.kt,SYS016SyncPendingScreen
++SYS_017,"Sync Failed",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_017_SyncFailed.kt,SYS017SyncFailedScreen
++SYS_018,"Conflict Review",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_018_ConflictReview.kt,SYS018ConflictReviewScreen
++SYS_019,"Interrupted Flow",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_019_InterruptedFlow.kt,SYS019InterruptedFlowScreen
++SYS_020,"Restored Flow",app/src/main/java/com/movefuel/mufil2/ui/screens/sys/SYS_020_RestoredFlow.kt,SYS020RestoredFlowScreen
+\ No newline at end of file
+diff --git a/Mufil-2/app/build.gradle.kts b/Mufil-2/app/build.gradle.kts
+--- a/Mufil-2/app/build.gradle.kts
++++ b/Mufil-2/app/build.gradle.kts
+@@ -1,6 +1,5 @@
+ plugins {
+     id("com.android.application")
+-    id("org.jetbrains.kotlin.android")
+     id("org.jetbrains.kotlin.plugin.compose")
+ }
+ 
+@@ -16,13 +15,14 @@ android {
+         versionName = "0.1-ui-prototype"
+     }
+ 
+-    buildFeatures { compose = true }
++    buildFeatures {
++        compose = true
++    }
+ 
+     compileOptions {
+         sourceCompatibility = JavaVersion.VERSION_17
+         targetCompatibility = JavaVersion.VERSION_17
+     }
+-    kotlinOptions { jvmTarget = "17" }
+ 
+     packaging {
+         resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFCard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFCard.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFCard.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFCard.kt
+@@ -9,6 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
+ import androidx.compose.material3.Surface
+ import androidx.compose.runtime.Composable
+ import androidx.compose.ui.Modifier
++import androidx.compose.ui.unit.dp
+ import com.movefuel.mufil2.ui.design.MoveFuelColors
+ import com.movefuel.mufil2.ui.design.MoveFuelRadius
+ import com.movefuel.mufil2.ui.design.MoveFuelSpacing
+@@ -23,7 +24,7 @@ fun MFCard(
+         modifier = modifier,
+         color = MoveFuelColors.Surface2,
+         shape = RoundedCornerShape(MoveFuelRadius.Card),
+-        border = BorderStroke(width = androidx.compose.ui.unit.dp(1f), color = MoveFuelColors.Border),
++        border = BorderStroke(width = 1.dp, color = MoveFuelColors.Border),
+     ) {
+         Column(Modifier.padding(contentPadding), content = content)
+     }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt
+@@ -2,6 +2,7 @@ package com.movefuel.mufil2.ui.components
+ 
+ import androidx.compose.foundation.Canvas
+ import androidx.compose.foundation.layout.Box
++import androidx.compose.foundation.layout.matchParentSize
+ import androidx.compose.foundation.layout.size
+ import androidx.compose.material3.Text
+ import androidx.compose.runtime.Composable
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/navigation/MoveFuelNavGraph.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/navigation/MoveFuelNavGraph.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/navigation/MoveFuelNavGraph.kt
+@@ -0,0 +1,451 @@
++package com.movefuel.mufil2.ui.navigation
++
++import androidx.compose.runtime.Composable
++import androidx.navigation.NavHostController
++import androidx.navigation.compose.NavHost
++import androidx.navigation.compose.composable
++import com.movefuel.mufil2.ui.master.FuelMasterDashboard
++import com.movefuel.mufil2.ui.master.ProgressMasterDashboard
++import com.movefuel.mufil2.ui.master.TodayMasterDashboard
++import com.movefuel.mufil2.ui.master.TrainMasterDashboard
++import com.movefuel.mufil2.ui.screens.auth.*
++import com.movefuel.mufil2.ui.screens.onb.*
++import com.movefuel.mufil2.ui.screens.tod.*
++import com.movefuel.mufil2.ui.screens.cam.*
++import com.movefuel.mufil2.ui.screens.bar.*
++import com.movefuel.mufil2.ui.screens.fno.*
++import com.movefuel.mufil2.ui.screens.fpl.*
++import com.movefuel.mufil2.ui.screens.fsh.*
++import com.movefuel.mufil2.ui.screens.rcp.*
++import com.movefuel.mufil2.ui.screens.trs.*
++import com.movefuel.mufil2.ui.screens.trn.*
++import com.movefuel.mufil2.ui.screens.wrk.*
++import com.movefuel.mufil2.ui.screens.sor.*
++import com.movefuel.mufil2.ui.screens.rdy.*
++import com.movefuel.mufil2.ui.screens.exr.*
++import com.movefuel.mufil2.ui.screens.cal.*
++import com.movefuel.mufil2.ui.screens.prg.*
++import com.movefuel.mufil2.ui.screens.pro.*
++import com.movefuel.mufil2.ui.screens.dev.*
++import com.movefuel.mufil2.ui.screens.bil.*
++import com.movefuel.mufil2.ui.screens.war.*
++import com.movefuel.mufil2.ui.screens.sys.*
++
++@Composable
++fun MoveFuelNavGraph(navController: NavHostController) {
++    val navigate: (MoveFuelRoute) -> Unit = { route ->
++        navController.navigate(route.path) {
++            launchSingleTop = true
++        }
++    }
++
++    NavHost(
++        navController = navController,
++        startDestination = MoveFuelRoute.MASTER_TODAY.path,
++    ) {
++        composable(MoveFuelRoute.MASTER_TODAY.path) { TodayMasterDashboard(navigate) }
++        composable(MoveFuelRoute.MASTER_FUEL.path) { FuelMasterDashboard(navigate) }
++        composable(MoveFuelRoute.MASTER_TRAIN.path) { TrainMasterDashboard(navigate) }
++        composable(MoveFuelRoute.MASTER_PROGRESS.path) { ProgressMasterDashboard(navigate) }
++        composable(MoveFuelRoute.AUTH_001.path) { AUTH001SecureRestoreScreen(navigate) }
++        composable(MoveFuelRoute.AUTH_002.path) { AUTH002SignInScreen(navigate) }
++        composable(MoveFuelRoute.AUTH_003.path) { AUTH003CreateAccountScreen(navigate) }
++        composable(MoveFuelRoute.AUTH_004.path) { AUTH004VerifyEmailScreen(navigate) }
++        composable(MoveFuelRoute.AUTH_005.path) { AUTH005ResendVerificationScreen(navigate) }
++        composable(MoveFuelRoute.AUTH_006.path) { AUTH006VerificationSuccessScreen(navigate) }
++        composable(MoveFuelRoute.AUTH_007.path) { AUTH007VerificationExpiredScreen(navigate) }
++        composable(MoveFuelRoute.AUTH_008.path) { AUTH008ForgotPasswordScreen(navigate) }
++        composable(MoveFuelRoute.AUTH_009.path) { AUTH009ResetPasswordScreen(navigate) }
++        composable(MoveFuelRoute.AUTH_010.path) { AUTH010PasswordResetSuccessScreen(navigate) }
++        composable(MoveFuelRoute.AUTH_011.path) { AUTH011OfflineAccountStateScreen(navigate) }
++        composable(MoveFuelRoute.AUTH_012.path) { AUTH012SessionExpiredScreen(navigate) }
++        composable(MoveFuelRoute.ONB_001.path) { ONB001WelcomeScreen(navigate) }
++        composable(MoveFuelRoute.ONB_002.path) { ONB002SetupChoiceScreen(navigate) }
++        composable(MoveFuelRoute.ONB_003.path) { ONB003NameScreen(navigate) }
++        composable(MoveFuelRoute.ONB_004.path) { ONB004DateOfBirthScreen(navigate) }
++        composable(MoveFuelRoute.ONB_005.path) { ONB005CountryLanguageTimezoneScreen(navigate) }
++        composable(MoveFuelRoute.ONB_006.path) { ONB006UnitsScreen(navigate) }
++        composable(MoveFuelRoute.ONB_007.path) { ONB007HeightScreen(navigate) }
++        composable(MoveFuelRoute.ONB_008.path) { ONB008CurrentWeightScreen(navigate) }
++        composable(MoveFuelRoute.ONB_009.path) { ONB009EnergyEstimationSettingScreen(navigate) }
++        composable(MoveFuelRoute.ONB_010.path) { ONB010DailyActivityScreen(navigate) }
++        composable(MoveFuelRoute.ONB_011.path) { ONB011OptionalBodyCompositionScreen(navigate) }
++        composable(MoveFuelRoute.ONB_012.path) { ONB012PrimaryGoalScreen(navigate) }
++        composable(MoveFuelRoute.ONB_013.path) { ONB013TargetContextScreen(navigate) }
++        composable(MoveFuelRoute.ONB_014.path) { ONB014TrainingFrequencyScreen(navigate) }
++        composable(MoveFuelRoute.ONB_015.path) { ONB015SessionDurationScreen(navigate) }
++        composable(MoveFuelRoute.ONB_016.path) { ONB016DietaryPreferencesScreen(navigate) }
++        composable(MoveFuelRoute.ONB_017.path) { ONB017AllergiesAndExclusionsScreen(navigate) }
++        composable(MoveFuelRoute.ONB_018.path) { ONB018TargetReviewAndFinishScreen(navigate) }
++        composable(MoveFuelRoute.TOD_001.path) { TOD001TodayDashboardScreen(navigate) }
++        composable(MoveFuelRoute.TOD_002.path) { TOD002NutritionExpandedScreen(navigate) }
++        composable(MoveFuelRoute.TOD_003.path) { TOD003NextActionDetailScreen(navigate) }
++        composable(MoveFuelRoute.TOD_004.path) { TOD004DeviceStatusScreen(navigate) }
++        composable(MoveFuelRoute.TOD_005.path) { TOD005TodayWorkoutPreviewScreen(navigate) }
++        composable(MoveFuelRoute.TOD_006.path) { TOD006TodayMealPlanScreen(navigate) }
++        composable(MoveFuelRoute.TOD_007.path) { TOD007ConfirmedMealsScreen(navigate) }
++        composable(MoveFuelRoute.TOD_008.path) { TOD008TodayLoadingScreen(navigate) }
++        composable(MoveFuelRoute.TOD_009.path) { TOD009TodayEmptyScreen(navigate) }
++        composable(MoveFuelRoute.TOD_010.path) { TOD010TodayUnknownScreen(navigate) }
++        composable(MoveFuelRoute.TOD_011.path) { TOD011TodayOfflineScreen(navigate) }
++        composable(MoveFuelRoute.TOD_012.path) { TOD012TodayStaleScreen(navigate) }
++        composable(MoveFuelRoute.CAM_001.path) { CAM001FoodCameraScreen(navigate) }
++        composable(MoveFuelRoute.CAM_002.path) { CAM002CameraPermissionScreen(navigate) }
++        composable(MoveFuelRoute.CAM_003.path) { CAM003FoodFramingScreen(navigate) }
++        composable(MoveFuelRoute.CAM_004.path) { CAM004GalleryPickerScreen(navigate) }
++        composable(MoveFuelRoute.CAM_005.path) { CAM005ImagePreviewScreen(navigate) }
++        composable(MoveFuelRoute.CAM_006.path) { CAM006CheckingImageScreen(navigate) }
++        composable(MoveFuelRoute.CAM_007.path) { CAM007DetectingFoodsScreen(navigate) }
++        composable(MoveFuelRoute.CAM_008.path) { CAM008MultiFoodDetectionScreen(navigate) }
++        composable(MoveFuelRoute.CAM_009.path) { CAM009EstimatingPortionsScreen(navigate) }
++        composable(MoveFuelRoute.CAM_010.path) { CAM010NutritionMatchingScreen(navigate) }
++        composable(MoveFuelRoute.CAM_011.path) { CAM011DetectedFoodReviewScreen(navigate) }
++        composable(MoveFuelRoute.CAM_012.path) { CAM012EditFoodIdentityScreen(navigate) }
++        composable(MoveFuelRoute.CAM_013.path) { CAM013EditPortionScreen(navigate) }
++        composable(MoveFuelRoute.CAM_014.path) { CAM014AddMissedFoodScreen(navigate) }
++        composable(MoveFuelRoute.CAM_015.path) { CAM015LowConfidenceClarificationScreen(navigate) }
++        composable(MoveFuelRoute.CAM_016.path) { CAM016NutritionUnavailableScreen(navigate) }
++        composable(MoveFuelRoute.CAM_017.path) { CAM017FinalMealReviewScreen(navigate) }
++        composable(MoveFuelRoute.CAM_018.path) { CAM018AnalysisFailureScreen(navigate) }
++        composable(MoveFuelRoute.BAR_001.path) { BAR001BarcodeScannerScreen(navigate) }
++        composable(MoveFuelRoute.BAR_002.path) { BAR002ScanningScreen(navigate) }
++        composable(MoveFuelRoute.BAR_003.path) { BAR003BarcodeDetectedScreen(navigate) }
++        composable(MoveFuelRoute.BAR_004.path) { BAR004ProductLookupScreen(navigate) }
++        composable(MoveFuelRoute.BAR_005.path) { BAR005ProductFoundScreen(navigate) }
++        composable(MoveFuelRoute.BAR_006.path) { BAR006ServingSelectorScreen(navigate) }
++        composable(MoveFuelRoute.BAR_007.path) { BAR007ExpandedNutritionScreen(navigate) }
++        composable(MoveFuelRoute.BAR_008.path) { BAR008IngredientsAndAllergensScreen(navigate) }
++        composable(MoveFuelRoute.BAR_009.path) { BAR009AddToMealScreen(navigate) }
++        composable(MoveFuelRoute.BAR_010.path) { BAR010MealSelectorScreen(navigate) }
++        composable(MoveFuelRoute.BAR_011.path) { BAR011ConfirmProductScreen(navigate) }
++        composable(MoveFuelRoute.BAR_012.path) { BAR012AddToShopScreen(navigate) }
++        composable(MoveFuelRoute.BAR_013.path) { BAR013ProductNotFoundScreen(navigate) }
++        composable(MoveFuelRoute.BAR_014.path) { BAR014NutritionLabelCameraScreen(navigate) }
++        composable(MoveFuelRoute.BAR_015.path) { BAR015LabelReviewScreen(navigate) }
++        composable(MoveFuelRoute.BAR_016.path) { BAR016CustomProductScreen(navigate) }
++        composable(MoveFuelRoute.FNO_001.path) { FNO001FuelNowDashboardScreen(navigate) }
++        composable(MoveFuelRoute.FNO_002.path) { FNO002SelectedDateScreen(navigate) }
++        composable(MoveFuelRoute.FNO_003.path) { FNO003NutritionSummaryScreen(navigate) }
++        composable(MoveFuelRoute.FNO_004.path) { FNO004ExpandedNutritionScreen(navigate) }
++        composable(MoveFuelRoute.FNO_005.path) { FNO005MealGroupsScreen(navigate) }
++        composable(MoveFuelRoute.FNO_006.path) { FNO006MealDetailScreen(navigate) }
++        composable(MoveFuelRoute.FNO_007.path) { FNO007EditMealScreen(navigate) }
++        composable(MoveFuelRoute.FNO_008.path) { FNO008DeleteMealConfirmationScreen(navigate) }
++        composable(MoveFuelRoute.FNO_009.path) { FNO009AddFoodMenuScreen(navigate) }
++        composable(MoveFuelRoute.FNO_010.path) { FNO010FoodSearchScreen(navigate) }
++        composable(MoveFuelRoute.FNO_011.path) { FNO011FoodDetailScreen(navigate) }
++        composable(MoveFuelRoute.FNO_012.path) { FNO012ServingSelectorScreen(navigate) }
++        composable(MoveFuelRoute.FNO_013.path) { FNO013RecentFoodsScreen(navigate) }
++        composable(MoveFuelRoute.FNO_014.path) { FNO014FrequentFoodsScreen(navigate) }
++        composable(MoveFuelRoute.FNO_015.path) { FNO015FavoritesScreen(navigate) }
++        composable(MoveFuelRoute.FNO_016.path) { FNO016SavedMealsScreen(navigate) }
++        composable(MoveFuelRoute.FNO_017.path) { FNO017FuelEmptyScreen(navigate) }
++        composable(MoveFuelRoute.FNO_018.path) { FNO018FuelOfflineScreen(navigate) }
++        composable(MoveFuelRoute.FPL_001.path) { FPL001FuelPlanDashboardScreen(navigate) }
++        composable(MoveFuelRoute.FPL_002.path) { FPL002PlanDayViewScreen(navigate) }
++        composable(MoveFuelRoute.FPL_003.path) { FPL003PlanWeekViewScreen(navigate) }
++        composable(MoveFuelRoute.FPL_004.path) { FPL004PlanMonthViewScreen(navigate) }
++        composable(MoveFuelRoute.FPL_005.path) { FPL005PlanPreferencesScreen(navigate) }
++        composable(MoveFuelRoute.FPL_006.path) { FPL006DietPreferencesScreen(navigate) }
++        composable(MoveFuelRoute.FPL_007.path) { FPL007AllergyRulesScreen(navigate) }
++        composable(MoveFuelRoute.FPL_008.path) { FPL008CuisinePreferencesScreen(navigate) }
++        composable(MoveFuelRoute.FPL_009.path) { FPL009CookingPreferencesScreen(navigate) }
++        composable(MoveFuelRoute.FPL_010.path) { FPL010BudgetPreferencesScreen(navigate) }
++        composable(MoveFuelRoute.FPL_011.path) { FPL011PantryContextScreen(navigate) }
++        composable(MoveFuelRoute.FPL_012.path) { FPL012TrainingContextScreen(navigate) }
++        composable(MoveFuelRoute.FPL_013.path) { FPL013PlanSetupReviewScreen(navigate) }
++        composable(MoveFuelRoute.FPL_014.path) { FPL014GeneratingMealPlanScreen(navigate) }
++        composable(MoveFuelRoute.FPL_015.path) { FPL015WeeklyProposalScreen(navigate) }
++        composable(MoveFuelRoute.FPL_016.path) { FPL016DayProposalScreen(navigate) }
++        composable(MoveFuelRoute.FPL_017.path) { FPL017PlannedMealDetailScreen(navigate) }
++        composable(MoveFuelRoute.FPL_018.path) { FPL018SwapMealScreen(navigate) }
++        composable(MoveFuelRoute.FPL_019.path) { FPL019MealAlternativesScreen(navigate) }
++        composable(MoveFuelRoute.FPL_020.path) { FPL020ServingChangeScreen(navigate) }
++        composable(MoveFuelRoute.FPL_021.path) { FPL021MoveMealScreen(navigate) }
++        composable(MoveFuelRoute.FPL_022.path) { FPL022PlanConflictScreen(navigate) }
++        composable(MoveFuelRoute.FPL_023.path) { FPL023ConfirmPlanScreen(navigate) }
++        composable(MoveFuelRoute.FPL_024.path) { FPL024PlanRevisionHistoryScreen(navigate) }
++        composable(MoveFuelRoute.FSH_001.path) { FSH001ShopDashboardScreen(navigate) }
++        composable(MoveFuelRoute.FSH_002.path) { FSH002ShoppingListScreen(navigate) }
++        composable(MoveFuelRoute.FSH_003.path) { FSH003ShoppingItemDetailScreen(navigate) }
++        composable(MoveFuelRoute.FSH_004.path) { FSH004EditShoppingItemScreen(navigate) }
++        composable(MoveFuelRoute.FSH_005.path) { FSH005MarkPurchasedScreen(navigate) }
++        composable(MoveFuelRoute.FSH_006.path) { FSH006UndoPurchasedScreen(navigate) }
++        composable(MoveFuelRoute.FSH_007.path) { FSH007AddShoppingItemScreen(navigate) }
++        composable(MoveFuelRoute.FSH_008.path) { FSH008SearchGroceryScreen(navigate) }
++        composable(MoveFuelRoute.FSH_009.path) { FSH009ManualGroceryItemScreen(navigate) }
++        composable(MoveFuelRoute.FSH_010.path) { FSH010ScanGroceryBarcodeScreen(navigate) }
++        composable(MoveFuelRoute.FSH_011.path) { FSH011PlanRequirementsScreen(navigate) }
++        composable(MoveFuelRoute.FSH_012.path) { FSH012ConsolidatedIngredientsScreen(navigate) }
++        composable(MoveFuelRoute.FSH_013.path) { FSH013RecipeIngredientsScreen(navigate) }
++        composable(MoveFuelRoute.FSH_014.path) { FSH014PantryScreen(navigate) }
++        composable(MoveFuelRoute.FSH_015.path) { FSH015ShoppingEmptyScreen(navigate) }
++        composable(MoveFuelRoute.FSH_016.path) { FSH016ShoppingOfflineScreen(navigate) }
++        composable(MoveFuelRoute.RCP_001.path) { RCP001RecipesDashboardScreen(navigate) }
++        composable(MoveFuelRoute.RCP_002.path) { RCP002SavedRecipesScreen(navigate) }
++        composable(MoveFuelRoute.RCP_003.path) { RCP003RecipeSearchScreen(navigate) }
++        composable(MoveFuelRoute.RCP_004.path) { RCP004RecipeResultsScreen(navigate) }
++        composable(MoveFuelRoute.RCP_005.path) { RCP005RecipeDetailScreen(navigate) }
++        composable(MoveFuelRoute.RCP_006.path) { RCP006RecipeNutritionScreen(navigate) }
++        composable(MoveFuelRoute.RCP_007.path) { RCP007RecipeIngredientsScreen(navigate) }
++        composable(MoveFuelRoute.RCP_008.path) { RCP008CookingModeScreen(navigate) }
++        composable(MoveFuelRoute.RCP_009.path) { RCP009CookingTimerScreen(navigate) }
++        composable(MoveFuelRoute.RCP_010.path) { RCP010ServingAdjustScreen(navigate) }
++        composable(MoveFuelRoute.RCP_011.path) { RCP011IngredientSubstitutionScreen(navigate) }
++        composable(MoveFuelRoute.RCP_012.path) { RCP012AddRecipeToPlanScreen(navigate) }
++        composable(MoveFuelRoute.RCP_013.path) { RCP013AddRecipeToShopScreen(navigate) }
++        composable(MoveFuelRoute.RCP_014.path) { RCP014LogRecipeAsMealScreen(navigate) }
++        composable(MoveFuelRoute.RCP_015.path) { RCP015CreateRecipeScreen(navigate) }
++        composable(MoveFuelRoute.RCP_016.path) { RCP016CreateRecipeMetadataScreen(navigate) }
++        composable(MoveFuelRoute.RCP_017.path) { RCP017CreateRecipeIngredientsScreen(navigate) }
++        composable(MoveFuelRoute.RCP_018.path) { RCP018CreateRecipeStepsScreen(navigate) }
++        composable(MoveFuelRoute.RCP_019.path) { RCP019CreateRecipeReviewScreen(navigate) }
++        composable(MoveFuelRoute.RCP_020.path) { RCP020ImportSourceChoiceScreen(navigate) }
++        composable(MoveFuelRoute.RCP_021.path) { RCP021YouTubeImportScreen(navigate) }
++        composable(MoveFuelRoute.RCP_022.path) { RCP022WebImportScreen(navigate) }
++        composable(MoveFuelRoute.RCP_023.path) { RCP023TextImportScreen(navigate) }
++        composable(MoveFuelRoute.RCP_024.path) { RCP024ValidateImportSourceScreen(navigate) }
++        composable(MoveFuelRoute.RCP_025.path) { RCP025ImportQueuedScreen(navigate) }
++        composable(MoveFuelRoute.RCP_026.path) { RCP026ReadingSourceScreen(navigate) }
++        composable(MoveFuelRoute.RCP_027.path) { RCP027ExtractingRecipeEvidenceScreen(navigate) }
++        composable(MoveFuelRoute.RCP_028.path) { RCP028NormalizingIngredientsScreen(navigate) }
++        composable(MoveFuelRoute.RCP_029.path) { RCP029MatchingTrustedFoodsScreen(navigate) }
++        composable(MoveFuelRoute.RCP_030.path) { RCP030CheckingNutritionEligibilityScreen(navigate) }
++        composable(MoveFuelRoute.RCP_031.path) { RCP031ImportNeedsReviewScreen(navigate) }
++        composable(MoveFuelRoute.RCP_032.path) { RCP032UnresolvedIngredientScreen(navigate) }
++        composable(MoveFuelRoute.RCP_033.path) { RCP033MissingQuantityScreen(navigate) }
++        composable(MoveFuelRoute.RCP_034.path) { RCP034MissingServingsScreen(navigate) }
++        composable(MoveFuelRoute.RCP_035.path) { RCP035RecipeImportConfirmationScreen(navigate) }
++        composable(MoveFuelRoute.RCP_036.path) { RCP036RecipeImportFailureScreen(navigate) }
++        composable(MoveFuelRoute.TRS_001.path) { TRS001TrainSetupWelcomeScreen(navigate) }
++        composable(MoveFuelRoute.TRS_002.path) { TRS002TrainingExperienceScreen(navigate) }
++        composable(MoveFuelRoute.TRS_003.path) { TRS003ActivityExperienceScreen(navigate) }
++        composable(MoveFuelRoute.TRS_004.path) { TRS004TrainingGoalScreen(navigate) }
++        composable(MoveFuelRoute.TRS_005.path) { TRS005PreferredActivitiesScreen(navigate) }
++        composable(MoveFuelRoute.TRS_006.path) { TRS006EnvironmentScreen(navigate) }
++        composable(MoveFuelRoute.TRS_007.path) { TRS007EquipmentScreen(navigate) }
++        composable(MoveFuelRoute.TRS_008.path) { TRS008WeeklyAvailabilityScreen(navigate) }
++        composable(MoveFuelRoute.TRS_009.path) { TRS009PreferredDaysScreen(navigate) }
++        composable(MoveFuelRoute.TRS_010.path) { TRS010PreferredTimeScreen(navigate) }
++        composable(MoveFuelRoute.TRS_011.path) { TRS011SessionDurationScreen(navigate) }
++        composable(MoveFuelRoute.TRS_012.path) { TRS012ExercisePreferencesScreen(navigate) }
++        composable(MoveFuelRoute.TRS_013.path) { TRS013ExerciseDislikesScreen(navigate) }
++        composable(MoveFuelRoute.TRS_014.path) { TRS014MovementLimitationsScreen(navigate) }
++        composable(MoveFuelRoute.TRS_015.path) { TRS015LongTermRestrictionsScreen(navigate) }
++        composable(MoveFuelRoute.TRS_016.path) { TRS016PainSafetyScreen(navigate) }
++        composable(MoveFuelRoute.TRS_017.path) { TRS017SorenessSetupScreen(navigate) }
++        composable(MoveFuelRoute.TRS_018.path) { TRS018ReadinessSetupScreen(navigate) }
++        composable(MoveFuelRoute.TRS_019.path) { TRS019PerformanceBaselineScreen(navigate) }
++        composable(MoveFuelRoute.TRS_020.path) { TRS020PlanPreviewScreen(navigate) }
++        composable(MoveFuelRoute.TRN_001.path) { TRN001TrainNowDashboardScreen(navigate) }
++        composable(MoveFuelRoute.TRN_002.path) { TRN002ReadinessSummaryScreen(navigate) }
++        composable(MoveFuelRoute.TRN_003.path) { TRN003ReadinessDetailScreen(navigate) }
++        composable(MoveFuelRoute.TRN_004.path) { TRN004WhyAdaptedScreen(navigate) }
++        composable(MoveFuelRoute.TRN_005.path) { TRN005TodayWorkoutScreen(navigate) }
++        composable(MoveFuelRoute.TRN_006.path) { TRN006WorkoutDetailScreen(navigate) }
++        composable(MoveFuelRoute.TRN_007.path) { TRN007StartWorkoutScreen(navigate) }
++        composable(MoveFuelRoute.TRN_008.path) { TRN008RescheduleWorkoutScreen(navigate) }
++        composable(MoveFuelRoute.TRN_009.path) { TRN009QuickStartScreen(navigate) }
++        composable(MoveFuelRoute.TRN_010.path) { TRN010WeeklyPlanScreen(navigate) }
++        composable(MoveFuelRoute.TRN_011.path) { TRN011WeeklyDayDetailScreen(navigate) }
++        composable(MoveFuelRoute.TRN_012.path) { TRN012LessTimeTodayScreen(navigate) }
++        composable(MoveFuelRoute.TRN_013.path) { TRN013EquipmentUnavailableScreen(navigate) }
++        composable(MoveFuelRoute.TRN_014.path) { TRN014ReplacementOptionsScreen(navigate) }
++        composable(MoveFuelRoute.TRN_015.path) { TRN015RecoveryDayScreen(navigate) }
++        composable(MoveFuelRoute.TRN_016.path) { TRN016MissedWorkoutScreen(navigate) }
++        composable(MoveFuelRoute.TRN_017.path) { TRN017ProgramSettingsScreen(navigate) }
++        composable(MoveFuelRoute.TRN_018.path) { TRN018ProgramRevisionHistoryScreen(navigate) }
++        composable(MoveFuelRoute.TRN_019.path) { TRN019RecentWorkoutsScreen(navigate) }
++        composable(MoveFuelRoute.TRN_020.path) { TRN020TrainLoadingScreen(navigate) }
++        composable(MoveFuelRoute.TRN_021.path) { TRN021TrainEmptyScreen(navigate) }
++        composable(MoveFuelRoute.TRN_022.path) { TRN022TrainUnknownScreen(navigate) }
++        composable(MoveFuelRoute.TRN_023.path) { TRN023TrainOfflineScreen(navigate) }
++        composable(MoveFuelRoute.TRN_024.path) { TRN024TrainStaleScreen(navigate) }
++        composable(MoveFuelRoute.WRK_001.path) { WRK001PreWorkoutScreen(navigate) }
++        composable(MoveFuelRoute.WRK_002.path) { WRK002WorkoutStartScreen(navigate) }
++        composable(MoveFuelRoute.WRK_003.path) { WRK003ActiveExerciseScreen(navigate) }
++        composable(MoveFuelRoute.WRK_004.path) { WRK004ExerciseMediaLoadingScreen(navigate) }
++        composable(MoveFuelRoute.WRK_005.path) { WRK005ExerciseInstructionsScreen(navigate) }
++        composable(MoveFuelRoute.WRK_006.path) { WRK006SetInputScreen(navigate) }
++        composable(MoveFuelRoute.WRK_007.path) { WRK007RepsInputScreen(navigate) }
++        composable(MoveFuelRoute.WRK_008.path) { WRK008LoadInputScreen(navigate) }
++        composable(MoveFuelRoute.WRK_009.path) { WRK009TimeInputScreen(navigate) }
++        composable(MoveFuelRoute.WRK_010.path) { WRK010DistanceInputScreen(navigate) }
++        composable(MoveFuelRoute.WRK_011.path) { WRK011RPEInputScreen(navigate) }
++        composable(MoveFuelRoute.WRK_012.path) { WRK012ReviewSetScreen(navigate) }
++        composable(MoveFuelRoute.WRK_013.path) { WRK013CompleteSetScreen(navigate) }
++        composable(MoveFuelRoute.WRK_014.path) { WRK014RestTimerScreen(navigate) }
++        composable(MoveFuelRoute.WRK_015.path) { WRK015ExtendRestScreen(navigate) }
++        composable(MoveFuelRoute.WRK_016.path) { WRK016SkipRestScreen(navigate) }
++        composable(MoveFuelRoute.WRK_017.path) { WRK017NextSetScreen(navigate) }
++        composable(MoveFuelRoute.WRK_018.path) { WRK018ExerciseCompleteScreen(navigate) }
++        composable(MoveFuelRoute.WRK_019.path) { WRK019NextExerciseScreen(navigate) }
++        composable(MoveFuelRoute.WRK_020.path) { WRK020SubstituteExerciseScreen(navigate) }
++        composable(MoveFuelRoute.WRK_021.path) { WRK021SubstitutionCandidatesScreen(navigate) }
++        composable(MoveFuelRoute.WRK_022.path) { WRK022SubstitutionDetailScreen(navigate) }
++        composable(MoveFuelRoute.WRK_023.path) { WRK023ConfirmSubstituteScreen(navigate) }
++        composable(MoveFuelRoute.WRK_024.path) { WRK024SkipSetScreen(navigate) }
++        composable(MoveFuelRoute.WRK_025.path) { WRK025SkipExerciseScreen(navigate) }
++        composable(MoveFuelRoute.WRK_026.path) { WRK026WorkoutNoteScreen(navigate) }
++        composable(MoveFuelRoute.WRK_027.path) { WRK027PauseWorkoutScreen(navigate) }
++        composable(MoveFuelRoute.WRK_028.path) { WRK028ResumeWorkoutScreen(navigate) }
++        composable(MoveFuelRoute.WRK_029.path) { WRK029PainSafetyPauseScreen(navigate) }
++        composable(MoveFuelRoute.WRK_030.path) { WRK030FinishEarlyConfirmationScreen(navigate) }
++        composable(MoveFuelRoute.WRK_031.path) { WRK031PostWorkoutCheckInScreen(navigate) }
++        composable(MoveFuelRoute.WRK_032.path) { WRK032WorkoutSummaryScreen(navigate) }
++        composable(MoveFuelRoute.SOR_001.path) { SOR001SorenessDashboardScreen(navigate) }
++        composable(MoveFuelRoute.SOR_002.path) { SOR002FrontBodyMapScreen(navigate) }
++        composable(MoveFuelRoute.SOR_003.path) { SOR003BackBodyMapScreen(navigate) }
++        composable(MoveFuelRoute.SOR_004.path) { SOR004SelectRegionScreen(navigate) }
++        composable(MoveFuelRoute.SOR_005.path) { SOR005SorenessSeverityScreen(navigate) }
++        composable(MoveFuelRoute.SOR_006.path) { SOR006MultipleRegionReviewScreen(navigate) }
++        composable(MoveFuelRoute.SOR_007.path) { SOR007SaveSorenessScreen(navigate) }
++        composable(MoveFuelRoute.SOR_008.path) { SOR008CurrentSorenessSummaryScreen(navigate) }
++        composable(MoveFuelRoute.SOR_009.path) { SOR009SorenessHistoryScreen(navigate) }
++        composable(MoveFuelRoute.SOR_010.path) { SOR010PainSafetyRouteScreen(navigate) }
++        composable(MoveFuelRoute.RDY_001.path) { RDY001ReadinessCheckInScreen(navigate) }
++        composable(MoveFuelRoute.RDY_002.path) { RDY002EnergyCheckScreen(navigate) }
++        composable(MoveFuelRoute.RDY_003.path) { RDY003FatigueCheckScreen(navigate) }
++        composable(MoveFuelRoute.RDY_004.path) { RDY004RecoverySleepCheckScreen(navigate) }
++        composable(MoveFuelRoute.RDY_005.path) { RDY005SorenessCheckScreen(navigate) }
++        composable(MoveFuelRoute.RDY_006.path) { RDY006EvaluatingReadinessScreen(navigate) }
++        composable(MoveFuelRoute.RDY_007.path) { RDY007ReadinessFullScreen(navigate) }
++        composable(MoveFuelRoute.RDY_008.path) { RDY008ReadinessReducedScreen(navigate) }
++        composable(MoveFuelRoute.RDY_009.path) { RDY009ReadinessRecoveryScreen(navigate) }
++        composable(MoveFuelRoute.RDY_010.path) { RDY010ReadinessStopScreen(navigate) }
++        composable(MoveFuelRoute.EXR_001.path) { EXR001ExerciseLibraryScreen(navigate) }
++        composable(MoveFuelRoute.EXR_002.path) { EXR002ExerciseSearchScreen(navigate) }
++        composable(MoveFuelRoute.EXR_003.path) { EXR003ExerciseFiltersScreen(navigate) }
++        composable(MoveFuelRoute.EXR_004.path) { EXR004FilterEquipmentScreen(navigate) }
++        composable(MoveFuelRoute.EXR_005.path) { EXR005FilterMovementScreen(navigate) }
++        composable(MoveFuelRoute.EXR_006.path) { EXR006FilterMuscleScreen(navigate) }
++        composable(MoveFuelRoute.EXR_007.path) { EXR007FilterEnvironmentScreen(navigate) }
++        composable(MoveFuelRoute.EXR_008.path) { EXR008FilterDifficultyScreen(navigate) }
++        composable(MoveFuelRoute.EXR_009.path) { EXR009ExerciseResultsScreen(navigate) }
++        composable(MoveFuelRoute.EXR_010.path) { EXR010ExerciseDetailScreen(navigate) }
++        composable(MoveFuelRoute.EXR_011.path) { EXR011ExerciseMediaScreen(navigate) }
++        composable(MoveFuelRoute.EXR_012.path) { EXR012ExerciseSetupScreen(navigate) }
++        composable(MoveFuelRoute.EXR_013.path) { EXR013ExerciseExecutionScreen(navigate) }
++        composable(MoveFuelRoute.EXR_014.path) { EXR014TechniqueCuesScreen(navigate) }
++        composable(MoveFuelRoute.EXR_015.path) { EXR015CommonMistakesScreen(navigate) }
++        composable(MoveFuelRoute.EXR_016.path) { EXR016ExerciseSubstitutionsScreen(navigate) }
++        composable(MoveFuelRoute.CAL_001.path) { CAL001CalendarDashboardScreen(navigate) }
++        composable(MoveFuelRoute.CAL_002.path) { CAL002MonthViewScreen(navigate) }
++        composable(MoveFuelRoute.CAL_003.path) { CAL003WeekViewScreen(navigate) }
++        composable(MoveFuelRoute.CAL_004.path) { CAL004DayViewScreen(navigate) }
++        composable(MoveFuelRoute.CAL_005.path) { CAL005SelectedDateScreen(navigate) }
++        composable(MoveFuelRoute.CAL_006.path) { CAL006WorkoutEventScreen(navigate) }
++        composable(MoveFuelRoute.CAL_007.path) { CAL007MealEventScreen(navigate) }
++        composable(MoveFuelRoute.CAL_008.path) { CAL008RecoveryEventScreen(navigate) }
++        composable(MoveFuelRoute.CAL_009.path) { CAL009RescheduleEventScreen(navigate) }
++        composable(MoveFuelRoute.CAL_010.path) { CAL010ChooseDateScreen(navigate) }
++        composable(MoveFuelRoute.CAL_011.path) { CAL011ChooseTimeScreen(navigate) }
++        composable(MoveFuelRoute.CAL_012.path) { CAL012CalendarConflictScreen(navigate) }
++        composable(MoveFuelRoute.CAL_013.path) { CAL013ConflictExplanationScreen(navigate) }
++        composable(MoveFuelRoute.CAL_014.path) { CAL014SuggestedAlternativesScreen(navigate) }
++        composable(MoveFuelRoute.CAL_015.path) { CAL015ConfirmRescheduleScreen(navigate) }
++        composable(MoveFuelRoute.CAL_016.path) { CAL016MissedWorkoutScreen(navigate) }
++        composable(MoveFuelRoute.CAL_017.path) { CAL017MissedMealScreen(navigate) }
++        composable(MoveFuelRoute.CAL_018.path) { CAL018CalendarOfflineScreen(navigate) }
++        composable(MoveFuelRoute.PRG_001.path) { PRG001ProgressDashboardScreen(navigate) }
++        composable(MoveFuelRoute.PRG_002.path) { PRG002MetricSelectorScreen(navigate) }
++        composable(MoveFuelRoute.PRG_003.path) { PRG003Range7DaysScreen(navigate) }
++        composable(MoveFuelRoute.PRG_004.path) { PRG004Range30DaysScreen(navigate) }
++        composable(MoveFuelRoute.PRG_005.path) { PRG005Range3MonthsScreen(navigate) }
++        composable(MoveFuelRoute.PRG_006.path) { PRG006Range6MonthsScreen(navigate) }
++        composable(MoveFuelRoute.PRG_007.path) { PRG007Range1YearScreen(navigate) }
++        composable(MoveFuelRoute.PRG_008.path) { PRG008RangeAllScreen(navigate) }
++        composable(MoveFuelRoute.PRG_009.path) { PRG009ExpandedGraphScreen(navigate) }
++        composable(MoveFuelRoute.PRG_010.path) { PRG010ExactDataPointScreen(navigate) }
++        composable(MoveFuelRoute.PRG_011.path) { PRG011MissingDataPeriodScreen(navigate) }
++        composable(MoveFuelRoute.PRG_012.path) { PRG012DataCoverageScreen(navigate) }
++        composable(MoveFuelRoute.PRG_013.path) { PRG013GoalProgressScreen(navigate) }
++        composable(MoveFuelRoute.PRG_014.path) { PRG014TargetRevisionMarkerScreen(navigate) }
++        composable(MoveFuelRoute.PRG_015.path) { PRG015MilestoneDetailScreen(navigate) }
++        composable(MoveFuelRoute.PRG_016.path) { PRG016PersonalRecordsScreen(navigate) }
++        composable(MoveFuelRoute.PRG_017.path) { PRG017TrainingProgressScreen(navigate) }
++        composable(MoveFuelRoute.PRG_018.path) { PRG018StrengthProgressScreen(navigate) }
++        composable(MoveFuelRoute.PRG_019.path) { PRG019TrainingVolumeScreen(navigate) }
++        composable(MoveFuelRoute.PRG_020.path) { PRG020WorkoutConsistencyScreen(navigate) }
++        composable(MoveFuelRoute.PRG_021.path) { PRG021WorkoutDurationScreen(navigate) }
++        composable(MoveFuelRoute.PRG_022.path) { PRG022NutritionProgressScreen(navigate) }
++        composable(MoveFuelRoute.PRG_023.path) { PRG023NutritionAveragesScreen(navigate) }
++        composable(MoveFuelRoute.PRG_024.path) { PRG024ProteinTrendScreen(navigate) }
++        composable(MoveFuelRoute.PRG_025.path) { PRG025FiberTrendScreen(navigate) }
++        composable(MoveFuelRoute.PRG_026.path) { PRG026ActivityProgressScreen(navigate) }
++        composable(MoveFuelRoute.PRG_027.path) { PRG027RunningProgressScreen(navigate) }
++        composable(MoveFuelRoute.PRG_028.path) { PRG028SwimmingProgressScreen(navigate) }
++        composable(MoveFuelRoute.PRG_029.path) { PRG029WeeklyReportScreen(navigate) }
++        composable(MoveFuelRoute.PRG_030.path) { PRG030MonthlyReportScreen(navigate) }
++        composable(MoveFuelRoute.PRO_001.path) { PRO001ProfileDashboardScreen(navigate) }
++        composable(MoveFuelRoute.PRO_002.path) { PRO002PersonalDetailsScreen(navigate) }
++        composable(MoveFuelRoute.PRO_003.path) { PRO003TargetsAndGoalsScreen(navigate) }
++        composable(MoveFuelRoute.PRO_004.path) { PRO004EditTargetScreen(navigate) }
++        composable(MoveFuelRoute.PRO_005.path) { PRO005TargetPreviewScreen(navigate) }
++        composable(MoveFuelRoute.PRO_006.path) { PRO006TargetRevisionHistoryScreen(navigate) }
++        composable(MoveFuelRoute.PRO_007.path) { PRO007UnitsScreen(navigate) }
++        composable(MoveFuelRoute.PRO_008.path) { PRO008LanguageAndRegionScreen(navigate) }
++        composable(MoveFuelRoute.PRO_009.path) { PRO009AppearanceScreen(navigate) }
++        composable(MoveFuelRoute.PRO_010.path) { PRO010SoundAndHapticsScreen(navigate) }
++        composable(MoveFuelRoute.PRO_011.path) { PRO011NotificationsScreen(navigate) }
++        composable(MoveFuelRoute.PRO_012.path) { PRO012PrivacyAndDataScreen(navigate) }
++        composable(MoveFuelRoute.PRO_013.path) { PRO013ExportDataScreen(navigate) }
++        composable(MoveFuelRoute.PRO_014.path) { PRO014DeleteAccountScreen(navigate) }
++        composable(MoveFuelRoute.PRO_015.path) { PRO015TermsAndPrivacyScreen(navigate) }
++        composable(MoveFuelRoute.PRO_016.path) { PRO016HelpCenterScreen(navigate) }
++        composable(MoveFuelRoute.PRO_017.path) { PRO017FinishPersonalizationScreen(navigate) }
++        composable(MoveFuelRoute.PRO_018.path) { PRO018ProfileOfflineScreen(navigate) }
++        composable(MoveFuelRoute.DEV_001.path) { DEV001DevicesDashboardScreen(navigate) }
++        composable(MoveFuelRoute.DEV_002.path) { DEV002ConnectWearOSScreen(navigate) }
++        composable(MoveFuelRoute.DEV_003.path) { DEV003DeviceDiscoveryScreen(navigate) }
++        composable(MoveFuelRoute.DEV_004.path) { DEV004DeviceFoundScreen(navigate) }
++        composable(MoveFuelRoute.DEV_005.path) { DEV005PairingScreen(navigate) }
++        composable(MoveFuelRoute.DEV_006.path) { DEV006ConnectedDeviceScreen(navigate) }
++        composable(MoveFuelRoute.DEV_007.path) { DEV007DeviceDetailScreen(navigate) }
++        composable(MoveFuelRoute.DEV_008.path) { DEV008DevicePermissionsScreen(navigate) }
++        composable(MoveFuelRoute.DEV_009.path) { DEV009ManualSyncScreen(navigate) }
++        composable(MoveFuelRoute.DEV_010.path) { DEV010StaleDeviceScreen(navigate) }
++        composable(MoveFuelRoute.DEV_011.path) { DEV011ReconnectDeviceScreen(navigate) }
++        composable(MoveFuelRoute.DEV_012.path) { DEV012DisconnectDeviceScreen(navigate) }
++        composable(MoveFuelRoute.BIL_001.path) { BIL001BillingDashboardScreen(navigate) }
++        composable(MoveFuelRoute.BIL_002.path) { BIL002CurrentPlanScreen(navigate) }
++        composable(MoveFuelRoute.BIL_003.path) { BIL003ComparePlansScreen(navigate) }
++        composable(MoveFuelRoute.BIL_004.path) { BIL004PlanDetailScreen(navigate) }
++        composable(MoveFuelRoute.BIL_005.path) { BIL005PurchaseConfirmationScreen(navigate) }
++        composable(MoveFuelRoute.BIL_006.path) { BIL006PurchaseProcessingScreen(navigate) }
++        composable(MoveFuelRoute.BIL_007.path) { BIL007PurchaseResultScreen(navigate) }
++        composable(MoveFuelRoute.BIL_008.path) { BIL008RestorePurchaseScreen(navigate) }
++        composable(MoveFuelRoute.WAR_001.path) { WAR001WearTodayScreen(navigate) }
++        composable(MoveFuelRoute.WAR_002.path) { WAR002WearReadinessScreen(navigate) }
++        composable(MoveFuelRoute.WAR_003.path) { WAR003WearWorkoutPreviewScreen(navigate) }
++        composable(MoveFuelRoute.WAR_004.path) { WAR004WearActiveExerciseScreen(navigate) }
++        composable(MoveFuelRoute.WAR_005.path) { WAR005WearSetInputScreen(navigate) }
++        composable(MoveFuelRoute.WAR_006.path) { WAR006WearCompleteSetScreen(navigate) }
++        composable(MoveFuelRoute.WAR_007.path) { WAR007WearRestTimerScreen(navigate) }
++        composable(MoveFuelRoute.WAR_008.path) { WAR008WearSubstituteScreen(navigate) }
++        composable(MoveFuelRoute.WAR_009.path) { WAR009WearPauseScreen(navigate) }
++        composable(MoveFuelRoute.WAR_010.path) { WAR010WearFinishScreen(navigate) }
++        composable(MoveFuelRoute.WAR_011.path) { WAR011WearSummaryScreen(navigate) }
++        composable(MoveFuelRoute.WAR_012.path) { WAR012WearSyncPendingScreen(navigate) }
++        composable(MoveFuelRoute.SYS_001.path) { SYS001SystemLoadingScreen(navigate) }
++        composable(MoveFuelRoute.SYS_002.path) { SYS002SystemEmptyScreen(navigate) }
++        composable(MoveFuelRoute.SYS_003.path) { SYS003SystemUnknownScreen(navigate) }
++        composable(MoveFuelRoute.SYS_004.path) { SYS004SystemPartialDataScreen(navigate) }
++        composable(MoveFuelRoute.SYS_005.path) { SYS005SystemOfflineScreen(navigate) }
++        composable(MoveFuelRoute.SYS_006.path) { SYS006SystemSavedOfflineScreen(navigate) }
++        composable(MoveFuelRoute.SYS_007.path) { SYS007SystemStaleScreen(navigate) }
++        composable(MoveFuelRoute.SYS_008.path) { SYS008RetryableErrorScreen(navigate) }
++        composable(MoveFuelRoute.SYS_009.path) { SYS009UnavailableStateScreen(navigate) }
++        composable(MoveFuelRoute.SYS_010.path) { SYS010PermissionRequiredScreen(navigate) }
++        composable(MoveFuelRoute.SYS_011.path) { SYS011PermissionDeniedScreen(navigate) }
++        composable(MoveFuelRoute.SYS_012.path) { SYS012UnsavedChangesScreen(navigate) }
++        composable(MoveFuelRoute.SYS_013.path) { SYS013DestructiveConfirmationScreen(navigate) }
++        composable(MoveFuelRoute.SYS_014.path) { SYS014SuccessStateScreen(navigate) }
++        composable(MoveFuelRoute.SYS_015.path) { SYS015SyncingScreen(navigate) }
++        composable(MoveFuelRoute.SYS_016.path) { SYS016SyncPendingScreen(navigate) }
++        composable(MoveFuelRoute.SYS_017.path) { SYS017SyncFailedScreen(navigate) }
++        composable(MoveFuelRoute.SYS_018.path) { SYS018ConflictReviewScreen(navigate) }
++        composable(MoveFuelRoute.SYS_019.path) { SYS019InterruptedFlowScreen(navigate) }
++        composable(MoveFuelRoute.SYS_020.path) { SYS020RestoredFlowScreen(navigate) }
++    }
++}
+diff --git a/Mufil-2/build.gradle.kts b/Mufil-2/build.gradle.kts
+--- a/Mufil-2/build.gradle.kts
++++ b/Mufil-2/build.gradle.kts
+@@ -1,5 +1,4 @@
+ plugins {
+     id("com.android.application") version "9.4.1" apply false
+-    id("org.jetbrains.kotlin.android") version "2.2.10" apply false
+     id("org.jetbrains.kotlin.plugin.compose") version "2.2.10" apply false
+ }
+diff --git a/Mufil-2/gradle.properties b/Mufil-2/gradle.properties
+--- a/Mufil-2/gradle.properties
++++ b/Mufil-2/gradle.properties
+@@ -1,4 +1,5 @@
+ org.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8
+ android.useAndroidX=true
+-kotlin.code.style=official
++android.builtInKotlin=true
+ android.nonTransitiveRClass=true
++kotlin.code.style=official
