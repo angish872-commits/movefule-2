@@ -1,0 +1,3572 @@
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_001_FuelNowDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_001_FuelNowDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_001_FuelNowDashboard.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO001FuelNowDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_001",
++            title = "Fuel Now Dashboard",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Fuel Now Dashboard with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Fuel Now Dashboard. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.BAR_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO001FuelNowDashboardScreenPreview() = MoveFuelTheme { FNO001FuelNowDashboardScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_002_SelectedDate.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_002_SelectedDate.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_002_SelectedDate.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO002SelectedDateScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_002",
++            title = "Selected Date",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Selected Date with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Selected Date. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO002SelectedDateScreenPreview() = MoveFuelTheme { FNO002SelectedDateScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_003_NutritionSummary.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_003_NutritionSummary.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_003_NutritionSummary.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO003NutritionSummaryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_003",
++            title = "Nutrition Summary",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Nutrition Summary with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Nutrition Summary. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO003NutritionSummaryScreenPreview() = MoveFuelTheme { FNO003NutritionSummaryScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_004_ExpandedNutrition.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_004_ExpandedNutrition.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_004_ExpandedNutrition.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO004ExpandedNutritionScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_004",
++            title = "Expanded Nutrition",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Expanded Nutrition with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Expanded Nutrition. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO004ExpandedNutritionScreenPreview() = MoveFuelTheme { FNO004ExpandedNutritionScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_005_MealGroups.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_005_MealGroups.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_005_MealGroups.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO005MealGroupsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_005",
++            title = "Meal Groups",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Meal Groups with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Meal Groups. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO005MealGroupsScreenPreview() = MoveFuelTheme { FNO005MealGroupsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_006_MealDetail.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_006_MealDetail.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_006_MealDetail.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO006MealDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_006",
++            title = "Meal Detail",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Meal Detail with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Meal Detail. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO006MealDetailScreenPreview() = MoveFuelTheme { FNO006MealDetailScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_007_EditMeal.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_007_EditMeal.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_007_EditMeal.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO007EditMealScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_007",
++            title = "Edit Meal",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Edit Meal with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Edit Meal. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO007EditMealScreenPreview() = MoveFuelTheme { FNO007EditMealScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_008_DeleteMealConfirmation.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_008_DeleteMealConfirmation.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_008_DeleteMealConfirmation.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO008DeleteMealConfirmationScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_008",
++            title = "Delete Meal Confirmation",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Delete Meal Confirmation with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Delete Meal Confirmation. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO008DeleteMealConfirmationScreenPreview() = MoveFuelTheme { FNO008DeleteMealConfirmationScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_009_AddFoodMenu.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_009_AddFoodMenu.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_009_AddFoodMenu.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO009AddFoodMenuScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_009",
++            title = "Add Food Menu",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Add Food Menu with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Add Food Menu. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO009AddFoodMenuScreenPreview() = MoveFuelTheme { FNO009AddFoodMenuScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_010_FoodSearch.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_010_FoodSearch.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_010_FoodSearch.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO010FoodSearchScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_010",
++            title = "Food Search",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Food Search with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Food Search. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO010FoodSearchScreenPreview() = MoveFuelTheme { FNO010FoodSearchScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_011_FoodDetail.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_011_FoodDetail.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_011_FoodDetail.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO011FoodDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_011",
++            title = "Food Detail",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Food Detail with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Food Detail. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO011FoodDetailScreenPreview() = MoveFuelTheme { FNO011FoodDetailScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_012_ServingSelector.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_012_ServingSelector.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_012_ServingSelector.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO012ServingSelectorScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_012",
++            title = "Serving Selector",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Serving Selector with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Serving Selector. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO012ServingSelectorScreenPreview() = MoveFuelTheme { FNO012ServingSelectorScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_013_RecentFoods.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_013_RecentFoods.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_013_RecentFoods.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO013RecentFoodsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_013",
++            title = "Recent Foods",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Recent Foods with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Recent Foods. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO013RecentFoodsScreenPreview() = MoveFuelTheme { FNO013RecentFoodsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_014_FrequentFoods.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_014_FrequentFoods.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_014_FrequentFoods.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO014FrequentFoodsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_014",
++            title = "Frequent Foods",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Frequent Foods with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Frequent Foods. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO014FrequentFoodsScreenPreview() = MoveFuelTheme { FNO014FrequentFoodsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_015_Favorites.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_015_Favorites.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_015_Favorites.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO015FavoritesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_015",
++            title = "Favorites",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Favorites with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Favorites. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO015FavoritesScreenPreview() = MoveFuelTheme { FNO015FavoritesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_016_SavedMeals.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_016_SavedMeals.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_016_SavedMeals.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO016SavedMealsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_016",
++            title = "Saved Meals",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Saved Meals with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Saved Meals. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_017),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO016SavedMealsScreenPreview() = MoveFuelTheme { FNO016SavedMealsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_017_FuelEmpty.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_017_FuelEmpty.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_017_FuelEmpty.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO017FuelEmptyScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_017",
++            title = "Fuel Empty",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Fuel Empty with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Fuel Empty. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FNO_018),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO017FuelEmptyScreenPreview() = MoveFuelTheme { FNO017FuelEmptyScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_018_FuelOffline.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_018_FuelOffline.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fno/FNO_018_FuelOffline.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fno
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FNO018FuelOfflineScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FNO_018",
++            title = "Fuel Offline",
++            subtitle = "What the user has actually eaten and confirmed for the selected day.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Fuel Offline with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planned food and confirmed consumption stay visually distinct."),
++                DashboardSection("Refactoring boundary", "This file owns only Fuel Offline. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_017)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FNO018FuelOfflineScreenPreview() = MoveFuelTheme { FNO018FuelOfflineScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_001_FuelPlanDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_001_FuelPlanDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_001_FuelPlanDashboard.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL001FuelPlanDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_001",
++            title = "Fuel Plan Dashboard",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Fuel Plan Dashboard with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Fuel Plan Dashboard. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FNO_018)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL001FuelPlanDashboardScreenPreview() = MoveFuelTheme { FPL001FuelPlanDashboardScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_002_PlanDayView.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_002_PlanDayView.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_002_PlanDayView.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL002PlanDayViewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_002",
++            title = "Plan Day View",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Plan Day View with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Plan Day View. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL002PlanDayViewScreenPreview() = MoveFuelTheme { FPL002PlanDayViewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_003_PlanWeekView.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_003_PlanWeekView.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_003_PlanWeekView.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL003PlanWeekViewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_003",
++            title = "Plan Week View",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Plan Week View with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Plan Week View. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL003PlanWeekViewScreenPreview() = MoveFuelTheme { FPL003PlanWeekViewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_004_PlanMonthView.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_004_PlanMonthView.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_004_PlanMonthView.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL004PlanMonthViewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_004",
++            title = "Plan Month View",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Plan Month View with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Plan Month View. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL004PlanMonthViewScreenPreview() = MoveFuelTheme { FPL004PlanMonthViewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_005_PlanPreferences.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_005_PlanPreferences.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_005_PlanPreferences.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL005PlanPreferencesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_005",
++            title = "Plan Preferences",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Plan Preferences with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Plan Preferences. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL005PlanPreferencesScreenPreview() = MoveFuelTheme { FPL005PlanPreferencesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_006_DietPreferences.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_006_DietPreferences.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_006_DietPreferences.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL006DietPreferencesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_006",
++            title = "Diet Preferences",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Diet Preferences with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Diet Preferences. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL006DietPreferencesScreenPreview() = MoveFuelTheme { FPL006DietPreferencesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_007_AllergyRules.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_007_AllergyRules.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_007_AllergyRules.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL007AllergyRulesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_007",
++            title = "Allergy Rules",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Allergy Rules with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Allergy Rules. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL007AllergyRulesScreenPreview() = MoveFuelTheme { FPL007AllergyRulesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_008_CuisinePreferences.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_008_CuisinePreferences.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_008_CuisinePreferences.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL008CuisinePreferencesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_008",
++            title = "Cuisine Preferences",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Cuisine Preferences with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Cuisine Preferences. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL008CuisinePreferencesScreenPreview() = MoveFuelTheme { FPL008CuisinePreferencesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_009_CookingPreferences.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_009_CookingPreferences.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_009_CookingPreferences.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL009CookingPreferencesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_009",
++            title = "Cooking Preferences",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Cooking Preferences with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Cooking Preferences. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL009CookingPreferencesScreenPreview() = MoveFuelTheme { FPL009CookingPreferencesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_010_BudgetPreferences.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_010_BudgetPreferences.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_010_BudgetPreferences.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL010BudgetPreferencesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_010",
++            title = "Budget Preferences",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Budget Preferences with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Budget Preferences. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL010BudgetPreferencesScreenPreview() = MoveFuelTheme { FPL010BudgetPreferencesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_011_PantryContext.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_011_PantryContext.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_011_PantryContext.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL011PantryContextScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_011",
++            title = "Pantry Context",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Pantry Context with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Pantry Context. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL011PantryContextScreenPreview() = MoveFuelTheme { FPL011PantryContextScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_012_TrainingContext.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_012_TrainingContext.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_012_TrainingContext.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL012TrainingContextScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_012",
++            title = "Training Context",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Training Context with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Training Context. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL012TrainingContextScreenPreview() = MoveFuelTheme { FPL012TrainingContextScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_013_PlanSetupReview.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_013_PlanSetupReview.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_013_PlanSetupReview.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL013PlanSetupReviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_013",
++            title = "Plan Setup Review",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Plan Setup Review with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Plan Setup Review. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL013PlanSetupReviewScreenPreview() = MoveFuelTheme { FPL013PlanSetupReviewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_014_GeneratingMealPlan.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_014_GeneratingMealPlan.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_014_GeneratingMealPlan.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL014GeneratingMealPlanScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_014",
++            title = "Generating Meal Plan",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Generating Meal Plan with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Generating Meal Plan. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL014GeneratingMealPlanScreenPreview() = MoveFuelTheme { FPL014GeneratingMealPlanScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_015_WeeklyProposal.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_015_WeeklyProposal.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_015_WeeklyProposal.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL015WeeklyProposalScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_015",
++            title = "Weekly Proposal",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Weekly Proposal with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Weekly Proposal. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL015WeeklyProposalScreenPreview() = MoveFuelTheme { FPL015WeeklyProposalScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_016_DayProposal.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_016_DayProposal.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_016_DayProposal.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL016DayProposalScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_016",
++            title = "Day Proposal",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Day Proposal with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Day Proposal. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_017),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL016DayProposalScreenPreview() = MoveFuelTheme { FPL016DayProposalScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_017_PlannedMealDetail.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_017_PlannedMealDetail.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_017_PlannedMealDetail.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL017PlannedMealDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_017",
++            title = "Planned Meal Detail",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Planned Meal Detail with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Planned Meal Detail. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_018),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL017PlannedMealDetailScreenPreview() = MoveFuelTheme { FPL017PlannedMealDetailScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_018_SwapMeal.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_018_SwapMeal.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_018_SwapMeal.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL018SwapMealScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_018",
++            title = "Swap Meal",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Swap Meal with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Swap Meal. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_019),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_017)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL018SwapMealScreenPreview() = MoveFuelTheme { FPL018SwapMealScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_019_MealAlternatives.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_019_MealAlternatives.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_019_MealAlternatives.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL019MealAlternativesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_019",
++            title = "Meal Alternatives",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Meal Alternatives with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Meal Alternatives. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_020),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_018)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL019MealAlternativesScreenPreview() = MoveFuelTheme { FPL019MealAlternativesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_020_ServingChange.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_020_ServingChange.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_020_ServingChange.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL020ServingChangeScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_020",
++            title = "Serving Change",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Serving Change with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Serving Change. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_021),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_019)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL020ServingChangeScreenPreview() = MoveFuelTheme { FPL020ServingChangeScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_021_MoveMeal.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_021_MoveMeal.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_021_MoveMeal.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL021MoveMealScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_021",
++            title = "Move Meal",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Move Meal with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Move Meal. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_022),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_020)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL021MoveMealScreenPreview() = MoveFuelTheme { FPL021MoveMealScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_022_PlanConflict.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_022_PlanConflict.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_022_PlanConflict.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL022PlanConflictScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_022",
++            title = "Plan Conflict",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Plan Conflict with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Plan Conflict. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_023),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_021)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL022PlanConflictScreenPreview() = MoveFuelTheme { FPL022PlanConflictScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_023_ConfirmPlan.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_023_ConfirmPlan.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_023_ConfirmPlan.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL023ConfirmPlanScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_023",
++            title = "Confirm Plan",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Confirm Plan with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Confirm Plan. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FPL_024),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_022)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL023ConfirmPlanScreenPreview() = MoveFuelTheme { FPL023ConfirmPlanScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_024_PlanRevisionHistory.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_024_PlanRevisionHistory.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fpl/FPL_024_PlanRevisionHistory.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fpl
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FPL024PlanRevisionHistoryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FPL_024",
++            title = "Plan Revision History",
++            subtitle = "Future meal planning kept separate from consumed nutrition facts.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Plan Revision History with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Planning never rewrites historical consumed meals."),
++                DashboardSection("Refactoring boundary", "This file owns only Plan Revision History. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_023)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FPL024PlanRevisionHistoryScreenPreview() = MoveFuelTheme { FPL024PlanRevisionHistoryScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_001_ShopDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_001_ShopDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_001_ShopDashboard.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH001ShopDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_001",
++            title = "Shop Dashboard",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Shop Dashboard with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Shop Dashboard. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FPL_024)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH001ShopDashboardScreenPreview() = MoveFuelTheme { FSH001ShopDashboardScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_002_ShoppingList.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_002_ShoppingList.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_002_ShoppingList.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH002ShoppingListScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_002",
++            title = "Shopping List",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Shopping List with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Shopping List. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH002ShoppingListScreenPreview() = MoveFuelTheme { FSH002ShoppingListScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_003_ShoppingItemDetail.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_003_ShoppingItemDetail.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_003_ShoppingItemDetail.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH003ShoppingItemDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_003",
++            title = "Shopping Item Detail",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Shopping Item Detail with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Shopping Item Detail. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH003ShoppingItemDetailScreenPreview() = MoveFuelTheme { FSH003ShoppingItemDetailScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_004_EditShoppingItem.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_004_EditShoppingItem.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_004_EditShoppingItem.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH004EditShoppingItemScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_004",
++            title = "Edit Shopping Item",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Edit Shopping Item with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Edit Shopping Item. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH004EditShoppingItemScreenPreview() = MoveFuelTheme { FSH004EditShoppingItemScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_005_MarkPurchased.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_005_MarkPurchased.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_005_MarkPurchased.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH005MarkPurchasedScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_005",
++            title = "Mark Purchased",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Mark Purchased with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Mark Purchased. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH005MarkPurchasedScreenPreview() = MoveFuelTheme { FSH005MarkPurchasedScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_006_UndoPurchased.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_006_UndoPurchased.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_006_UndoPurchased.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH006UndoPurchasedScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_006",
++            title = "Undo Purchased",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Undo Purchased with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Undo Purchased. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH006UndoPurchasedScreenPreview() = MoveFuelTheme { FSH006UndoPurchasedScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_007_AddShoppingItem.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_007_AddShoppingItem.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_007_AddShoppingItem.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH007AddShoppingItemScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_007",
++            title = "Add Shopping Item",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Add Shopping Item with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Add Shopping Item. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH007AddShoppingItemScreenPreview() = MoveFuelTheme { FSH007AddShoppingItemScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_008_SearchGrocery.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_008_SearchGrocery.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_008_SearchGrocery.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH008SearchGroceryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_008",
++            title = "Search Grocery",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Search Grocery with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Search Grocery. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH008SearchGroceryScreenPreview() = MoveFuelTheme { FSH008SearchGroceryScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_009_ManualGroceryItem.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_009_ManualGroceryItem.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_009_ManualGroceryItem.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH009ManualGroceryItemScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_009",
++            title = "Manual Grocery Item",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Manual Grocery Item with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Manual Grocery Item. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH009ManualGroceryItemScreenPreview() = MoveFuelTheme { FSH009ManualGroceryItemScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_010_ScanGroceryBarcode.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_010_ScanGroceryBarcode.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_010_ScanGroceryBarcode.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH010ScanGroceryBarcodeScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_010",
++            title = "Scan Grocery Barcode",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Scan Grocery Barcode with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Scan Grocery Barcode. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH010ScanGroceryBarcodeScreenPreview() = MoveFuelTheme { FSH010ScanGroceryBarcodeScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_011_PlanRequirements.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_011_PlanRequirements.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_011_PlanRequirements.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH011PlanRequirementsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_011",
++            title = "Plan Requirements",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Plan Requirements with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Plan Requirements. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH011PlanRequirementsScreenPreview() = MoveFuelTheme { FSH011PlanRequirementsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_012_ConsolidatedIngredients.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_012_ConsolidatedIngredients.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_012_ConsolidatedIngredients.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH012ConsolidatedIngredientsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_012",
++            title = "Consolidated Ingredients",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Consolidated Ingredients with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Consolidated Ingredients. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH012ConsolidatedIngredientsScreenPreview() = MoveFuelTheme { FSH012ConsolidatedIngredientsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_013_RecipeIngredients.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_013_RecipeIngredients.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_013_RecipeIngredients.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH013RecipeIngredientsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_013",
++            title = "Recipe Ingredients",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Recipe Ingredients with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Recipe Ingredients. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH013RecipeIngredientsScreenPreview() = MoveFuelTheme { FSH013RecipeIngredientsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_014_Pantry.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_014_Pantry.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_014_Pantry.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH014PantryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_014",
++            title = "Pantry",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Pantry with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Pantry. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH014PantryScreenPreview() = MoveFuelTheme { FSH014PantryScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_015_ShoppingEmpty.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_015_ShoppingEmpty.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_015_ShoppingEmpty.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH015ShoppingEmptyScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_015",
++            title = "Shopping Empty",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Shopping Empty with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Shopping Empty. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.FSH_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH015ShoppingEmptyScreenPreview() = MoveFuelTheme { FSH015ShoppingEmptyScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_016_ShoppingOffline.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_016_ShoppingOffline.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/fsh/FSH_016_ShoppingOffline.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.fsh
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun FSH016ShoppingOfflineScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "FSH_016",
++            title = "Shopping Offline",
++            subtitle = "Shopping and pantry workflow generated from plans, recipes, and manual items.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Shopping Offline with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Shopping Offline. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun FSH016ShoppingOfflineScreenPreview() = MoveFuelTheme { FSH016ShoppingOfflineScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_001_RecipesDashboard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_001_RecipesDashboard.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_001_RecipesDashboard.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP001RecipesDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_001",
++            title = "Recipes Dashboard",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Recipes Dashboard with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Recipes Dashboard. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_002),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.FSH_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP001RecipesDashboardScreenPreview() = MoveFuelTheme { RCP001RecipesDashboardScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_002_SavedRecipes.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_002_SavedRecipes.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_002_SavedRecipes.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP002SavedRecipesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_002",
++            title = "Saved Recipes",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Saved Recipes with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Saved Recipes. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_003),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_001)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP002SavedRecipesScreenPreview() = MoveFuelTheme { RCP002SavedRecipesScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_003_RecipeSearch.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_003_RecipeSearch.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_003_RecipeSearch.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP003RecipeSearchScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_003",
++            title = "Recipe Search",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Recipe Search with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Recipe Search. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_004),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_002)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP003RecipeSearchScreenPreview() = MoveFuelTheme { RCP003RecipeSearchScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_004_RecipeResults.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_004_RecipeResults.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_004_RecipeResults.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP004RecipeResultsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_004",
++            title = "Recipe Results",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Recipe Results with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Recipe Results. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_005),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_003)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP004RecipeResultsScreenPreview() = MoveFuelTheme { RCP004RecipeResultsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_005_RecipeDetail.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_005_RecipeDetail.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_005_RecipeDetail.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP005RecipeDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_005",
++            title = "Recipe Detail",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Recipe Detail with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Recipe Detail. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_006),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_004)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP005RecipeDetailScreenPreview() = MoveFuelTheme { RCP005RecipeDetailScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_006_RecipeNutrition.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_006_RecipeNutrition.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_006_RecipeNutrition.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP006RecipeNutritionScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_006",
++            title = "Recipe Nutrition",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Recipe Nutrition with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Recipe Nutrition. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_007),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_005)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP006RecipeNutritionScreenPreview() = MoveFuelTheme { RCP006RecipeNutritionScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_007_RecipeIngredients.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_007_RecipeIngredients.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_007_RecipeIngredients.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP007RecipeIngredientsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_007",
++            title = "Recipe Ingredients",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Recipe Ingredients with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Recipe Ingredients. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_008),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_006)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP007RecipeIngredientsScreenPreview() = MoveFuelTheme { RCP007RecipeIngredientsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_008_CookingMode.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_008_CookingMode.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_008_CookingMode.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP008CookingModeScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_008",
++            title = "Cooking Mode",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Cooking Mode with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Cooking Mode. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_009),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_007)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP008CookingModeScreenPreview() = MoveFuelTheme { RCP008CookingModeScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_009_CookingTimer.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_009_CookingTimer.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_009_CookingTimer.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP009CookingTimerScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_009",
++            title = "Cooking Timer",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Cooking Timer with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Cooking Timer. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_010),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_008)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP009CookingTimerScreenPreview() = MoveFuelTheme { RCP009CookingTimerScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_010_ServingAdjust.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_010_ServingAdjust.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_010_ServingAdjust.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP010ServingAdjustScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_010",
++            title = "Serving Adjust",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Serving Adjust with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Serving Adjust. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_011),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_009)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP010ServingAdjustScreenPreview() = MoveFuelTheme { RCP010ServingAdjustScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_011_IngredientSubstitution.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_011_IngredientSubstitution.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_011_IngredientSubstitution.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP011IngredientSubstitutionScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_011",
++            title = "Ingredient Substitution",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Ingredient Substitution with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Ingredient Substitution. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_012),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_010)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP011IngredientSubstitutionScreenPreview() = MoveFuelTheme { RCP011IngredientSubstitutionScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_012_AddRecipeToPlan.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_012_AddRecipeToPlan.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_012_AddRecipeToPlan.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP012AddRecipeToPlanScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_012",
++            title = "Add Recipe to Plan",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Add Recipe to Plan with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Add Recipe to Plan. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_013),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_011)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP012AddRecipeToPlanScreenPreview() = MoveFuelTheme { RCP012AddRecipeToPlanScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_013_AddRecipeToShop.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_013_AddRecipeToShop.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_013_AddRecipeToShop.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP013AddRecipeToShopScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_013",
++            title = "Add Recipe to Shop",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Add Recipe to Shop with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Add Recipe to Shop. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_014),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_012)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP013AddRecipeToShopScreenPreview() = MoveFuelTheme { RCP013AddRecipeToShopScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_014_LogRecipeAsMeal.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_014_LogRecipeAsMeal.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_014_LogRecipeAsMeal.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP014LogRecipeAsMealScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_014",
++            title = "Log Recipe as Meal",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Log Recipe as Meal with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Log Recipe as Meal. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_015),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_013)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP014LogRecipeAsMealScreenPreview() = MoveFuelTheme { RCP014LogRecipeAsMealScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_015_CreateRecipe.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_015_CreateRecipe.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_015_CreateRecipe.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP015CreateRecipeScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_015",
++            title = "Create Recipe",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Create Recipe with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Create Recipe. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_016),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_014)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP015CreateRecipeScreenPreview() = MoveFuelTheme { RCP015CreateRecipeScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_016_CreateRecipeMetadata.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_016_CreateRecipeMetadata.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_016_CreateRecipeMetadata.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP016CreateRecipeMetadataScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_016",
++            title = "Create Recipe Metadata",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Create Recipe Metadata with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Create Recipe Metadata. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_017),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_015)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP016CreateRecipeMetadataScreenPreview() = MoveFuelTheme { RCP016CreateRecipeMetadataScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_017_CreateRecipeIngredients.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_017_CreateRecipeIngredients.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_017_CreateRecipeIngredients.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP017CreateRecipeIngredientsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_017",
++            title = "Create Recipe Ingredients",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Create Recipe Ingredients with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Create Recipe Ingredients. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_018),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_016)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP017CreateRecipeIngredientsScreenPreview() = MoveFuelTheme { RCP017CreateRecipeIngredientsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_018_CreateRecipeSteps.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_018_CreateRecipeSteps.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_018_CreateRecipeSteps.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP018CreateRecipeStepsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_018",
++            title = "Create Recipe Steps",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Create Recipe Steps with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Create Recipe Steps. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_019),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_017)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP018CreateRecipeStepsScreenPreview() = MoveFuelTheme { RCP018CreateRecipeStepsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_019_CreateRecipeReview.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_019_CreateRecipeReview.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_019_CreateRecipeReview.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP019CreateRecipeReviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_019",
++            title = "Create Recipe Review",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Create Recipe Review with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Create Recipe Review. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_020),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_018)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP019CreateRecipeReviewScreenPreview() = MoveFuelTheme { RCP019CreateRecipeReviewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_020_ImportSourceChoice.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_020_ImportSourceChoice.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_020_ImportSourceChoice.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP020ImportSourceChoiceScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_020",
++            title = "Import Source Choice",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Import Source Choice with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Import Source Choice. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_021),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_019)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP020ImportSourceChoiceScreenPreview() = MoveFuelTheme { RCP020ImportSourceChoiceScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_021_YouTubeImport.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_021_YouTubeImport.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_021_YouTubeImport.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP021YouTubeImportScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_021",
++            title = "YouTube Import",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "YouTube Import with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only YouTube Import. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_022),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_020)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP021YouTubeImportScreenPreview() = MoveFuelTheme { RCP021YouTubeImportScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_022_WebImport.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_022_WebImport.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_022_WebImport.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP022WebImportScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_022",
++            title = "Web Import",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Web Import with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Web Import. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_023),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_021)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP022WebImportScreenPreview() = MoveFuelTheme { RCP022WebImportScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_023_TextImport.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_023_TextImport.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_023_TextImport.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP023TextImportScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_023",
++            title = "Text Import",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Text Import with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Text Import. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_024),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_022)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP023TextImportScreenPreview() = MoveFuelTheme { RCP023TextImportScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_024_ValidateImportSource.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_024_ValidateImportSource.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_024_ValidateImportSource.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP024ValidateImportSourceScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_024",
++            title = "Validate Import Source",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Validate Import Source with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Validate Import Source. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_025),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_023)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP024ValidateImportSourceScreenPreview() = MoveFuelTheme { RCP024ValidateImportSourceScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_025_ImportQueued.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_025_ImportQueued.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_025_ImportQueued.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP025ImportQueuedScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_025",
++            title = "Import Queued",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Import Queued with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Import Queued. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_026),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_024)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP025ImportQueuedScreenPreview() = MoveFuelTheme { RCP025ImportQueuedScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_026_ReadingSource.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_026_ReadingSource.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_026_ReadingSource.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP026ReadingSourceScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_026",
++            title = "Reading Source",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Reading Source with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Reading Source. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_027),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_025)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP026ReadingSourceScreenPreview() = MoveFuelTheme { RCP026ReadingSourceScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_027_ExtractingRecipeEvidence.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_027_ExtractingRecipeEvidence.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_027_ExtractingRecipeEvidence.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP027ExtractingRecipeEvidenceScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_027",
++            title = "Extracting Recipe Evidence",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Extracting Recipe Evidence with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Extracting Recipe Evidence. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_028),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_026)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP027ExtractingRecipeEvidenceScreenPreview() = MoveFuelTheme { RCP027ExtractingRecipeEvidenceScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_028_NormalizingIngredients.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_028_NormalizingIngredients.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_028_NormalizingIngredients.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP028NormalizingIngredientsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_028",
++            title = "Normalizing Ingredients",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Normalizing Ingredients with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Normalizing Ingredients. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_029),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_027)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP028NormalizingIngredientsScreenPreview() = MoveFuelTheme { RCP028NormalizingIngredientsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_029_MatchingTrustedFoods.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_029_MatchingTrustedFoods.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_029_MatchingTrustedFoods.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP029MatchingTrustedFoodsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_029",
++            title = "Matching Trusted Foods",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Matching Trusted Foods with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Matching Trusted Foods. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_030),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_028)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP029MatchingTrustedFoodsScreenPreview() = MoveFuelTheme { RCP029MatchingTrustedFoodsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_030_CheckingNutritionEligibility.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_030_CheckingNutritionEligibility.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_030_CheckingNutritionEligibility.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP030CheckingNutritionEligibilityScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_030",
++            title = "Checking Nutrition Eligibility",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Checking Nutrition Eligibility with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Checking Nutrition Eligibility. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_031),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_029)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP030CheckingNutritionEligibilityScreenPreview() = MoveFuelTheme { RCP030CheckingNutritionEligibilityScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_031_ImportNeedsReview.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_031_ImportNeedsReview.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_031_ImportNeedsReview.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP031ImportNeedsReviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_031",
++            title = "Import Needs Review",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Import Needs Review with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Import Needs Review. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_032),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_030)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP031ImportNeedsReviewScreenPreview() = MoveFuelTheme { RCP031ImportNeedsReviewScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_032_UnresolvedIngredient.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_032_UnresolvedIngredient.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_032_UnresolvedIngredient.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP032UnresolvedIngredientScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_032",
++            title = "Unresolved Ingredient",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Unresolved Ingredient with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Unresolved Ingredient. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_033),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_031)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP032UnresolvedIngredientScreenPreview() = MoveFuelTheme { RCP032UnresolvedIngredientScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_033_MissingQuantity.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_033_MissingQuantity.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_033_MissingQuantity.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP033MissingQuantityScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_033",
++            title = "Missing Quantity",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Missing Quantity with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Missing Quantity. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_034),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_032)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP033MissingQuantityScreenPreview() = MoveFuelTheme { RCP033MissingQuantityScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_034_MissingServings.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_034_MissingServings.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_034_MissingServings.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP034MissingServingsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_034",
++            title = "Missing Servings",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Missing Servings with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Shopping state stays usable offline when cached data exists."),
++                DashboardSection("Refactoring boundary", "This file owns only Missing Servings. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_035),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_033)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP034MissingServingsScreenPreview() = MoveFuelTheme { RCP034MissingServingsScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_035_RecipeImportConfirmation.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_035_RecipeImportConfirmation.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_035_RecipeImportConfirmation.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP035RecipeImportConfirmationScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_035",
++            title = "Recipe Import Confirmation",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Recipe Import Confirmation with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Recipe Import Confirmation. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.RCP_036),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_034)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP035RecipeImportConfirmationScreenPreview() = MoveFuelTheme { RCP035RecipeImportConfirmationScreen {} }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_036_RecipeImportFailure.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_036_RecipeImportFailure.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens/rcp/RCP_036_RecipeImportFailure.kt
+@@ -0,0 +1,33 @@
++package com.movefuel.mufil2.ui.screens.rcp
++
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.tooling.preview.Preview
++import com.movefuel.mufil2.ui.components.MoveFuelDashboardScaffold
++import com.movefuel.mufil2.ui.design.MoveFuelTheme
++import com.movefuel.mufil2.ui.model.DashboardAction
++import com.movefuel.mufil2.ui.model.DashboardSection
++import com.movefuel.mufil2.ui.model.DashboardSpec
++import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
++
++@Composable
++fun RCP036RecipeImportFailureScreen(onNavigate: (MoveFuelRoute) -> Unit) {
++    MoveFuelDashboardScaffold(
++        spec = DashboardSpec(
++            id = "RCP_036",
++            title = "Recipe Import Failure",
++            subtitle = "Saved recipes, cooking, creation, and resumable YouTube/web/text import.",
++            sections = listOf(
++                DashboardSection("What the user sees", "Recipe Import Failure with the approved premium Sage visual language."),
++                DashboardSection("Product rule", "Long-running import states use visible stage progress and remain resumable instead of looking frozen."),
++                DashboardSection("Refactoring boundary", "This file owns only Recipe Import Failure. Shared media, skeletons, cards, typography, motion, spacing, and navigation remain reusable components."),
++            ),
++            primaryAction = DashboardAction("Continue", MoveFuelRoute.TRS_001),
++            secondaryActions = listOf(DashboardAction("Back", MoveFuelRoute.RCP_035)),
++        ),
++        onNavigate = onNavigate,
++    )
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun RCP036RecipeImportFailureScreenPreview() = MoveFuelTheme { RCP036RecipeImportFailureScreen {} }
