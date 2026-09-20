@@ -1,0 +1,937 @@
+diff --git a/Mufil-2/VISUAL_TARGET_IMPLEMENTATION.md b/Mufil-2/VISUAL_TARGET_IMPLEMENTATION.md
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/VISUAL_TARGET_IMPLEMENTATION.md
+@@ -0,0 +1,19 @@
++# MoveFuel visual target implementation
++
++The approved four-phone MoveFuel image is the visual benchmark for the Compose UI.
++
++## Locked visual rules
++
++- Forest/sage dark identity, not blue.
++- Premium layered dark surfaces with restrained borders and shadows.
++- Four permanent primary destinations: Today, Fuel, Train, Progress.
++- 4/8/12/16/24/32 spacing rhythm.
++- Controls use compact radii; cards use 16px-equivalent; hero media cards use larger rounding.
++- Today uses three animated rings for glance metrics.
++- Fuel is dense but readable and clearly separates planned vs consumed.
++- Train gives readiness and media/workout execution visual priority.
++- Progress is graph-first.
++- Loading must look intentional: skeletons, media buffering, staged processing, sync state.
++- No fake percentages where progress is unknown.
++- Shared components own motion and styling; individual screens own composition.
++- UNKNOWN is never shown as zero.
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFBottomNav.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFBottomNav.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFBottomNav.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFBottomNav.kt
+@@ -1,15 +1,20 @@
+ package com.movefuel.mufil2.ui.components
+ 
++import androidx.compose.animation.animateColorAsState
++import androidx.compose.foundation.background
+ import androidx.compose.foundation.clickable
+-import androidx.compose.foundation.layout.Arrangement
+-import androidx.compose.foundation.layout.Row
+-import androidx.compose.foundation.layout.fillMaxWidth
+-import androidx.compose.foundation.layout.padding
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.shape.RoundedCornerShape
++import androidx.compose.material3.MaterialTheme
+ import androidx.compose.material3.Text
+ import androidx.compose.runtime.Composable
++import androidx.compose.runtime.getValue
++import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
++import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.unit.dp
+ import com.movefuel.mufil2.ui.design.MoveFuelColors
++import com.movefuel.mufil2.ui.design.MoveFuelMotion
+ import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+ 
+ @Composable
+@@ -24,15 +29,40 @@ fun MFBottomNav(
+         "Progress" to MoveFuelRoute.MASTER_PROGRESS,
+     )
+     Row(
+-        Modifier.fillMaxWidth().padding(vertical = 14.dp),
+-        horizontalArrangement = Arrangement.SpaceAround,
++        Modifier
++            .fillMaxWidth()
++            .background(MoveFuelColors.Surface2.copy(alpha = .96f), RoundedCornerShape(24.dp))
++            .padding(horizontal = 6.dp, vertical = 7.dp),
++        horizontalArrangement = Arrangement.spacedBy(4.dp),
+     ) {
+         items.forEach { (label, route) ->
+-            Text(
+-                text = label,
+-                color = if (label == active) MoveFuelColors.Sage else MoveFuelColors.TextMuted,
+-                modifier = Modifier.clickable { onNavigate(route) },
++            val selected = label == active
++            val bg by animateColorAsState(
++                if (selected) MoveFuelColors.Sage.copy(alpha = .14f) else Color.Transparent,
++                animationSpec = MoveFuelMotion.card(),
++                label = "navBg",
+             )
++            val fg by animateColorAsState(
++                if (selected) MoveFuelColors.Sage else MoveFuelColors.TextMuted,
++                animationSpec = MoveFuelMotion.card(),
++                label = "navFg",
++            )
++            Column(
++                Modifier
++                    .weight(1f)
++                    .background(bg, RoundedCornerShape(18.dp))
++                    .clickable { onNavigate(route) }
++                    .padding(vertical = 10.dp),
++                horizontalAlignment = Alignment.CenterHorizontally,
++                verticalArrangement = Arrangement.spacedBy(5.dp),
++            ) {
++                Box(
++                    Modifier
++                        .size(if (selected) 6.dp else 4.dp)
++                        .background(fg, RoundedCornerShape(999.dp))
++                )
++                Text(label, color = fg, style = MaterialTheme.typography.labelMedium)
++            }
+         }
+     }
+ }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFButton.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFButton.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFButton.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFButton.kt
+@@ -1,28 +1,56 @@
+ package com.movefuel.mufil2.ui.components
+ 
++import androidx.compose.animation.core.animateFloatAsState
++import androidx.compose.foundation.interaction.MutableInteractionSource
++import androidx.compose.foundation.interaction.collectIsPressedAsState
+ import androidx.compose.foundation.layout.fillMaxWidth
+ import androidx.compose.foundation.layout.heightIn
++import androidx.compose.foundation.shape.RoundedCornerShape
+ import androidx.compose.material3.Button
+ import androidx.compose.material3.ButtonDefaults
+ import androidx.compose.material3.Text
+ import androidx.compose.runtime.Composable
++import androidx.compose.runtime.getValue
++import androidx.compose.runtime.remember
+ import androidx.compose.ui.Modifier
++import androidx.compose.ui.graphics.graphicsLayer
+ import androidx.compose.ui.unit.dp
+ import com.movefuel.mufil2.ui.design.MoveFuelColors
++import com.movefuel.mufil2.ui.design.MoveFuelMotion
++import com.movefuel.mufil2.ui.design.MoveFuelRadius
+ 
+ @Composable
+ fun MFPrimaryButton(
+     text: String,
+     onClick: () -> Unit,
+     modifier: Modifier = Modifier,
+ ) {
++    val interaction = remember { MutableInteractionSource() }
++    val pressed by interaction.collectIsPressedAsState()
++    val scale by animateFloatAsState(
++        targetValue = if (pressed) .976f else 1f,
++        animationSpec = MoveFuelMotion.card(),
++        label = "mfButtonScale",
++    )
+     Button(
+         onClick = onClick,
+-        modifier = modifier.fillMaxWidth().heightIn(min = 52.dp),
++        interactionSource = interaction,
++        modifier = modifier
++            .fillMaxWidth()
++            .heightIn(min = 54.dp)
++            .graphicsLayer {
++                scaleX = scale
++                scaleY = scale
++            },
++        shape = RoundedCornerShape(MoveFuelRadius.Control),
+         colors = ButtonDefaults.buttonColors(
+             containerColor = MoveFuelColors.Sage,
+             contentColor = MoveFuelColors.Background,
+         ),
++        elevation = ButtonDefaults.buttonElevation(
++            defaultElevation = 1.dp,
++            pressedElevation = 0.dp,
++        ),
+     ) {
+         Text(text)
+     }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFCard.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFCard.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFCard.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFCard.kt
+@@ -1,14 +1,19 @@
+ package com.movefuel.mufil2.ui.components
+ 
++import androidx.compose.animation.animateContentSize
+ import androidx.compose.foundation.BorderStroke
++import androidx.compose.foundation.background
++import androidx.compose.foundation.border
+ import androidx.compose.foundation.layout.Column
+ import androidx.compose.foundation.layout.ColumnScope
+ import androidx.compose.foundation.layout.PaddingValues
+ import androidx.compose.foundation.layout.padding
+ import androidx.compose.foundation.shape.RoundedCornerShape
+-import androidx.compose.material3.Surface
+ import androidx.compose.runtime.Composable
+ import androidx.compose.ui.Modifier
++import androidx.compose.ui.draw.clip
++import androidx.compose.ui.draw.shadow
++import androidx.compose.ui.graphics.Brush
+ import androidx.compose.ui.unit.dp
+ import com.movefuel.mufil2.ui.design.MoveFuelColors
+ import com.movefuel.mufil2.ui.design.MoveFuelRadius
+@@ -20,12 +25,27 @@ fun MFCard(
+     contentPadding: PaddingValues = PaddingValues(MoveFuelSpacing.Base),
+     content: @Composable ColumnScope.() -> Unit,
+ ) {
+-    Surface(
+-        modifier = modifier,
+-        color = MoveFuelColors.Surface2,
+-        shape = RoundedCornerShape(MoveFuelRadius.Card),
+-        border = BorderStroke(width = 1.dp, color = MoveFuelColors.Border),
+-    ) {
+-        Column(Modifier.padding(contentPadding), content = content)
+-    }
++    val shape = RoundedCornerShape(MoveFuelRadius.Card)
++    Column(
++        modifier
++            .shadow(
++                elevation = 12.dp,
++                shape = shape,
++                ambientColor = MoveFuelColors.Sage.copy(alpha = .05f),
++                spotColor = androidx.compose.ui.graphics.Color.Black.copy(alpha = .42f),
++            )
++            .clip(shape)
++            .background(
++                Brush.linearGradient(
++                    listOf(
++                        MoveFuelColors.Surface2.copy(alpha = .98f),
++                        MoveFuelColors.Surface.copy(alpha = .96f),
++                    )
++                )
++            )
++            .border(BorderStroke(1.dp, MoveFuelColors.Border.copy(alpha = .88f)), shape)
++            .animateContentSize()
++            .padding(contentPadding),
++        content = content,
++    )
+ }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMediaLoading.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMediaLoading.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMediaLoading.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMediaLoading.kt
+@@ -1,37 +1,71 @@
+ package com.movefuel.mufil2.ui.components
+ 
+-import androidx.compose.foundation.layout.Arrangement
+-import androidx.compose.foundation.layout.Box
+-import androidx.compose.foundation.layout.Column
+-import androidx.compose.foundation.layout.fillMaxWidth
+-import androidx.compose.foundation.layout.height
+-import androidx.compose.foundation.layout.padding
++import androidx.compose.animation.core.RepeatMode
++import androidx.compose.animation.core.animateFloat
++import androidx.compose.animation.core.infiniteRepeatable
++import androidx.compose.animation.core.rememberInfiniteTransition
++import androidx.compose.animation.core.tween
++import androidx.compose.foundation.background
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.shape.RoundedCornerShape
+ import androidx.compose.material3.CircularProgressIndicator
+ import androidx.compose.material3.Text
+ import androidx.compose.runtime.Composable
++import androidx.compose.runtime.getValue
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
++import androidx.compose.ui.draw.alpha
++import androidx.compose.ui.graphics.Brush
+ import androidx.compose.ui.unit.dp
+-import com.movefuel.mufil2.ui.design.MoveFuelColors
+-import com.movefuel.mufil2.ui.design.MoveFuelSpacing
++import com.movefuel.mufil2.ui.design.*
+ 
+ @Composable
+ fun MFMediaLoading(
+-    label: String = "Loading media…",
++    label: String = "Loading exercise media…",
+     modifier: Modifier = Modifier,
+ ) {
++    val transition = rememberInfiniteTransition(label = "mediaPulse")
++    val alpha by transition.animateFloat(
++        initialValue = .64f,
++        targetValue = 1f,
++        animationSpec = infiniteRepeatable(
++            animation = tween(900),
++            repeatMode = RepeatMode.Reverse,
++        ),
++        label = "mediaPulseAlpha",
++    )
+     MFCard(modifier.fillMaxWidth()) {
+         Box(
+-            Modifier.fillMaxWidth().height(184.dp),
++            Modifier
++                .fillMaxWidth()
++                .height(188.dp)
++                .background(
++                    Brush.linearGradient(
++                        listOf(
++                            MoveFuelColors.Surface3,
++                            MoveFuelColors.SageStrong.copy(alpha = .22f),
++                            MoveFuelColors.Surface3,
++                        )
++                    ),
++                    RoundedCornerShape(MoveFuelRadius.Card),
++                ),
+             contentAlignment = Alignment.Center,
+         ) {
+             Column(
++                modifier = Modifier.alpha(alpha),
+                 horizontalAlignment = Alignment.CenterHorizontally,
+                 verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Md),
+             ) {
+-                CircularProgressIndicator(color = MoveFuelColors.Sage)
++                CircularProgressIndicator(
++                    color = MoveFuelColors.Sage,
++                    trackColor = MoveFuelColors.Surface2,
++                )
+                 Text(label, color = MoveFuelColors.TextSecondary)
+             }
+         }
++        Spacer(Modifier.height(MoveFuelSpacing.Md))
++        MFSkeleton(190.dp, 18.dp)
++        Spacer(Modifier.height(MoveFuelSpacing.Sm))
++        MFSkeleton(126.dp, 12.dp)
+     }
+ }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFMetricRing.kt
+@@ -1,51 +1,62 @@
+ package com.movefuel.mufil2.ui.components
+ 
++import androidx.compose.animation.core.animateFloatAsState
+ import androidx.compose.foundation.Canvas
+ import androidx.compose.foundation.layout.Box
+ import androidx.compose.foundation.layout.matchParentSize
+ import androidx.compose.foundation.layout.size
++import androidx.compose.material3.MaterialTheme
+ import androidx.compose.material3.Text
+ import androidx.compose.runtime.Composable
++import androidx.compose.runtime.getValue
+ import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.geometry.Offset
+ import androidx.compose.ui.geometry.Size
+ import androidx.compose.ui.graphics.Color
+ import androidx.compose.ui.graphics.StrokeCap
+ import androidx.compose.ui.graphics.drawscope.Stroke
++import androidx.compose.ui.unit.Dp
+ import androidx.compose.ui.unit.dp
+ import com.movefuel.mufil2.ui.design.MoveFuelColors
++import com.movefuel.mufil2.ui.design.MoveFuelMotion
+ 
+ @Composable
+ fun MFMetricRing(
+     progress: Float,
+     value: String,
+     color: Color = MoveFuelColors.Sage,
++    size: Dp = 92.dp,
+     modifier: Modifier = Modifier,
+ ) {
+-    Box(modifier.size(92.dp), contentAlignment = Alignment.Center) {
++    val animated by animateFloatAsState(
++        targetValue = progress.coerceIn(0f, 1f),
++        animationSpec = MoveFuelMotion.data(),
++        label = "mfRingProgress",
++    )
++    Box(modifier.size(size), contentAlignment = Alignment.Center) {
+         Canvas(Modifier.matchParentSize()) {
+-            val stroke = 9.dp.toPx()
++            val stroke = 8.dp.toPx()
+             val inset = stroke / 2f
+             drawArc(
+                 color = MoveFuelColors.Surface3,
+                 startAngle = -90f,
+                 sweepAngle = 360f,
+                 useCenter = false,
+                 topLeft = Offset(inset, inset),
+-                size = Size(size.width - stroke, size.height - stroke),
++                size = Size(this.size.width - stroke, this.size.height - stroke),
+                 style = Stroke(stroke, cap = StrokeCap.Round),
+             )
+             drawArc(
+                 color = color,
+                 startAngle = -90f,
+-                sweepAngle = 360f * progress.coerceIn(0f, 1f),
++                sweepAngle = 360f * animated,
+                 useCenter = false,
+                 topLeft = Offset(inset, inset),
+-                size = Size(size.width - stroke, size.height - stroke),
++                size = Size(this.size.width - stroke, this.size.height - stroke),
+                 style = Stroke(stroke, cap = StrokeCap.Round),
+             )
+         }
+-        Text(value, color = MoveFuelColors.Text)
++        Text(value, color = MoveFuelColors.Text, style = MaterialTheme.typography.titleMedium)
+     }
+ }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFPremiumBackground.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFPremiumBackground.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFPremiumBackground.kt
+@@ -0,0 +1,41 @@
++package com.movefuel.mufil2.ui.components
++
++import androidx.compose.foundation.background
++import androidx.compose.foundation.layout.Box
++import androidx.compose.foundation.layout.BoxScope
++import androidx.compose.foundation.layout.fillMaxSize
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.geometry.Offset
++import androidx.compose.ui.graphics.Brush
++import androidx.compose.ui.graphics.Color
++import com.movefuel.mufil2.ui.design.MoveFuelColors
++
++@Composable
++fun MFPremiumBackground(
++    modifier: Modifier = Modifier,
++    content: @Composable BoxScope.() -> Unit,
++) {
++    Box(
++        modifier
++            .fillMaxSize()
++            .background(
++                Brush.verticalGradient(
++                    0f to Color(0xFF101712),
++                    .45f to MoveFuelColors.Background,
++                    1f to Color(0xFF090D0A),
++                )
++            )
++            .background(
++                Brush.radialGradient(
++                    colors = listOf(
++                        MoveFuelColors.Sage.copy(alpha = .11f),
++                        Color.Transparent,
++                    ),
++                    center = Offset(170f, 0f),
++                    radius = 720f,
++                )
++            ),
++        content = content,
++    )
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFPremiumDashboardBlocks.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFPremiumDashboardBlocks.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFPremiumDashboardBlocks.kt
+@@ -0,0 +1,202 @@
++package com.movefuel.mufil2.ui.components
++
++import androidx.compose.animation.animateContentSize
++import androidx.compose.foundation.background
++import androidx.compose.foundation.clickable
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.shape.RoundedCornerShape
++import androidx.compose.material3.MaterialTheme
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.graphics.Brush
++import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.unit.dp
++import com.movefuel.mufil2.ui.design.*
++
++@Composable
++fun MFTabStrip(
++    labels: List<String>,
++    selected: String,
++) {
++    Row(
++        Modifier
++            .fillMaxWidth()
++            .background(MoveFuelColors.Surface2, RoundedCornerShape(18.dp))
++            .padding(5.dp),
++        horizontalArrangement = Arrangement.spacedBy(4.dp),
++    ) {
++        labels.forEach { label ->
++            val isSelected = label == selected
++            Box(
++                Modifier
++                    .weight(1f)
++                    .background(
++                        if (isSelected) MoveFuelColors.Sage.copy(alpha = .15f) else Color.Transparent,
++                        RoundedCornerShape(14.dp),
++                    )
++                    .padding(vertical = 9.dp),
++                contentAlignment = Alignment.Center,
++            ) {
++                Text(
++                    label,
++                    color = if (isSelected) MoveFuelColors.Sage else MoveFuelColors.TextMuted,
++                    style = MaterialTheme.typography.labelMedium,
++                )
++            }
++        }
++    }
++}
++
++@Composable
++fun MFSectionHeading(
++    title: String,
++    action: String? = null,
++) {
++    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
++        Text(title, style = MaterialTheme.typography.titleLarge, color = MoveFuelColors.Text)
++        action?.let { Text(it, style = MaterialTheme.typography.labelMedium, color = MoveFuelColors.Sage) }
++    }
++}
++
++@Composable
++fun MFNextActionCard(
++    title: String,
++    supporting: String,
++) {
++    MFCard(Modifier.fillMaxWidth()) {
++        Text("NEXT ACTION", color = MoveFuelColors.Sage, style = MaterialTheme.typography.labelMedium)
++        Spacer(Modifier.height(MoveFuelSpacing.Sm))
++        Text(title, style = MaterialTheme.typography.titleLarge)
++        Text(supporting, color = MoveFuelColors.TextSecondary)
++    }
++}
++
++@Composable
++fun MFMealCard(
++    name: String,
++    detail: String,
++    kcal: String,
++    accent: Color,
++) {
++    MFCard(Modifier.fillMaxWidth()) {
++        Row(horizontalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Md), verticalAlignment = Alignment.CenterVertically) {
++            Box(
++                Modifier
++                    .size(72.dp)
++                    .background(
++                        Brush.linearGradient(
++                            listOf(
++                                accent.copy(alpha = .48f),
++                                MoveFuelColors.Surface3,
++                            )
++                        ),
++                        RoundedCornerShape(18.dp),
++                    ),
++                contentAlignment = Alignment.Center,
++            ) {
++                Text(name.take(1), style = MaterialTheme.typography.titleLarge, color = MoveFuelColors.Text)
++            }
++            Column(Modifier.weight(1f)) {
++                Text(name, style = MaterialTheme.typography.titleMedium)
++                Text(detail, color = MoveFuelColors.TextSecondary)
++            }
++            Text(kcal, color = MoveFuelColors.Sage, style = MaterialTheme.typography.labelLarge)
++        }
++    }
++}
++
++@Composable
++fun MFWorkoutHero(
++    title: String,
++    meta: String,
++    loadingMedia: Boolean = false,
++    onStart: (() -> Unit)? = null,
++) {
++    MFCard(Modifier.fillMaxWidth()) {
++        Box(
++            Modifier
++                .fillMaxWidth()
++                .height(176.dp)
++                .background(
++                    Brush.linearGradient(
++                        listOf(
++                            MoveFuelColors.TrainAccent.copy(alpha = .34f),
++                            MoveFuelColors.Surface3,
++                            MoveFuelColors.SageStrong.copy(alpha = .13f),
++                        )
++                    ),
++                    RoundedCornerShape(20.dp),
++                ),
++            contentAlignment = Alignment.Center,
++        ) {
++            if (loadingMedia) {
++                androidx.compose.material3.CircularProgressIndicator(
++                    color = MoveFuelColors.Sage,
++                    trackColor = MoveFuelColors.Surface2,
++                )
++            } else {
++                Text("Exercise media", color = MoveFuelColors.TextMuted)
++            }
++        }
++        Spacer(Modifier.height(MoveFuelSpacing.Md))
++        Text(title, style = MaterialTheme.typography.titleLarge)
++        Text(meta, color = MoveFuelColors.TextSecondary)
++        if (onStart != null) {
++            Spacer(Modifier.height(MoveFuelSpacing.Md))
++            MFPrimaryButton("Start workout", onStart)
++        }
++    }
++}
++
++@Composable
++fun MFDeviceCard(
++    title: String,
++    detail: String,
++) {
++    MFCard(Modifier.fillMaxWidth()) {
++        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
++            Column {
++                Text(title, style = MaterialTheme.typography.titleMedium)
++                Text(detail, color = MoveFuelColors.TextSecondary)
++            }
++            Box(
++                Modifier
++                    .background(MoveFuelColors.Success.copy(alpha = .14f), RoundedCornerShape(999.dp))
++                    .padding(horizontal = 10.dp, vertical = 6.dp)
++            ) {
++                Text("CONNECTED", color = MoveFuelColors.Success, style = MaterialTheme.typography.labelMedium)
++            }
++        }
++    }
++}
++
++@Composable
++fun MFRangeStrip(
++    labels: List<String> = listOf("7D","30D","3M","6M","1Y","All"),
++    selected: String = "30D",
++) {
++    Row(
++        Modifier
++            .fillMaxWidth()
++            .background(MoveFuelColors.Surface3.copy(alpha = .72f), RoundedCornerShape(16.dp))
++            .padding(4.dp),
++        horizontalArrangement = Arrangement.spacedBy(4.dp),
++    ) {
++        labels.forEach { label ->
++            Box(
++                Modifier
++                    .weight(1f)
++                    .background(
++                        if (label == selected) MoveFuelColors.Sage.copy(alpha = .15f) else Color.Transparent,
++                        RoundedCornerShape(12.dp),
++                    )
++                    .padding(vertical = 8.dp),
++                contentAlignment = Alignment.Center,
++            ) {
++                Text(label, color = if (label == selected) MoveFuelColors.Sage else MoveFuelColors.TextMuted, style = MaterialTheme.typography.labelMedium)
++            }
++        }
++    }
++}
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFScreenFrame.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFScreenFrame.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFScreenFrame.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFScreenFrame.kt
+@@ -1,18 +1,16 @@
+ package com.movefuel.mufil2.ui.components
+ 
+-import androidx.compose.foundation.layout.Arrangement
+-import androidx.compose.foundation.layout.Column
+-import androidx.compose.foundation.layout.fillMaxSize
+-import androidx.compose.foundation.layout.fillMaxWidth
+-import androidx.compose.foundation.layout.padding
++import androidx.compose.animation.core.animateDpAsState
++import androidx.compose.animation.core.animateFloatAsState
++import androidx.compose.foundation.layout.*
+ import androidx.compose.foundation.rememberScrollState
+ import androidx.compose.foundation.verticalScroll
+ import androidx.compose.material3.MaterialTheme
+ import androidx.compose.material3.Text
+-import androidx.compose.runtime.Composable
++import androidx.compose.runtime.*
+ import androidx.compose.ui.Modifier
+-import com.movefuel.mufil2.ui.design.MoveFuelColors
+-import com.movefuel.mufil2.ui.design.MoveFuelSpacing
++import androidx.compose.ui.draw.alpha
++import com.movefuel.mufil2.ui.design.*
+ import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+ 
+ @Composable
+@@ -27,26 +25,44 @@ fun MFScreenFrame(
+     onNavigate: (MoveFuelRoute) -> Unit,
+     content: @Composable () -> Unit,
+ ) {
+-    Column(
+-        Modifier
+-            .fillMaxSize()
+-            .verticalScroll(rememberScrollState())
+-            .padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
+-        verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
+-    ) {
+-        MFTopBar("MoveFuel")
+-        Text(id, color = MoveFuelColors.Sage, style = MaterialTheme.typography.labelMedium)
+-        Text(title, style = MaterialTheme.typography.displaySmall)
+-        Text(subtitle, color = MoveFuelColors.TextSecondary)
+-        content()
+-        primaryLabel?.let { label ->
+-            MFPrimaryButton(label) { primaryRoute?.let(onNavigate) }
+-        }
+-        if (secondaryLabel != null && secondaryRoute != null) {
+-            androidx.compose.material3.TextButton(
+-                onClick = { onNavigate(secondaryRoute) },
+-                modifier = Modifier.fillMaxWidth(),
+-            ) { Text(secondaryLabel) }
++    var entered by remember { mutableStateOf(false) }
++    LaunchedEffect(Unit) { entered = true }
++    val alpha by animateFloatAsState(
++        if (entered) 1f else 0f,
++        animationSpec = MoveFuelMotion.enter(),
++        label = "screenAlpha",
++    )
++    val y by animateDpAsState(
++        if (entered) MoveFuelSpacing.Xs else MoveFuelSpacing.Lg,
++        animationSpec = MoveFuelMotion.enter(),
++        label = "screenOffset",
++    )
++
++    MFPremiumBackground {
++        Column(
++            Modifier
++                .fillMaxSize()
++                .alpha(alpha)
++                .offset(y = y)
++                .verticalScroll(rememberScrollState())
++                .padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
++            verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
++        ) {
++            MFTopBar()
++            Text(id, color = MoveFuelColors.Sage, style = MaterialTheme.typography.labelMedium)
++            Text(title, style = MaterialTheme.typography.displaySmall)
++            Text(subtitle, color = MoveFuelColors.TextSecondary)
++            content()
++            primaryLabel?.let { label ->
++                MFPrimaryButton(label) { primaryRoute?.let(onNavigate) }
++            }
++            if (secondaryLabel != null && secondaryRoute != null) {
++                androidx.compose.material3.TextButton(
++                    onClick = { onNavigate(secondaryRoute) },
++                    modifier = Modifier.fillMaxWidth(),
++                ) { Text(secondaryLabel) }
++            }
++            Spacer(Modifier.height(MoveFuelSpacing.Lg))
+         }
+     }
+ }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFSkeleton.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFSkeleton.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFSkeleton.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFSkeleton.kt
+@@ -1,6 +1,6 @@
+ package com.movefuel.mufil2.ui.components
+ 
+-import androidx.compose.animation.core.RepeatMode
++import androidx.compose.animation.core.LinearEasing
+ import androidx.compose.animation.core.animateFloat
+ import androidx.compose.animation.core.infiniteRepeatable
+ import androidx.compose.animation.core.rememberInfiniteTransition
+@@ -13,7 +13,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
+ import androidx.compose.runtime.Composable
+ import androidx.compose.runtime.getValue
+ import androidx.compose.ui.Modifier
+-import androidx.compose.ui.draw.alpha
++import androidx.compose.ui.geometry.Offset
++import androidx.compose.ui.graphics.Brush
+ import androidx.compose.ui.unit.Dp
+ import androidx.compose.ui.unit.dp
+ import com.movefuel.mufil2.ui.design.MoveFuelColors
+@@ -24,21 +25,28 @@ fun MFSkeleton(
+     height: Dp,
+     modifier: Modifier = Modifier,
+ ) {
+-    val transition = rememberInfiniteTransition(label = "skeleton")
+-    val alpha by transition.animateFloat(
+-        initialValue = 0.42f,
+-        targetValue = 0.82f,
++    val transition = rememberInfiniteTransition(label = "mfShimmer")
++    val x by transition.animateFloat(
++        initialValue = -420f,
++        targetValue = 980f,
+         animationSpec = infiniteRepeatable(
+-            animation = tween(900),
+-            repeatMode = RepeatMode.Reverse,
++            animation = tween(1450, easing = LinearEasing),
+         ),
+-        label = "skeletonAlpha",
++        label = "mfShimmerX",
++    )
++    val brush = Brush.linearGradient(
++        colors = listOf(
++            MoveFuelColors.Surface3.copy(alpha = .74f),
++            MoveFuelColors.Sage.copy(alpha = .15f),
++            MoveFuelColors.Surface3.copy(alpha = .74f),
++        ),
++        start = Offset(x, 0f),
++        end = Offset(x + 340f, 280f),
+     )
+     Box(
+         modifier
+             .width(width)
+             .height(height)
+-            .alpha(alpha)
+-            .background(MoveFuelColors.Surface3, RoundedCornerShape(12.dp))
++            .background(brush, RoundedCornerShape(14.dp))
+     )
+ }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTopBar.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTopBar.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTopBar.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTopBar.kt
+@@ -1,23 +1,47 @@
+ package com.movefuel.mufil2.ui.components
+ 
+-import androidx.compose.foundation.layout.Arrangement
+-import androidx.compose.foundation.layout.Row
+-import androidx.compose.foundation.layout.fillMaxWidth
++import androidx.compose.foundation.background
++import androidx.compose.foundation.layout.*
++import androidx.compose.foundation.shape.RoundedCornerShape
++import androidx.compose.material3.MaterialTheme
+ import androidx.compose.material3.Text
+ import androidx.compose.runtime.Composable
++import androidx.compose.ui.Alignment
+ import androidx.compose.ui.Modifier
++import androidx.compose.ui.unit.dp
+ import com.movefuel.mufil2.ui.design.MoveFuelColors
++import com.movefuel.mufil2.ui.design.MoveFuelSpacing
+ 
+ @Composable
+ fun MFTopBar(
+-    title: String,
++    title: String = "MoveFuel",
+     trailing: String = "Calendar · Profile",
+ ) {
+     Row(
+         Modifier.fillMaxWidth(),
+         horizontalArrangement = Arrangement.SpaceBetween,
++        verticalAlignment = Alignment.CenterVertically,
+     ) {
+-        Text(title, color = MoveFuelColors.Text)
+-        Text(trailing, color = MoveFuelColors.TextMuted)
++        Row(horizontalArrangement = Arrangement.spacedBy(3.dp), verticalAlignment = Alignment.CenterVertically) {
++            Text(
++                text = title.removeSuffix("Fuel"),
++                style = MaterialTheme.typography.titleLarge,
++                color = MoveFuelColors.Text,
++            )
++            if (title.endsWith("Fuel")) {
++                Text(
++                    text = "Fuel",
++                    style = MaterialTheme.typography.titleLarge,
++                    color = MoveFuelColors.Sage,
++                )
++            }
++        }
++        Box(
++            Modifier
++                .background(MoveFuelColors.Surface2, RoundedCornerShape(999.dp))
++                .padding(horizontal = MoveFuelSpacing.Md, vertical = MoveFuelSpacing.Sm)
++        ) {
++            Text(trailing, color = MoveFuelColors.TextMuted, style = MaterialTheme.typography.labelMedium)
++        }
+     }
+ }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTrendGraph.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTrendGraph.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTrendGraph.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MFTrendGraph.kt
+@@ -1,36 +1,60 @@
+ package com.movefuel.mufil2.ui.components
+ 
++import androidx.compose.animation.core.animateFloatAsState
+ import androidx.compose.foundation.Canvas
+ import androidx.compose.foundation.layout.fillMaxWidth
+ import androidx.compose.foundation.layout.height
+ import androidx.compose.runtime.Composable
++import androidx.compose.runtime.getValue
+ import androidx.compose.ui.Modifier
+ import androidx.compose.ui.geometry.Offset
+ import androidx.compose.ui.graphics.Path
+ import androidx.compose.ui.graphics.drawscope.Stroke
+ import androidx.compose.ui.unit.dp
+ import com.movefuel.mufil2.ui.design.MoveFuelColors
++import com.movefuel.mufil2.ui.design.MoveFuelMotion
+ 
+ @Composable
+ fun MFTrendGraph(
+     points: List<Float>,
+     modifier: Modifier = Modifier,
+ ) {
++    val reveal by animateFloatAsState(
++        targetValue = 1f,
++        animationSpec = MoveFuelMotion.data(),
++        label = "graphReveal",
++    )
+     Canvas(modifier.fillMaxWidth().height(180.dp)) {
++        repeat(4) { i ->
++            val y = size.height * i / 3f
++            drawLine(
++                color = MoveFuelColors.Border.copy(alpha = .52f),
++                start = Offset(0f, y),
++                end = Offset(size.width, y),
++                strokeWidth = 1.dp.toPx(),
++            )
++        }
+         if (points.size < 2) return@Canvas
+         val min = points.minOrNull() ?: 0f
+         val max = points.maxOrNull() ?: 1f
+         val range = (max - min).takeIf { it > 0f } ?: 1f
++        val visibleCount = ((points.size - 1) * reveal).toInt().coerceAtLeast(1)
+         val stepX = size.width / (points.size - 1)
+         val path = Path()
+         points.forEachIndexed { index, value ->
++            if (index > visibleCount) return@forEachIndexed
+             val x = index * stepX
+             val normalized = (value - min) / range
+             val y = size.height - normalized * size.height
+             if (index == 0) path.moveTo(x, y) else path.lineTo(x, y)
+         }
+-        drawPath(path, MoveFuelColors.ProgressAccent, style = Stroke(width = 5.dp.toPx()))
++        drawPath(
++            path,
++            MoveFuelColors.ProgressAccent,
++            style = Stroke(width = 4.dp.toPx()),
++        )
+         points.forEachIndexed { index, value ->
++            if (index > visibleCount) return@forEachIndexed
+             val x = index * stepX
+             val normalized = (value - min) / range
+             val y = size.height - normalized * size.height
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/design/MoveFuelMotion.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/design/MoveFuelMotion.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/design/MoveFuelMotion.kt
+@@ -0,0 +1,27 @@
++package com.movefuel.mufil2.ui.design
++
++import androidx.compose.animation.core.CubicBezierEasing
++import androidx.compose.animation.core.FiniteAnimationSpec
++import androidx.compose.animation.core.Spring
++import androidx.compose.animation.core.TweenSpec
++import androidx.compose.animation.core.spring
++
++object MoveFuelMotion {
++    const val Tap = 110
++    const val Small = 170
++    const val Card = 230
++    const val Screen = 310
++    const val Success = 480
++    const val DataReveal = 650
++
++    val Emphasized = CubicBezierEasing(0.2f, 0f, 0f, 1f)
++    val Enter = CubicBezierEasing(0.2f, 0.8f, 0.2f, 1f)
++
++    fun <T> enter(): FiniteAnimationSpec<T> = TweenSpec(Screen, easing = Enter)
++    fun <T> card(): FiniteAnimationSpec<T> = TweenSpec(Card, easing = Emphasized)
++    fun <T> data(): FiniteAnimationSpec<T> = TweenSpec(DataReveal, easing = Emphasized)
++    fun <T> softSpring(): FiniteAnimationSpec<T> = spring(
++        dampingRatio = Spring.DampingRatioNoBouncy,
++        stiffness = Spring.StiffnessMediumLow,
++    )
++}
