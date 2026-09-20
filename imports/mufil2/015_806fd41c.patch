@@ -1,0 +1,63 @@
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MoveFuelDashboardScaffold.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MoveFuelDashboardScaffold.kt
+deleted file mode 100644
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/components/MoveFuelDashboardScaffold.kt
++++ /dev/null
+@@ -1,58 +0,0 @@
+-package com.movefuel.mufil2.ui.components
+-
+-import androidx.compose.foundation.layout.Arrangement
+-import androidx.compose.foundation.layout.Column
+-import androidx.compose.foundation.layout.fillMaxSize
+-import androidx.compose.foundation.layout.fillMaxWidth
+-import androidx.compose.foundation.layout.padding
+-import androidx.compose.foundation.rememberScrollState
+-import androidx.compose.foundation.verticalScroll
+-import androidx.compose.material3.Text
+-import androidx.compose.runtime.Composable
+-import androidx.compose.ui.Modifier
+-import com.movefuel.mufil2.ui.design.MoveFuelColors
+-import com.movefuel.mufil2.ui.design.MoveFuelSpacing
+-import com.movefuel.mufil2.ui.model.DashboardSpec
+-import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+-
+-@Composable
+-fun MoveFuelDashboardScaffold(
+-    spec: DashboardSpec,
+-    onNavigate: (MoveFuelRoute) -> Unit,
+-    modifier: Modifier = Modifier,
+-) {
+-    Column(
+-        modifier
+-            .fillMaxSize()
+-            .verticalScroll(rememberScrollState())
+-            .padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
+-        verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
+-    ) {
+-        MFTopBar("MoveFuel")
+-        Text(spec.id, color = MoveFuelColors.Sage)
+-        Text(spec.title, style = androidx.compose.material3.MaterialTheme.typography.displaySmall)
+-        Text(spec.subtitle, color = MoveFuelColors.TextSecondary)
+-
+-        spec.sections.forEach { section ->
+-            MFCard(Modifier.fillMaxWidth()) {
+-                Text(section.title, style = androidx.compose.material3.MaterialTheme.typography.titleMedium)
+-                section.value?.let { Text(it, color = MoveFuelColors.Sage) }
+-                Text(section.description, color = MoveFuelColors.TextSecondary)
+-            }
+-        }
+-
+-        spec.primaryAction?.let { action ->
+-            MFPrimaryButton(
+-                text = action.label,
+-                onClick = { action.destination?.let(onNavigate) },
+-            )
+-        }
+-
+-        spec.secondaryActions.forEach { action ->
+-            androidx.compose.material3.TextButton(
+-                onClick = { action.destination?.let(onNavigate) },
+-                modifier = Modifier.fillMaxWidth(),
+-            ) { Text(action.label) }
+-        }
+-    }
+-}
