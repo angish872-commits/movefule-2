@@ -1,0 +1,320 @@
+-- MoveFuel Android Room/SQLite offline blueprint
+-- 32 local tables; intentionally NOT a mirror of server SQL.
+PRAGMA foreign_keys=ON;
+PRAGMA journal_mode=WAL;
+
+CREATE TABLE IF NOT EXISTS profile_snapshot (
+  user_id TEXT PRIMARY KEY,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS onboarding_draft (
+  user_id TEXT PRIMARY KEY,
+  step INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS target_snapshot (
+  user_id TEXT NOT NULL,
+  target_revision_id TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  effective_date TEXT NOT NULL,
+  PRIMARY KEY(user_id,target_revision_id)
+);
+
+CREATE TABLE IF NOT EXISTS preference_snapshot (
+  user_id TEXT NOT NULL,
+  key TEXT NOT NULL,
+  value_json TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,key)
+);
+
+CREATE TABLE IF NOT EXISTS meal_cache (
+  user_id TEXT NOT NULL,
+  meal_id TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  local_date TEXT NOT NULL,
+  meal_type TEXT,
+  payload_json TEXT NOT NULL,
+  confirmed_at INTEGER,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,meal_id)
+);
+
+CREATE TABLE IF NOT EXISTS meal_item_cache (
+  user_id TEXT NOT NULL,
+  meal_item_id TEXT NOT NULL,
+  meal_id TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY(user_id,meal_item_id)
+);
+
+CREATE TABLE IF NOT EXISTS meal_draft (
+  user_id TEXT NOT NULL,
+  draft_id TEXT NOT NULL,
+  state TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  media_uri TEXT,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,draft_id)
+);
+
+CREATE TABLE IF NOT EXISTS daily_nutrition_cache (
+  user_id TEXT NOT NULL,
+  local_date TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  freshness TEXT NOT NULL,
+  PRIMARY KEY(user_id,local_date)
+);
+
+CREATE TABLE IF NOT EXISTS saved_meal_cache (
+  user_id TEXT NOT NULL,
+  saved_meal_id TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,saved_meal_id)
+);
+
+CREATE TABLE IF NOT EXISTS personal_food_cache (
+  user_id TEXT NOT NULL,
+  personal_food_id TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,personal_food_id)
+);
+
+CREATE TABLE IF NOT EXISTS food_lookup_cache (
+  lookup_key TEXT PRIMARY KEY,
+  source_revision TEXT,
+  payload_json TEXT NOT NULL,
+  expires_at INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS recipe_cache (
+  user_id TEXT NOT NULL,
+  recipe_id TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,recipe_id)
+);
+
+CREATE TABLE IF NOT EXISTS recipe_draft (
+  user_id TEXT NOT NULL,
+  draft_id TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,draft_id)
+);
+
+CREATE TABLE IF NOT EXISTS recipe_import_job (
+  user_id TEXT NOT NULL,
+  job_id TEXT NOT NULL,
+  source_type TEXT NOT NULL,
+  source_ref TEXT NOT NULL,
+  state TEXT NOT NULL,
+  progress_stage TEXT,
+  payload_json TEXT,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,job_id)
+);
+
+CREATE TABLE IF NOT EXISTS meal_plan_cache (
+  user_id TEXT NOT NULL,
+  plan_id TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,plan_id)
+);
+
+CREATE TABLE IF NOT EXISTS planned_meal_cache (
+  user_id TEXT NOT NULL,
+  planned_meal_id TEXT NOT NULL,
+  plan_id TEXT NOT NULL,
+  local_date TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  PRIMARY KEY(user_id,planned_meal_id)
+);
+
+CREATE TABLE IF NOT EXISTS shopping_cache (
+  user_id TEXT NOT NULL,
+  item_id TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  purchased INTEGER NOT NULL DEFAULT 0,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,item_id)
+);
+
+CREATE TABLE IF NOT EXISTS exercise_cache (
+  exercise_id TEXT PRIMARY KEY,
+  catalog_revision TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS workout_plan_cache (
+  user_id TEXT NOT NULL,
+  plan_id TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,plan_id)
+);
+
+CREATE TABLE IF NOT EXISTS workout_plan_step_cache (
+  user_id TEXT NOT NULL,
+  step_id TEXT NOT NULL,
+  plan_id TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  PRIMARY KEY(user_id,step_id)
+);
+
+CREATE TABLE IF NOT EXISTS active_workout (
+  user_id TEXT NOT NULL,
+  local_session_id TEXT NOT NULL,
+  canonical_session_id TEXT,
+  plan_id TEXT NOT NULL,
+  state TEXT NOT NULL,
+  expected_revision INTEGER,
+  payload_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,local_session_id)
+);
+
+CREATE TABLE IF NOT EXISTS workout_event_journal (
+  user_id TEXT NOT NULL,
+  event_id TEXT NOT NULL,
+  local_session_id TEXT NOT NULL,
+  sequence INTEGER NOT NULL,
+  event_type TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  idempotency_key TEXT NOT NULL,
+  sync_state TEXT NOT NULL,
+  occurred_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,event_id),
+  UNIQUE(user_id,local_session_id,sequence),
+  UNIQUE(user_id,idempotency_key)
+);
+
+CREATE TABLE IF NOT EXISTS workout_history (
+  user_id TEXT NOT NULL,
+  session_id TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  completed_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,session_id)
+);
+
+CREATE TABLE IF NOT EXISTS readiness_soreness_cache (
+  user_id TEXT NOT NULL,
+  local_date TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  freshness TEXT NOT NULL,
+  PRIMARY KEY(user_id,local_date)
+);
+
+CREATE TABLE IF NOT EXISTS substitution_cache (
+  user_id TEXT NOT NULL,
+  session_id TEXT NOT NULL,
+  exercise_id TEXT NOT NULL,
+  catalog_revision TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  PRIMARY KEY(user_id,session_id,exercise_id)
+);
+
+CREATE TABLE IF NOT EXISTS calendar_cache (
+  user_id TEXT NOT NULL,
+  entry_id TEXT NOT NULL,
+  calendar_revision INTEGER NOT NULL,
+  local_date TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  PRIMARY KEY(user_id,entry_id,calendar_revision)
+);
+
+CREATE TABLE IF NOT EXISTS progress_cache (
+  user_id TEXT NOT NULL,
+  metric_key TEXT NOT NULL,
+  range_key TEXT NOT NULL,
+  revision_hash TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,metric_key,range_key)
+);
+
+CREATE TABLE IF NOT EXISTS report_cache (
+  user_id TEXT NOT NULL,
+  report_id TEXT NOT NULL,
+  revision INTEGER NOT NULL,
+  payload_json TEXT NOT NULL,
+  generated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,report_id)
+);
+
+CREATE TABLE IF NOT EXISTS pending_outbox (
+  user_id TEXT NOT NULL,
+  operation_id TEXT NOT NULL,
+  entity_type TEXT NOT NULL,
+  entity_id TEXT NOT NULL,
+  operation TEXT NOT NULL,
+  idempotency_key TEXT NOT NULL,
+  expected_revision INTEGER,
+  payload_json TEXT,
+  state TEXT NOT NULL,
+  attempts INTEGER NOT NULL DEFAULT 0,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,operation_id),
+  UNIQUE(user_id,idempotency_key)
+);
+
+CREATE TABLE IF NOT EXISTS sync_receipt (
+  user_id TEXT NOT NULL,
+  operation_id TEXT NOT NULL,
+  outcome TEXT NOT NULL,
+  canonical_revision INTEGER,
+  canonical_event_id TEXT,
+  received_at INTEGER NOT NULL,
+  payload_json TEXT,
+  PRIMARY KEY(user_id,operation_id)
+);
+
+CREATE TABLE IF NOT EXISTS conflict_record (
+  user_id TEXT NOT NULL,
+  conflict_id TEXT NOT NULL,
+  entity_type TEXT NOT NULL,
+  entity_id TEXT NOT NULL,
+  local_revision INTEGER,
+  server_revision INTEGER,
+  reason_code TEXT NOT NULL,
+  payload_json TEXT,
+  resolved_at INTEGER,
+  PRIMARY KEY(user_id,conflict_id)
+);
+
+CREATE TABLE IF NOT EXISTS device_health_cache (
+  user_id TEXT NOT NULL,
+  cache_key TEXT NOT NULL,
+  source TEXT NOT NULL,
+  payload_json TEXT NOT NULL,
+  freshness TEXT NOT NULL,
+  updated_at INTEGER NOT NULL,
+  PRIMARY KEY(user_id,cache_key)
+);
+
+CREATE INDEX IF NOT EXISTS ix_pending_outbox_state ON pending_outbox(user_id,state,created_at);
+CREATE INDEX IF NOT EXISTS ix_workout_journal_sync ON workout_event_journal(user_id,sync_state,occurred_at);
+CREATE INDEX IF NOT EXISTS ix_meal_cache_date ON meal_cache(user_id,local_date,updated_at);
+CREATE INDEX IF NOT EXISTS ix_calendar_cache_date ON calendar_cache(user_id,local_date,calendar_revision);
