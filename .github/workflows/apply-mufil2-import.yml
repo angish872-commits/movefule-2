@@ -31,6 +31,15 @@ jobs:
             git apply "$patch"
           done
 
+      - name: Restore API-omitted source files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p Mufil-2/audit
+          cp ui/audit/MOVEFUEL_400_SCREEN_CONTROL_AUDIT.csv Mufil-2/audit/MOVEFUEL_400_SCREEN_CONTROL_AUDIT.csv
+          cp ui/audit/MOVEFUEL_BUTTON_ACTION_CONTRACT.csv Mufil-2/audit/MOVEFUEL_BUTTON_ACTION_CONTRACT.csv
+          touch Mufil-2/app/proguard-rules.pro
+
       - name: Verify imported snapshot counts
         shell: bash
         run: |
@@ -44,6 +53,8 @@ jobs:
           test "$domain_screens" = "400"
           test "$kotlin_files" = "428"
           test "$registry_rows" = "404"
+          cmp ui/audit/MOVEFUEL_400_SCREEN_CONTROL_AUDIT.csv Mufil-2/audit/MOVEFUEL_400_SCREEN_CONTROL_AUDIT.csv
+          cmp ui/audit/MOVEFUEL_BUTTON_ACTION_CONTRACT.csv Mufil-2/audit/MOVEFUEL_BUTTON_ACTION_CONTRACT.csv
 
       - name: Commit verified source snapshot
         shell: bash
