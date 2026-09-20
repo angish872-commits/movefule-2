@@ -1,0 +1,294 @@
+diff --git a/Mufil-2/audit/MOVEFUEL_CONTROL_AUDIT_SUMMARY.md b/Mufil-2/audit/MOVEFUEL_CONTROL_AUDIT_SUMMARY.md
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/audit/MOVEFUEL_CONTROL_AUDIT_SUMMARY.md
+@@ -0,0 +1,116 @@
++# MoveFuel 400-Screen Control / Feature / Permission Audit
++
++## Scope
++Audited the **400 domain Compose screens** in `Mufil-2` against the MoveFuel Notion UI architecture and current shared Compose components.
++
++Sources used:
++- Notion: **00 — Master Prompt · Google AI Studio / Stitch**
++- Notion: **MoveFuel — Complete UI/UX Product Map**
++- Notion: **Batch 10 — Profile + Devices + Privacy + Billing + Help**
++- Notion: **Batch 11 — Wear OS**
++- Notion: **Batch 12 — System States + Cross-App Integration**
++- GitHub branch: `ui-test`, current UI checkpoint before this audit: `77ee7be7518aaab2e6366c5e76ed41b2ad3fbe82`
++
++## Executive truth check
++
++The UI is visually complete enough for a large prototype, but the control layer is **not functionally complete yet**.
++
++### What is actually wired today
++- 400 domain screens exist.
++- Every domain screen renders a real `MFPrimaryButton` for **Continue**.
++- Every domain screen renders a real Material `TextButton` for **Back**.
++- Therefore there are **800 functional scaffold action occurrences** across the 400 domain screens.
++- These actions are **registry-sequential**, not product-semantic. They are useful for preview traversal but are not valid final navigation.
++- The four master dashboards have working bottom navigation.
++- Today has a working Start Workout CTA.
++- Fuel has a working Add Food CTA.
++- Train has a working Start Workout CTA.
++- NavHost route transitions and the shared motion system are present.
++
++### What currently looks interactive but is not yet functionally interactive
++Shared components currently render these as presentation-only:
++- `MFField` — Surface + Text; **not editable**.
++- `MFOptionCard` — no click callback.
++- `MFListItem` — no click callback.
++- `MFToggleRow` — Switch has `onCheckedChange = null`; display-only.
++- `MFNotice(action=...)` — action label is text only.
++- `MFCalendarMini` — days are not clickable.
++- `MFBodyMapPlaceholder` — body regions are not clickable.
++- `MFTabStrip` — tabs display selection but have no selection callback.
++- `MFRangeStrip` — range choices display but have no selection callback.
++- `MFTopBar` — Calendar/Profile text is not clickable.
++- `MFSectionHeading(action=...)` — action text is not clickable.
++- Most meal/device/cards are display-only unless a containing screen provides a real CTA.
++
++### Current manifest
++The current `Mufil-2/app/src/main/AndroidManifest.xml` contains **no uses-permission declarations**. Sensor, camera, notification, networking, Health Connect, and optional wearable permissions still need architecture + manifest implementation.
++
++## Planned interaction inventory derived from the 400 screens
++- Planned semantic action rows in the implementation contract: **612**
++- Screens with user-entered/selectable input requirements: **155**
++- Screens with explicit sensor/device dependencies: **42**
++- Screens with explicit runtime/health permission gates: **45**
++
++These are implementation-contract counts, not claims that the controls are already working.
++
++## P0 conflicts to fix before database/API wiring
++
++1. **Sequential navigation is wrong for product behavior.**
++   `Continue` and `Back` currently move through registry order. Final wiring must use typed product actions and meaningful parent/success/error destinations.
++
++2. **Inputs are not inputs yet.**
++   Authentication, onboarding, meal editing, workout actuals, recipe import URLs, target editing, etc. must use real Compose stateful controls such as `TextField`, numeric controls, pickers, selectors, sliders, and validation.
++
++3. **Visual option cards are not selectable.**
++   Add `selected`, `enabled`, `onClick`, accessibility semantics, and state ownership.
++
++4. **Rows that say Open/Edit/Add/Review are not clickable.**
++   Add typed callbacks to `MFListItem` or use dedicated row components.
++
++5. **Tabs/ranges/top-bar actions are not wired.**
++   Fuel/Train/Progress internal tabs, graph ranges, Calendar/Profile shortcuts, and section actions need callbacks.
++
++6. **No permission architecture is implemented.**
++   Add point-of-use permission coordinator, denial/permanent-denial handling, Settings handoff, and continue-without-feature paths.
++
++7. **No backend write contract is attached to UI controls yet.**
++   Every create/update/delete/confirm/complete action must have repository/use-case ownership, idempotency, loading, success, retry, and conflict behavior.
++
++8. **No real sensor integration is present.**
++   Camera, Health Connect, Wear OS sensor data, and optional Bluetooth/location capabilities are still UI contracts only.
++
++9. **Draft vs canonical state must be enforced.**
++   Camera/recipe AI results stay draft until user confirmation. Planned meals/workouts remain separate from consumed/performed facts.
++
++10. **Destructive and duplicate-sensitive actions need guards.**
++    Confirm Meal, Complete Set, Save Recipe, purchase, delete account, delete meal, disconnect device, and similar actions require idempotency/confirmation.
++
++## Implementation architecture
++
++For each feature use:
++
++```
++Composable
++  -> typed UiAction
++  -> ViewModel
++  -> domain use case
++  -> repository
++  -> local/cache/network provider
++  -> result/state
++  -> UiState
++  -> Compose re-render
++```
++
++Never let screen files directly own database/AI/business logic.
++
++## Files produced by this audit
++
++- `MOVEFUEL_400_SCREEN_CONTROL_AUDIT.csv` — one row per screen.
++- `MOVEFUEL_BUTTON_ACTION_CONTRACT.csv` — action-level interaction contract.
++- `MOVEFUEL_FAMILY_CONTROL_COUNTS.csv` — family summary.
++- `MOVEFUEL_PERMISSION_SENSOR_MATRIX.csv` — Android permissions/sensor plan.
++- `MOVEFUEL_IMPLEMENTATION_PLAN.md` — engineering sequence.
++
++## Next gate
++
++Do **not** design 140+ SQL tables from screen count alone. First use this control contract to group canonical entities, drafts, events, revisions, observations, sync receipts, and derived outputs. Then derive the relational schema from real data ownership and transaction boundaries.
+diff --git a/Mufil-2/audit/MOVEFUEL_FAMILY_CONTROL_COUNTS.csv b/Mufil-2/audit/MOVEFUEL_FAMILY_CONTROL_COUNTS.csv
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/audit/MOVEFUEL_FAMILY_CONTROL_COUNTS.csv
+@@ -0,0 +1,23 @@
++"family","screens","planned_action_rows","screens_with_user_input","screens_with_sensor_dependency","screens_with_permission_gate","P0_screens","P1_screens","P2_screens"
++"AUTH","12","20","4","0","0","12","0","0"
++"ONB","18","40","15","0","0","18","0","0"
++"TOD","12","34","0","0","0","12","0","0"
++"CAM","18","39","9","18","18","18","0","0"
++"BAR","16","30","7","3","3","16","0","0"
++"FNO","18","26","4","0","0","18","0","0"
++"FPL","24","35","10","0","0","0","24","0"
++"FSH","16","22","5","0","0","0","16","0"
++"RCP","36","60","14","0","0","0","36","0"
++"TRS","20","43","17","0","0","0","20","0"
++"TRN","24","28","5","0","0","24","0","0"
++"WRK","32","37","12","0","0","32","0","0"
++"SOR","10","10","5","0","0","0","10","0"
++"RDY","10","10","6","3","4","10","0","0"
++"EXR","16","23","7","0","0","0","16","0"
++"CAL","18","30","11","0","0","0","18","0"
++"PRG","30","34","7","3","9","0","30","0"
++"PRO","18","20","9","0","1","0","18","0"
++"DEV","12","21","1","12","6","0","12","0"
++"BIL","8","12","2","0","0","0","8","0"
++"WAR","12","16","2","3","4","0","12","0"
++"SYS","20","22","3","0","0","20","0","0"
+\ No newline at end of file
+diff --git a/Mufil-2/audit/MOVEFUEL_IMPLEMENTATION_PLAN.md b/Mufil-2/audit/MOVEFUEL_IMPLEMENTATION_PLAN.md
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/audit/MOVEFUEL_IMPLEMENTATION_PLAN.md
+@@ -0,0 +1,120 @@
++# MoveFuel UI Control Implementation Plan
++
++## Phase 0 — Replace prototype traversal with real navigation
++1. Keep `MoveFuelRoute`, but remove registry-sequential product behavior.
++2. Add typed destination/UiAction contracts by feature.
++3. Use `NavController.popBackStack()` for ordinary Back, not previous registry ID.
++4. Define explicit success/error/offline/cancel destinations.
++5. Add deep-link contracts for reminders, import completion, reports and sync failures.
++
++## Phase 1 — Upgrade shared controls
++Create/refactor:
++- `MFTextField` / `MFNumberField`
++- `MFPasswordField`
++- `MFDateField`
++- `MFOptionCard(onClick, selected, enabled)`
++- `MFListItem(onClick, trailingAction)`
++- `MFToggleRow(onCheckedChange)`
++- `MFTabStrip(onSelect)`
++- `MFRangeStrip(onSelect)`
++- `MFTopBar(onCalendar, onNotifications, onProfile)`
++- `MFBodyMap(onRegionSelect)`
++- `MFCalendar(onDateSelect, onEventSelect)`
++- `MFNotice(onAction)`
++- `MFSearchField`
++- destructive/confirmation sheets
++- loading/disabled/submitting button variants
++
++## Phase 2 — State ownership
++For each family create:
++- `*Route.kt` — ViewModel collection + navigation
++- `*Screen.kt` — stateless rendering
++- `*UiState.kt`
++- `*UiAction.kt`
++- `*ViewModel.kt`
++- preview/sample state files
++- focused component files
++
++No SQL, provider, AI, or algorithm code inside Compose.
++
++## Phase 3 — Permission coordinator
++Implement point-of-use permission flows:
++- Camera
++- Photo Picker
++- Notifications
++- Health Connect selected data types
++- Wear/health sensors
++- optional BLE/location only where architecture proves they are needed
++
++Every permission needs:
++- rationale/pre-prompt where appropriate
++- grant
++- deny
++- permanently denied / Settings handoff
++- feature-degraded path
++- revoke detection
++
++## Phase 4 — Draft/canonical rules
++Create explicit state types:
++- user draft
++- AI/provider candidate
++- confirmed canonical fact
++- planned value
++- performed/consumed actual
++- pending sync event
++- server-acknowledged fact
++- unknown/unavailable
++
++Never collapse these into one nullable DTO.
++
++## Phase 5 — Command/idempotency layer
++High-risk commands receive stable command/event IDs:
++- Confirm Meal
++- Save Recipe
++- Complete Set
++- Finish Workout
++- Confirm Plan
++- Purchase/Restore
++- Device Sync Event
++- Delete Account request
++- contribution/food correction
++
++Repeated taps/retries must not duplicate canonical records.
++
++## Phase 6 — Feature-family implementation order
++1. AUTH + ONB
++2. Today + global navigation
++3. Fuel Now + Camera + Barcode
++4. Active Workout + Train + Readiness/Soreness
++5. Calendar
++6. Progress
++7. Recipe import + Plan + Shop
++8. Profile/Privacy/Notifications
++9. Devices + Wear
++10. Billing
++11. system/deep-link/recovery hardening
++
++## Phase 7 — Test contract
++For every planned action in `MOVEFUEL_BUTTON_ACTION_CONTRACT.csv` add:
++- UI test: action is available when valid
++- UI test: disabled when invalid
++- navigation test
++- ViewModel reducer test
++- use-case test
++- repository contract test
++- idempotency test for write commands
++- offline/retry test where applicable
++- permission denied test where applicable
++- accessibility semantics test
++
++## Acceptance rule
++A screen is not “implemented” because it renders. It is implemented only when:
++1. required controls are actually interactive,
++2. validation exists,
++3. state survives expected lifecycle/restart boundaries,
++4. success/error/offline are handled,
++5. writes are idempotent,
++6. navigation is semantic,
++7. permissions are point-of-use,
++8. analytics/audit events do not expose sensitive payloads,
++9. planned/actual and unknown/zero invariants remain intact.
+diff --git a/Mufil-2/audit/MOVEFUEL_PERMISSION_SENSOR_MATRIX.csv b/Mufil-2/audit/MOVEFUEL_PERMISSION_SENSOR_MATRIX.csv
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/audit/MOVEFUEL_PERMISSION_SENSOR_MATRIX.csv
+@@ -0,0 +1,13 @@
++"capability","screens/features","sensor_or_service","permission","permission_type","requirement","implementation_note"
++"Global networking","Appwrite/API/AI/provider traffic","none","android.permission.INTERNET","normal manifest permission","REQUIRED","Manifest currently declares none. Add INTERNET. ACCESS_NETWORK_STATE recommended for connectivity UI."
++"Camera","Food camera; barcode scanner; nutrition-label capture","camera","android.permission.CAMERA","runtime","REQUIRED_WHEN_USED","Request at point of use with pre-permission rationale."
++"Gallery/photo selection","Food gallery; progress photos","system Photo Picker","none for picker","system picker grant","RECOMMENDED","Prefer Photo Picker rather than broad media permission. Persist selected URI grant only when long-running access is needed."
++"Notifications","Workout/meal/report/sync reminders","notification system","android.permission.POST_NOTIFICATIONS","runtime on API 33+","OPTIONAL","Request only when user enables notifications."
++"Health Connect steps/activity","Progress/readiness optional connected data","Health Connect","data-type-specific android.permission.health.READ_*","Health Connect consent","OPTIONAL","Request only selected data types; revocable at any time."
++"Health Connect workout writes","If MoveFuel exports workouts to Health Connect","Health Connect","data-type-specific android.permission.health.WRITE_*","Health Connect consent","OPTIONAL","Only if product writes exercise sessions/metrics externally."
++"Heart rate on Wear OS","Optional live HR in workout/readiness","Health Services / sensor","API 36+ granular android.permission.health permission e.g. READ_HEART_RATE","runtime/health permission","OPTIONAL","Current targetSdk is 37; do not rely on legacy BODY_SENSORS for API36+ behavior."
++"Sleep","Optional readiness recovery input","Health Connect","android.permission.health.READ_SLEEP","Health Connect consent","OPTIONAL","Do not block workouts if denied."
++"Raw Bluetooth scan/connect","Only if implementation bypasses Wear Data Layer and directly scans BLE","Bluetooth","BLUETOOTH_SCAN; BLUETOOTH_CONNECT","runtime on Android 12+","AVOID_IF_NOT_NEEDED","Prefer Wear OS Data Layer/companion APIs for normal watch sync."
++"Phone activity sensor","Only if directly reading phone activity-recognition sensors rather than Health Connect","activity sensor","android.permission.ACTIVITY_RECOGNITION","runtime","OPTIONAL","Avoid duplicate data sources; prefer connected health source when appropriate."
++"Location/GPS routes","Only if live running route tracking is later enabled","GPS","ACCESS_FINE_LOCATION plus applicable foreground-service requirements","runtime","OPTIONAL_LATER","Not required for basic workout logging/progress."
++"Foreground workout service","Long-running sensor/location workout capture with screen off","foreground service","FOREGROUND_SERVICE plus applicable specific service-type permissions","normal/runtime mix","CONDITIONAL","Needed only for live background workout capture architecture."
+\ No newline at end of file
