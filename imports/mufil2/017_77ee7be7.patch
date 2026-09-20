@@ -1,0 +1,167 @@
+diff --git a/Mufil-2/ANIMATION_CATALOG.md b/Mufil-2/ANIMATION_CATALOG.md
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/ANIMATION_CATALOG.md
+@@ -0,0 +1,53 @@
++# Animation catalog
++
++## Global motion
++
++- Screen enter: 310ms fade/soft vertical arrival.
++- Route transition: fade in/out through the central NavHost.
++- Button press: subtle scale compression.
++- Card resizing: animated content size.
++- Metric rings: animate from zero to the current value.
++- Progress graphs: reveal from left to right.
++- Skeletons: moving sage-tinted shimmer.
++- Media buffering: persistent content frame + circular buffer indicator + metadata skeletons.
++- Bottom navigation: selected pill/marker animates between destinations.
++
++## Process motion
++
++### Camera
++Captured image remains visible while staged analysis progresses:
++1. Checking image
++2. Detecting foods
++3. Estimating portions
++4. Matching nutrition
++5. Preparing review
++
++### Recipe / YouTube import
++1. Queued
++2. Reading source
++3. Extracting recipe evidence
++4. Normalizing ingredients
++5. Matching trusted foods
++6. Checking nutrition
++7. Review
++
++The user can leave and return without the UI pretending the process stopped.
++
++### Active workout
++- Complete set -> confirmation state -> rest timer.
++- Media can buffer without blocking set logging.
++- Pause preserves state.
++- Rest timer remains visible and resumable.
++- Performed values stay distinct from planned values.
++
++### Sync
++- Local save is distinct from server acknowledgment.
++- Pending is a static/queued state rather than an endless fake success spinner.
++- Failed sync keeps local data and exposes retry.
++
++## Motion Lab
++
++Open:
++`app/src/main/java/com/movefuel/mufil2/ui/dev/MotionLab.kt`
++
++Use Compose Preview to inspect shared motion components together.
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/design/MoveFuelMotion.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/design/MoveFuelMotion.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/design/MoveFuelMotion.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/design/MoveFuelMotion.kt
+@@ -2,9 +2,8 @@ package com.movefuel.mufil2.ui.design
+ 
+ import androidx.compose.animation.core.CubicBezierEasing
+ import androidx.compose.animation.core.FiniteAnimationSpec
+-import androidx.compose.animation.core.Spring
+-import androidx.compose.animation.core.TweenSpec
+ import androidx.compose.animation.core.spring
++import androidx.compose.animation.core.tween
+ 
+ object MoveFuelMotion {
+     const val Tap = 110
+@@ -17,11 +16,8 @@ object MoveFuelMotion {
+     val Emphasized = CubicBezierEasing(0.2f, 0f, 0f, 1f)
+     val Enter = CubicBezierEasing(0.2f, 0.8f, 0.2f, 1f)
+ 
+-    fun <T> enter(): FiniteAnimationSpec<T> = TweenSpec(Screen, easing = Enter)
+-    fun <T> card(): FiniteAnimationSpec<T> = TweenSpec(Card, easing = Emphasized)
+-    fun <T> data(): FiniteAnimationSpec<T> = TweenSpec(DataReveal, easing = Emphasized)
+-    fun <T> softSpring(): FiniteAnimationSpec<T> = spring(
+-        dampingRatio = Spring.DampingRatioNoBouncy,
+-        stiffness = Spring.StiffnessMediumLow,
+-    )
++    fun <T> enter(): FiniteAnimationSpec<T> = tween(Screen, easing = Enter)
++    fun <T> card(): FiniteAnimationSpec<T> = tween(Card, easing = Emphasized)
++    fun <T> data(): FiniteAnimationSpec<T> = tween(DataReveal, easing = Emphasized)
++    fun <T> softSpring(): FiniteAnimationSpec<T> = spring()
+ }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/dev/MotionLab.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/dev/MotionLab.kt
+new file mode 100644
+--- /dev/null
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/dev/MotionLab.kt
+@@ -0,0 +1,46 @@
++package com.movefuel.mufil2.ui.dev
++
++import androidx.compose.foundation.layout.*
++import androidx.compose.material3.Text
++import androidx.compose.runtime.Composable
++import androidx.compose.ui.Modifier
++import androidx.compose.ui.tooling.preview.Preview
++import androidx.compose.ui.unit.dp
++import com.movefuel.mufil2.ui.components.*
++import com.movefuel.mufil2.ui.design.*
++
++@Composable
++fun MotionLab() {
++    MFPremiumBackground {
++        Column(
++            Modifier
++                .fillMaxSize()
++                .padding(MoveFuelSpacing.Base),
++            verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
++        ) {
++            Text("MoveFuel Motion Lab", color = MoveFuelColors.Text)
++            Row(horizontalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Md)) {
++                MFMetricRing(.78f, "78%")
++                MFMetricRing(.62f, "62%", MoveFuelColors.Info)
++                MFMetricRing(.45f, "45%", MoveFuelColors.FuelAccent)
++            }
++            MFMediaLoading("Buffering exercise media…")
++            MFStageList(
++                stages = listOf(
++                    "Queued",
++                    "Reading source",
++                    "Extracting recipe",
++                    "Matching foods",
++                    "Preparing review",
++                ),
++                activeIndex = 2,
++            )
++            MFSkeleton(300.dp, 22.dp)
++            MFSkeleton(220.dp, 14.dp)
++        }
++    }
++}
++
++@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
++@Composable
++private fun MotionLabPreview() = MoveFuelTheme { MotionLab() }
+diff --git a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/navigation/MoveFuelNavGraph.kt b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/navigation/MoveFuelNavGraph.kt
+--- a/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/navigation/MoveFuelNavGraph.kt
++++ b/Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/navigation/MoveFuelNavGraph.kt
+@@ -1,9 +1,13 @@
+ package com.movefuel.mufil2.ui.navigation
+ 
++import androidx.compose.animation.fadeIn
++import androidx.compose.animation.fadeOut
++import androidx.compose.animation.core.tween
+ import androidx.compose.runtime.Composable
+ import androidx.navigation.NavHostController
+ import androidx.navigation.compose.NavHost
+ import androidx.navigation.compose.composable
++import com.movefuel.mufil2.ui.design.MoveFuelMotion
+ import com.movefuel.mufil2.ui.master.FuelMasterDashboard
+ import com.movefuel.mufil2.ui.master.ProgressMasterDashboard
+ import com.movefuel.mufil2.ui.master.TodayMasterDashboard
+@@ -42,6 +46,10 @@ fun MoveFuelNavGraph(navController: NavHostController) {
+     NavHost(
+         navController = navController,
+         startDestination = MoveFuelRoute.MASTER_TODAY.path,
++        enterTransition = { fadeIn(tween(MoveFuelMotion.Screen)) },
++        exitTransition = { fadeOut(tween(MoveFuelMotion.Small)) },
++        popEnterTransition = { fadeIn(tween(MoveFuelMotion.Card)) },
++        popExitTransition = { fadeOut(tween(MoveFuelMotion.Small)) },
+     ) {
+         composable(MoveFuelRoute.MASTER_TODAY.path) { TodayMasterDashboard(navigate) }
+         composable(MoveFuelRoute.MASTER_FUEL.path) { FuelMasterDashboard(navigate) }
