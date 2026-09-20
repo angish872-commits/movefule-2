@@ -1,0 +1,8 @@
+<resources>
+    <style name="Theme.Mufil2" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">#0E130F</item>
+        <item name="android:navigationBarColor">#0E130F</item>
+    </style>
+</resources>
