@@ -1,0 +1,56 @@
+name: Apply verified Mufil-2 import
+
+on:
+  push:
+    branches:
+      - bootstrap/movefuel-2-foundation
+    paths:
+      - imports/mufil2/READY
+
+permissions:
+  contents: write
+
+jobs:
+  apply-import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout bootstrap branch
+        uses: actions/checkout@v4
+        with:
+          ref: bootstrap/movefuel-2-foundation
+          fetch-depth: 0
+
+      - name: Apply ordered source patches
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e Mufil-2 || { echo "Mufil-2 already exists; refusing to overwrite"; exit 1; }
+          for patch in $(find imports/mufil2 -maxdepth 1 -name '*.patch' | sort); do
+            echo "Applying $patch"
+            git apply --check "$patch"
+            git apply "$patch"
+          done
+
+      - name: Verify imported snapshot counts
+        shell: bash
+        run: |
+          set -euo pipefail
+          domain_screens=$(find Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens -type f -name '*.kt' | wc -l | tr -d ' ')
+          kotlin_files=$(find Mufil-2 -type f -name '*.kt' | wc -l | tr -d ' ')
+          registry_rows=$(wc -l < Mufil-2/SCREEN_REGISTRY_404.csv | tr -d ' ')
+          echo "domain_screens=$domain_screens"
+          echo "kotlin_files=$kotlin_files"
+          echo "registry_rows=$registry_rows"
+          test "$domain_screens" = "400"
+          test "$kotlin_files" = "428"
+          test "$registry_rows" = "404"
+
+      - name: Commit verified source snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Mufil-2
+          git commit -m "chore: import verified Mufil-2 source snapshot"
+          git push origin HEAD:bootstrap/movefuel-2-foundation
