@@ -46,7 +46,7 @@ jobs:
           set -euo pipefail
           domain_screens=$(find Mufil-2/app/src/main/java/com/movefuel/mufil2/ui/screens -type f -name '*.kt' | wc -l | tr -d ' ')
           kotlin_files=$(find Mufil-2 -type f -name '*.kt' | wc -l | tr -d ' ')
-          registry_rows=$(wc -l < Mufil-2/SCREEN_REGISTRY_404.csv | tr -d ' ')
+          registry_rows=$(awk 'END { print NR }' Mufil-2/SCREEN_REGISTRY_404.csv)
           echo "domain_screens=$domain_screens"
           echo "kotlin_files=$kotlin_files"
           echo "registry_rows=$registry_rows"
