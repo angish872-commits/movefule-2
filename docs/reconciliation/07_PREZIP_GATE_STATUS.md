@@ -19,3 +19,12 @@ Completed before receiving the ZIP:
 No final algorithm winner has been selected yet because that requires the historical source snapshots.
 
 When the ZIP arrives, fingerprint and inventory it first. Do not overwrite `Mufil-2/`.
+
+
+## Frozen historical comparison source now available
+
+SRC-001 is frozen from `angish872-commits/movefule_1` at commit `699bf3d6bda7949d3d10bf320fa0ecfbf495016c`.
+
+Its complete 1,532-file manifest is recorded. The SRC-001 `Mufil-2/` subtree is exactly identical to SRC-000. Structural evidence maps 74 of the 167 canonical algorithms to referenced files present in SRC-001.
+
+The next required input is SRC-002: the older historical ZIP to compare against SRC-001.
