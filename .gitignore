@@ -1,0 +1,28 @@
+# Secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.jks
+secrets.*
+**/secrets.*
+
+# Local IDE / OS
+.idea/
+.vscode/
+.DS_Store
+
+# Gradle / Android build output
+.gradle/
+**/build/
+local.properties
+
+# Logs / temporary output
+*.log
+tmp/
+temp/
+
+# Local analysis outputs that should not become source of truth
+.reconciliation-cache/
