@@ -1,5 +1,9 @@
 import type { CanonicalNutrientId } from "./nutrientRegistry";
 import type { NutrientUnit } from "./nutrientCalculator";
+import {
+  calculateNutrientCoverage,
+  type NutrientCoverage,
+} from "./coverage";
 
 export interface LoggedNutrientValue {
   nutrientId: CanonicalNutrientId;
@@ -16,6 +20,10 @@ export interface DailyNutrientAggregate {
   nutrientId: CanonicalNutrientId;
   knownAmount: number | null;
   unit: NutrientUnit;
+  coverage: NutrientCoverage;
+  /**
+   * Compatibility projections. Coverage policy is owned by coverage.ts.
+   */
   knownEntryCount: number;
   totalEntryCount: number;
   entryCoverage: number;
@@ -25,8 +33,9 @@ export interface DailyNutrientAggregate {
 /**
  * Aggregates known amounts without converting missing nutrient data to zero.
  *
- * knownAmount is the sum of known values only. Consumers MUST inspect
- * complete/entryCoverage before treating the amount as total daily intake.
+ * Coverage math is delegated to coverage.ts. knownAmount is the sum of known
+ * values only; callers must inspect coverage before treating it as total daily
+ * intake.
  */
 export function aggregateDailyNutrients(
   entries: readonly ConfirmedFoodNutrientEntry[],
@@ -44,13 +53,17 @@ export function aggregateDailyNutrients(
 
   for (const nutrientId of nutrientIds) {
     let knownAmount = 0;
-    let knownEntryCount = 0;
     let unit: NutrientUnit | null = null;
 
     for (const entry of entries) {
       const value = entry.nutrients.find(
         (nutrient) => nutrient.nutrientId === nutrientId,
       );
+
+      if (value && unit === null) {
+        unit = value.unit;
+      }
+
       if (!value || value.amount === null || !Number.isFinite(value.amount)) {
         continue;
       }
@@ -63,21 +76,21 @@ export function aggregateDailyNutrients(
 
       unit = value.unit;
       knownAmount += value.amount;
-      knownEntryCount += 1;
     }
 
     if (unit === null) continue;
 
-    const entryCoverage = knownEntryCount / entries.length;
+    const coverage = calculateNutrientCoverage(entries, nutrientId);
 
     aggregates.push({
       nutrientId,
-      knownAmount: knownEntryCount > 0 ? knownAmount : null,
+      knownAmount: coverage.knownEntries > 0 ? knownAmount : null,
       unit,
-      knownEntryCount,
-      totalEntryCount: entries.length,
-      entryCoverage,
-      complete: knownEntryCount === entries.length,
+      coverage,
+      knownEntryCount: coverage.knownEntries,
+      totalEntryCount: coverage.totalRelevantEntries,
+      entryCoverage: coverage.ratio,
+      complete: coverage.state === "COMPLETE",
     });
   }
 
