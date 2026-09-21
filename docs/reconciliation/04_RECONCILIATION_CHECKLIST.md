@@ -11,10 +11,10 @@
 - [x] All 302 known database/resource definitions inventoried.
 - [x] Safe ZIP intake and comparison protocol prepared.
 - [x] ZIP fingerprint and manifest comparison helper tools added.
-- [ ] Mufil-1 historical source frozen/imported.
-- [ ] Any separate Mufil-2 legacy source frozen/imported.
-- [ ] Any other MoveFuel historical source frozen/imported.
-- [ ] G/latest ZIP frozen/imported.
+- [x] SRC-001 `movefule_1/ui-test` historical source frozen by immutable commit + exact manifest.
+- [x] Confirmed SRC-001 `Mufil-2/` subtree is exactly identical to SRC-000 by tree SHA.
+- [ ] SRC-002 older historical ZIP frozen/imported.
+- [ ] SRC-004 G/latest ZIP frozen/imported if supplied separately.
 - [ ] File inventories generated for every additional source.
 
 ## Gate B — Data architecture
