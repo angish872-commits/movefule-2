@@ -22,6 +22,66 @@ The following formula/behavior is now present in the canonical algorithm branch:
 - Adequacy/reference evaluation refuses percentage claims when coverage is
   below the caller-supplied minimum threshold
 
+## Target engine migration
+
+The old MoveFuel calorie/macronutrient target architecture is now migrated into
+`algorithms/src/profileTargets/targetEngine.ts`.
+
+Implemented:
+
+- separate NASEM 2023 EER maintenance layer
+- separate MoveFuel goal-policy layer
+- explicit activity normalization with bounded training-frequency fallback
+- age-18 equation path retained from the old engine
+- automatic calorie/macro targets blocked for users under 18
+- energy planning/uncertainty range using the larger of 15% or equation RMSE
+- weight-based protein target with old 1.2-1.6 g/kg planning band
+- 30% starting fat-energy allocation
+- residual carbohydrate allocation
+- 14 g / 1000 kcal fiber policy
+- adult AMDR validation reason codes
+- user-confirmation requirement
+- separate EER, target-policy, macro-policy and fiber-policy versions
+
+The scientific EER formula and MoveFuel goal policy remain separate. Changing
+the product goal adjustment does not change the recorded EER formula version.
+
+## Target parity tests
+
+`algorithms/tests/profileTargets/targetEngine.parity.test.ts` now covers:
+
+- independent NASEM coefficient parity for both supported energy-equation categories
+- all four activity categories
+- age-18 and adult paths
+- maintain / gain / lose / performance goal behavior
+- protein rounding and range
+- fat, carbohydrate and fiber math
+- energy uncertainty/RMSE range
+- explicit activity priority
+- valid training-frequency fallback
+- malformed activity/training input safe-default behavior
+- missing age / height / weight / energy category HOLD behavior
+- intentional MoveFuel-2 youth-safety divergence
+
+Tests are explicitly labeled `FORMULA_PARITY` versus
+`INTENTIONAL_MOVEFUEL_2_CHANGE` where behavior is intentionally stricter.
+
+## Version registry
+
+`algorithms/src/core/versions.ts` now defines independent versions for:
+
+- nutrient scaler
+- EER formula
+- target policy
+- macro policy
+- fiber policy
+- weight-trend algorithm
+- nutrient-reference schema
+- adequacy policy
+- coverage policy
+
+There is no single global algorithm version.
+
 ## Deliberately not invented
 
 The old repository did not establish reviewed production mappings for:
@@ -51,14 +111,21 @@ but the reviewed/versioned reference dataset remains a separate data task.
 1. Food Nutrient Engine: what trusted nutrients were consumed?
 2. Nutrient Reference Engine: what reference values apply to the profile?
 3. Daily Aggregator: what known intake is recorded and how complete is it?
-4. UI: display the canonical results; never recalculate nutrition targets.
+4. Target Engine: what adult calorie/macronutrient starting targets are produced?
+5. UI: display the canonical results; never recalculate nutrition targets.
 
-## Next nutrition migrations
+## Next algorithm-only nutrition work
 
-- Reviewed full USDA provider mapping for the pending nutrient IDs
+- standalone coverage policy module + tests
+- full adequacy analyzer + tests
+- weight-trend recalibration extracted to its own pure module + parity tests
+- reference-engine edge-case tests
+- closed-loop nutrient integration fixtures
+- reviewed full USDA provider mapping for pending nutrient IDs
 - OpenFoodFacts expanded micronutrient adapter
-- Versioned nutrient reference dataset
-- Nutrition-label extraction -> canonical nutrient IDs
-- Recipe calculator migration onto the full nutrient vector
-- Target-engine migration for adult calorie/macronutrient targets
-- Automated parity tests against the old MoveFuel calculator and fixtures
+- versioned nutrient-reference dataset
+- nutrition-label extraction -> canonical nutrient IDs
+- recipe calculator migration onto the full nutrient vector
+
+Database models, HTTP routes, Appwrite/Azure work and UI remain outside this
+phase.
