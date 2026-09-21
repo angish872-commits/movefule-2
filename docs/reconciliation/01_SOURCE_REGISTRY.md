@@ -6,7 +6,7 @@ This file records immutable comparison sources used to build the canonical MoveF
 |---|---|---|---|---|---|
 | SRC-000 | MoveFuel-2 verified baseline | `Mufil-2/` | tree `6875fa95185b9c9e2c4424444fa6347e3065454a` | Current canonical baseline / main workspace | FROZEN BASELINE |
 | SRC-001 | `angish872-commits/movefule_1` full historical snapshot | manifest: `SRC001_MOVEFULE1_FILE_MANIFEST.csv` | commit `699bf3d6bda7949d3d10bf320fa0ecfbf495016c`, tree `3b5be260c545a3bbde4fe48f87ac31594750f524` | Newer historical implementation evidence, including backend/training algorithm code | FROZEN REFERENCE |
-| SRC-002 | Older historical ZIP that predates SRC-001 | `sources/older-historical/` after upload | archive SHA-256 TBD | Older implementation to compare against SRC-001 | WAITING ZIP |
+| SRC-002 | Uploaded old `movefule.zip` working snapshot | `sources/src002-old-upload/src002_old_meaningful_source.zip` + raw archive fingerprint | raw SHA-256 `4b23521a0a4cf389f15af5af3e9fac188071ad39ba6c6a8787c79cafdecb71b5`; embedded HEAD `4debb60a8197b55470b107fddf5397b9775d4705` | Older partial algorithm snapshot to compare against SRC-001 | FROZEN UPLOAD |
 | SRC-003 | Additional MoveFuel historical snapshot, if supplied | `sources/movefuel-legacy/` | TBD | Additional implementation evidence | OPTIONAL / WAITING |
 | SRC-004 | G/latest save, if supplied separately | `sources/g-latest/` | archive SHA-256 TBD | Latest supplied implementation evidence | WAITING ZIP |
 
