@@ -2,8 +2,9 @@ package com.movefuel.mufil2.ui.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -12,33 +13,38 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import com.movefuel.mufil2.ui.design.MoveFuelColors
 import com.movefuel.mufil2.ui.design.MoveFuelMotion
 import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
 
+private data class MFBottomNavItem(
+    val label: String,
+    val route: MoveFuelRoute,
+    val icon: MFNavigationIconType,
+)
+
 @Composable
-fun MFBottomNav(
-    active: String,
-    onNavigate: (MoveFuelRoute) -> Unit,
-) {
+fun MFBottomNav(active: String?, onNavigate: (MoveFuelRoute) -> Unit) {
     val items = listOf(
-        "Today" to MoveFuelRoute.MASTER_TODAY,
-        "Fuel" to MoveFuelRoute.MASTER_FUEL,
-        "Train" to MoveFuelRoute.MASTER_TRAIN,
-        "Progress" to MoveFuelRoute.MASTER_PROGRESS,
+        MFBottomNavItem("Today", MoveFuelRoute.MASTER_TODAY, MFNavigationIconType.TODAY),
+        MFBottomNavItem("Fuel", MoveFuelRoute.MASTER_FUEL, MFNavigationIconType.FUEL),
+        MFBottomNavItem("Train", MoveFuelRoute.MASTER_TRAIN, MFNavigationIconType.TRAIN),
+        MFBottomNavItem("Progress", MoveFuelRoute.MASTER_PROGRESS, MFNavigationIconType.PROGRESS),
     )
     Row(
         Modifier
             .fillMaxWidth()
-            .background(MoveFuelColors.Surface2.copy(alpha = .96f), RoundedCornerShape(24.dp))
-            .padding(horizontal = 6.dp, vertical = 7.dp),
+            .background(MoveFuelColors.Surface2.copy(alpha = .97f), RoundedCornerShape(24.dp))
+            .padding(horizontal = 6.dp, vertical = 7.dp)
+            .selectableGroup(),
         horizontalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        items.forEach { (label, route) ->
-            val selected = label == active
+        items.forEach { item ->
+            val selected = item.label == active
             val bg by animateColorAsState(
-                if (selected) MoveFuelColors.Sage.copy(alpha = .14f) else Color.Transparent,
+                if (selected) MoveFuelColors.Sage.copy(alpha = .15f) else Color.Transparent,
                 animationSpec = MoveFuelMotion.card(),
                 label = "navBg",
             )
@@ -51,17 +57,13 @@ fun MFBottomNav(
                 Modifier
                     .weight(1f)
                     .background(bg, RoundedCornerShape(18.dp))
-                    .clickable { onNavigate(route) }
-                    .padding(vertical = 10.dp),
+                    .selectable(selected = selected, role = Role.Tab) { onNavigate(item.route) }
+                    .padding(vertical = 8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(5.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
-                Box(
-                    Modifier
-                        .size(if (selected) 6.dp else 4.dp)
-                        .background(fg, RoundedCornerShape(999.dp))
-                )
-                Text(label, color = fg, style = MaterialTheme.typography.labelMedium)
+                MFNavigationIcon(item.icon, fg, item.label, Modifier.size(22.dp))
+                Text(item.label, color = fg, style = MaterialTheme.typography.labelMedium)
             }
         }
     }

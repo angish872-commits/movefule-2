@@ -13,9 +13,9 @@ fun ONB014TrainingFrequencyScreen(onNavigate: (MoveFuelRoute) -> Unit) {
     MFScreenFrame(
         id = "ONB_014",
         title = "Training Frequency",
-        subtitle = "Progressive setup with clear, editable inputs.",
-        primaryLabel = "Continue",
-        primaryRoute = MoveFuelRoute.ONB_015,
+        subtitle = "Training availability now belongs to the independent Train setup.",
+        primaryLabel = "Continue in Train setup",
+        primaryRoute = MoveFuelRoute.TRS_008,
         secondaryLabel = "Back",
         secondaryRoute = MoveFuelRoute.ONB_013,
         onNavigate = onNavigate,

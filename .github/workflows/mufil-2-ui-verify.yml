@@ -1,0 +1,55 @@
+name: Mufil-2 UI verification
+
+on:
+  push:
+    paths:
+      - "Mufil-2/**"
+      - ".github/workflows/mufil-2-ui-verify.yml"
+  pull_request:
+    paths:
+      - "Mufil-2/**"
+      - ".github/workflows/mufil-2-ui-verify.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mufil-2-ui-verify
+  cancel-in-progress: true
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: current
+      - name: Closed-loop architecture audit
+        run: python Mufil-2/tools/ui_closed_loop_audit.py
+      - name: Configure Android SDK environment
+        run: |
+          echo "ANDROID_SDK_ROOT=$RUNNER_TEMP/android-sdk" >> "$GITHUB_ENV"
+          echo "ANDROID_HOME=$RUNNER_TEMP/android-sdk" >> "$GITHUB_ENV"
+      - name: Install Android command-line tools and SDK 37
+        run: |
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools"
+          curl -fsSL "https://dl.google.com/android/repository/commandlinetools-linux-15859902_latest.zip" -o "$RUNNER_TEMP/android-cli.zip"
+          unzip -q "$RUNNER_TEMP/android-cli.zip" -d "$RUNNER_TEMP/android-cli"
+          mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools/latest"
+          mv "$RUNNER_TEMP/android-cli/cmdline-tools/"* "$ANDROID_SDK_ROOT/cmdline-tools/latest/"
+          yes | "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" --licenses >/dev/null || true
+          "$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37.0" "build-tools;37.0.0"
+          printf 'sdk.dir=%s\n' "$ANDROID_SDK_ROOT" > Mufil-2/local.properties
+      - name: Compile Mufil-2 Compose UI
+        working-directory: Mufil-2
+        run: gradle :app:compileDebugKotlin --no-daemon --stacktrace
+      - name: Assemble debug APK
+        working-directory: Mufil-2
+        run: gradle :app:assembleDebug --no-daemon --stacktrace

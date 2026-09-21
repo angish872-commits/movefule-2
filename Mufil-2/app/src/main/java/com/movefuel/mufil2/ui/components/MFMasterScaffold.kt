@@ -20,6 +20,7 @@ fun MFMasterScaffold(
     subtitle: String,
     tabs: List<String>? = null,
     selectedTab: String? = null,
+    onTabSelected: ((String) -> Unit)? = null,
     onNavigate: (MoveFuelRoute) -> Unit,
     content: @Composable ColumnScope.() -> Unit,
 ) {
@@ -37,12 +38,15 @@ fun MFMasterScaffold(
                     ),
                 verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
             ) {
-                MFTopBar()
+                MFTopBar(
+                    onCalendar = { onNavigate(MoveFuelRoute.CAL_001) },
+                    onProfile = { onNavigate(MoveFuelRoute.PRO_001) },
+                )
                 Spacer(Modifier.height(MoveFuelSpacing.Xs))
                 Text(title, style = MaterialTheme.typography.displaySmall, color = MoveFuelColors.Text)
                 Text(subtitle, color = MoveFuelColors.TextSecondary)
                 if (tabs != null && selectedTab != null) {
-                    MFTabStrip(tabs, selectedTab)
+                    MFTabStrip(tabs, selectedTab, onTabSelected)
                 }
                 content()
             }
@@ -50,7 +54,10 @@ fun MFMasterScaffold(
                 Modifier
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth()
-                    .padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Base)
+                    .padding(
+                        horizontal = MoveFuelSpacing.Base,
+                        vertical = MoveFuelSpacing.Base,
+                    )
             ) {
                 MFBottomNav(active, onNavigate)
             }

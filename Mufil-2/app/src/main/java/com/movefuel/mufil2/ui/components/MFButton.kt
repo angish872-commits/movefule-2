@@ -22,8 +22,9 @@ import com.movefuel.mufil2.ui.design.MoveFuelRadius
 @Composable
 fun MFPrimaryButton(
     text: String,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    onClick: () -> Unit,
 ) {
     val interaction = remember { MutableInteractionSource() }
     val pressed by interaction.collectIsPressedAsState()
@@ -34,6 +35,7 @@ fun MFPrimaryButton(
     )
     Button(
         onClick = onClick,
+        enabled = enabled,
         interactionSource = interaction,
         modifier = modifier
             .fillMaxWidth()

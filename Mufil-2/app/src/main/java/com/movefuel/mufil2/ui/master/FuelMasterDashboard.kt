@@ -1,13 +1,9 @@
 package com.movefuel.mufil2.ui.master
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.movefuel.mufil2.ui.components.*
 import com.movefuel.mufil2.ui.design.*
 import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
@@ -20,52 +16,85 @@ fun FuelMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
         subtitle = "Confirmed intake · Today",
         tabs = listOf("Now", "Plan", "Shop", "Recipes"),
         selectedTab = "Now",
+        onTabSelected = { tab ->
+            when (tab) {
+                "Now" -> onNavigate(MoveFuelRoute.FNO_001)
+                "Plan" -> onNavigate(MoveFuelRoute.FPL_001)
+                "Shop" -> onNavigate(MoveFuelRoute.FSH_001)
+                "Recipes" -> onNavigate(MoveFuelRoute.RCP_001)
+            }
+        },
         onNavigate = onNavigate,
     ) {
         MFCard(Modifier.fillMaxWidth()) {
-            MFSectionHeading("Nutrition", "92% coverage")
+            MFSectionHeading(
+                title = "Nutrition",
+                action = "Details ›",
+                onAction = { onNavigate(MoveFuelRoute.FNO_004) },
+            )
             Spacer(Modifier.height(MoveFuelSpacing.Base))
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Lg),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    MFMetricRing(.80f, "1,742", MoveFuelColors.FuelAccent, size = 118.dp)
-                    Spacer(Modifier.height(MoveFuelSpacing.Sm))
-                    Text("of 2,180 kcal", color = MoveFuelColors.TextMuted, style = MaterialTheme.typography.labelMedium)
-                }
-                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Sm)) {
-                    MFMetricRow("Protein" to "116g", "Fiber" to "24g")
-                    Text("Carbs 186 / 245g", color = MoveFuelColors.TextSecondary)
-                    Text("Fat 58 / 72g", color = MoveFuelColors.TextSecondary)
-                }
+            Column(verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base)) {
+                MFDailyMetricBar("Energy", "1,742 kcal", "2,180 kcal", .80f)
+                MFDailyMetricBar("Protein", "116 g", "145 g", .80f)
+                MFDailyMetricBar("Carbs", "186 g", "245 g", .76f)
+                MFDailyMetricBar("Fat", "58 g", "72 g", .81f)
+                MFDailyMetricBar("Fiber", "24 g", "30 g", .80f)
             }
-            Spacer(Modifier.height(MoveFuelSpacing.Base))
-            MFMacroBars(.80f, .80f, .76f, .81f)
         }
 
-        MFSectionHeading("Meals", "See all")
-        MFMealCard("Breakfast", "Oats · yogurt · banana · confirmed", "480 kcal", MoveFuelColors.FuelAccent)
-        MFMealCard("Lunch", "Chicken rice bowl · confirmed", "675 kcal", MoveFuelColors.SageStrong)
-        MFMealCard("Dinner", "Salmon bowl · planned", "610 kcal", MoveFuelColors.Info)
+        MFSectionHeading(
+            title = "Confirmed meals",
+            action = "See all",
+            onAction = { onNavigate(MoveFuelRoute.FNO_005) },
+        )
+        MFMealCard(
+            "Breakfast",
+            "Oats · yogurt · banana · confirmed",
+            "480 kcal",
+            MoveFuelColors.FuelAccent,
+            onClick = { onNavigate(MoveFuelRoute.FNO_006) },
+        )
+        MFMealCard(
+            "Lunch",
+            "Chicken rice bowl · confirmed",
+            "675 kcal",
+            MoveFuelColors.SageStrong,
+            onClick = { onNavigate(MoveFuelRoute.FNO_006) },
+        )
 
-        MFPrimaryButton("Add food") { onNavigate(MoveFuelRoute.CAM_001) }
+        MFNotice(
+            title = "Planned next meal",
+            body = "Dinner is planned but is not counted as consumed food.",
+            action = "Review plan",
+            onAction = { onNavigate(MoveFuelRoute.FPL_017) },
+        )
+
+        MFPrimaryButton("Add food") { onNavigate(MoveFuelRoute.FNO_009) }
 
         MFSectionHeading("Quick add")
-        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Md)) {
-            MFCard(Modifier.weight(1f)) {
-                Text("Camera", style = MaterialTheme.typography.titleMedium)
-                Text("Photo meal", color = MoveFuelColors.TextMuted)
-            }
-            MFCard(Modifier.weight(1f)) {
-                Text("Barcode", style = MaterialTheme.typography.titleMedium)
-                Text("Packaged food", color = MoveFuelColors.TextMuted)
-            }
-        }
+        MFOptionCard(
+            title = "Camera",
+            supporting = "Photo → review → explicit confirmation",
+            onClick = { onNavigate(MoveFuelRoute.CAM_001) },
+        )
+        MFOptionCard(
+            title = "Barcode",
+            supporting = "Scan packaged food",
+            onClick = { onNavigate(MoveFuelRoute.BAR_001) },
+        )
+        MFOptionCard(
+            title = "Search",
+            supporting = "Search foods and choose a serving",
+            onClick = { onNavigate(MoveFuelRoute.FNO_010) },
+        )
+        MFOptionCard(
+            title = "Recent & saved",
+            supporting = "Reuse confirmed foods and meals",
+            onClick = { onNavigate(MoveFuelRoute.FNO_013) },
+        )
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
+@Preview(showBackground = true, backgroundColor = 0xFF0B1420, widthDp = 390, heightDp = 844)
 @Composable
 private fun FuelMasterPreview() = MoveFuelTheme { FuelMasterDashboard {} }

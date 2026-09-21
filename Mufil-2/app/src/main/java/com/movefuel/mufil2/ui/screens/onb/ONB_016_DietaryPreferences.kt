@@ -17,7 +17,7 @@ fun ONB016DietaryPreferencesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         primaryLabel = "Continue",
         primaryRoute = MoveFuelRoute.ONB_017,
         secondaryLabel = "Back",
-        secondaryRoute = MoveFuelRoute.ONB_015,
+        secondaryRoute = MoveFuelRoute.ONB_013,
         onNavigate = onNavigate,
     ) {
             MFOptionCard("No specific pattern", null, true)

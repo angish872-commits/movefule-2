@@ -2,9 +2,7 @@ package com.movefuel.mufil2.ui.screens.tod
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.movefuel.mufil2.ui.components.*
-import com.movefuel.mufil2.ui.design.MoveFuelColors
 import com.movefuel.mufil2.ui.design.MoveFuelTheme
 import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
 
@@ -12,20 +10,31 @@ import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
 fun TOD003NextActionDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
     MFScreenFrame(
         id = "TOD_003",
-        title = "Next Action Detail",
-        subtitle = "Daily home for nutrition, training, device status, and next action.",
-        primaryLabel = "Continue",
-        primaryRoute = MoveFuelRoute.TOD_004,
-        secondaryLabel = "Back",
-        secondaryRoute = MoveFuelRoute.TOD_002,
+        title = "Next Action",
+        subtitle = "Why this task is currently the most useful unfinished action.",
+        primaryLabel = "Review planned lunch",
+        primaryRoute = MoveFuelRoute.FPL_017,
+        secondaryLabel = "Back to Today",
+        secondaryRoute = MoveFuelRoute.MASTER_TODAY,
         onNavigate = onNavigate,
     ) {
-            MFStatusBanner("Priority", "Lunch is ready to review and log.")
-            MFListItem("Planned lunch", "Chicken rice bowl · planned", "Review")
+        MFStatusBanner(
+            "Priority",
+            "Lunch is planned but has not been confirmed as consumed.",
+        )
+        MFListItem(
+            "Planned lunch",
+            "Chicken rice bowl · planned · not counted as actual",
+            onClick = { onNavigate(MoveFuelRoute.FPL_017) },
+        )
+        MFNotice(
+            "Why this appears",
+            "Next Action points to unfinished work. Completing the task returns updated state to Today.",
+        )
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
+@Preview(showBackground = true, backgroundColor = 0xFF0B1420, widthDp = 390, heightDp = 844)
 @Composable
 private fun TOD003NextActionDetailScreenPreview() {
     MoveFuelTheme { TOD003NextActionDetailScreen {} }

@@ -13,11 +13,11 @@ fun ONB015SessionDurationScreen(onNavigate: (MoveFuelRoute) -> Unit) {
     MFScreenFrame(
         id = "ONB_015",
         title = "Session Duration",
-        subtitle = "Progressive setup with clear, editable inputs.",
-        primaryLabel = "Continue",
-        primaryRoute = MoveFuelRoute.ONB_016,
+        subtitle = "Workout duration now belongs to the independent Train setup.",
+        primaryLabel = "Continue in Train setup",
+        primaryRoute = MoveFuelRoute.TRS_011,
         secondaryLabel = "Back",
-        secondaryRoute = MoveFuelRoute.ONB_014,
+        secondaryRoute = MoveFuelRoute.ONB_013,
         onNavigate = onNavigate,
     ) {
             MFOptionCard("20–30 minutes")

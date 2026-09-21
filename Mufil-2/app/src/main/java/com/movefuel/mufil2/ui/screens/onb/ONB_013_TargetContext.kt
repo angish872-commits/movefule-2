@@ -15,7 +15,7 @@ fun ONB013TargetContextScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         title = "Target Context",
         subtitle = "Progressive setup with clear, editable inputs.",
         primaryLabel = "Continue",
-        primaryRoute = MoveFuelRoute.ONB_014,
+        primaryRoute = MoveFuelRoute.ONB_016,
         secondaryLabel = "Back",
         secondaryRoute = MoveFuelRoute.ONB_012,
         onNavigate = onNavigate,

@@ -7,12 +7,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import com.movefuel.mufil2.ui.design.*
-import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+import com.movefuel.mufil2.ui.navigation.*
 
 @Composable
 fun MFScreenFrame(
@@ -23,6 +25,7 @@ fun MFScreenFrame(
     primaryRoute: MoveFuelRoute? = null,
     secondaryLabel: String? = null,
     secondaryRoute: MoveFuelRoute? = null,
+    primaryEnabled: Boolean = true,
     onNavigate: (MoveFuelRoute) -> Unit,
     content: @Composable () -> Unit,
 ) {
@@ -39,31 +42,85 @@ fun MFScreenFrame(
         label = "screenOffset",
     )
 
+    val shell = moveFuelShellFor(id)
+    val primaryDestination = moveFuelPrimaryDestinationFor(id)
+    val (resolvedPrimaryLabel, resolvedPrimaryRoute) =
+        moveFuelPrimaryAction(id, primaryLabel, primaryRoute)
+    val (resolvedSecondaryLabel, resolvedSecondaryRoute) =
+        moveFuelSecondaryAction(id, secondaryLabel, secondaryRoute)
+    val back = LocalMoveFuelBack.current
+    val secondaryIsBack = resolvedSecondaryLabel.equals("Back", ignoreCase = true)
+    val showBottomNav = shell == MoveFuelShell.MAIN
+
     MFPremiumBackground {
-        Column(
-            Modifier
-                .fillMaxSize()
-                .alpha(alpha)
-                .offset(y = y)
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Lg),
-            verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
-        ) {
-            MFTopBar()
-            Text(id, color = MoveFuelColors.Sage, style = MaterialTheme.typography.labelMedium)
-            Text(title, style = MaterialTheme.typography.displaySmall)
-            Text(subtitle, color = MoveFuelColors.TextSecondary)
-            content()
-            primaryLabel?.let { label ->
-                MFPrimaryButton(label) { primaryRoute?.let(onNavigate) }
+        Box(Modifier.fillMaxSize()) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .alpha(alpha)
+                    .offset(y = y)
+                    .verticalScroll(rememberScrollState())
+                    .padding(
+                        start = MoveFuelSpacing.Base,
+                        end = MoveFuelSpacing.Base,
+                        top = MoveFuelSpacing.Lg,
+                        bottom = if (showBottomNav) 118.dp else MoveFuelSpacing.Lg,
+                    ),
+                verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
+            ) {
+                if (shell != MoveFuelShell.WEAR) {
+                    MFTopBar(
+                        onBack = if (shell == MoveFuelShell.FOCUSED && secondaryIsBack) back else null,
+                        onCalendar = if (shell == MoveFuelShell.MAIN) {
+                            { onNavigate(MoveFuelRoute.CAL_001) }
+                        } else null,
+                        onProfile = if (shell == MoveFuelShell.MAIN) {
+                            { onNavigate(MoveFuelRoute.PRO_001) }
+                        } else null,
+                    )
+                }
+                Text(id.replace("_", "-"), color = MoveFuelColors.Sage, style = MaterialTheme.typography.labelMedium)
+                Text(title, style = MaterialTheme.typography.displaySmall, color = MoveFuelColors.Text)
+                Text(subtitle, color = MoveFuelColors.TextSecondary)
+                content()
+
+                if (resolvedPrimaryLabel != null && resolvedPrimaryRoute != null) {
+                    MFPrimaryButton(
+                        text = resolvedPrimaryLabel,
+                        onClick = { onNavigate(resolvedPrimaryRoute) },
+                        enabled = primaryEnabled,
+                    )
+                }
+
+                val backAlreadyInTopBar =
+                    shell == MoveFuelShell.FOCUSED && secondaryIsBack
+                if (!backAlreadyInTopBar && resolvedSecondaryLabel != null) {
+                    TextButton(
+                        onClick = {
+                            if (secondaryIsBack) {
+                                back()
+                            } else {
+                                resolvedSecondaryRoute?.let(onNavigate)
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                    ) {
+                        Text(resolvedSecondaryLabel)
+                    }
+                }
+                Spacer(Modifier.height(MoveFuelSpacing.Lg))
             }
-            if (secondaryLabel != null && secondaryRoute != null) {
-                androidx.compose.material3.TextButton(
-                    onClick = { onNavigate(secondaryRoute) },
-                    modifier = Modifier.fillMaxWidth(),
-                ) { Text(secondaryLabel) }
+
+            if (showBottomNav) {
+                Box(
+                    Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth()
+                        .padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Base)
+                ) {
+                    MFBottomNav(primaryDestination?.label, onNavigate)
+                }
             }
-            Spacer(Modifier.height(MoveFuelSpacing.Lg))
         }
     }
 }

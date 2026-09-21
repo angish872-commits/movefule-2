@@ -1,0 +1,493 @@
+package com.movefuel.mufil2.ui.navigation
+
+import androidx.compose.runtime.staticCompositionLocalOf
+
+enum class MoveFuelShell { MAIN, FOCUSED, STATE, WEAR }
+
+enum class MoveFuelPrimaryDestination(
+    val label: String,
+    val masterRoute: MoveFuelRoute,
+) {
+    TODAY("Today", MoveFuelRoute.MASTER_TODAY),
+    FUEL("Fuel", MoveFuelRoute.MASTER_FUEL),
+    TRAIN("Train", MoveFuelRoute.MASTER_TRAIN),
+    PROGRESS("Progress", MoveFuelRoute.MASTER_PROGRESS),
+}
+
+data class MoveFuelFlowAction(
+    val primaryLabel: String? = null,
+    val primaryRoute: MoveFuelRoute? = null,
+    val secondaryLabel: String? = null,
+    val secondaryRoute: MoveFuelRoute? = null,
+)
+
+val LocalMoveFuelBack = staticCompositionLocalOf<() -> Unit> { {} }
+
+fun moveFuelShellFor(screenId: String): MoveFuelShell {
+    val prefix = screenId.substringBefore("_")
+    val number = screenId.substringAfter("_", "").toIntOrNull()
+    return when {
+        prefix == "SYS" -> MoveFuelShell.STATE
+        prefix == "WAR" -> MoveFuelShell.WEAR
+        prefix in setOf("AUTH", "ONB", "CAM", "BAR", "TRS", "WRK") -> MoveFuelShell.FOCUSED
+        prefix == "RCP" && number != null && number >= 20 -> MoveFuelShell.FOCUSED
+        prefix == "BIL" && number != null && number >= 5 -> MoveFuelShell.FOCUSED
+        else -> MoveFuelShell.MAIN
+    }
+}
+
+fun moveFuelPrimaryDestinationFor(screenId: String): MoveFuelPrimaryDestination? =
+    when (screenId.substringBefore("_")) {
+        "TOD" -> MoveFuelPrimaryDestination.TODAY
+        "FNO", "FPL", "FSH", "RCP" -> MoveFuelPrimaryDestination.FUEL
+        "TRN", "SOR", "RDY", "EXR" -> MoveFuelPrimaryDestination.TRAIN
+        "PRG" -> MoveFuelPrimaryDestination.PROGRESS
+        else -> null
+    }
+
+private val semanticFlowActions = mapOf(
+    // Authentication and onboarding.
+    "AUTH_001" to MoveFuelFlowAction("Sign in", MoveFuelRoute.AUTH_002),
+    "AUTH_002" to MoveFuelFlowAction("Sign in", MoveFuelRoute.MASTER_TODAY, "Create account", MoveFuelRoute.AUTH_003),
+    "AUTH_003" to MoveFuelFlowAction("Create account", MoveFuelRoute.AUTH_004, "Sign in", MoveFuelRoute.AUTH_002),
+    "AUTH_004" to MoveFuelFlowAction("I've verified", MoveFuelRoute.AUTH_006, "Resend", MoveFuelRoute.AUTH_005),
+    "AUTH_005" to MoveFuelFlowAction("Resend verification", MoveFuelRoute.AUTH_004),
+    "AUTH_006" to MoveFuelFlowAction("Continue setup", MoveFuelRoute.ONB_001),
+    "AUTH_007" to MoveFuelFlowAction("Resend verification", MoveFuelRoute.AUTH_005, "Sign in", MoveFuelRoute.AUTH_002),
+    "AUTH_008" to MoveFuelFlowAction("Send reset link", MoveFuelRoute.AUTH_009, "Sign in", MoveFuelRoute.AUTH_002),
+    "AUTH_009" to MoveFuelFlowAction("Save new password", MoveFuelRoute.AUTH_010),
+    "AUTH_010" to MoveFuelFlowAction("Sign in", MoveFuelRoute.AUTH_002),
+    "AUTH_011" to MoveFuelFlowAction("Retry", MoveFuelRoute.AUTH_001, "Sign in", MoveFuelRoute.AUTH_002),
+    "AUTH_012" to MoveFuelFlowAction("Sign in again", MoveFuelRoute.AUTH_002),
+
+    "ONB_001" to MoveFuelFlowAction("Start setup", MoveFuelRoute.ONB_002),
+    "ONB_002" to MoveFuelFlowAction("Continue", MoveFuelRoute.ONB_003, "Back", MoveFuelRoute.ONB_001),
+    "ONB_003" to MoveFuelFlowAction("Save & continue", MoveFuelRoute.ONB_004, "Back", MoveFuelRoute.ONB_002),
+    "ONB_004" to MoveFuelFlowAction("Save & continue", MoveFuelRoute.ONB_005, "Back", MoveFuelRoute.ONB_003),
+    "ONB_005" to MoveFuelFlowAction("Save & continue", MoveFuelRoute.ONB_006, "Back", MoveFuelRoute.ONB_004),
+    "ONB_006" to MoveFuelFlowAction("Save units", MoveFuelRoute.ONB_007, "Back", MoveFuelRoute.ONB_005),
+    "ONB_007" to MoveFuelFlowAction("Save & continue", MoveFuelRoute.ONB_008, "Back", MoveFuelRoute.ONB_006),
+    "ONB_008" to MoveFuelFlowAction("Save & continue", MoveFuelRoute.ONB_009, "Back", MoveFuelRoute.ONB_007),
+    "ONB_009" to MoveFuelFlowAction("Continue", MoveFuelRoute.ONB_010, "Back", MoveFuelRoute.ONB_008),
+    "ONB_010" to MoveFuelFlowAction("Save activity", MoveFuelRoute.ONB_011, "Back", MoveFuelRoute.ONB_009),
+    "ONB_011" to MoveFuelFlowAction("Continue", MoveFuelRoute.ONB_012, "Back", MoveFuelRoute.ONB_010),
+    "ONB_012" to MoveFuelFlowAction("Save goal", MoveFuelRoute.ONB_013, "Back", MoveFuelRoute.ONB_011),
+    "ONB_013" to MoveFuelFlowAction("Continue safely", MoveFuelRoute.ONB_016, "Back", MoveFuelRoute.ONB_012),
+    "ONB_014" to MoveFuelFlowAction("Continue in Train setup", MoveFuelRoute.TRS_008, "Back", MoveFuelRoute.ONB_013),
+    "ONB_015" to MoveFuelFlowAction("Continue in Train setup", MoveFuelRoute.TRS_011, "Back", MoveFuelRoute.ONB_013),
+    "ONB_016" to MoveFuelFlowAction("Save preferences", MoveFuelRoute.ONB_017, "Back", MoveFuelRoute.ONB_013),
+    "ONB_017" to MoveFuelFlowAction("Review setup", MoveFuelRoute.ONB_018, "Back", MoveFuelRoute.ONB_016),
+    "ONB_018" to MoveFuelFlowAction("Finish setup", MoveFuelRoute.MASTER_TODAY, "Back", MoveFuelRoute.ONB_017),
+
+    // Today.
+    "TOD_001" to MoveFuelFlowAction("Open next action", MoveFuelRoute.TOD_003, "More nutrition", MoveFuelRoute.TOD_002),
+    "TOD_002" to MoveFuelFlowAction("Done", MoveFuelRoute.MASTER_TODAY, "Open Fuel", MoveFuelRoute.MASTER_FUEL),
+    "TOD_003" to MoveFuelFlowAction("Review planned meal", MoveFuelRoute.FPL_017, "Back to Today", MoveFuelRoute.MASTER_TODAY),
+    "TOD_004" to MoveFuelFlowAction("Open device", MoveFuelRoute.DEV_007, "Back to Today", MoveFuelRoute.MASTER_TODAY),
+    "TOD_005" to MoveFuelFlowAction(secondaryLabel = "Back to Today", secondaryRoute = MoveFuelRoute.MASTER_TODAY),
+    "TOD_006" to MoveFuelFlowAction("Open meal plan", MoveFuelRoute.FPL_001, "Open Calendar", MoveFuelRoute.CAL_001),
+    "TOD_007" to MoveFuelFlowAction("Open Fuel", MoveFuelRoute.FNO_001, "Back to Today", MoveFuelRoute.MASTER_TODAY),
+    "TOD_008" to MoveFuelFlowAction("Return to Today", MoveFuelRoute.MASTER_TODAY),
+    "TOD_009" to MoveFuelFlowAction("Log food", MoveFuelRoute.FNO_009, "Return to Today", MoveFuelRoute.MASTER_TODAY),
+    "TOD_010" to MoveFuelFlowAction("Finish personalization", MoveFuelRoute.PRO_017, "Return to Today", MoveFuelRoute.MASTER_TODAY),
+    "TOD_011" to MoveFuelFlowAction("Use cached Today", MoveFuelRoute.MASTER_TODAY),
+    "TOD_012" to MoveFuelFlowAction("Review sync status", MoveFuelRoute.DEV_007, "Return to Today", MoveFuelRoute.MASTER_TODAY),
+
+    // Camera: draft -> review -> explicit confirmation -> Fuel.
+    "CAM_001" to MoveFuelFlowAction("Capture", MoveFuelRoute.CAM_005, "Choose photo", MoveFuelRoute.CAM_004),
+    "CAM_002" to MoveFuelFlowAction("Continue to camera", MoveFuelRoute.CAM_001, "Cancel", MoveFuelRoute.MASTER_TODAY),
+    "CAM_003" to MoveFuelFlowAction("Open camera", MoveFuelRoute.CAM_001),
+    "CAM_004" to MoveFuelFlowAction("Use selected photo", MoveFuelRoute.CAM_005, "Cancel", MoveFuelRoute.CAM_001),
+    "CAM_005" to MoveFuelFlowAction("Analyze photo", MoveFuelRoute.CAM_006, "Retake", MoveFuelRoute.CAM_001),
+    "CAM_006" to MoveFuelFlowAction("Continue", MoveFuelRoute.CAM_007),
+    "CAM_007" to MoveFuelFlowAction("Estimate portions", MoveFuelRoute.CAM_009, "Review multiple foods", MoveFuelRoute.CAM_008),
+    "CAM_008" to MoveFuelFlowAction("Estimate portions", MoveFuelRoute.CAM_009, "Back to detection", MoveFuelRoute.CAM_007),
+    "CAM_009" to MoveFuelFlowAction("Match nutrition", MoveFuelRoute.CAM_010),
+    "CAM_010" to MoveFuelFlowAction("Review foods", MoveFuelRoute.CAM_011),
+    "CAM_011" to MoveFuelFlowAction("Final review", MoveFuelRoute.CAM_017, "Edit food", MoveFuelRoute.CAM_012),
+    "CAM_012" to MoveFuelFlowAction("Save identity", MoveFuelRoute.CAM_011),
+    "CAM_013" to MoveFuelFlowAction("Save portion", MoveFuelRoute.CAM_011),
+    "CAM_014" to MoveFuelFlowAction("Add food", MoveFuelRoute.CAM_011),
+    "CAM_015" to MoveFuelFlowAction("Use correction", MoveFuelRoute.CAM_011, "Enter manually", MoveFuelRoute.FNO_010),
+    "CAM_016" to MoveFuelFlowAction("Continue with known values", MoveFuelRoute.CAM_017, "Enter manually", MoveFuelRoute.FNO_010),
+    "CAM_017" to MoveFuelFlowAction("Confirm meal", MoveFuelRoute.FNO_001, "Edit review", MoveFuelRoute.CAM_011),
+    "CAM_018" to MoveFuelFlowAction("Retry analysis", MoveFuelRoute.CAM_006, "Enter manually", MoveFuelRoute.FNO_010),
+
+    // Barcode.
+    "BAR_001" to MoveFuelFlowAction("Start scan", MoveFuelRoute.BAR_002, "Back to food options", MoveFuelRoute.FNO_009),
+    "BAR_002" to MoveFuelFlowAction("Barcode detected", MoveFuelRoute.BAR_003),
+    "BAR_003" to MoveFuelFlowAction("Look up product", MoveFuelRoute.BAR_004),
+    "BAR_004" to MoveFuelFlowAction("Open product", MoveFuelRoute.BAR_005, "Product not found", MoveFuelRoute.BAR_013),
+    "BAR_005" to MoveFuelFlowAction("Choose serving", MoveFuelRoute.BAR_006, "Nutrition details", MoveFuelRoute.BAR_007),
+    "BAR_006" to MoveFuelFlowAction("Add to meal", MoveFuelRoute.BAR_009, "Back to product", MoveFuelRoute.BAR_005),
+    "BAR_007" to MoveFuelFlowAction("Back to product", MoveFuelRoute.BAR_005, "Ingredients & allergens", MoveFuelRoute.BAR_008),
+    "BAR_008" to MoveFuelFlowAction("Back to product", MoveFuelRoute.BAR_005),
+    "BAR_009" to MoveFuelFlowAction("Choose meal", MoveFuelRoute.BAR_010),
+    "BAR_010" to MoveFuelFlowAction("Review addition", MoveFuelRoute.BAR_011),
+    "BAR_011" to MoveFuelFlowAction("Confirm product", MoveFuelRoute.FNO_001, "Back to meal", MoveFuelRoute.BAR_010),
+    "BAR_012" to MoveFuelFlowAction("Open shopping list", MoveFuelRoute.FSH_002, "Back to product", MoveFuelRoute.BAR_005),
+    "BAR_013" to MoveFuelFlowAction("Scan nutrition label", MoveFuelRoute.BAR_014, "Search manually", MoveFuelRoute.FNO_010),
+    "BAR_014" to MoveFuelFlowAction("Review label", MoveFuelRoute.BAR_015),
+    "BAR_015" to MoveFuelFlowAction("Create custom product", MoveFuelRoute.BAR_016),
+    "BAR_016" to MoveFuelFlowAction("Add to meal", MoveFuelRoute.BAR_009, "Open Fuel", MoveFuelRoute.FNO_001),
+
+    // Fuel Now.
+    "FNO_001" to MoveFuelFlowAction("Add food", MoveFuelRoute.FNO_009, "Nutrition details", MoveFuelRoute.FNO_004),
+    "FNO_002" to MoveFuelFlowAction("Open nutrition summary", MoveFuelRoute.FNO_003, "Back to Fuel", MoveFuelRoute.MASTER_FUEL),
+    "FNO_003" to MoveFuelFlowAction("Expand nutrition", MoveFuelRoute.FNO_004, "Back to Fuel", MoveFuelRoute.MASTER_FUEL),
+    "FNO_004" to MoveFuelFlowAction("Done", MoveFuelRoute.MASTER_FUEL),
+    "FNO_005" to MoveFuelFlowAction("Open meal", MoveFuelRoute.FNO_006, "Back to Fuel", MoveFuelRoute.MASTER_FUEL),
+    "FNO_006" to MoveFuelFlowAction("Edit meal", MoveFuelRoute.FNO_007, "Back to Fuel", MoveFuelRoute.MASTER_FUEL),
+    "FNO_007" to MoveFuelFlowAction("Save meal", MoveFuelRoute.FNO_006, "Discard changes", MoveFuelRoute.FNO_006),
+    "FNO_008" to MoveFuelFlowAction("Delete meal", MoveFuelRoute.FNO_001, "Cancel", MoveFuelRoute.FNO_006),
+    "FNO_009" to MoveFuelFlowAction("Search foods", MoveFuelRoute.FNO_010, "Back to Fuel", MoveFuelRoute.MASTER_FUEL),
+    "FNO_010" to MoveFuelFlowAction("Open food", MoveFuelRoute.FNO_011, "Back to add food", MoveFuelRoute.FNO_009),
+    "FNO_011" to MoveFuelFlowAction("Choose serving", MoveFuelRoute.FNO_012, "Back to search", MoveFuelRoute.FNO_010),
+    "FNO_012" to MoveFuelFlowAction("Confirm food", MoveFuelRoute.FNO_001, "Back to food", MoveFuelRoute.FNO_011),
+    "FNO_013" to MoveFuelFlowAction("Review serving", MoveFuelRoute.FNO_012, "Back to Fuel", MoveFuelRoute.MASTER_FUEL),
+    "FNO_014" to MoveFuelFlowAction("Review serving", MoveFuelRoute.FNO_012, "Back to Fuel", MoveFuelRoute.MASTER_FUEL),
+    "FNO_015" to MoveFuelFlowAction("Review serving", MoveFuelRoute.FNO_012, "Back to Fuel", MoveFuelRoute.MASTER_FUEL),
+    "FNO_016" to MoveFuelFlowAction("Add saved meal", MoveFuelRoute.FNO_001, "Back to Fuel", MoveFuelRoute.MASTER_FUEL),
+    "FNO_017" to MoveFuelFlowAction("Add food", MoveFuelRoute.FNO_009, "Back to Today", MoveFuelRoute.MASTER_TODAY),
+    "FNO_018" to MoveFuelFlowAction("Use cached Fuel", MoveFuelRoute.MASTER_FUEL),
+
+
+    // Fuel Plan: future intent stays separate from consumed food.
+    "FPL_001" to MoveFuelFlowAction("Open week plan", MoveFuelRoute.FPL_003, "Plan preferences", MoveFuelRoute.FPL_005),
+    "FPL_002" to MoveFuelFlowAction("Open planned meal", MoveFuelRoute.FPL_017, "Week view", MoveFuelRoute.FPL_003),
+    "FPL_003" to MoveFuelFlowAction("Open day", MoveFuelRoute.FPL_002, "Plan preferences", MoveFuelRoute.FPL_005),
+    "FPL_004" to MoveFuelFlowAction("Open day", MoveFuelRoute.FPL_002, "Week view", MoveFuelRoute.FPL_003),
+    "FPL_005" to MoveFuelFlowAction("Diet preferences", MoveFuelRoute.FPL_006, "Back to Plan", MoveFuelRoute.FPL_001),
+    "FPL_006" to MoveFuelFlowAction("Continue", MoveFuelRoute.FPL_007, "Back", MoveFuelRoute.FPL_005),
+    "FPL_007" to MoveFuelFlowAction("Continue", MoveFuelRoute.FPL_008, "Back", MoveFuelRoute.FPL_006),
+    "FPL_008" to MoveFuelFlowAction("Continue", MoveFuelRoute.FPL_009, "Back", MoveFuelRoute.FPL_007),
+    "FPL_009" to MoveFuelFlowAction("Continue", MoveFuelRoute.FPL_010, "Back", MoveFuelRoute.FPL_008),
+    "FPL_010" to MoveFuelFlowAction("Continue", MoveFuelRoute.FPL_011, "Back", MoveFuelRoute.FPL_009),
+    "FPL_011" to MoveFuelFlowAction("Continue", MoveFuelRoute.FPL_012, "Back", MoveFuelRoute.FPL_010),
+    "FPL_012" to MoveFuelFlowAction("Review setup", MoveFuelRoute.FPL_013, "Back", MoveFuelRoute.FPL_011),
+    "FPL_013" to MoveFuelFlowAction("Generate meal plan", MoveFuelRoute.FPL_014, "Edit preferences", MoveFuelRoute.FPL_005),
+    "FPL_014" to MoveFuelFlowAction("Review proposal", MoveFuelRoute.FPL_015),
+    "FPL_015" to MoveFuelFlowAction("Review day", MoveFuelRoute.FPL_016, "Edit preferences", MoveFuelRoute.FPL_005),
+    "FPL_016" to MoveFuelFlowAction("Open planned meal", MoveFuelRoute.FPL_017, "Back to week", MoveFuelRoute.FPL_015),
+    "FPL_017" to MoveFuelFlowAction("Swap meal", MoveFuelRoute.FPL_018, "Move meal", MoveFuelRoute.FPL_021),
+    "FPL_018" to MoveFuelFlowAction("See alternatives", MoveFuelRoute.FPL_019, "Back to meal", MoveFuelRoute.FPL_017),
+    "FPL_019" to MoveFuelFlowAction("Use alternative", MoveFuelRoute.FPL_017, "Back", MoveFuelRoute.FPL_018),
+    "FPL_020" to MoveFuelFlowAction("Save serving", MoveFuelRoute.FPL_017, "Cancel", MoveFuelRoute.FPL_017),
+    "FPL_021" to MoveFuelFlowAction("Open Calendar", MoveFuelRoute.CAL_009, "Back to meal", MoveFuelRoute.FPL_017),
+    "FPL_022" to MoveFuelFlowAction("Resolve in Calendar", MoveFuelRoute.CAL_013, "Back to plan", MoveFuelRoute.FPL_001),
+    "FPL_023" to MoveFuelFlowAction("Confirm plan", MoveFuelRoute.CAL_001, "Revision history", MoveFuelRoute.FPL_024),
+    "FPL_024" to MoveFuelFlowAction("Back to Plan", MoveFuelRoute.FPL_001),
+
+    // Shop.
+    "FSH_001" to MoveFuelFlowAction("Open shopping list", MoveFuelRoute.FSH_002, "Pantry", MoveFuelRoute.FSH_014),
+    "FSH_002" to MoveFuelFlowAction("Add item", MoveFuelRoute.FSH_007, "Plan requirements", MoveFuelRoute.FSH_011),
+    "FSH_003" to MoveFuelFlowAction("Edit item", MoveFuelRoute.FSH_004, "Mark purchased", MoveFuelRoute.FSH_005),
+    "FSH_004" to MoveFuelFlowAction("Save item", MoveFuelRoute.FSH_003, "Cancel", MoveFuelRoute.FSH_003),
+    "FSH_005" to MoveFuelFlowAction("Back to list", MoveFuelRoute.FSH_002, "Undo", MoveFuelRoute.FSH_006),
+    "FSH_006" to MoveFuelFlowAction("Back to list", MoveFuelRoute.FSH_002),
+    "FSH_007" to MoveFuelFlowAction("Search grocery", MoveFuelRoute.FSH_008, "Enter manually", MoveFuelRoute.FSH_009),
+    "FSH_008" to MoveFuelFlowAction("Open item", MoveFuelRoute.FSH_003, "Back to list", MoveFuelRoute.FSH_002),
+    "FSH_009" to MoveFuelFlowAction("Add item", MoveFuelRoute.FSH_002, "Cancel", MoveFuelRoute.FSH_002),
+    "FSH_010" to MoveFuelFlowAction("Review scanned item", MoveFuelRoute.FSH_003, "Back to list", MoveFuelRoute.FSH_002),
+    "FSH_011" to MoveFuelFlowAction("Consolidate ingredients", MoveFuelRoute.FSH_012, "Back to list", MoveFuelRoute.FSH_002),
+    "FSH_012" to MoveFuelFlowAction("Add to shopping list", MoveFuelRoute.FSH_002, "Back", MoveFuelRoute.FSH_011),
+    "FSH_013" to MoveFuelFlowAction("Add recipe ingredients", MoveFuelRoute.FSH_002, "Back to recipe", MoveFuelRoute.RCP_005),
+    "FSH_014" to MoveFuelFlowAction("Back to Shop", MoveFuelRoute.FSH_001),
+    "FSH_015" to MoveFuelFlowAction("Add shopping item", MoveFuelRoute.FSH_007, "Back to Shop", MoveFuelRoute.FSH_001),
+    "FSH_016" to MoveFuelFlowAction("Use cached Shop", MoveFuelRoute.FSH_001),
+
+    // Recipes. Cooking completion never equals consumption.
+    "RCP_001" to MoveFuelFlowAction("Saved recipes", MoveFuelRoute.RCP_002, "Search recipes", MoveFuelRoute.RCP_003),
+    "RCP_002" to MoveFuelFlowAction("Open recipe", MoveFuelRoute.RCP_005, "Import recipe", MoveFuelRoute.RCP_020),
+    "RCP_003" to MoveFuelFlowAction("Search", MoveFuelRoute.RCP_004, "Back to Recipes", MoveFuelRoute.RCP_001),
+    "RCP_004" to MoveFuelFlowAction("Open recipe", MoveFuelRoute.RCP_005, "Back to search", MoveFuelRoute.RCP_003),
+    "RCP_005" to MoveFuelFlowAction("Start cooking", MoveFuelRoute.RCP_008, "Nutrition", MoveFuelRoute.RCP_006),
+    "RCP_006" to MoveFuelFlowAction("Back to recipe", MoveFuelRoute.RCP_005, "Ingredients", MoveFuelRoute.RCP_007),
+    "RCP_007" to MoveFuelFlowAction("Back to recipe", MoveFuelRoute.RCP_005),
+    "RCP_008" to MoveFuelFlowAction("Finish cooking", MoveFuelRoute.RCP_014, "Timer", MoveFuelRoute.RCP_009),
+    "RCP_009" to MoveFuelFlowAction("Back to cooking", MoveFuelRoute.RCP_008),
+    "RCP_010" to MoveFuelFlowAction("Save serving", MoveFuelRoute.RCP_005, "Cancel", MoveFuelRoute.RCP_005),
+    "RCP_011" to MoveFuelFlowAction("Use substitution", MoveFuelRoute.RCP_005, "Cancel", MoveFuelRoute.RCP_005),
+    "RCP_012" to MoveFuelFlowAction("Add to Plan", MoveFuelRoute.FPL_001, "Back to recipe", MoveFuelRoute.RCP_005),
+    "RCP_013" to MoveFuelFlowAction("Add to Shop", MoveFuelRoute.FSH_002, "Back to recipe", MoveFuelRoute.RCP_005),
+    "RCP_014" to MoveFuelFlowAction("Review serving before logging", MoveFuelRoute.FNO_012, "Not now", MoveFuelRoute.RCP_005),
+    "RCP_015" to MoveFuelFlowAction("Recipe details", MoveFuelRoute.RCP_016, "Back to Recipes", MoveFuelRoute.RCP_001),
+    "RCP_016" to MoveFuelFlowAction("Ingredients", MoveFuelRoute.RCP_017, "Back", MoveFuelRoute.RCP_015),
+    "RCP_017" to MoveFuelFlowAction("Steps", MoveFuelRoute.RCP_018, "Back", MoveFuelRoute.RCP_016),
+    "RCP_018" to MoveFuelFlowAction("Review recipe", MoveFuelRoute.RCP_019, "Back", MoveFuelRoute.RCP_017),
+    "RCP_019" to MoveFuelFlowAction("Save recipe", MoveFuelRoute.RCP_005, "Edit", MoveFuelRoute.RCP_016),
+    "RCP_020" to MoveFuelFlowAction("Import from YouTube", MoveFuelRoute.RCP_021, "Import from web", MoveFuelRoute.RCP_022),
+    "RCP_021" to MoveFuelFlowAction("Validate source", MoveFuelRoute.RCP_024, "Back", MoveFuelRoute.RCP_020),
+    "RCP_022" to MoveFuelFlowAction("Validate source", MoveFuelRoute.RCP_024, "Back", MoveFuelRoute.RCP_020),
+    "RCP_023" to MoveFuelFlowAction("Validate source", MoveFuelRoute.RCP_024, "Back", MoveFuelRoute.RCP_020),
+    "RCP_024" to MoveFuelFlowAction("Queue import", MoveFuelRoute.RCP_025, "Back", MoveFuelRoute.RCP_020),
+    "RCP_025" to MoveFuelFlowAction("Read source", MoveFuelRoute.RCP_026),
+    "RCP_026" to MoveFuelFlowAction("Extract evidence", MoveFuelRoute.RCP_027),
+    "RCP_027" to MoveFuelFlowAction("Normalize ingredients", MoveFuelRoute.RCP_028),
+    "RCP_028" to MoveFuelFlowAction("Match trusted foods", MoveFuelRoute.RCP_029),
+    "RCP_029" to MoveFuelFlowAction("Check nutrition eligibility", MoveFuelRoute.RCP_030),
+    "RCP_030" to MoveFuelFlowAction("Review import", MoveFuelRoute.RCP_031),
+    "RCP_031" to MoveFuelFlowAction("Resolve ingredient", MoveFuelRoute.RCP_032, "Confirm reviewed import", MoveFuelRoute.RCP_035),
+    "RCP_032" to MoveFuelFlowAction("Save resolution", MoveFuelRoute.RCP_031, "Back", MoveFuelRoute.RCP_031),
+    "RCP_033" to MoveFuelFlowAction("Save quantity", MoveFuelRoute.RCP_031, "Back", MoveFuelRoute.RCP_031),
+    "RCP_034" to MoveFuelFlowAction("Save servings", MoveFuelRoute.RCP_031, "Back", MoveFuelRoute.RCP_031),
+    "RCP_035" to MoveFuelFlowAction("Open imported recipe", MoveFuelRoute.RCP_005, "Back to Recipes", MoveFuelRoute.RCP_001),
+    "RCP_036" to MoveFuelFlowAction("Retry import", MoveFuelRoute.RCP_020, "Back to Recipes", MoveFuelRoute.RCP_001),
+
+
+    // First-time training setup. Plan preview must be activated before Train Now.
+    "TRS_001" to MoveFuelFlowAction(secondaryLabel = "Not now", secondaryRoute = MoveFuelRoute.MASTER_TODAY),
+    "TRS_002" to MoveFuelFlowAction("Save experience", MoveFuelRoute.TRS_003, "Back", MoveFuelRoute.TRS_001),
+    "TRS_003" to MoveFuelFlowAction("Continue", MoveFuelRoute.TRS_004, "Back", MoveFuelRoute.TRS_002),
+    "TRS_004" to MoveFuelFlowAction("Save training goal", MoveFuelRoute.TRS_005, "Back", MoveFuelRoute.TRS_003),
+    "TRS_005" to MoveFuelFlowAction("Save activities", MoveFuelRoute.TRS_006, "Back", MoveFuelRoute.TRS_004),
+    "TRS_006" to MoveFuelFlowAction("Save environment", MoveFuelRoute.TRS_007, "Back", MoveFuelRoute.TRS_005),
+    "TRS_007" to MoveFuelFlowAction("Save equipment", MoveFuelRoute.TRS_008, "Back", MoveFuelRoute.TRS_006),
+    "TRS_008" to MoveFuelFlowAction("Save availability", MoveFuelRoute.TRS_009, "Back", MoveFuelRoute.TRS_007),
+    "TRS_009" to MoveFuelFlowAction("Save preferred days", MoveFuelRoute.TRS_010, "Back", MoveFuelRoute.TRS_008),
+    "TRS_010" to MoveFuelFlowAction("Save preferred time", MoveFuelRoute.TRS_011, "Back", MoveFuelRoute.TRS_009),
+    "TRS_011" to MoveFuelFlowAction("Save session duration", MoveFuelRoute.TRS_012, "Back", MoveFuelRoute.TRS_010),
+    "TRS_012" to MoveFuelFlowAction("Save exercise preferences", MoveFuelRoute.TRS_013, "Back", MoveFuelRoute.TRS_011),
+    "TRS_013" to MoveFuelFlowAction("Save dislikes", MoveFuelRoute.TRS_014, "Back", MoveFuelRoute.TRS_012),
+    "TRS_014" to MoveFuelFlowAction("Save movement context", MoveFuelRoute.TRS_015, "Back", MoveFuelRoute.TRS_013),
+    "TRS_015" to MoveFuelFlowAction("Continue to safety", MoveFuelRoute.TRS_016, "Back", MoveFuelRoute.TRS_014),
+    "TRS_016" to MoveFuelFlowAction("Continue", MoveFuelRoute.TRS_017, "Back", MoveFuelRoute.TRS_015),
+    "TRS_017" to MoveFuelFlowAction("Set soreness workflow", MoveFuelRoute.TRS_018, "Back", MoveFuelRoute.TRS_016),
+    "TRS_018" to MoveFuelFlowAction("Set readiness workflow", MoveFuelRoute.TRS_019, "Back", MoveFuelRoute.TRS_017),
+    "TRS_019" to MoveFuelFlowAction("Review training plan", MoveFuelRoute.TRS_020, "Back", MoveFuelRoute.TRS_018),
+    "TRS_020" to MoveFuelFlowAction(secondaryLabel = "Back", secondaryRoute = MoveFuelRoute.TRS_019),
+
+    // Training loop.
+    "TRN_001" to MoveFuelFlowAction("Open today's workout", MoveFuelRoute.TRN_005, "Readiness check-in", MoveFuelRoute.RDY_001),
+    "TRN_002" to MoveFuelFlowAction("Readiness detail", MoveFuelRoute.TRN_003, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+    "TRN_003" to MoveFuelFlowAction("Why adapted", MoveFuelRoute.TRN_004, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+    "TRN_004" to MoveFuelFlowAction("Open workout", MoveFuelRoute.TRN_006, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+    "TRN_005" to MoveFuelFlowAction("View workout", MoveFuelRoute.TRN_006, "Start workout", MoveFuelRoute.WRK_001),
+    "TRN_007" to MoveFuelFlowAction("Start workout", MoveFuelRoute.WRK_001, "Back to workout", MoveFuelRoute.TRN_006),
+    "TRN_006" to MoveFuelFlowAction("Start workout", MoveFuelRoute.WRK_001, "Reschedule", MoveFuelRoute.CAL_009),
+    "TRN_008" to MoveFuelFlowAction("Open Calendar", MoveFuelRoute.CAL_009, "Cancel", MoveFuelRoute.TRN_006),
+    "TRN_009" to MoveFuelFlowAction("Start quick workout", MoveFuelRoute.WRK_001, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+    "TRN_010" to MoveFuelFlowAction("Open day", MoveFuelRoute.TRN_011, "Open Calendar", MoveFuelRoute.CAL_001),
+    "TRN_011" to MoveFuelFlowAction("Open workout", MoveFuelRoute.TRN_006, "Open Calendar", MoveFuelRoute.CAL_001),
+    "TRN_012" to MoveFuelFlowAction("Use adapted workout", MoveFuelRoute.TRN_006, "Keep original", MoveFuelRoute.TRN_006),
+    "TRN_013" to MoveFuelFlowAction("Find replacements", MoveFuelRoute.TRN_014, "Keep workout", MoveFuelRoute.TRN_006),
+    "TRN_014" to MoveFuelFlowAction("Use replacements", MoveFuelRoute.TRN_006, "Back", MoveFuelRoute.TRN_013),
+    "TRN_015" to MoveFuelFlowAction("Back to Train", MoveFuelRoute.MASTER_TRAIN, "Recovery event", MoveFuelRoute.CAL_008),
+    "TRN_016" to MoveFuelFlowAction("Review missed workout", MoveFuelRoute.CAL_016, "Continue schedule", MoveFuelRoute.MASTER_TRAIN),
+    "TRN_017" to MoveFuelFlowAction("Save program settings", MoveFuelRoute.MASTER_TRAIN, "Revision history", MoveFuelRoute.TRN_018),
+    "TRN_018" to MoveFuelFlowAction("Back to settings", MoveFuelRoute.TRN_017),
+    "TRN_019" to MoveFuelFlowAction("Open Progress", MoveFuelRoute.MASTER_PROGRESS, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+    "TRN_020" to MoveFuelFlowAction("Return to Train", MoveFuelRoute.MASTER_TRAIN),
+    "TRN_021" to MoveFuelFlowAction("Open training setup", MoveFuelRoute.TRS_001, "Back to Today", MoveFuelRoute.MASTER_TODAY),
+    "TRN_022" to MoveFuelFlowAction("Review missing profile data", MoveFuelRoute.PRO_002, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+    "TRN_023" to MoveFuelFlowAction("Use cached Train", MoveFuelRoute.MASTER_TRAIN),
+    "TRN_024" to MoveFuelFlowAction("Sync devices", MoveFuelRoute.DEV_009, "Use current plan", MoveFuelRoute.MASTER_TRAIN),
+
+    "SOR_001" to MoveFuelFlowAction("Choose body region", MoveFuelRoute.SOR_002, "View history", MoveFuelRoute.SOR_009),
+
+    "SOR_002" to MoveFuelFlowAction("Select region", MoveFuelRoute.SOR_004, "Back body", MoveFuelRoute.SOR_003),
+    "SOR_003" to MoveFuelFlowAction("Select region", MoveFuelRoute.SOR_004, "Front body", MoveFuelRoute.SOR_002),
+    "SOR_004" to MoveFuelFlowAction("Set soreness level", MoveFuelRoute.SOR_005, "Back", MoveFuelRoute.SOR_001),
+    "SOR_005" to MoveFuelFlowAction("Review regions", MoveFuelRoute.SOR_006, "Back", MoveFuelRoute.SOR_004),
+    "SOR_008" to MoveFuelFlowAction("Recheck readiness", MoveFuelRoute.RDY_001, "History", MoveFuelRoute.SOR_009),
+    "SOR_009" to MoveFuelFlowAction("Back to Soreness", MoveFuelRoute.SOR_001),
+    "SOR_006" to MoveFuelFlowAction("Save soreness", MoveFuelRoute.SOR_007, "Edit regions", MoveFuelRoute.SOR_001),
+    "SOR_007" to MoveFuelFlowAction("Recheck readiness", MoveFuelRoute.RDY_001, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+    "SOR_010" to MoveFuelFlowAction("Open safety stop", MoveFuelRoute.RDY_010, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+
+    "RDY_001" to MoveFuelFlowAction("Start check-in", MoveFuelRoute.RDY_002, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+    "RDY_002" to MoveFuelFlowAction("Continue", MoveFuelRoute.RDY_003),
+    "RDY_003" to MoveFuelFlowAction("Continue", MoveFuelRoute.RDY_004),
+    "RDY_004" to MoveFuelFlowAction("Continue", MoveFuelRoute.RDY_005),
+    "RDY_005" to MoveFuelFlowAction("Evaluate readiness", MoveFuelRoute.RDY_006),
+    "RDY_006" to MoveFuelFlowAction("View result", MoveFuelRoute.RDY_007),
+    "RDY_007" to MoveFuelFlowAction("Open workout", MoveFuelRoute.TRN_006, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+    "RDY_008" to MoveFuelFlowAction("Open adapted workout", MoveFuelRoute.TRN_006, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+    "RDY_009" to MoveFuelFlowAction("Open recovery plan", MoveFuelRoute.TRN_015, "Back to Train", MoveFuelRoute.MASTER_TRAIN),
+    "RDY_010" to MoveFuelFlowAction("Return to Train", MoveFuelRoute.MASTER_TRAIN),
+
+    "WRK_001" to MoveFuelFlowAction("Start workout", MoveFuelRoute.WRK_002, "Back to Train", MoveFuelRoute.TRN_006),
+    "WRK_002" to MoveFuelFlowAction("Begin first exercise", MoveFuelRoute.WRK_003),
+    "WRK_003" to MoveFuelFlowAction("Enter set", MoveFuelRoute.WRK_006, "Instructions", MoveFuelRoute.WRK_005),
+
+    "WRK_004" to MoveFuelFlowAction("Continue exercise", MoveFuelRoute.WRK_003),
+    "WRK_005" to MoveFuelFlowAction("Back to exercise", MoveFuelRoute.WRK_003),
+    "WRK_009" to MoveFuelFlowAction("Add effort", MoveFuelRoute.WRK_011, "Back", MoveFuelRoute.WRK_006),
+    "WRK_010" to MoveFuelFlowAction("Add effort", MoveFuelRoute.WRK_011, "Back", MoveFuelRoute.WRK_006),
+    "WRK_011" to MoveFuelFlowAction("Review set", MoveFuelRoute.WRK_012, "Back", MoveFuelRoute.WRK_006),
+    "WRK_015" to MoveFuelFlowAction("Return to rest", MoveFuelRoute.WRK_014),
+    "WRK_016" to MoveFuelFlowAction("Next set", MoveFuelRoute.WRK_017),
+    "WRK_018" to MoveFuelFlowAction("Next exercise", MoveFuelRoute.WRK_019),
+    "WRK_021" to MoveFuelFlowAction("Open substitute", MoveFuelRoute.WRK_022, "Back", MoveFuelRoute.WRK_020),
+    "WRK_022" to MoveFuelFlowAction("Use substitute", MoveFuelRoute.WRK_023, "Back", MoveFuelRoute.WRK_021),
+    "WRK_024" to MoveFuelFlowAction("Skip set", MoveFuelRoute.WRK_017, "Cancel", MoveFuelRoute.WRK_003),
+    "WRK_025" to MoveFuelFlowAction("Skip exercise", MoveFuelRoute.WRK_019, "Cancel", MoveFuelRoute.WRK_003),
+    "WRK_026" to MoveFuelFlowAction("Save note", MoveFuelRoute.WRK_003, "Cancel", MoveFuelRoute.WRK_003),
+    "WRK_006" to MoveFuelFlowAction("Enter reps", MoveFuelRoute.WRK_007, "Back to exercise", MoveFuelRoute.WRK_003),
+    "WRK_007" to MoveFuelFlowAction("Enter load", MoveFuelRoute.WRK_008, "Review set", MoveFuelRoute.WRK_012),
+    "WRK_008" to MoveFuelFlowAction("Review set", MoveFuelRoute.WRK_012),
+    "WRK_012" to MoveFuelFlowAction("Complete set", MoveFuelRoute.WRK_013, "Edit set", MoveFuelRoute.WRK_006),
+    "WRK_013" to MoveFuelFlowAction("Start rest", MoveFuelRoute.WRK_014),
+    "WRK_014" to MoveFuelFlowAction("Next set", MoveFuelRoute.WRK_017, "Extend rest", MoveFuelRoute.WRK_015),
+    "WRK_017" to MoveFuelFlowAction("Continue exercise", MoveFuelRoute.WRK_003),
+    "WRK_019" to MoveFuelFlowAction("Start next exercise", MoveFuelRoute.WRK_003),
+    "WRK_020" to MoveFuelFlowAction("Find substitute", MoveFuelRoute.WRK_021, "Back to exercise", MoveFuelRoute.WRK_003),
+    "WRK_023" to MoveFuelFlowAction("Continue workout", MoveFuelRoute.WRK_003),
+    "WRK_027" to MoveFuelFlowAction("Resume", MoveFuelRoute.WRK_028),
+    "WRK_028" to MoveFuelFlowAction("Continue workout", MoveFuelRoute.WRK_003),
+    "WRK_029" to MoveFuelFlowAction("Stop and review safety", MoveFuelRoute.RDY_010, "Choose alternative", MoveFuelRoute.WRK_020),
+    "WRK_030" to MoveFuelFlowAction("Finish partial workout", MoveFuelRoute.WRK_031, "Keep training", MoveFuelRoute.WRK_003),
+    "WRK_031" to MoveFuelFlowAction("View summary", MoveFuelRoute.WRK_032),
+    "WRK_032" to MoveFuelFlowAction("Done", MoveFuelRoute.MASTER_TRAIN, "View Progress", MoveFuelRoute.MASTER_PROGRESS),
+
+    // Canonical Calendar rescheduling.
+
+    "CAL_001" to MoveFuelFlowAction("Month view", MoveFuelRoute.CAL_002, "Week view", MoveFuelRoute.CAL_003),
+    "CAL_002" to MoveFuelFlowAction("Select date", MoveFuelRoute.CAL_005, "Week view", MoveFuelRoute.CAL_003),
+    "CAL_003" to MoveFuelFlowAction("Open day", MoveFuelRoute.CAL_004, "Month view", MoveFuelRoute.CAL_002),
+    "CAL_004" to MoveFuelFlowAction("Select event", MoveFuelRoute.CAL_005, "Week view", MoveFuelRoute.CAL_003),
+    "CAL_005" to MoveFuelFlowAction("Open workout event", MoveFuelRoute.CAL_006, "Open meal event", MoveFuelRoute.CAL_007),
+    "CAL_006" to MoveFuelFlowAction("Start workout", MoveFuelRoute.WRK_001, "Reschedule", MoveFuelRoute.CAL_009),
+    "CAL_007" to MoveFuelFlowAction("Review planned meal", MoveFuelRoute.FPL_017, "Reschedule", MoveFuelRoute.CAL_009),
+    "CAL_008" to MoveFuelFlowAction("Open readiness", MoveFuelRoute.RDY_001, "Back to Calendar", MoveFuelRoute.CAL_001),
+    "CAL_009" to MoveFuelFlowAction("Choose date", MoveFuelRoute.CAL_010, "Cancel", MoveFuelRoute.CAL_001),
+    "CAL_010" to MoveFuelFlowAction("Choose time", MoveFuelRoute.CAL_011, "Back", MoveFuelRoute.CAL_009),
+    "CAL_011" to MoveFuelFlowAction("Check schedule", MoveFuelRoute.CAL_012, "Back", MoveFuelRoute.CAL_010),
+    "CAL_012" to MoveFuelFlowAction("Review conflict", MoveFuelRoute.CAL_013, "Choose another time", MoveFuelRoute.CAL_011),
+    "CAL_013" to MoveFuelFlowAction("See alternatives", MoveFuelRoute.CAL_014, "Choose another time", MoveFuelRoute.CAL_011),
+    "CAL_014" to MoveFuelFlowAction("Use selected time", MoveFuelRoute.CAL_015, "Back", MoveFuelRoute.CAL_013),
+    "CAL_015" to MoveFuelFlowAction("Confirm move", MoveFuelRoute.CAL_001, "Cancel", MoveFuelRoute.CAL_001),
+    "CAL_016" to MoveFuelFlowAction("Reschedule", MoveFuelRoute.CAL_009, "Continue program", MoveFuelRoute.MASTER_TRAIN),
+    "CAL_017" to MoveFuelFlowAction("Move planned meal", MoveFuelRoute.CAL_009, "Skip plan event", MoveFuelRoute.CAL_001),
+    "CAL_018" to MoveFuelFlowAction("Use cached Calendar", MoveFuelRoute.CAL_001),
+
+
+    // Exercise Library.
+    "EXR_001" to MoveFuelFlowAction("Search exercises", MoveFuelRoute.EXR_002, "Filters", MoveFuelRoute.EXR_003),
+    "EXR_002" to MoveFuelFlowAction("Show results", MoveFuelRoute.EXR_009, "Filters", MoveFuelRoute.EXR_003),
+    "EXR_003" to MoveFuelFlowAction("Apply filters", MoveFuelRoute.EXR_009, "Back to library", MoveFuelRoute.EXR_001),
+    "EXR_004" to MoveFuelFlowAction("Apply equipment filter", MoveFuelRoute.EXR_003, "Back", MoveFuelRoute.EXR_003),
+    "EXR_005" to MoveFuelFlowAction("Apply movement filter", MoveFuelRoute.EXR_003, "Back", MoveFuelRoute.EXR_003),
+    "EXR_006" to MoveFuelFlowAction("Apply muscle filter", MoveFuelRoute.EXR_003, "Back", MoveFuelRoute.EXR_003),
+    "EXR_007" to MoveFuelFlowAction("Apply environment filter", MoveFuelRoute.EXR_003, "Back", MoveFuelRoute.EXR_003),
+    "EXR_008" to MoveFuelFlowAction("Apply difficulty filter", MoveFuelRoute.EXR_003, "Back", MoveFuelRoute.EXR_003),
+    "EXR_009" to MoveFuelFlowAction("Open exercise", MoveFuelRoute.EXR_010, "Back to search", MoveFuelRoute.EXR_002),
+    "EXR_010" to MoveFuelFlowAction("Exercise media", MoveFuelRoute.EXR_011, "Substitutions", MoveFuelRoute.EXR_016),
+    "EXR_011" to MoveFuelFlowAction("Back to exercise", MoveFuelRoute.EXR_010),
+    "EXR_012" to MoveFuelFlowAction("Start execution", MoveFuelRoute.EXR_013, "Back to exercise", MoveFuelRoute.EXR_010),
+    "EXR_013" to MoveFuelFlowAction("Back to exercise", MoveFuelRoute.EXR_010),
+    "EXR_014" to MoveFuelFlowAction("Back to exercise", MoveFuelRoute.EXR_010),
+    "EXR_015" to MoveFuelFlowAction("Back to exercise", MoveFuelRoute.EXR_010),
+    "EXR_016" to MoveFuelFlowAction("Back to exercise", MoveFuelRoute.EXR_010),
+
+    // Progress only consumes actual/confirmed facts.
+    "PRG_001" to MoveFuelFlowAction("Choose metric", MoveFuelRoute.PRG_002, "Weekly report", MoveFuelRoute.PRG_029),
+    "PRG_002" to MoveFuelFlowAction("Open graph", MoveFuelRoute.PRG_009, "Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_003" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_004" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_005" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_006" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_007" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_008" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_009" to MoveFuelFlowAction("Inspect data point", MoveFuelRoute.PRG_010, "Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_010" to MoveFuelFlowAction("Back to graph", MoveFuelRoute.PRG_009),
+    "PRG_011" to MoveFuelFlowAction("View data coverage", MoveFuelRoute.PRG_012, "Back to graph", MoveFuelRoute.PRG_009),
+    "PRG_012" to MoveFuelFlowAction("Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_013" to MoveFuelFlowAction("Open targets", MoveFuelRoute.PRO_003, "Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_014" to MoveFuelFlowAction("Target revision history", MoveFuelRoute.PRO_006, "Back to graph", MoveFuelRoute.PRG_009),
+    "PRG_015" to MoveFuelFlowAction("Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_016" to MoveFuelFlowAction("Back to Progress", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_017" to MoveFuelFlowAction("Strength progress", MoveFuelRoute.PRG_018, "Training volume", MoveFuelRoute.PRG_019),
+    "PRG_018" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Training", MoveFuelRoute.PRG_017),
+    "PRG_019" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Training", MoveFuelRoute.PRG_017),
+    "PRG_020" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Training", MoveFuelRoute.PRG_017),
+    "PRG_021" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Training", MoveFuelRoute.PRG_017),
+    "PRG_022" to MoveFuelFlowAction("Nutrition averages", MoveFuelRoute.PRG_023, "Protein trend", MoveFuelRoute.PRG_024),
+    "PRG_023" to MoveFuelFlowAction("Back to Nutrition", MoveFuelRoute.PRG_022),
+    "PRG_024" to MoveFuelFlowAction("Back to Nutrition", MoveFuelRoute.PRG_022),
+    "PRG_025" to MoveFuelFlowAction("Back to Nutrition", MoveFuelRoute.PRG_022),
+    "PRG_026" to MoveFuelFlowAction("Running progress", MoveFuelRoute.PRG_027, "Swimming progress", MoveFuelRoute.PRG_028),
+    "PRG_027" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Activity", MoveFuelRoute.PRG_026),
+    "PRG_028" to MoveFuelFlowAction("Expand graph", MoveFuelRoute.PRG_009, "Back to Activity", MoveFuelRoute.PRG_026),
+    "PRG_029" to MoveFuelFlowAction("Done", MoveFuelRoute.MASTER_PROGRESS),
+    "PRG_030" to MoveFuelFlowAction("Done", MoveFuelRoute.MASTER_PROGRESS),
+
+    // Profile and target revision.
+    "PRO_001" to MoveFuelFlowAction("Personal details", MoveFuelRoute.PRO_002, "Targets & goals", MoveFuelRoute.PRO_003),
+    "PRO_002" to MoveFuelFlowAction("Save details", MoveFuelRoute.PRO_001, "Back to Profile", MoveFuelRoute.PRO_001),
+    "PRO_007" to MoveFuelFlowAction("Save units", MoveFuelRoute.PRO_001, "Back to Profile", MoveFuelRoute.PRO_001),
+    "PRO_008" to MoveFuelFlowAction("Save language & region", MoveFuelRoute.PRO_001, "Back to Profile", MoveFuelRoute.PRO_001),
+    "PRO_009" to MoveFuelFlowAction("Save appearance", MoveFuelRoute.PRO_001, "Back to Profile", MoveFuelRoute.PRO_001),
+    "PRO_010" to MoveFuelFlowAction("Save sound & haptics", MoveFuelRoute.PRO_001, "Back to Profile", MoveFuelRoute.PRO_001),
+    "PRO_011" to MoveFuelFlowAction("Save notifications", MoveFuelRoute.PRO_001, "Back to Profile", MoveFuelRoute.PRO_001),
+    "PRO_012" to MoveFuelFlowAction("Export data", MoveFuelRoute.PRO_013, "Terms & privacy", MoveFuelRoute.PRO_015),
+    "PRO_013" to MoveFuelFlowAction("Back to Privacy", MoveFuelRoute.PRO_012),
+    "PRO_014" to MoveFuelFlowAction("Review destructive action", MoveFuelRoute.SYS_013, "Cancel", MoveFuelRoute.PRO_012),
+    "PRO_015" to MoveFuelFlowAction("Back to Profile", MoveFuelRoute.PRO_001),
+    "PRO_016" to MoveFuelFlowAction("Back to Profile", MoveFuelRoute.PRO_001),
+    "PRO_017" to MoveFuelFlowAction("Finish personalization", MoveFuelRoute.MASTER_TODAY),
+    "PRO_018" to MoveFuelFlowAction("Use cached Profile", MoveFuelRoute.PRO_001),
+
+    // Devices.
+    "DEV_001" to MoveFuelFlowAction("Connect Wear OS", MoveFuelRoute.DEV_002, "Open device", MoveFuelRoute.DEV_007),
+    "DEV_002" to MoveFuelFlowAction("Start discovery", MoveFuelRoute.DEV_003, "Back to Devices", MoveFuelRoute.DEV_001),
+    "DEV_003" to MoveFuelFlowAction("Open found device", MoveFuelRoute.DEV_004, "Cancel", MoveFuelRoute.DEV_001),
+    "DEV_004" to MoveFuelFlowAction("Pair device", MoveFuelRoute.DEV_005, "Cancel", MoveFuelRoute.DEV_001),
+    "DEV_005" to MoveFuelFlowAction("Continue", MoveFuelRoute.DEV_006),
+    "DEV_006" to MoveFuelFlowAction("Device details", MoveFuelRoute.DEV_007, "Back to Devices", MoveFuelRoute.DEV_001),
+    "DEV_007" to MoveFuelFlowAction("Permissions", MoveFuelRoute.DEV_008, "Sync now", MoveFuelRoute.DEV_009),
+    "DEV_008" to MoveFuelFlowAction("Save permissions", MoveFuelRoute.DEV_007, "Back", MoveFuelRoute.DEV_007),
+    "DEV_009" to MoveFuelFlowAction("Back to device", MoveFuelRoute.DEV_007),
+    "DEV_010" to MoveFuelFlowAction("Reconnect", MoveFuelRoute.DEV_011, "Manual sync", MoveFuelRoute.DEV_009),
+    "DEV_011" to MoveFuelFlowAction("Back to device", MoveFuelRoute.DEV_006),
+    "DEV_012" to MoveFuelFlowAction("Disconnect", MoveFuelRoute.DEV_001, "Cancel", MoveFuelRoute.DEV_007),
+
+    // Wear stays on-watch; it never navigates directly into phone Progress.
+    "WAR_001" to MoveFuelFlowAction("Readiness", MoveFuelRoute.WAR_002, "Workout preview", MoveFuelRoute.WAR_003),
+    "WAR_002" to MoveFuelFlowAction("Workout preview", MoveFuelRoute.WAR_003, "Back to Today", MoveFuelRoute.WAR_001),
+    "WAR_003" to MoveFuelFlowAction("Start workout", MoveFuelRoute.WAR_004, "Back", MoveFuelRoute.WAR_001),
+    "WAR_004" to MoveFuelFlowAction("Enter set", MoveFuelRoute.WAR_005, "Pause", MoveFuelRoute.WAR_009),
+    "WAR_005" to MoveFuelFlowAction("Complete set", MoveFuelRoute.WAR_006, "Back", MoveFuelRoute.WAR_004),
+    "WAR_006" to MoveFuelFlowAction("Start rest", MoveFuelRoute.WAR_007),
+    "WAR_007" to MoveFuelFlowAction("Continue workout", MoveFuelRoute.WAR_004, "Substitute", MoveFuelRoute.WAR_008),
+    "WAR_008" to MoveFuelFlowAction("Use substitute", MoveFuelRoute.WAR_004, "Back", MoveFuelRoute.WAR_004),
+    "WAR_009" to MoveFuelFlowAction("Resume", MoveFuelRoute.WAR_004, "Finish", MoveFuelRoute.WAR_010),
+    "WAR_010" to MoveFuelFlowAction("Finish workout", MoveFuelRoute.WAR_011, "Resume", MoveFuelRoute.WAR_004),
+    "WAR_011" to MoveFuelFlowAction("Queue sync", MoveFuelRoute.WAR_012, "Back to Wear Today", MoveFuelRoute.WAR_001),
+    "WAR_012" to MoveFuelFlowAction("Retry sync", MoveFuelRoute.WAR_012, "Back to Wear Today", MoveFuelRoute.WAR_001),
+
+
+    // Billing is a focused store-owned purchase flow after plan selection.
+    "BIL_001" to MoveFuelFlowAction("Current plan", MoveFuelRoute.BIL_002, "Compare plans", MoveFuelRoute.BIL_003),
+    "BIL_002" to MoveFuelFlowAction("Compare plans", MoveFuelRoute.BIL_003, "Back to billing", MoveFuelRoute.BIL_001),
+    "BIL_003" to MoveFuelFlowAction("Open plan", MoveFuelRoute.BIL_004, "Back to billing", MoveFuelRoute.BIL_001),
+    "BIL_004" to MoveFuelFlowAction("Continue to purchase", MoveFuelRoute.BIL_005, "Back to plans", MoveFuelRoute.BIL_003),
+    "BIL_005" to MoveFuelFlowAction("Confirm purchase", MoveFuelRoute.BIL_006, "Cancel", MoveFuelRoute.BIL_004),
+    "BIL_006" to MoveFuelFlowAction("Check purchase result", MoveFuelRoute.BIL_007),
+    "BIL_007" to MoveFuelFlowAction("Done", MoveFuelRoute.BIL_001, "Restore purchases", MoveFuelRoute.BIL_008),
+    "BIL_008" to MoveFuelFlowAction("Restore purchases", MoveFuelRoute.BIL_007, "Back to billing", MoveFuelRoute.BIL_001),
+
+    // Target revisions affect future recommendations only.
+    "PRO_003" to MoveFuelFlowAction("Edit target", MoveFuelRoute.PRO_004, "Revision history", MoveFuelRoute.PRO_006),
+    "PRO_004" to MoveFuelFlowAction("Preview changes", MoveFuelRoute.PRO_005, "Cancel", MoveFuelRoute.PRO_003),
+    "PRO_005" to MoveFuelFlowAction("Confirm future target", MoveFuelRoute.PRO_003, "Edit again", MoveFuelRoute.PRO_004),
+    "PRO_006" to MoveFuelFlowAction("Back to targets", MoveFuelRoute.PRO_003),
+)
+
+fun moveFuelPrimaryAction(
+    screenId: String,
+    fallbackLabel: String?,
+    fallbackRoute: MoveFuelRoute?,
+): Pair<String?, MoveFuelRoute?> {
+    val override = semanticFlowActions[screenId]
+    return (override?.primaryLabel ?: fallbackLabel) to (override?.primaryRoute ?: fallbackRoute)
+}
+
+fun moveFuelSecondaryAction(
+    screenId: String,
+    fallbackLabel: String?,
+    fallbackRoute: MoveFuelRoute?,
+): Pair<String?, MoveFuelRoute?> {
+    val override = semanticFlowActions[screenId]
+    return (override?.secondaryLabel ?: fallbackLabel) to (override?.secondaryRoute ?: fallbackRoute)
+}
