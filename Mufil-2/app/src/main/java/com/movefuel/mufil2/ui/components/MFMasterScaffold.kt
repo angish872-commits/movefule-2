@@ -27,39 +27,51 @@ fun MFMasterScaffold(
     MFPremiumBackground {
         Box(Modifier.fillMaxSize()) {
             Column(
-                Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-                    .padding(
+                Modifier.fillMaxSize(),
+            ) {
+                Box(
+                    Modifier.padding(
                         start = MoveFuelSpacing.Base,
                         end = MoveFuelSpacing.Base,
                         top = MoveFuelSpacing.Lg,
-                        bottom = 118.dp,
-                    ),
-                verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
-            ) {
-                MFTopBar(
-                    onCalendar = { onNavigate(MoveFuelRoute.CAL_001) },
-                    onProfile = { onNavigate(MoveFuelRoute.PRO_001) },
-                )
-                Spacer(Modifier.height(MoveFuelSpacing.Xs))
-                Text(title, style = MaterialTheme.typography.displaySmall, color = MoveFuelColors.Text)
-                Text(subtitle, color = MoveFuelColors.TextSecondary)
-                if (tabs != null && selectedTab != null) {
-                    MFTabStrip(tabs, selectedTab, onTabSelected)
-                }
-                content()
-            }
-            Box(
-                Modifier
-                    .align(Alignment.BottomCenter)
-                    .fillMaxWidth()
-                    .padding(
-                        horizontal = MoveFuelSpacing.Base,
-                        vertical = MoveFuelSpacing.Base,
                     )
-            ) {
-                MFBottomNav(active, onNavigate)
+                ) {
+                    MFTopBar(
+                        onCalendar = { onNavigate(MoveFuelRoute.CAL_001) },
+                        onProfile = { onNavigate(MoveFuelRoute.PRO_001) },
+                    )
+                }
+
+                Column(
+                    Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .verticalScroll(rememberScrollState())
+                        .padding(
+                            start = MoveFuelSpacing.Base,
+                            end = MoveFuelSpacing.Base,
+                            bottom = MoveFuelSpacing.Lg,
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
+                ) {
+                    Spacer(Modifier.height(MoveFuelSpacing.Xs))
+                    Text(title, style = MaterialTheme.typography.displaySmall, color = MoveFuelColors.Text)
+                    Text(subtitle, color = MoveFuelColors.TextSecondary)
+                    if (tabs != null && selectedTab != null) {
+                        MFTabStrip(tabs, selectedTab, onTabSelected)
+                    }
+                    content()
+                }
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            horizontal = MoveFuelSpacing.Base,
+                            vertical = MoveFuelSpacing.Base,
+                        )
+                ) {
+                    MFBottomNav(active, onNavigate)
+                }
             }
         }
     }

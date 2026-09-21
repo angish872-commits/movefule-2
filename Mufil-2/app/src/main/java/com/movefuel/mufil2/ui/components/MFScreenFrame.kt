@@ -58,67 +58,79 @@ fun MFScreenFrame(
                 Modifier
                     .fillMaxSize()
                     .alpha(alpha)
-                    .offset(y = y)
-                    .verticalScroll(rememberScrollState())
-                    .padding(
-                        start = MoveFuelSpacing.Base,
-                        end = MoveFuelSpacing.Base,
-                        top = MoveFuelSpacing.Lg,
-                        bottom = if (showBottomNav) 118.dp else MoveFuelSpacing.Lg,
-                    ),
-                verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
+                    .offset(y = y),
             ) {
                 if (shell != MoveFuelShell.WEAR) {
-                    MFTopBar(
-                        onBack = if (shell == MoveFuelShell.FOCUSED && secondaryIsBack) back else null,
-                        onCalendar = if (shell == MoveFuelShell.MAIN) {
-                            { onNavigate(MoveFuelRoute.CAL_001) }
-                        } else null,
-                        onProfile = if (shell == MoveFuelShell.MAIN) {
-                            { onNavigate(MoveFuelRoute.PRO_001) }
-                        } else null,
-                    )
-                }
-                Text(id.replace("_", "-"), color = MoveFuelColors.Sage, style = MaterialTheme.typography.labelMedium)
-                Text(title, style = MaterialTheme.typography.displaySmall, color = MoveFuelColors.Text)
-                Text(subtitle, color = MoveFuelColors.TextSecondary)
-                content()
-
-                if (resolvedPrimaryLabel != null && resolvedPrimaryRoute != null) {
-                    MFPrimaryButton(
-                        text = resolvedPrimaryLabel,
-                        onClick = { onNavigate(resolvedPrimaryRoute) },
-                        enabled = primaryEnabled,
-                    )
-                }
-
-                val backAlreadyInTopBar =
-                    shell == MoveFuelShell.FOCUSED && secondaryIsBack
-                if (!backAlreadyInTopBar && resolvedSecondaryLabel != null) {
-                    TextButton(
-                        onClick = {
-                            if (secondaryIsBack) {
-                                back()
-                            } else {
-                                resolvedSecondaryRoute?.let(onNavigate)
-                            }
-                        },
-                        modifier = Modifier.fillMaxWidth(),
+                    Box(
+                        Modifier.padding(
+                            start = MoveFuelSpacing.Base,
+                            end = MoveFuelSpacing.Base,
+                            top = MoveFuelSpacing.Lg,
+                        )
                     ) {
-                        Text(resolvedSecondaryLabel)
+                        MFTopBar(
+                            onBack = if (shell == MoveFuelShell.FOCUSED && secondaryIsBack) back else null,
+                            onCalendar = if (shell == MoveFuelShell.MAIN) {
+                                { onNavigate(MoveFuelRoute.CAL_001) }
+                            } else null,
+                            onProfile = if (shell == MoveFuelShell.MAIN) {
+                                { onNavigate(MoveFuelRoute.PRO_001) }
+                            } else null,
+                        )
                     }
                 }
-                Spacer(Modifier.height(MoveFuelSpacing.Lg))
-            }
-
-            if (showBottomNav) {
-                Box(
+                Column(
                     Modifier
-                        .align(Alignment.BottomCenter)
+                        .weight(1f)
                         .fillMaxWidth()
-                        .padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Base)
+                        .verticalScroll(rememberScrollState())
+                        .padding(
+                            start = MoveFuelSpacing.Base,
+                            end = MoveFuelSpacing.Base,
+                            bottom = MoveFuelSpacing.Lg,
+                        ),
+                    verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base),
                 ) {
-                    MFBottomNav(primaryDestination?.label, onNavigate)
+                    Spacer(Modifier.height(MoveFuelSpacing.Xs))
+                    Text(id.replace("_", "-"), color = MoveFuelColors.Sage, style = MaterialTheme.typography.labelMedium)
+                    Text(title, style = MaterialTheme.typography.displaySmall, color = MoveFuelColors.Text)
+                    Text(subtitle, color = MoveFuelColors.TextSecondary)
+                    content()
+
+                    if (resolvedPrimaryLabel != null && resolvedPrimaryRoute != null) {
+                        MFPrimaryButton(
+                            text = resolvedPrimaryLabel,
+                            onClick = { onNavigate(resolvedPrimaryRoute) },
+                            enabled = primaryEnabled,
+                        )
+                    }
+
+                    val backAlreadyInTopBar =
+                        shell == MoveFuelShell.FOCUSED && secondaryIsBack
+                    if (!backAlreadyInTopBar && resolvedSecondaryLabel != null) {
+                        TextButton(
+                            onClick = {
+                                if (secondaryIsBack) {
+                                    back()
+                                } else {
+                                    resolvedSecondaryRoute?.let(onNavigate)
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                        ) {
+                            Text(resolvedSecondaryLabel)
+                        }
+                    }
+                    Spacer(Modifier.height(MoveFuelSpacing.Lg))
+                }
+                if (showBottomNav) {
+                    Box(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = MoveFuelSpacing.Base, vertical = MoveFuelSpacing.Base)
+                    ) {
+                        MFBottomNav(primaryDestination?.label, onNavigate)
+                    }
                 }
             }
         }
