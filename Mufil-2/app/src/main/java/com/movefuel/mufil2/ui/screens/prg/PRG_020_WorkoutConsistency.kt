@@ -29,15 +29,12 @@ fun PRG020WorkoutConsistencyScreen(
         onNavigate = onNavigate,
     ) {
         if (trainActive) {
-            MFGraphCard(
-                title = "Workout Consistency",
-                subtitle = "Performed workout facts only",
-            )
             MFMetricRow(
-                "Latest" to "42",
-                "Change" to "+8%",
-                "Coverage" to "94%",
+                "Latest" to "Unknown",
+                "Change" to "Unknown",
+                "Coverage" to "Unknown",
             )
+            MFNotice("History unavailable", "Consistency is calculated from completed workout events only.")
         } else {
             MFNotice(
                 title = "Training progress unavailable",

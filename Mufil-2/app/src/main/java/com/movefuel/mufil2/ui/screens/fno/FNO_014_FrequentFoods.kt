@@ -20,9 +20,7 @@ fun FNO014FrequentFoodsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.FNO_013,
         onNavigate = onNavigate,
     ) {
-            MFListItem("Breakfast", "Most recent", "Open")
-            MFListItem("Chicken rice bowl", "Frequent meal", "Reuse")
-            MFListItem("Greek yogurt snack", "Favorite", "Add")
+            MFNotice("No frequent confirmed foods", "Frequency is derived from canonical confirmed history; it is not seeded with sample meals.")
     }
 }
 

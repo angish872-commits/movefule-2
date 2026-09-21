@@ -20,8 +20,8 @@ fun PRG003Range7DaysScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.PRG_002,
         onNavigate = onNavigate,
     ) {
-            MFGraphCard("7-day trend","Exact observations from the last week")
-            MFMetricRow("Latest" to "42","Coverage" to "100%")
+            MFNotice("7-day trend unavailable", "Exact observations will appear only when canonical history contains this range.")
+            MFMetricRow("Latest" to "Unknown", "Coverage" to "Unknown")
     }
 }
 

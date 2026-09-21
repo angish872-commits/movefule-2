@@ -20,8 +20,8 @@ fun FNO004ExpandedNutritionScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.FNO_003,
         onNavigate = onNavigate,
     ) {
-            MFMacroBars()
-            MFMetricRow("Fiber" to "24g","Sodium" to "1.8g","Coverage" to "92%")
+            MFMacroBars(null, null, null, null)
+            MFMetricRow("Fiber" to "Unknown", "Sodium" to "Unknown", "Coverage" to "Unknown")
     }
 }
 

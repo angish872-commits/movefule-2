@@ -20,11 +20,9 @@ fun FNO003NutritionSummaryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.FNO_002,
         onNavigate = onNavigate,
     ) {
-            MFMetricRow("Energy" to "1,742", "Protein" to "116g", "Fiber" to "24g")
-            MFMacroBars()
-            MFListItem("Breakfast", "Oats · yogurt · banana", "480 kcal")
-            MFListItem("Lunch", "Chicken rice bowl", "675 kcal")
-            MFListItem("Snack", "Apple · yogurt", "220 kcal")
+            MFMetricRow("Energy" to "Unknown", "Protein" to "Unknown", "Fiber" to "Unknown")
+            MFMacroBars(null, null, null, null)
+            MFNotice("No confirmed nutrition facts", "Nutrition totals and meal details remain unavailable until confirmed intake history is present.")
     }
 }
 

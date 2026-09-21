@@ -39,7 +39,7 @@ import com.movefuel.mufil2.ui.state.previewTodayUiState
 @Composable
 fun TodayMasterDashboard(
     onNavigate: (MoveFuelRoute) -> Unit,
-    state: TodayUiState = previewTodayUiState(),
+    state: TodayUiState,
     trainState: TrainState = TrainState.NotConfigured,
 ) {
     var dailyExpanded by remember { mutableStateOf(false) }
@@ -71,7 +71,7 @@ fun TodayMasterDashboard(
 
             if (dailyExpanded) {
                 Spacer(Modifier.height(MoveFuelSpacing.Base))
-                MFMacroBars(.80f, .80f, .76f, .81f)
+                MFMacroBars(null, null, null, null)
                 Spacer(Modifier.height(MoveFuelSpacing.Md))
                 MFMetricRow(
                     "Fiber" to (state.fiberValue ?: "Unknown"),
@@ -190,10 +190,11 @@ fun TodayMasterDashboard(
                 onAction = { onNavigate(MoveFuelRoute.TRS_020) },
             )
 
-            TrainState.Active -> MFWorkoutHero(
-                title = "Upper Strength A",
-                meta = "46 min · 5 exercises · readiness reduced",
-                onStart = { onNavigate(MoveFuelRoute.WRK_001) },
+            TrainState.Active -> MFNotice(
+                title = "Active Train plan",
+                body = "Workout prescription details are unavailable until the canonical plan source is connected. Planned work is not counted as performed.",
+                action = "Open Train",
+                onAction = { onNavigate(MoveFuelRoute.MASTER_TRAIN) },
             )
         }
 
@@ -202,27 +203,22 @@ fun TodayMasterDashboard(
             action = "View Fuel",
             onAction = { onNavigate(MoveFuelRoute.MASTER_FUEL) },
         )
-        MFMealCard(
-            "Breakfast",
-            "Oats · yogurt · banana · confirmed",
-            "480 kcal",
-            MoveFuelColors.FuelAccent,
-            onClick = { onNavigate(MoveFuelRoute.FNO_006) },
-        )
-        MFMealCard(
-            "Lunch",
-            "Chicken rice bowl · planned · not counted yet",
-            "610 kcal",
-            MoveFuelColors.SageStrong,
-            onClick = { onNavigate(MoveFuelRoute.FPL_017) },
-        )
-        MFMealCard(
-            "Snack",
-            "Apple · yogurt · confirmed",
-            "220 kcal",
-            MoveFuelColors.Info,
-            onClick = { onNavigate(MoveFuelRoute.FNO_006) },
-        )
+        if ((state.confirmedFoodCount ?: 0) > 0 && state.lastConfirmedFood != null) {
+            MFMealCard(
+                "Confirmed intake",
+                "${state.lastConfirmedFood} · confirmed",
+                "Nutrition unavailable",
+                MoveFuelColors.FuelAccent,
+                onClick = { onNavigate(MoveFuelRoute.FNO_006) },
+            )
+        } else {
+            MFNotice(
+                title = "No confirmed meals",
+                body = "Planned meals and unconfirmed drafts stay out of Today until an explicit intake confirmation is saved.",
+                action = "Log food",
+                onAction = { onNavigate(MoveFuelRoute.FNO_009) },
+            )
+        }
     }
 }
 
@@ -239,5 +235,5 @@ private fun TodayMetric(metric: TodayMetricUi) {
 @Preview(showBackground = true, backgroundColor = 0xFF0B1420, widthDp = 390, heightDp = 844)
 @Composable
 private fun TodayMasterPreview() = MoveFuelTheme {
-    TodayMasterDashboard({})
+    TodayMasterDashboard({}, state = previewTodayUiState())
 }

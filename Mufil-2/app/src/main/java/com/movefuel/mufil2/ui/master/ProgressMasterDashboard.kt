@@ -13,11 +13,13 @@ import com.movefuel.mufil2.ui.components.MFSectionHeading
 import com.movefuel.mufil2.ui.design.MoveFuelTheme
 import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
 import com.movefuel.mufil2.ui.state.TrainState
+import com.movefuel.mufil2.ui.state.CanonicalAppState
 
 @Composable
 fun ProgressMasterDashboard(
     onNavigate: (MoveFuelRoute) -> Unit,
     trainState: TrainState = TrainState.NotConfigured,
+    state: CanonicalAppState = CanonicalAppState(),
 ) {
     MFMasterScaffold(
         active = "Progress",
@@ -36,8 +38,10 @@ fun ProgressMasterDashboard(
         onNavigate = onNavigate,
     ) {
         MFNotice(
-            title = "Training progress unavailable",
-            body = when (trainState) {
+            title = if ((state.completedWorkoutCount ?: 0) > 0) "Actual training history" else "Training progress unavailable",
+            body = if ((state.completedWorkoutCount ?: 0) > 0) {
+                "${state.completedWorkoutCount} completed workout(s) are recorded from committed summaries. Detailed trends remain unavailable until history is synced."
+            } else when (trainState) {
                 TrainState.Active -> "Train is active, but no completed workout data is available yet. Progress will populate from real execution data."
                 else -> "No training numbers are fabricated. Set up and activate Train, then complete real workouts to populate training progress."
             },

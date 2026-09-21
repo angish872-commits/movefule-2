@@ -20,10 +20,7 @@ fun TRN005TodayWorkoutScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.TRN_004,
         onNavigate = onNavigate,
     ) {
-            MFMediaPanel("Upper Strength A","46 min · 5 exercises")
-            MFListItem("Bench press","4 × 8","1")
-            MFListItem("Seated row","3 × 10","2")
-            MFListItem("Shoulder press","3 × 10","3")
+            MFNotice("Workout prescription unavailable", "Today’s workout appears only when a canonical plan reference is available.")
     }
 }
 

@@ -20,7 +20,8 @@ fun BAR011ConfirmProductScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.BAR_010,
         onNavigate = onNavigate,
     ) {
-            MFListItem("Detected barcode", "0123456789012", "Review")
+            MFListItem("Detected barcode product", "Product identity only · not consumed", "Review")
+            MFNotice("Product ≠ consumed", "A barcode result is not counted as eaten until the shared confirmation boundary is committed.")
     }
 }
 

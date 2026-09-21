@@ -20,8 +20,8 @@ fun PRG004Range30DaysScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.PRG_003,
         onNavigate = onNavigate,
     ) {
-            MFGraphCard("30-day trend","Exact observations from the last month")
-            MFMetricRow("Latest" to "42","Change" to "+8%","Coverage" to "96%")
+            MFNotice("30-day trend unavailable", "Exact observations will appear only when canonical history contains this range.")
+            MFMetricRow("Latest" to "Unknown", "Change" to "Unknown", "Coverage" to "Unknown")
     }
 }
 

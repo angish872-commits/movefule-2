@@ -7,9 +7,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.movefuel.mufil2.ui.components.*
 import com.movefuel.mufil2.ui.design.*
 import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+import com.movefuel.mufil2.ui.state.CanonicalAppState
 
 @Composable
-fun FuelMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
+fun FuelMasterDashboard(
+    onNavigate: (MoveFuelRoute) -> Unit,
+    state: CanonicalAppState = CanonicalAppState(),
+) {
     MFMasterScaffold(
         active = "Fuel",
         title = "Fuel",
@@ -34,11 +38,11 @@ fun FuelMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
             )
             Spacer(Modifier.height(MoveFuelSpacing.Base))
             Column(verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Base)) {
-                MFDailyMetricBar("Energy", "1,742 kcal", "2,180 kcal", .80f)
-                MFDailyMetricBar("Protein", "116 g", "145 g", .80f)
-                MFDailyMetricBar("Carbs", "186 g", "245 g", .76f)
-                MFDailyMetricBar("Fat", "58 g", "72 g", .81f)
-                MFDailyMetricBar("Fiber", "24 g", "30 g", .80f)
+                MFDailyMetricBar("Energy", "Unknown", "Unknown", null)
+                MFDailyMetricBar("Protein", "Unknown", "Unknown", null)
+                MFDailyMetricBar("Carbs", "Unknown", "Unknown", null)
+                MFDailyMetricBar("Fat", "Unknown", "Unknown", null)
+                MFDailyMetricBar("Fiber", "Unknown", "Unknown", null)
             }
         }
 
@@ -47,20 +51,20 @@ fun FuelMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
             action = "See all",
             onAction = { onNavigate(MoveFuelRoute.FNO_005) },
         )
-        MFMealCard(
-            "Breakfast",
-            "Oats · yogurt · banana · confirmed",
-            "480 kcal",
-            MoveFuelColors.FuelAccent,
-            onClick = { onNavigate(MoveFuelRoute.FNO_006) },
-        )
-        MFMealCard(
-            "Lunch",
-            "Chicken rice bowl · confirmed",
-            "675 kcal",
-            MoveFuelColors.SageStrong,
-            onClick = { onNavigate(MoveFuelRoute.FNO_006) },
-        )
+        if ((state.confirmedFoodCount ?: 0) > 0 && state.lastConfirmedFood != null) {
+            MFMealCard(
+                "Confirmed intake",
+                "${state.lastConfirmedFood} · confirmed",
+                "Nutrition unavailable",
+                MoveFuelColors.FuelAccent,
+                onClick = { onNavigate(MoveFuelRoute.FNO_006) },
+            )
+        } else {
+            MFNotice(
+                title = "No confirmed intake",
+                body = "Search, camera, barcode, and recipe drafts appear here only after the shared confirmation boundary is committed.",
+            )
+        }
 
         MFNotice(
             title = "Planned next meal",
@@ -97,4 +101,4 @@ fun FuelMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0B1420, widthDp = 390, heightDp = 844)
 @Composable
-private fun FuelMasterPreview() = MoveFuelTheme { FuelMasterDashboard {} }
+private fun FuelMasterPreview() = MoveFuelTheme { FuelMasterDashboard(onNavigate = {}) }

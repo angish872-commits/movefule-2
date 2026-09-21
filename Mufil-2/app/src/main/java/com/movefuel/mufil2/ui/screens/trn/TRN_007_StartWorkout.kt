@@ -20,10 +20,7 @@ fun TRN007StartWorkoutScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.TRN_006,
         onNavigate = onNavigate,
     ) {
-            MFMediaPanel("Upper Strength A","46 min · 5 exercises")
-            MFListItem("Bench press","4 × 8","1")
-            MFListItem("Seated row","3 × 10","2")
-            MFListItem("Shoulder press","3 × 10","3")
+            MFNotice("Workout cannot start", "A real prescription is required before execution can begin.")
     }
 }
 

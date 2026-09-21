@@ -7,9 +7,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.movefuel.mufil2.ui.components.*
 import com.movefuel.mufil2.ui.design.*
 import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+import com.movefuel.mufil2.ui.state.CanonicalAppState
+import com.movefuel.mufil2.ui.state.TrainState
 
 @Composable
-fun TrainMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
+fun TrainMasterDashboard(
+    onNavigate: (MoveFuelRoute) -> Unit,
+    state: CanonicalAppState = CanonicalAppState(),
+) {
     MFMasterScaffold(
         active = "Train",
         title = "Train",
@@ -27,9 +32,9 @@ fun TrainMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
         onNavigate = onNavigate,
     ) {
         MFStatusBanner(
-            title = "Readiness · Reduced",
-            body = "Recent recovery information changed today's prescription. Tap to review the factors.",
-            tone = MoveFuelColors.Warning,
+            title = "Readiness unavailable",
+            body = "Readiness is populated from committed check-ins and synced device facts. It is never inferred from a planned workout.",
+            tone = MoveFuelColors.TextMuted,
             onClick = { onNavigate(MoveFuelRoute.RDY_007) },
         )
 
@@ -38,12 +43,21 @@ fun TrainMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
             action = "Why adapted",
             onAction = { onNavigate(MoveFuelRoute.TRN_012) },
         )
-        MFWorkoutHero(
-            title = "Upper Strength A",
-            meta = "46 min · 5 exercises · adapted for today",
-            loadingMedia = true,
-            onStart = { onNavigate(MoveFuelRoute.WRK_001) },
-        )
+        if (state.trainState == TrainState.Active && state.activePlanReference != null) {
+            MFNotice(
+                title = "Active plan",
+                body = "The active plan reference is stored, but workout prescription details are unavailable until the canonical engine is connected.",
+                action = "Open workout",
+                onAction = { onNavigate(MoveFuelRoute.WRK_001) },
+            )
+        } else {
+            MFNotice(
+                title = "No active workout",
+                body = "Train setup, a real plan reference, and explicit activation are required before a workout can be started.",
+                action = "Open setup",
+                onAction = { onNavigate(MoveFuelRoute.MASTER_TRAIN) },
+            )
+        }
 
         MFNotice(
             title = "Media is loading",
@@ -64,7 +78,7 @@ fun TrainMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
             )
             MFOptionCard(
                 title = "Weekly Plan",
-                supporting = "3 sessions",
+                supporting = "Availability unknown",
                 onClick = { onNavigate(MoveFuelRoute.TRN_010) },
                 modifier = Modifier.weight(1f),
             )
@@ -76,29 +90,29 @@ fun TrainMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
             onAction = { onNavigate(MoveFuelRoute.TRN_006) },
         )
         MFListItem(
-            "Bench Press",
-            "4 × 8 · 60 kg target",
-            "1",
+            "Exercise prescription",
+            "Unavailable until the canonical plan is loaded",
+            "Unknown",
             onClick = { onNavigate(MoveFuelRoute.EXR_010) },
         )
         MFListItem(
-            "Seated Row",
-            "3 × 10 · controlled",
-            "2",
+            "Exercise execution",
+            "Performed facts are recorded separately from prescription",
+            "Unknown",
             onClick = { onNavigate(MoveFuelRoute.EXR_010) },
         )
         MFListItem(
-            "Shoulder Press",
-            "3 × 10",
-            "3",
+            "Workout history",
+            "No fabricated totals",
+            "Unknown",
             onClick = { onNavigate(MoveFuelRoute.EXR_010) },
         )
 
         MFSectionHeading("Recovery context")
         MFMetricRow(
-            "Energy" to "Good",
-            "Fatigue" to "Medium",
-            "Soreness" to "Legs",
+            "Energy" to "Unknown",
+            "Fatigue" to "Unknown",
+            "Soreness" to "Unknown",
         )
         MFOptionCard(
             title = "Update soreness",
@@ -115,4 +129,4 @@ fun TrainMasterDashboard(onNavigate: (MoveFuelRoute) -> Unit) {
 
 @Preview(showBackground = true, backgroundColor = 0xFF0B1420, widthDp = 390, heightDp = 844)
 @Composable
-private fun TrainMasterPreview() = MoveFuelTheme { TrainMasterDashboard {} }
+private fun TrainMasterPreview() = MoveFuelTheme { TrainMasterDashboard(onNavigate = {}) }

@@ -314,10 +314,10 @@ fun MFMediaPanel(title: String, supporting: String, loading: Boolean = false) {
 
 @Composable
 fun MFMacroBars(
-    energy: Float = .72f,
-    protein: Float = .8f,
-    carbs: Float = .68f,
-    fat: Float = .61f,
+    energy: Float? = .72f,
+    protein: Float? = .8f,
+    carbs: Float? = .68f,
+    fat: Float? = .61f,
 ) {
     val rows = listOf("Energy" to energy, "Protein" to protein, "Carbs" to carbs, "Fat" to fat)
     MFCard(Modifier.fillMaxWidth()) {
@@ -326,12 +326,12 @@ fun MFMacroBars(
                 Column(verticalArrangement = Arrangement.spacedBy(MoveFuelSpacing.Xs)) {
                     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                         Text(label)
-                        Text("${(progress * 100).toInt()}%", color = MoveFuelColors.TextMuted)
+                        Text(progress?.let { "${(it * 100).toInt()}%" } ?: "Unknown", color = MoveFuelColors.TextMuted)
                     }
                     LinearProgressIndicator(
-                        progress = { progress },
+                        progress = { progress?.coerceIn(0f, 1f) ?: 0f },
                         modifier = Modifier.fillMaxWidth(),
-                        color = MoveFuelColors.Sage,
+                        color = if (progress == null) MoveFuelColors.TextMuted else MoveFuelColors.Sage,
                         trackColor = MoveFuelColors.Surface3,
                     )
                 }

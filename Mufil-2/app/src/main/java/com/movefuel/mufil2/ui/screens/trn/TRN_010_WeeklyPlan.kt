@@ -20,10 +20,7 @@ fun TRN010WeeklyPlanScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.TRN_009,
         onNavigate = onNavigate,
     ) {
-            MFMediaPanel("Upper Strength A","46 min · 5 exercises")
-            MFListItem("Bench press","4 × 8","1")
-            MFListItem("Seated row","3 × 10","2")
-            MFListItem("Shoulder press","3 × 10","3")
+            MFNotice("Weekly plan unavailable", "Planned sessions are shown only from a canonical plan source.")
     }
 }
 

@@ -20,9 +20,7 @@ fun FNO015FavoritesScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.FNO_014,
         onNavigate = onNavigate,
     ) {
-            MFListItem("Breakfast", "Most recent", "Open")
-            MFListItem("Chicken rice bowl", "Frequent meal", "Reuse")
-            MFListItem("Greek yogurt snack", "Favorite", "Add")
+            MFNotice("No favorite confirmed foods", "Favorites remain empty until a user-confirmed food is saved.")
     }
 }
 

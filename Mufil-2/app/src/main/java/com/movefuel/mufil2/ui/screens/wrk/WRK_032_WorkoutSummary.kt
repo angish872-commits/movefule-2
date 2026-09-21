@@ -6,9 +6,13 @@ import com.movefuel.mufil2.ui.components.*
 import com.movefuel.mufil2.ui.design.MoveFuelColors
 import com.movefuel.mufil2.ui.design.MoveFuelTheme
 import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+import com.movefuel.mufil2.ui.state.CanonicalAppState
 
 @Composable
-fun WRK032WorkoutSummaryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
+fun WRK032WorkoutSummaryScreen(
+    onNavigate: (MoveFuelRoute) -> Unit,
+    state: CanonicalAppState = CanonicalAppState(),
+) {
     MFScreenFrame(
         id = "WRK_032",
         title = "Workout Summary",
@@ -19,18 +23,16 @@ fun WRK032WorkoutSummaryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.MASTER_PROGRESS,
         onNavigate = onNavigate,
     ) {
-        MFMetricRow("Completed" to "5/5", "Time" to "43m", "RPE" to "7")
-        MFListItem(
-            "Bench press",
-            "4 performed sets",
-            "Saved",
-            onClick = { onNavigate(MoveFuelRoute.PRG_018) },
+        MFMetricRow(
+            "Performed sets" to (state.performedSetCount?.toString() ?: "Unknown"),
+            "Time" to "Unknown",
+            "RPE" to "Unknown",
         )
         MFListItem(
-            "Seated row",
-            "3 performed sets",
-            "Saved",
-            onClick = { onNavigate(MoveFuelRoute.PRG_019) },
+            "Workout summary",
+            "Completion is committed only when this summary is explicitly left.",
+            "Pending",
+            onClick = { onNavigate(MoveFuelRoute.PRG_018) },
         )
         MFStatusBanner(
             "Workout saved",
@@ -49,5 +51,5 @@ fun WRK032WorkoutSummaryScreen(onNavigate: (MoveFuelRoute) -> Unit) {
 @Preview(showBackground = true, backgroundColor = 0xFF0B1420, widthDp = 390, heightDp = 844)
 @Composable
 private fun WRK032WorkoutSummaryScreenPreview() {
-    MoveFuelTheme { WRK032WorkoutSummaryScreen {} }
+    MoveFuelTheme { WRK032WorkoutSummaryScreen(onNavigate = {}) }
 }

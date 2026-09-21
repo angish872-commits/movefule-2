@@ -29,15 +29,12 @@ fun PRG017TrainingProgressScreen(
         onNavigate = onNavigate,
     ) {
         if (trainActive) {
-            MFGraphCard(
-                title = "Training Progress",
-                subtitle = "Performed workout facts only",
-            )
             MFMetricRow(
-                "Latest" to "42",
-                "Change" to "+8%",
-                "Coverage" to "94%",
+                "Latest" to "Unknown",
+                "Change" to "Unknown",
+                "Coverage" to "Unknown",
             )
+            MFNotice("History unavailable", "Train may be active, but no completed workout history is connected to this view yet.")
         } else {
             MFNotice(
                 title = "Training progress unavailable",

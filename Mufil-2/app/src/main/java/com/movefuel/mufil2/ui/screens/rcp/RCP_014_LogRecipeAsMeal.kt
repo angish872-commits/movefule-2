@@ -20,8 +20,9 @@ fun RCP014LogRecipeAsMealScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.RCP_013,
         onNavigate = onNavigate,
     ) {
-            MFListItem("Chicken rice bowl","2 servings recipe","610 kcal")
-            MFField("Amount eaten","1 serving")
+            MFListItem("Cooked recipe draft", "Cooked output is not eaten intake", "Nutrition unavailable")
+            MFField("Amount eaten", "")
+            MFNotice("Cooked ≠ eaten", "Cooking a recipe does not create confirmed intake until the shared food confirmation boundary is committed.")
     }
 }
 

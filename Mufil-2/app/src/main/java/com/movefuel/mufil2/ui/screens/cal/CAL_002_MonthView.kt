@@ -21,8 +21,7 @@ fun CAL002MonthViewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         onNavigate = onNavigate,
     ) {
             MFCalendarMini()
-            MFListItem("Upper Strength A","17:30 · Workout","Open")
-            MFListItem("Dinner","19:30 · Planned meal","Open")
+            MFNotice("No month events", "Calendar entries remain unavailable until canonical sources provide them.")
     }
 }
 

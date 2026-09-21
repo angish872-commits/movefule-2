@@ -20,10 +20,10 @@ fun DEV006ConnectedDeviceScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.DEV_005,
         onNavigate = onNavigate,
     ) {
-            MFStatusBanner("Pixel Watch","Connected",MoveFuelColors.Success)
-            MFListItem("Last sync","A few moments ago","Fresh")
+            MFStatusBanner("Device connection pending","No acknowledged device identity",MoveFuelColors.TextMuted)
+            MFListItem("Last sync","Unknown until synchronization is acknowledged","Unknown")
             MFListItem("App version","Current","")
-            MFListItem("Pending events","0","")
+            MFListItem("Pending events","Unknown","Unknown")
     }
 }
 

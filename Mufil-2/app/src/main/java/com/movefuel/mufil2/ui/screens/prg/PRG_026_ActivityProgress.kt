@@ -20,8 +20,8 @@ fun PRG026ActivityProgressScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.PRG_025,
         onNavigate = onNavigate,
     ) {
-            MFGraphCard(title = "Activity Progress", subtitle = "Supported actual activity observations")
-            MFMetricRow("Sessions" to "8","Coverage" to "88%")
+            MFNotice("Activity trend unavailable", "Activity progress requires acknowledged device observations.")
+            MFMetricRow("Sessions" to "Unknown", "Coverage" to "Unknown")
     }
 }
 

@@ -25,13 +25,13 @@ fun TRS020PlanPreviewScreen(
         secondaryRoute = MoveFuelRoute.TRS_019,
         onNavigate = onNavigate,
     ) {
-        MFListItem("Upper Strength A", "First proposed workout", "Preview")
-        MFMetricRow("Days" to "3", "Session" to "45m", "Goal" to "Strength")
+        MFListItem("Plan preview", "Waiting for the canonical training engine", "Pending")
+        MFMetricRow("Days" to "Unknown", "Session" to "Unknown", "Goal" to "Unknown")
         MFNotice(
-            title = "Preview is not active",
-            body = "Nothing is scheduled as an active Train plan until you explicitly activate it.",
+            title = "Plan unavailable",
+            body = "The UI does not manufacture a production plan. Activation is disabled until the canonical engine provides a plan reference.",
         )
-        MFPrimaryButton("Activate this plan", onClick = onActivate)
+        MFPrimaryButton("Activate this plan", enabled = false, onClick = onActivate)
     }
 }
 

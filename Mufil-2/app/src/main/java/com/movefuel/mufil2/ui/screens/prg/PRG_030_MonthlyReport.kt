@@ -20,8 +20,8 @@ fun PRG030MonthlyReportScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.PRG_029,
         onNavigate = onNavigate,
     ) {
-            MFGraphCard("This month","30-day overview")
-            MFMetricRow("Workouts" to "11","PRs" to "2","Coverage" to "94%")
+            MFNotice("Monthly report unavailable", "The 30-day overview remains unavailable until canonical history is present.")
+            MFMetricRow("Workouts" to "Unknown", "PRs" to "Unknown", "Coverage" to "Unknown")
     }
 }
 

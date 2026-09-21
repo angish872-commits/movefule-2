@@ -7,9 +7,13 @@ import com.movefuel.mufil2.ui.components.*
 import com.movefuel.mufil2.ui.design.MoveFuelColors
 import com.movefuel.mufil2.ui.design.MoveFuelTheme
 import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+import com.movefuel.mufil2.ui.state.CanonicalAppState
 
 @Composable
-fun FNO001FuelNowDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
+fun FNO001FuelNowDashboardScreen(
+    onNavigate: (MoveFuelRoute) -> Unit,
+    state: CanonicalAppState = CanonicalAppState(),
+) {
     MFScreenFrame(
         id = "FNO_001",
         title = "Fuel Now Dashboard",
@@ -20,16 +24,21 @@ fun FNO001FuelNowDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.BAR_016,
         onNavigate = onNavigate,
     ) {
-            MFMetricRow("Energy" to "1,742", "Protein" to "116g", "Fiber" to "24g")
-            MFMacroBars()
-            MFListItem("Breakfast", "Oats · yogurt · banana", "480 kcal")
-            MFListItem("Lunch", "Chicken rice bowl", "675 kcal")
-            MFListItem("Snack", "Apple · yogurt", "220 kcal")
+            MFMetricRow("Energy" to "Unknown", "Protein" to "Unknown", "Fiber" to "Unknown")
+            MFMacroBars(null, null, null, null)
+            if ((state.confirmedFoodCount ?: 0) > 0) {
+                MFListItem("Confirmed intake", "Nutrition details unavailable", "Confirmed")
+            } else {
+                MFNotice(
+                    title = "No confirmed intake",
+                    body = "Unconfirmed food drafts are intentionally excluded from this dashboard.",
+                )
+            }
     }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
 @Composable
 private fun FNO001FuelNowDashboardScreenPreview() {
-    MoveFuelTheme { FNO001FuelNowDashboardScreen {} }
+    MoveFuelTheme { FNO001FuelNowDashboardScreen(onNavigate = {}) }
 }

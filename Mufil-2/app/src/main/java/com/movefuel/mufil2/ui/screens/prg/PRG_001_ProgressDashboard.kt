@@ -20,10 +20,13 @@ fun PRG001ProgressDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.CAL_018,
         onNavigate = onNavigate,
     ) {
-            MFGraphCard("Training volume","30 days")
-            MFMetricRow("Workouts" to "11","Coverage" to "96%","PRs" to "2")
-            MFListItem("Weekly report","Ready","Open")
-            MFListItem("Monthly report","In progress","Open")
+            MFNotice(
+                title = "Historical progress unavailable",
+                body = "Graphs and totals appear only from committed workout and nutrition history. Planned prescriptions and missing periods remain visible as unavailable.",
+            )
+            MFMetricRow("Workouts" to "Unknown", "Coverage" to "Unknown", "PRs" to "Unknown")
+            MFListItem("Weekly report", "Requires committed history", "Unavailable")
+            MFListItem("Monthly report", "Requires committed history", "Unavailable")
     }
 }
 

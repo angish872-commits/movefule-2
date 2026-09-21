@@ -20,10 +20,7 @@ fun TRN006WorkoutDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.TRN_005,
         onNavigate = onNavigate,
     ) {
-            MFMediaPanel("Upper Strength A","46 min · 5 exercises")
-            MFListItem("Bench press","4 × 8","1")
-            MFListItem("Seated row","3 × 10","2")
-            MFListItem("Shoulder press","3 × 10","3")
+            MFNotice("Workout detail unavailable", "Prescription details are not fabricated while the canonical engine is unavailable.")
     }
 }
 

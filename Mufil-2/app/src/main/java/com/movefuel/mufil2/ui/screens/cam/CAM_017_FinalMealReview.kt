@@ -21,9 +21,8 @@ fun CAM017FinalMealReviewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         onNavigate = onNavigate,
     ) {
             MFMediaPanel("Meal photo", "Review before creating canonical food facts.")
-            MFListItem("Rice", "Estimated portion · editable", "Edit")
-            MFListItem("Chicken", "Estimated portion · editable", "Edit")
-            MFListItem("Vegetables", "Estimated portion · editable", "Edit")
+            MFListItem("Detected meal draft", "Estimated portions remain editable and unconfirmed", "Review")
+            MFNotice("Explicit confirmation required", "Camera output remains a draft until the shared food confirmation boundary is committed.")
     }
 }
 

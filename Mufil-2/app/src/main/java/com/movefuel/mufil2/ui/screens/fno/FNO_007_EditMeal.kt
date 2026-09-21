@@ -20,9 +20,9 @@ fun FNO007EditMealScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.FNO_006,
         onNavigate = onNavigate,
     ) {
-            MFField("Meal name", "Lunch")
-            MFField("Time", "13:16")
-            MFListItem("Chicken rice bowl","Confirmed food","Edit")
+            MFField("Meal name", "")
+            MFField("Time", "")
+            MFListItem("Confirmed meal", "Canonical food identity unavailable", "Edit")
     }
 }
 

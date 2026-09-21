@@ -20,9 +20,7 @@ fun FNO013RecentFoodsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.FNO_012,
         onNavigate = onNavigate,
     ) {
-            MFListItem("Breakfast", "Most recent", "Open")
-            MFListItem("Chicken rice bowl", "Frequent meal", "Reuse")
-            MFListItem("Greek yogurt snack", "Favorite", "Add")
+            MFNotice("No recent confirmed foods", "Confirmed history will appear here after the shared intake confirmation boundary is committed.")
     }
 }
 

@@ -19,13 +19,13 @@ fun FNO010FoodSearchScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         MFField("Search foods", "")
         MFSectionTitle("Results", "Tap a result to review food details.")
         MFListItem(
-            "Chicken breast",
-            "Trusted reference food",
+            "Search result",
+            "Trusted reference data unavailable until the food source responds",
             onClick = { onNavigate(MoveFuelRoute.FNO_011) },
         )
         MFListItem(
-            "Chicken thigh",
-            "Trusted reference food",
+            "Another search result",
+            "Nutrition facts remain unknown until selected and reviewed",
             onClick = { onNavigate(MoveFuelRoute.FNO_011) },
         )
         MFListItem(

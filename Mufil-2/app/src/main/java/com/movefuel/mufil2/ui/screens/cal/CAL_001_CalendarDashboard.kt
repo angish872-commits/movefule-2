@@ -32,21 +32,7 @@ fun CAL001CalendarDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         )
 
         MFSectionTitle("Selected day")
-        MFListItem(
-            "Upper Strength A",
-            "17:30 · Workout",
-            onClick = { onNavigate(MoveFuelRoute.CAL_006) },
-        )
-        MFListItem(
-            "Dinner",
-            "19:30 · Planned meal",
-            onClick = { onNavigate(MoveFuelRoute.CAL_007) },
-        )
-        MFListItem(
-            "Recovery check-in",
-            "Morning · recovery event",
-            onClick = { onNavigate(MoveFuelRoute.CAL_008) },
-        )
+        MFNotice("No calendar events", "Workout and meal events appear only when canonical plan or confirmed history provides them.")
         MFPrimaryButton("Reschedule an event") {
             onNavigate(MoveFuelRoute.CAL_009)
         }

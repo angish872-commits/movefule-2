@@ -18,10 +18,10 @@ fun FNO012ServingSelectorScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.FNO_011,
         onNavigate = onNavigate,
     ) {
-        MFField("Serving amount", "140 g")
-        MFField("Meal", "Lunch")
-        MFField("Time", "12:30")
-        MFMacroBars()
+        MFField("Serving amount", "")
+        MFField("Meal", "")
+        MFField("Time", "")
+        MFMacroBars(null, null, null, null)
         MFNotice(
             title = "Confirmation boundary",
             body = "Search, camera, barcode, and recipe results remain drafts until you confirm them here.",

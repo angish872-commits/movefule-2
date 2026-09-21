@@ -20,10 +20,8 @@ fun CAL004DayViewScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.CAL_003,
         onNavigate = onNavigate,
     ) {
-            MFStatusBanner("Saturday, September 19","Selected date")
-            MFListItem("Lunch","13:00 · Planned meal","Open")
-            MFListItem("Upper Strength A","17:30 · Workout","Open")
-            MFListItem("Dinner","19:30 · Planned meal","Open")
+            MFStatusBanner("Selected date","Date details are available; events are unavailable.")
+            MFNotice("No day events", "Planned and confirmed events are not fabricated.")
     }
 }
 

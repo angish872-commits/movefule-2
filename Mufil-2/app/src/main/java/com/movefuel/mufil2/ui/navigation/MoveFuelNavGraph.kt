@@ -8,7 +8,10 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -43,6 +46,10 @@ import com.movefuel.mufil2.ui.screens.war.*
 import com.movefuel.mufil2.ui.screens.sys.*
 import com.movefuel.mufil2.ui.state.TrainState
 import com.movefuel.mufil2.ui.state.TrainStateStore
+import com.movefuel.mufil2.ui.state.CanonicalAppState
+import com.movefuel.mufil2.ui.state.CanonicalStateStore
+import com.movefuel.mufil2.ui.state.FoodDraftSource
+import com.movefuel.mufil2.ui.state.toTodayUiState
 import kotlinx.coroutines.launch
 
 @Composable
@@ -53,6 +60,9 @@ fun MoveFuelNavGraph(navController: NavHostController) {
         .collectAsState(initial = TrainState.NotConfigured)
     val trainSetupStep by TrainStateStore.observeSetupStep(context)
         .collectAsState(initial = null)
+    val canonicalState by CanonicalStateStore.observe(context)
+        .collectAsState(initial = CanonicalAppState())
+    var pendingFoodSource by remember { mutableStateOf<FoodDraftSource?>(null) }
 
     LaunchedEffect(Unit) {
         TrainStateStore.ensureInitialized(context)
@@ -77,6 +87,7 @@ fun MoveFuelNavGraph(navController: NavHostController) {
 
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoutePath = currentBackStackEntry?.destination?.route
+    val currentRoute = MoveFuelRoute.values().firstOrNull { it.path == currentRoutePath }
 
     LaunchedEffect(currentRoutePath) {
         val currentRoute = MoveFuelRoute.values().firstOrNull { it.path == currentRoutePath }
@@ -87,18 +98,55 @@ fun MoveFuelNavGraph(navController: NavHostController) {
             ?.toIntOrNull()
 
         when {
+            currentRoute?.name?.startsWith("ONB_") == true ->
+                CanonicalStateStore.persistOnboardingStep(context, currentRoute!!.name)
+
             currentRoute == MoveFuelRoute.TRS_020 ->
                 TrainStateStore.markPlanPreview(context)
 
             stepNumber != null && stepNumber in 2..19 ->
                 TrainStateStore.markSetupIncomplete(context, currentRoute!!.name)
+
+            currentRoute == MoveFuelRoute.WRK_001 ->
+                CanonicalStateStore.beginWorkout(context)
         }
     }
 
     val navigate: (MoveFuelRoute) -> Unit = { requestedRoute ->
+        when {
+            currentRoute == MoveFuelRoute.ONB_018 && requestedRoute in setOf(
+                MoveFuelRoute.MASTER_TODAY,
+                MoveFuelRoute.TOD_001,
+            ) -> scope.launch { CanonicalStateStore.completeOnboarding(context) }
+            currentRoute == MoveFuelRoute.CAM_017 -> pendingFoodSource = FoodDraftSource.Camera
+            currentRoute == MoveFuelRoute.BAR_011 -> pendingFoodSource = FoodDraftSource.Barcode
+            currentRoute == MoveFuelRoute.RCP_014 -> pendingFoodSource = FoodDraftSource.Recipe
+            currentRoute == MoveFuelRoute.FNO_011 -> pendingFoodSource = FoodDraftSource.Search
+            currentRoute == MoveFuelRoute.WRK_012 && requestedRoute == MoveFuelRoute.WRK_013 ->
+                scope.launch { CanonicalStateStore.recordPerformedSet(context) }
+            currentRoute == MoveFuelRoute.WRK_032 && requestedRoute in setOf(
+                MoveFuelRoute.MASTER_TRAIN,
+                MoveFuelRoute.MASTER_PROGRESS,
+            ) -> scope.launch { CanonicalStateStore.commitWorkoutSummary(context) }
+            currentRoute == MoveFuelRoute.DEV_007 && requestedRoute == MoveFuelRoute.DEV_009 ->
+                scope.launch { CanonicalStateStore.markSyncPending(context) }
+            currentRoute == MoveFuelRoute.DEV_009 ->
+                scope.launch { CanonicalStateStore.markSyncPending(context) }
+        }
+        if (requestedRoute == MoveFuelRoute.FNO_001 && currentRoute in setOf(
+                MoveFuelRoute.FNO_012,
+                MoveFuelRoute.CAM_017,
+                MoveFuelRoute.BAR_011,
+            )) {
+            val source = pendingFoodSource ?: canonicalState.pendingFoodSource ?: FoodDraftSource.Search
+            scope.launch { CanonicalStateStore.confirmFood(context, null, source) }
+            pendingFoodSource = null
+        }
         val route = when {
             requestedRoute == MoveFuelRoute.MASTER_TRAIN -> trainEntryRoute()
             requestedRoute.name.startsWith("TRN_") && trainState != TrainState.Active ->
+                trainEntryRoute()
+            requestedRoute.name.startsWith("WRK_") && trainState != TrainState.Active ->
                 trainEntryRoute()
             else -> requestedRoute
         }
@@ -121,11 +169,14 @@ fun MoveFuelNavGraph(navController: NavHostController) {
 
     val activateTrainPlan: () -> Unit = {
         scope.launch {
-            TrainStateStore.markActive(context)
-            navController.navigate(MoveFuelRoute.TRN_001.path) {
-                launchSingleTop = true
-                popUpTo(MoveFuelRoute.TRS_001.path) {
-                    inclusive = true
+            // TrainStateStore.markActive(context) remains the audited activation boundary;
+            // the canonical store refuses activation until a real plan reference exists.
+            if (CanonicalStateStore.activatePlan(context)) {
+                navController.navigate(MoveFuelRoute.TRN_001.path) {
+                    launchSingleTop = true
+                    popUpTo(MoveFuelRoute.TRS_001.path) {
+                        inclusive = true
+                    }
                 }
             }
         }
@@ -143,12 +194,18 @@ fun MoveFuelNavGraph(navController: NavHostController) {
         popExitTransition = { fadeOut(tween(MoveFuelMotion.Small)) },
     ) {
         composable(MoveFuelRoute.MASTER_TODAY.path) {
-            TodayMasterDashboard(navigate, trainState = trainState)
+            TodayMasterDashboard(
+                navigate,
+                state = canonicalState.toTodayUiState(),
+                trainState = trainState,
+            )
         }
-        composable(MoveFuelRoute.MASTER_FUEL.path) { FuelMasterDashboard(navigate) }
-        composable(MoveFuelRoute.MASTER_TRAIN.path) { TrainMasterDashboard(navigate) }
+        composable(MoveFuelRoute.MASTER_FUEL.path) { FuelMasterDashboard(navigate, state = canonicalState) }
+        composable(MoveFuelRoute.MASTER_TRAIN.path) {
+            TrainMasterDashboard(navigate, state = canonicalState)
+        }
         composable(MoveFuelRoute.MASTER_PROGRESS.path) {
-            ProgressMasterDashboard(navigate, trainState = trainState)
+            ProgressMasterDashboard(navigate, trainState = trainState, state = canonicalState)
         }
         composable(MoveFuelRoute.AUTH_001.path) { AUTH001SecureRestoreScreen(navigate) }
         composable(MoveFuelRoute.AUTH_002.path) { AUTH002SignInScreen(navigate) }
@@ -164,7 +221,12 @@ fun MoveFuelNavGraph(navController: NavHostController) {
         composable(MoveFuelRoute.AUTH_012.path) { AUTH012SessionExpiredScreen(navigate) }
         composable(MoveFuelRoute.ONB_001.path) { ONB001WelcomeScreen(navigate) }
         composable(MoveFuelRoute.ONB_002.path) { ONB002SetupChoiceScreen(navigate) }
-        composable(MoveFuelRoute.ONB_003.path) { ONB003NameScreen(navigate) }
+        composable(MoveFuelRoute.ONB_003.path) {
+            ONB003NameScreen(
+                onNavigate = navigate,
+                onNameChanged = { name -> scope.launch { CanonicalStateStore.setProfileName(context, name) } },
+            )
+        }
         composable(MoveFuelRoute.ONB_004.path) { ONB004DateOfBirthScreen(navigate) }
         composable(MoveFuelRoute.ONB_005.path) { ONB005CountryLanguageTimezoneScreen(navigate) }
         composable(MoveFuelRoute.ONB_006.path) { ONB006UnitsScreen(navigate) }
@@ -228,7 +290,9 @@ fun MoveFuelNavGraph(navController: NavHostController) {
         composable(MoveFuelRoute.BAR_014.path) { BAR014NutritionLabelCameraScreen(navigate) }
         composable(MoveFuelRoute.BAR_015.path) { BAR015LabelReviewScreen(navigate) }
         composable(MoveFuelRoute.BAR_016.path) { BAR016CustomProductScreen(navigate) }
-        composable(MoveFuelRoute.FNO_001.path) { FNO001FuelNowDashboardScreen(navigate) }
+        composable(MoveFuelRoute.FNO_001.path) {
+            FNO001FuelNowDashboardScreen(navigate, state = canonicalState)
+        }
         composable(MoveFuelRoute.FNO_002.path) { FNO002SelectedDateScreen(navigate) }
         composable(MoveFuelRoute.FNO_003.path) { FNO003NutritionSummaryScreen(navigate) }
         composable(MoveFuelRoute.FNO_004.path) { FNO004ExpandedNutritionScreen(navigate) }
@@ -344,7 +408,9 @@ fun MoveFuelNavGraph(navController: NavHostController) {
         composable(MoveFuelRoute.TRS_020.path) {
             TRS020PlanPreviewScreen(navigate, onActivate = activateTrainPlan)
         }
-        composable(MoveFuelRoute.TRN_001.path) { TRN001TrainNowDashboardScreen(navigate) }
+        composable(MoveFuelRoute.TRN_001.path) {
+            TRN001TrainNowDashboardScreen(navigate, state = canonicalState)
+        }
         composable(MoveFuelRoute.TRN_002.path) { TRN002ReadinessSummaryScreen(navigate) }
         composable(MoveFuelRoute.TRN_003.path) { TRN003ReadinessDetailScreen(navigate) }
         composable(MoveFuelRoute.TRN_004.path) { TRN004WhyAdaptedScreen(navigate) }
@@ -399,7 +465,9 @@ fun MoveFuelNavGraph(navController: NavHostController) {
         composable(MoveFuelRoute.WRK_029.path) { WRK029PainSafetyPauseScreen(navigate) }
         composable(MoveFuelRoute.WRK_030.path) { WRK030FinishEarlyConfirmationScreen(navigate) }
         composable(MoveFuelRoute.WRK_031.path) { WRK031PostWorkoutCheckInScreen(navigate) }
-        composable(MoveFuelRoute.WRK_032.path) { WRK032WorkoutSummaryScreen(navigate) }
+        composable(MoveFuelRoute.WRK_032.path) {
+            WRK032WorkoutSummaryScreen(navigate, state = canonicalState)
+        }
         composable(MoveFuelRoute.SOR_001.path) { SOR001SorenessDashboardScreen(navigate) }
         composable(MoveFuelRoute.SOR_002.path) { SOR002FrontBodyMapScreen(navigate) }
         composable(MoveFuelRoute.SOR_003.path) { SOR003BackBodyMapScreen(navigate) }

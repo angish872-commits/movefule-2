@@ -20,8 +20,8 @@ fun PRG005Range3MonthsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.PRG_004,
         onNavigate = onNavigate,
     ) {
-            MFGraphCard("3-month trend","Longer-term change")
-            MFMetricRow("Change" to "+13%","Coverage" to "93%")
+            MFNotice("3-month trend unavailable", "Longer-term change requires canonical historical observations.")
+            MFMetricRow("Change" to "Unknown", "Coverage" to "Unknown")
     }
 }
 

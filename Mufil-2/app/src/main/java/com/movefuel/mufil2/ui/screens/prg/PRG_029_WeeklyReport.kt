@@ -20,10 +20,9 @@ fun PRG029WeeklyReportScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.PRG_028,
         onNavigate = onNavigate,
     ) {
-            MFGraphCard("This week","Training and nutrition overview")
-            MFListItem("Training","3 workouts completed","View")
-            MFListItem("Nutrition","92% data coverage","View")
-            MFListItem("Next week","1 suggested adjustment","Review")
+            MFNotice("Weekly report unavailable", "Reports are generated from canonical completed workout and confirmed intake history.")
+            MFListItem("Training", "Completed history unavailable", "Unknown")
+            MFListItem("Nutrition", "Confirmed history unavailable", "Unknown")
     }
 }
 

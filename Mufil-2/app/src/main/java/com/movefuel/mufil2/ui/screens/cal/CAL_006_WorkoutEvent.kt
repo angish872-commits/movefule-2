@@ -20,8 +20,8 @@ fun CAL006WorkoutEventScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.CAL_005,
         onNavigate = onNavigate,
     ) {
-            MFListItem("Upper Strength A","17:30 · 46 min","Workout")
-            MFField("Time","17:30")
+            MFListItem("Workout event", "Prescription unavailable", "Unknown")
+            MFField("Time", "")
     }
 }
 

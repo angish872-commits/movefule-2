@@ -20,10 +20,8 @@ fun CAL005SelectedDateScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.CAL_004,
         onNavigate = onNavigate,
     ) {
-            MFStatusBanner("Saturday, September 19","Selected date")
-            MFListItem("Lunch","13:00 · Planned meal","Open")
-            MFListItem("Upper Strength A","17:30 · Workout","Open")
-            MFListItem("Dinner","19:30 · Planned meal","Open")
+            MFStatusBanner("Selected date","Date details are available; events are unavailable.")
+            MFNotice("No selected-date events", "Calendar events are populated from canonical plan and confirmed-history sources.")
     }
 }
 

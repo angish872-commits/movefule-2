@@ -20,7 +20,7 @@ fun PRG012DataCoverageScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.PRG_011,
         onNavigate = onNavigate,
     ) {
-            MFMetricRow("Coverage" to "96%","Missing" to "2 days","Unknown" to "Shown")
+            MFMetricRow("Coverage" to "Unknown", "Missing" to "Unknown", "Unknown" to "Shown")
             MFNotice("Coverage matters","Progress summaries disclose when the dataset is incomplete.")
     }
 }

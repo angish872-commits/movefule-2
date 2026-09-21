@@ -7,9 +7,13 @@ import com.movefuel.mufil2.ui.components.*
 import com.movefuel.mufil2.ui.design.MoveFuelColors
 import com.movefuel.mufil2.ui.design.MoveFuelTheme
 import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
+import com.movefuel.mufil2.ui.state.CanonicalAppState
 
 @Composable
-fun TRN001TrainNowDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
+fun TRN001TrainNowDashboardScreen(
+    onNavigate: (MoveFuelRoute) -> Unit,
+    state: CanonicalAppState = CanonicalAppState(),
+) {
     MFScreenFrame(
         id = "TRN_001",
         title = "Train Now Dashboard",
@@ -20,15 +24,22 @@ fun TRN001TrainNowDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.TRS_020,
         onNavigate = onNavigate,
     ) {
-            MFStatusBanner("Readiness · Reduced","Today’s workout is adapted to current inputs.",MoveFuelColors.Warning)
-            MFMediaPanel("Upper Strength A","46 min · 5 exercises",true)
-            MFListItem("Quick Start","Flexible session","Open")
-            MFListItem("Weekly Plan","3 scheduled sessions","Open")
+            MFStatusBanner(
+                "Readiness unavailable",
+                "Readiness is populated from committed check-ins and synced device facts.",
+                MoveFuelColors.TextMuted,
+            )
+            MFNotice(
+                title = if (state.activePlanReference == null) "Active plan unavailable" else "Active plan reference stored",
+                body = "Workout prescription details remain unavailable until the canonical engine provides them.",
+            )
+            MFListItem("Quick Start", "Requires an available prescription", "Unavailable")
+            MFListItem("Weekly Plan", "Requires an available prescription", "Unavailable")
     }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
 @Composable
 private fun TRN001TrainNowDashboardScreenPreview() {
-    MoveFuelTheme { TRN001TrainNowDashboardScreen {} }
+    MoveFuelTheme { TRN001TrainNowDashboardScreen(onNavigate = {}) }
 }

@@ -20,8 +20,8 @@ fun FNO011FoodDetailScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.FNO_010,
         onNavigate = onNavigate,
     ) {
-            MFListItem("Chicken rice bowl", "13:16 · confirmed", "675 kcal")
-            MFMetricRow("Protein" to "48g","Carbs" to "78g","Fat" to "18g")
+            MFListItem("Selected food", "Search result draft · not confirmed", "Nutrition unavailable")
+            MFMetricRow("Protein" to "Unknown", "Carbs" to "Unknown", "Fat" to "Unknown")
     }
 }
 

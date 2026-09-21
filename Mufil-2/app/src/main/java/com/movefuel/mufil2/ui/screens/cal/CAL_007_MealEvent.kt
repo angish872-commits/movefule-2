@@ -20,8 +20,8 @@ fun CAL007MealEventScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.CAL_006,
         onNavigate = onNavigate,
     ) {
-            MFListItem("Dinner","19:30 · Chicken rice bowl","Meal")
-            MFField("Time","19:30")
+            MFListItem("Meal event", "Planned/confirmed meal identity unavailable", "Unknown")
+            MFField("Time", "")
     }
 }
 

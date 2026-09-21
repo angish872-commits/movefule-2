@@ -20,9 +20,7 @@ fun FNO016SavedMealsScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.FNO_015,
         onNavigate = onNavigate,
     ) {
-            MFListItem("Breakfast", "Most recent", "Open")
-            MFListItem("Chicken rice bowl", "Frequent meal", "Reuse")
-            MFListItem("Greek yogurt snack", "Favorite", "Add")
+            MFNotice("No saved meals", "Saved meals are derived from canonical food history and are not pre-populated.")
     }
 }
 

@@ -20,8 +20,8 @@ fun WRK001PreWorkoutScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.TRN_024,
         onNavigate = onNavigate,
     ) {
-            MFStatusBanner("Upper Strength A","46 min · 5 exercises")
-            MFMetricRow("Readiness" to "Reduced","Exercises" to "5","Time" to "46m")
+            MFStatusBanner("Workout prescription unavailable", "Execution is enabled only for a canonical plan reference.")
+            MFMetricRow("Readiness" to "Unknown", "Exercises" to "Unknown", "Time" to "Unknown")
     }
 }
 

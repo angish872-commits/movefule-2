@@ -9,7 +9,10 @@ import com.movefuel.mufil2.ui.design.MoveFuelTheme
 import com.movefuel.mufil2.ui.navigation.MoveFuelRoute
 
 @Composable
-fun ONB003NameScreen(onNavigate: (MoveFuelRoute) -> Unit) {
+fun ONB003NameScreen(
+    onNavigate: (MoveFuelRoute) -> Unit,
+    onNameChanged: (String) -> Unit = {},
+) {
     MFScreenFrame(
         id = "ONB_003",
         title = "Name",
@@ -20,12 +23,12 @@ fun ONB003NameScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.ONB_002,
         onNavigate = onNavigate,
     ) {
-            MFField("Name", "Your name")
+            MFField("Name", "", onValueChange = onNameChanged)
     }
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFF0E130F, widthDp = 390, heightDp = 844)
 @Composable
 private fun ONB003NameScreenPreview() {
-    MoveFuelTheme { ONB003NameScreen {} }
+    MoveFuelTheme { ONB003NameScreen(onNavigate = {}) }
 }

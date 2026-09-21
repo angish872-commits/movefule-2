@@ -20,7 +20,7 @@ fun DEV004DeviceFoundScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.DEV_003,
         onNavigate = onNavigate,
     ) {
-            MFListItem("Pixel Watch","MoveFuel peer detected","Select")
+            MFListItem("Device candidate","Peer identity unavailable","Select")
             MFNotice("Verify device","Confirm this is the watch you want to connect.")
     }
 }

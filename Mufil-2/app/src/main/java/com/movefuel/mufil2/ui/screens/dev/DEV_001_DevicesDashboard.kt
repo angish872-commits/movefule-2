@@ -20,14 +20,14 @@ fun DEV001DevicesDashboardScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         onNavigate = onNavigate,
     ) {
         MFStatusBanner(
-            "Pixel Watch",
-            "Connected · synced recently",
-            MoveFuelColors.Success,
+            "No confirmed device",
+            "Connection and freshness unavailable",
+            MoveFuelColors.TextMuted,
             onClick = { onNavigate(MoveFuelRoute.DEV_007) },
         )
         MFListItem(
             "Last sync",
-            "A few moments ago · fresh",
+            "Unknown until a device sync is acknowledged",
             onClick = { onNavigate(MoveFuelRoute.DEV_009) },
         )
         MFListItem(

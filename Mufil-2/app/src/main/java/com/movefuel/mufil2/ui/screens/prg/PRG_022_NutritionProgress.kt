@@ -20,8 +20,8 @@ fun PRG022NutritionProgressScreen(onNavigate: (MoveFuelRoute) -> Unit) {
         secondaryRoute = MoveFuelRoute.PRG_021,
         onNavigate = onNavigate,
     ) {
-            MFGraphCard(title = "Nutrition Progress", subtitle = "Confirmed intake only")
-            MFMetricRow("Average" to "Stable","Coverage" to "92%")
+            MFNotice("Nutrition trend unavailable", "Nutrition progress is derived from confirmed intake only.")
+            MFMetricRow("Average" to "Unknown", "Coverage" to "Unknown")
             MFNotice("Planned food excluded","Future meal plans are not counted as consumed nutrition.")
     }
 }
