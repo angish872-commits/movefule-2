@@ -13,9 +13,10 @@
 - [x] ZIP fingerprint and manifest comparison helper tools added.
 - [x] SRC-001 `movefule_1/ui-test` historical source frozen by immutable commit + exact manifest.
 - [x] Confirmed SRC-001 `Mufil-2/` subtree is exactly identical to SRC-000 by tree SHA.
-- [ ] SRC-002 older historical ZIP frozen/imported.
+- [x] SRC-002 uploaded old ZIP frozen, fingerprinted, sanitized source preserved, and first algorithm comparison completed.
 - [ ] SRC-004 G/latest ZIP frozen/imported if supplied separately.
-- [ ] File inventories generated for every additional source.
+- [x] Exact source manifests generated for SRC-001 and SRC-002.
+- [ ] Additional source manifests generated if more snapshots are supplied.
 
 ## Gate B — Data architecture
 - [x] Inventory: 81 core + 29 draft + 15 food/barcode + 141 training + 32 Android SQLite + 4 Wear SQLite = 302 source definitions.
