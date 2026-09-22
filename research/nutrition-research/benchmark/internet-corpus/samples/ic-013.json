@@ -1,0 +1,42 @@
+{
+  "stable_sample_id": "ic-013",
+  "source_dataset": "Wikimedia Commons",
+  "original_identifier": "File:Vegetables Momo streamed with Jhol achar - Bhatti Pasal 2024-11-26.jpg",
+  "original_source_reference": "  (original file: https://upload.wikimedia.org/wikipedia/commons/4/47/Vegetables_Momo_streamed_with_Jhol_achar_-_Bhatti_Pasal_2024-11-26.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original)",
+  "author_owner": "Andy Li",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC0",
+  "licence_evidence_reference": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "attribution_requirements": "Creative Commons Zero, Public Domain Dedication",
+  "evidence_class": "LABELLED_IDENTITY_ONLY",
+  "food_label": "momo with jhol achar",
+  "cuisine_region": "Nepali",
+  "local_image_path": "images/ic-013.jpg",
+  "file_extension": "jpg",
+  "sha256": "66286883788c474dc10aff39df72d4141a803e322dfaed46a867ac4d118d3505",
+  "width": 1280,
+  "height": 964,
+  "source_width": 8160,
+  "source_height": 6144,
+  "download_bytes": 263429,
+  "available_ground_truth_fields": {
+    "food_label": "momo with jhol achar"
+  },
+  "unavailable_ground_truth_fields": [
+    "total_mass_g",
+    "total_calories_kcal",
+    "ingredient_grams",
+    "segmentation_masks"
+  ],
+  "allowed_metrics": [
+    "identity_top1",
+    "identity_top3"
+  ],
+  "blocked_not_measurable_metrics": [
+    "gram_error",
+    "calorie_error",
+    "nutrient_error",
+    "per_region_gram_error"
+  ],
+  "exclusion_reason": null
+}

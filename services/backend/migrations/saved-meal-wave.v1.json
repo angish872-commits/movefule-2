@@ -1,0 +1,197 @@
+{
+  "migrationId": "movefuel_saved_meals_v1",
+  "schemaVersion": 5,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0#T029-T030",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": "userId",
+    "applyAllowed": true,
+    "note": "Only these two typed tables are eligible for this additive wave. Table and row permissions remain default-deny; domain writes stay behind the authenticated backend boundary."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "saved_meal",
+      "name": "Saved meals",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "savedMealId",
+        "userId",
+        "name",
+        "currentRevision",
+        "totalEnergyKcal",
+        "totalProteinG",
+        "createdAt",
+        "updatedAt",
+        "deletedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "savedMealId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "size": 100,
+          "required": true
+        },
+        {
+          "key": "currentRevision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "totalEnergyKcal",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "totalProteinG",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "deletedAt",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexes": [
+        "userId_updatedAt",
+        "userId_name"
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_updatedAt",
+          "type": "key",
+          "columns": [
+            "userId",
+            "updatedAt"
+          ]
+        },
+        {
+          "key": "userId_name",
+          "type": "key",
+          "columns": [
+            "userId",
+            "name"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "saved_meal_item",
+      "name": "Saved meal items",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "savedMealItemId",
+        "savedMealId",
+        "userId",
+        "sortOrder",
+        "foodRef",
+        "displayName",
+        "grams",
+        "portionJson",
+        "nutrientsJson"
+      ],
+      "typedColumns": [
+        {
+          "key": "savedMealItemId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "savedMealId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "sortOrder",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "foodRef",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "displayName",
+          "type": "string",
+          "size": 200,
+          "required": true
+        },
+        {
+          "key": "grams",
+          "type": "float",
+          "required": false
+        },
+        {
+          "key": "portionJson",
+          "type": "longtext",
+          "required": true
+        },
+        {
+          "key": "nutrientsJson",
+          "type": "longtext",
+          "required": true
+        }
+      ],
+      "indexes": [
+        "savedMealId_sortOrder"
+      ],
+      "indexDefinitions": [
+        {
+          "key": "savedMealId_sortOrder",
+          "type": "key",
+          "columns": [
+            "savedMealId",
+            "sortOrder"
+          ]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

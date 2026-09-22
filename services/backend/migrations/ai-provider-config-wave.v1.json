@@ -1,0 +1,446 @@
+{
+  "migrationId": "movefuel_ai_provider_config_wave_v1",
+  "schemaVersion": 14,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0#ai-provider-config",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": null,
+    "serverOnlyTables": [
+      "prompt_template",
+      "prompt_version",
+      "model_configuration",
+      "provider_call"
+    ],
+    "applyAllowed": true,
+    "note": "Server-only prompt, model, and provider-call metadata. Encrypted/configuration fields are schema boundaries only; no credentials, prompts, model output, or provider rows are seeded."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "prompt_template",
+      "name": "Prompt template",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "promptId",
+        "taskType",
+        "name",
+        "description",
+        "activeVersionId",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "promptId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "taskType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "size": 2048,
+          "required": true
+        },
+        {
+          "key": "activeVersionId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "taskType_unique",
+          "type": "unique",
+          "columns": [
+            "taskType"
+          ]
+        },
+        {
+          "key": "status",
+          "type": "key",
+          "columns": [
+            "status"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "prompt_version",
+      "name": "Prompt version",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "promptVersionId",
+        "promptId",
+        "version",
+        "systemInstructionEncrypted",
+        "jsonSchemaJson",
+        "safetyRulesJson",
+        "testSuiteVersion",
+        "checksum",
+        "state",
+        "createdAt",
+        "activatedAt",
+        "retiredAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "promptVersionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "promptId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "version",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "systemInstructionEncrypted",
+          "type": "string",
+          "size": 2048,
+          "required": true
+        },
+        {
+          "key": "jsonSchemaJson",
+          "type": "string",
+          "size": 2048,
+          "required": true
+        },
+        {
+          "key": "safetyRulesJson",
+          "type": "string",
+          "size": 2048,
+          "required": true
+        },
+        {
+          "key": "testSuiteVersion",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "checksum",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "activatedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "retiredAt",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "promptId_version_unique",
+          "type": "unique",
+          "columns": [
+            "promptId",
+            "version"
+          ]
+        },
+        {
+          "key": "state",
+          "type": "key",
+          "columns": [
+            "state"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "model_configuration",
+      "name": "Model configuration",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "modelConfigId",
+        "taskType",
+        "provider",
+        "modelName",
+        "temperature",
+        "maxOutputTokens",
+        "timeoutMs",
+        "retryPolicyJson",
+        "state",
+        "createdAt",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "modelConfigId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "taskType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "provider",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "modelName",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "temperature",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "maxOutputTokens",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "timeoutMs",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "retryPolicyJson",
+          "type": "string",
+          "size": 2048,
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "taskType_state",
+          "type": "key",
+          "columns": [
+            "taskType",
+            "state"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "provider_call",
+      "name": "Provider call",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "providerCallId",
+        "userId",
+        "taskType",
+        "requestId",
+        "provider",
+        "model",
+        "promptVersionId",
+        "inputHash",
+        "outputHash",
+        "status",
+        "latencyMs",
+        "tokenIn",
+        "tokenOut",
+        "createdAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "providerCallId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "taskType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "requestId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "provider",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "model",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "promptVersionId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "inputHash",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "outputHash",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "latencyMs",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "tokenIn",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "tokenOut",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "requestId",
+          "type": "key",
+          "columns": [
+            "requestId"
+          ]
+        },
+        {
+          "key": "status_createdAt",
+          "type": "key",
+          "columns": [
+            "status",
+            "createdAt"
+          ]
+        },
+        {
+          "key": "userId_createdAt",
+          "type": "key",
+          "columns": [
+            "userId",
+            "createdAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

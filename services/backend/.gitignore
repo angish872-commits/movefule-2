@@ -1,0 +1,5 @@
+.env.local
+appwrite.config.json
+node_modules/
+coverage/
+*.log

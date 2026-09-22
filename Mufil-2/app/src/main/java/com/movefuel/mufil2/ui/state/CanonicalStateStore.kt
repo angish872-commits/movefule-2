@@ -54,6 +54,14 @@ data class CanonicalAppState(
     val syncState: CanonicalSyncState = CanonicalSyncState.Unknown,
     val profileName: String? = null,
     val deviceName: String? = null,
+    val targetDateOfBirth: String? = null,
+    val targetHeight: String? = null,
+    val targetWeight: String? = null,
+    val targetMetricUnits: Boolean = true,
+    val targetSexForEnergyEstimation: String? = null,
+    val targetActivityLevel: String? = null,
+    val targetTrainingFrequency: String? = null,
+    val targetGoal: String? = null,
 )
 
 private val Context.canonicalStateDataStore by preferencesDataStore(
@@ -81,6 +89,14 @@ object CanonicalStateStore {
     private val syncStateKey = stringPreferencesKey("sync_state")
     private val profileNameKey = stringPreferencesKey("profile_name")
     private val deviceNameKey = stringPreferencesKey("device_name")
+    private val targetDateOfBirthKey = stringPreferencesKey("target_date_of_birth")
+    private val targetHeightKey = stringPreferencesKey("target_height")
+    private val targetWeightKey = stringPreferencesKey("target_weight")
+    private val targetMetricUnitsKey = androidx.datastore.preferences.core.booleanPreferencesKey("target_metric_units")
+    private val targetSexKey = stringPreferencesKey("target_sex")
+    private val targetActivityLevelKey = stringPreferencesKey("target_activity_level")
+    private val targetTrainingFrequencyKey = stringPreferencesKey("target_training_frequency")
+    private val targetGoalKey = stringPreferencesKey("target_goal")
 
     fun observe(context: Context): Flow<CanonicalAppState> =
         context.canonicalStateDataStore.data.map { preferences ->
@@ -101,6 +117,14 @@ object CanonicalStateStore {
                 syncState = preferences[syncStateKey].toSyncState(),
                 profileName = preferences[profileNameKey],
                 deviceName = preferences[deviceNameKey],
+                targetDateOfBirth = preferences[targetDateOfBirthKey],
+                targetHeight = preferences[targetHeightKey],
+                targetWeight = preferences[targetWeightKey],
+                targetMetricUnits = preferences[targetMetricUnitsKey] ?: true,
+                targetSexForEnergyEstimation = preferences[targetSexKey],
+                targetActivityLevel = preferences[targetActivityLevelKey],
+                targetTrainingFrequency = preferences[targetTrainingFrequencyKey],
+                targetGoal = preferences[targetGoalKey],
             )
         }
 
@@ -225,6 +249,20 @@ object CanonicalStateStore {
         }
     }
 
+    /** Persists the target-preview inputs. Missing values stay missing; blank clears the field. */
+    suspend fun setTargetInputs(context: Context, inputs: TargetInputs) {
+        context.canonicalStateDataStore.edit { preferences ->
+            inputs.dateOfBirth.putOrRemove(preferences, targetDateOfBirthKey)
+            inputs.height.putOrRemove(preferences, targetHeightKey)
+            inputs.weight.putOrRemove(preferences, targetWeightKey)
+            preferences[targetMetricUnitsKey] = inputs.metricUnits
+            inputs.sexForEnergyEstimation.putOrRemove(preferences, targetSexKey)
+            inputs.activityLevel.putOrRemove(preferences, targetActivityLevelKey)
+            inputs.trainingFrequency.putOrRemove(preferences, targetTrainingFrequencyKey)
+            inputs.goal.putOrRemove(preferences, targetGoalKey)
+        }
+    }
+
     suspend fun markSyncPending(context: Context) {
         context.canonicalStateDataStore.edit { preferences ->
             preferences[syncStateKey] = CanonicalSyncState.Pending.name
@@ -241,6 +279,26 @@ object CanonicalStateStore {
 
     private val legacyTrainStateKey = stringPreferencesKey("train_state")
     private val legacySetupStepKey = stringPreferencesKey("train_setup_step")
+}
+
+/** Editable target-preview inputs. Null means unknown and must not be coerced to zero. */
+data class TargetInputs(
+    val dateOfBirth: String? = null,
+    val height: String? = null,
+    val weight: String? = null,
+    val metricUnits: Boolean = true,
+    val sexForEnergyEstimation: String? = null,
+    val activityLevel: String? = null,
+    val trainingFrequency: String? = null,
+    val goal: String? = null,
+)
+
+private fun String?.putOrRemove(
+    preferences: androidx.datastore.preferences.core.MutablePreferences,
+    key: androidx.datastore.preferences.core.Preferences.Key<String>,
+) {
+    val trimmed = this?.trim()
+    if (trimmed.isNullOrEmpty()) preferences.remove(key) else preferences[key] = trimmed
 }
 
 private fun String?.toTrainState(): TrainState =

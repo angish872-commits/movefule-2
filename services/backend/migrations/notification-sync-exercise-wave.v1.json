@@ -1,0 +1,470 @@
+{
+  "migrationId": "movefuel_notification_sync_exercise_wave_v1",
+  "schemaVersion": 11,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0#notification-sync-exercise",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": "userId",
+    "serverOnlyTables": [
+      "notification_delivery",
+      "exercise_catalog",
+      "exercise_muscle_map"
+    ],
+    "applyAllowed": true,
+    "note": "Sync cursor and notification rows are owner-scoped. Provider delivery and exercise catalog tables are server-only; no notifications, device messages, or catalog rows are seeded."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "sync_cursor",
+      "name": "Sync cursor",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "cursorId",
+        "userId",
+        "deviceId",
+        "domain",
+        "opaqueCursor",
+        "lastSyncAt",
+        "schemaVersion"
+      ],
+      "typedColumns": [
+        {
+          "key": "cursorId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "deviceId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "domain",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "opaqueCursor",
+          "type": "string",
+          "size": 512,
+          "required": true
+        },
+        {
+          "key": "lastSyncAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "schemaVersion",
+          "type": "integer",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_deviceId_domain_unique",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "deviceId",
+            "domain"
+          ]
+        },
+        {
+          "key": "userId_lastSyncAt",
+          "type": "key",
+          "columns": [
+            "userId",
+            "lastSyncAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "notification",
+      "name": "Notification",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "notificationId",
+        "userId",
+        "type",
+        "title",
+        "body",
+        "deepLink",
+        "objectId",
+        "priority",
+        "createdAt",
+        "readAt",
+        "expiresAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "notificationId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "type",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "body",
+          "type": "string",
+          "size": 4096,
+          "required": true
+        },
+        {
+          "key": "deepLink",
+          "type": "string",
+          "size": 512,
+          "required": false
+        },
+        {
+          "key": "objectId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "priority",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "readAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "expiresAt",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_readAt_createdAt",
+          "type": "key",
+          "columns": [
+            "userId",
+            "readAt",
+            "createdAt"
+          ]
+        },
+        {
+          "key": "expiresAt",
+          "type": "key",
+          "columns": [
+            "expiresAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "notification_delivery",
+      "name": "Notification delivery",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "deliveryId",
+        "notificationId",
+        "deviceId",
+        "provider",
+        "state",
+        "attemptCount",
+        "lastAttemptAt",
+        "providerMessageIdHash",
+        "errorCode"
+      ],
+      "typedColumns": [
+        {
+          "key": "deliveryId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "notificationId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "deviceId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "provider",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "attemptCount",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "lastAttemptAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "providerMessageIdHash",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "errorCode",
+          "type": "string",
+          "size": 128,
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "notificationId_deviceId_unique",
+          "type": "unique",
+          "columns": [
+            "notificationId",
+            "deviceId"
+          ]
+        },
+        {
+          "key": "state_lastAttemptAt",
+          "type": "key",
+          "columns": [
+            "state",
+            "lastAttemptAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "exercise_catalog",
+      "name": "Exercise catalog",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "exerciseId",
+        "slug",
+        "name",
+        "instructionsJson",
+        "equipmentJson",
+        "mediaLicense",
+        "mediaObjectId",
+        "status",
+        "revision",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "exerciseId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "slug",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "instructionsJson",
+          "type": "string",
+          "size": 8192,
+          "required": true
+        },
+        {
+          "key": "equipmentJson",
+          "type": "string",
+          "size": 4096,
+          "required": true
+        },
+        {
+          "key": "mediaLicense",
+          "type": "string",
+          "size": 256,
+          "required": false
+        },
+        {
+          "key": "mediaObjectId",
+          "type": "string",
+          "size": 256,
+          "required": false
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "slug_unique",
+          "type": "unique",
+          "columns": [
+            "slug"
+          ]
+        },
+        {
+          "key": "status_name",
+          "type": "key",
+          "columns": [
+            "status",
+            "name"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "exercise_muscle_map",
+      "name": "Exercise muscle map",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "mapId",
+        "exerciseId",
+        "muscleGroup",
+        "role",
+        "contributionWeight",
+        "sourceVersion"
+      ],
+      "typedColumns": [
+        {
+          "key": "mapId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "exerciseId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "muscleGroup",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "role",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "contributionWeight",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "sourceVersion",
+          "type": "string",
+          "size": 64,
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "exerciseId_muscleGroup_role_unique",
+          "type": "unique",
+          "columns": [
+            "exerciseId",
+            "muscleGroup",
+            "role"
+          ]
+        },
+        {
+          "key": "muscleGroup",
+          "type": "key",
+          "columns": [
+            "muscleGroup"
+          ]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

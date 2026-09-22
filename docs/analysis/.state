@@ -1,0 +1,43 @@
+# Analysis State
+
+classify-analysis-target: complete
+identifying-tech-stack: complete
+mapping-architecture: complete
+tracing-dependencies: complete
+detecting-dead-code: complete
+inventorying-api-surface: complete
+analyzing-code-quality: complete
+track-a-summary: complete
+trace-codebase-provenance: complete
+analyze-build-pipeline: complete
+classify-repo-artifacts: complete
+trace-data-flows: complete
+analyze-agent-loop: skipped (not applicable — no agent runtime; substitute spine documented)
+extract-tool-graph: complete (partial — inline trace; no agent dispatch on platform)
+map-feature-gates: complete
+simulate-behavior: complete (partial — inline simulation; no agent dispatch)
+analyze-prompt-influence: complete (scoped — single provider prompt; no system prompts)
+reconstruct-system-intent: complete (terminal report: analysis-report-2026-09-22.md)
+
+## Pipeline Plan
+Target type: Monorepo (multi-part: Android app + reference imports + database blueprints + tooling)
+Requested scope: Full analysis (Track A + Track B + Phase 4)
+Platform: OpenCode (no agent dispatch — skills run inline; degrade where needed)
+
+- [x] classify-analysis-target
+- [ ] identifying-tech-stack
+- [ ] mapping-architecture
+- [ ] tracing-dependencies
+- [ ] detecting-dead-code
+- [ ] inventorying-api-surface
+- [ ] analyzing-code-quality
+- [ ] trace-codebase-provenance
+- [ ] analyze-build-pipeline
+- [ ] classify-repo-artifacts
+- [ ] trace-data-flows
+- [ ] analyze-agent-loop
+- [ ] extract-tool-graph
+- [ ] map-feature-gates
+- [ ] simulate-behavior
+- [ ] analyze-prompt-influence
+- [ ] reconstruct-system-intent

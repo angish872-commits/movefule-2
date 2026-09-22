@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/food-density-record.schema.json",
+  "title": "FoodDensityRecord",
+  "type": "object",
+  "required": [
+    "densityId",
+    "foodKey",
+    "preparation",
+    "physicalForm",
+    "densityCentralGPerMl",
+    "densityMinGPerMl",
+    "densityMaxGPerMl",
+    "sourceId",
+    "sourceRevision",
+    "evidenceQuality",
+    "effectiveFrom"
+  ],
+  "properties": {
+    "densityId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "foodKey": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preparation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "physicalForm": {
+      "type": "string",
+      "minLength": 1
+    },
+    "densityCentralGPerMl": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "densityMinGPerMl": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "densityMaxGPerMl": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "sourceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceRevision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidenceQuality": {
+      "enum": [
+        "MEASURED",
+        "REVIEWED",
+        "DERIVED",
+        "EXPERIMENTAL"
+      ]
+    },
+    "sampleCount": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "regionCuisine": {
+      "type": "string"
+    },
+    "effectiveFrom": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "retiredAt": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  }
+}

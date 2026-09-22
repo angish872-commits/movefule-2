@@ -1,0 +1,167 @@
+{
+  "dataset": "MoveFuel Nutrition5k licensed measured pilot",
+  "purpose": "Ground truth for Algorithm V4 calorie/mass validation; \u00b115% is a central-error screen, not the app uncertainty model.",
+  "sample_count": 10,
+  "samples": [
+    {
+      "actual_calories_kcal": 624.853943,
+      "actual_carb_g": 27.939386,
+      "actual_fat_g": 20.266373,
+      "actual_mass_g": 431.0,
+      "actual_protein_g": 81.354126,
+      "category": "mixed_cafeteria_plate",
+      "central_validation_band_15pct": {
+        "maximum": 718.58,
+        "minimum": 531.13
+      },
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-001.png",
+      "prediction_status": "PENDING_LIVE_ALGORITHM_RUN",
+      "sample_id": "ic-001",
+      "source_dataset": "Nutrition5k (Google Research)"
+    },
+    {
+      "actual_calories_kcal": 484.618347,
+      "actual_carb_g": 35.868031,
+      "actual_fat_g": 25.66441,
+      "actual_mass_g": 479.0,
+      "actual_protein_g": 29.964256,
+      "category": "mixed_cafeteria_plate",
+      "central_validation_band_15pct": {
+        "maximum": 557.31,
+        "minimum": 411.93
+      },
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-002.png",
+      "prediction_status": "PENDING_LIVE_ALGORITHM_RUN",
+      "sample_id": "ic-002",
+      "source_dataset": "Nutrition5k (Google Research)"
+    },
+    {
+      "actual_calories_kcal": 491.235168,
+      "actual_carb_g": 30.58173,
+      "actual_fat_g": 25.456135,
+      "actual_mass_g": 345.0,
+      "actual_protein_g": 35.928123,
+      "category": "mixed_cafeteria_plate",
+      "central_validation_band_15pct": {
+        "maximum": 564.92,
+        "minimum": 417.55
+      },
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-003.png",
+      "prediction_status": "PENDING_LIVE_ALGORITHM_RUN",
+      "sample_id": "ic-003",
+      "source_dataset": "Nutrition5k (Google Research)"
+    },
+    {
+      "actual_calories_kcal": 240.425751,
+      "actual_carb_g": 10.249402,
+      "actual_fat_g": 10.293161,
+      "actual_mass_g": 194.0,
+      "actual_protein_g": 25.324493,
+      "category": "mixed_cafeteria_plate",
+      "central_validation_band_15pct": {
+        "maximum": 276.49,
+        "minimum": 204.36
+      },
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-004.png",
+      "prediction_status": "PENDING_LIVE_ALGORITHM_RUN",
+      "sample_id": "ic-004",
+      "source_dataset": "Nutrition5k (Google Research)"
+    },
+    {
+      "actual_calories_kcal": 290.397949,
+      "actual_carb_g": 20.020035,
+      "actual_fat_g": 28.066151,
+      "actual_mass_g": 390.0,
+      "actual_protein_g": 33.62685,
+      "category": "mixed_cafeteria_plate",
+      "central_validation_band_15pct": {
+        "maximum": 333.96,
+        "minimum": 246.84
+      },
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-005.png",
+      "prediction_status": "PENDING_LIVE_ALGORITHM_RUN",
+      "sample_id": "ic-005",
+      "source_dataset": "Nutrition5k (Google Research)"
+    },
+    {
+      "actual_calories_kcal": 180.821609,
+      "actual_carb_g": 18.46726,
+      "actual_fat_g": 12.194806,
+      "actual_mass_g": 196.0,
+      "actual_protein_g": 1.436127,
+      "category": "mixed_cafeteria_plate",
+      "central_validation_band_15pct": {
+        "maximum": 207.94,
+        "minimum": 153.7
+      },
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-006.png",
+      "prediction_status": "PENDING_LIVE_ALGORITHM_RUN",
+      "sample_id": "ic-006",
+      "source_dataset": "Nutrition5k (Google Research)"
+    },
+    {
+      "actual_calories_kcal": 122.001411,
+      "actual_carb_g": 7.937456,
+      "actual_fat_g": 11.540041,
+      "actual_mass_g": 145.0,
+      "actual_protein_g": 14.210079,
+      "category": "mixed_cafeteria_plate",
+      "central_validation_band_15pct": {
+        "maximum": 140.3,
+        "minimum": 103.7
+      },
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-007.png",
+      "prediction_status": "PENDING_LIVE_ALGORITHM_RUN",
+      "sample_id": "ic-007",
+      "source_dataset": "Nutrition5k (Google Research)"
+    },
+    {
+      "actual_calories_kcal": 32.936092,
+      "actual_carb_g": 6.608891,
+      "actual_fat_g": 0.792689,
+      "actual_mass_g": 67.0,
+      "actual_protein_g": 0.59528,
+      "category": "mixed_cafeteria_plate",
+      "central_validation_band_15pct": {
+        "maximum": 37.88,
+        "minimum": 28.0
+      },
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-008.png",
+      "prediction_status": "PENDING_LIVE_ALGORITHM_RUN",
+      "sample_id": "ic-008",
+      "source_dataset": "Nutrition5k (Google Research)"
+    },
+    {
+      "actual_calories_kcal": 51.919998,
+      "actual_carb_g": 12.7,
+      "actual_fat_g": 0.296,
+      "actual_mass_g": 123.0,
+      "actual_protein_g": 0.864,
+      "category": "mixed_cafeteria_plate",
+      "central_validation_band_15pct": {
+        "maximum": 59.71,
+        "minimum": 44.13
+      },
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-009.png",
+      "prediction_status": "PENDING_LIVE_ALGORITHM_RUN",
+      "sample_id": "ic-009",
+      "source_dataset": "Nutrition5k (Google Research)"
+    },
+    {
+      "actual_calories_kcal": 59.79258,
+      "actual_carb_g": 7.079548,
+      "actual_fat_g": 3.205161,
+      "actual_mass_g": 46.0,
+      "actual_protein_g": 1.472,
+      "category": "mixed_cafeteria_plate",
+      "central_validation_band_15pct": {
+        "maximum": 68.76,
+        "minimum": 50.82
+      },
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-010.png",
+      "prediction_status": "PENDING_LIVE_ALGORITHM_RUN",
+      "sample_id": "ic-010",
+      "source_dataset": "Nutrition5k (Google Research)"
+    }
+  ]
+}

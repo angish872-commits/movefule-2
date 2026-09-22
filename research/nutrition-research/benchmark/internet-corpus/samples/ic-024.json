@@ -1,0 +1,44 @@
+{
+  "stable_sample_id": "ic-024",
+  "source_dataset": "Wikimedia Commons",
+  "original_identifier": "File:Mutton Momos.jpg",
+  "original_source_reference": "  (original file: https://upload.wikimedia.org/wikipedia/commons/7/77/Mutton_Momos.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original)",
+  "author_owner": "Vikassinghbahamania",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY-SA 4.0",
+  "licence_evidence_reference": "https://creativecommons.org/licenses/by-sa/4.0",
+  "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+  "evidence_class": "REFERENCE_ONLY",
+  "food_label": "mutton momos with achar",
+  "cuisine_region": "Nepali/South Asian",
+  "local_image_path": "images/ic-024.jpg",
+  "file_extension": "jpg",
+  "sha256": "2c2559962e5059c18548a83c7ba7adcf410967d09ef9bdae381cfff5d230177c",
+  "width": 1280,
+  "height": 1707,
+  "source_width": 3024,
+  "source_height": 4032,
+  "download_bytes": 316858,
+  "available_ground_truth_fields": {},
+  "unavailable_ground_truth_fields": [
+    "total_mass_g",
+    "total_calories_kcal",
+    "ingredient_grams",
+    "segmentation_masks"
+  ],
+  "allowed_metrics": [
+    "segmentation",
+    "candidate_generation",
+    "clarification",
+    "workflow",
+    "latency"
+  ],
+  "blocked_not_measurable_metrics": [
+    "gram_error",
+    "calorie_error",
+    "nutrient_error",
+    "hidden_ingredients",
+    "oil_grams"
+  ],
+  "exclusion_reason": null
+}

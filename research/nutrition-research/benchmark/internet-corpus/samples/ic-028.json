@@ -1,0 +1,44 @@
+{
+  "stable_sample_id": "ic-028",
+  "source_dataset": "Wikimedia Commons",
+  "original_identifier": "File:Thukpa, Manali, Himachal Pradesh.JPG",
+  "original_source_reference": "  (original file: https://upload.wikimedia.org/wikipedia/commons/4/41/Thukpa%2C_Manali%2C_Himachal_Pradesh.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original)",
+  "author_owner": "Amanbedi1",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY-SA 4.0",
+  "licence_evidence_reference": "https://creativecommons.org/licenses/by-sa/4.0",
+  "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+  "evidence_class": "REFERENCE_ONLY",
+  "food_label": "thukpa (Manali)",
+  "cuisine_region": "Himalayan",
+  "local_image_path": "images/ic-028.jpg",
+  "file_extension": "jpg",
+  "sha256": "3fe62d1d85c7f7f8acd1acb42fa9225e2a2a8fa3fbfbff4992b1675cc71dc085",
+  "width": 1024,
+  "height": 768,
+  "source_width": 1024,
+  "source_height": 768,
+  "download_bytes": 309762,
+  "available_ground_truth_fields": {},
+  "unavailable_ground_truth_fields": [
+    "total_mass_g",
+    "total_calories_kcal",
+    "ingredient_grams",
+    "segmentation_masks"
+  ],
+  "allowed_metrics": [
+    "segmentation",
+    "candidate_generation",
+    "clarification",
+    "workflow",
+    "latency"
+  ],
+  "blocked_not_measurable_metrics": [
+    "gram_error",
+    "calorie_error",
+    "nutrient_error",
+    "hidden_ingredients",
+    "oil_grams"
+  ],
+  "exclusion_reason": null
+}

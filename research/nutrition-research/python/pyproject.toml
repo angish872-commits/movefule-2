@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "movefuel-fdc"
+version = "0.1.0"
+description = "MoveFuel USDA FoodData Central ingestion, normalization and benchmarking toolkit"
+requires-python = ">=3.11"
+# Keep package metadata self-contained. Recent setuptools versions reject a
+# project readme path outside this package directory during editable installs.
+readme = {text = "MoveFuel nutrition-data ingestion, normalization, and benchmarking toolkit.", content-type = "text/markdown"}
+dependencies = ["openpyxl>=3.1,<4"]
+
+[tool.setuptools.packages.find]
+include = ["movefuel_fdc*"]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+vision = ["opencv-python-headless>=4.10,<5", "numpy>=2,<3"]

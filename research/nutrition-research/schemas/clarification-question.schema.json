@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/clarification-question.schema.json",
+  "title": "ClarificationQuestion",
+  "type": "object",
+  "required": ["questionId", "reason", "affectedUncertainty", "informationGainCategory", "responseType", "optional", "fallbackIfSkipped", "nextState"],
+  "properties": {
+    "questionId": {
+      "enum": [
+        "PIECE_COUNT",
+        "PLATE_SIZE",
+        "BOWL_OR_CUP_SIZE",
+        "COOKING_METHOD",
+        "ADDED_OIL_GHEE_BUTTER",
+        "SAUCE_INCLUDED",
+        "HOMEMADE_RESTAURANT_PACKAGED",
+        "SECOND_IMAGE",
+        "APPROXIMATE_GRAMS",
+        "CANDIDATE_SELECTION",
+        "HIDDEN_FOOD",
+        "MANUAL_ENTRY"
+      ]
+    },
+    "reason": { "type": "string" },
+    "affectedUncertainty": {
+      "enum": ["PORTION_SIZE", "PREPARATION", "IDENTITY", "ADDED_FAT", "SAUCE", "COMPOSITION", "PROVENANCE", "MANUAL_ENTRY"]
+    },
+    "informationGainCategory": {
+      "enum": ["PORTION_SIZE", "PREPARATION", "IDENTITY", "ADDED_FAT", "SAUCE", "COMPOSITION", "PROVENANCE", "MANUAL_ENTRY"]
+    },
+    "responseType": {
+      "enum": ["INTEGER", "ENUM", "NUMBER", "BOOLEAN", "IMAGE_UPLOAD", "CANDIDATE_SELECT", "MANUAL_ENTRY"]
+    },
+    "optional": { "type": "boolean" },
+    "fallbackIfSkipped": { "type": "string" },
+    "nextState": { "type": "string" }
+  }
+}

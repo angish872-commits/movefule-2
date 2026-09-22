@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "models": [
+    {
+      "modelId": "gemini-3.6-flash",
+      "task": ["candidate_food_identity", "preparation_candidates", "segmentation_contours"],
+      "authority": "candidate_only",
+      "provider": "Google Gemini API",
+      "artifactBundled": false,
+      "credentialPolicy": "server_side_environment_only"
+    },
+    {
+      "modelId": "depth-anything-v2-small",
+      "task": ["relative_monocular_depth"],
+      "authority": "relative_depth_only_until_metric_calibrated",
+      "provider": "Depth Anything V2",
+      "license": "Apache-2.0 for Small weights per upstream repository",
+      "artifactBundled": false,
+      "requiresPinnedRevisionAndSha256": true
+    }
+  ]
+}

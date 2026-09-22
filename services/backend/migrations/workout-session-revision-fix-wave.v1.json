@@ -1,0 +1,37 @@
+{
+  "migrationId": "movefuel_workout_session_revision_fix_wave_v1",
+  "schemaVersion": 18,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel canonical workout reconciliation contract 2026-08-29",
+  "database": { "id": "movefuel_mvp", "name": "MoveFuel MVP", "verification": "existing_database_only" },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": null,
+    "serverOnlyTables": ["workout_session_revision"],
+    "applyAllowed": false,
+    "note": "Immutable accepted revision history. Parent workout_session establishes ownership. Apply only after staging inventory confirms the table is missing or compatible."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "workout_session_revision",
+      "name": "Workout session revision",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": ["sessionRevisionId", "sessionId", "revision", "baseRevision", "state", "authorityDeviceId", "sourceDeviceId", "sourceOperationId", "idempotencyKey", "payloadHash", "reasonCodesJson", "schemaVersion", "occurredAt", "acceptedAt"],
+      "typedColumns": [
+        {"key":"sessionRevisionId","type":"string","size":128,"required":true},{"key":"sessionId","type":"string","size":128,"required":true},{"key":"revision","type":"integer","required":true},{"key":"baseRevision","type":"integer","required":true},{"key":"state","type":"string","size":32,"required":true},{"key":"authorityDeviceId","type":"string","size":128,"required":true},{"key":"sourceDeviceId","type":"string","size":128,"required":true},{"key":"sourceOperationId","type":"string","size":128,"required":true},{"key":"idempotencyKey","type":"string","size":128,"required":true},{"key":"payloadHash","type":"string","size":128,"required":true},{"key":"reasonCodesJson","type":"string","size":4096,"required":true},{"key":"schemaVersion","type":"integer","required":true},{"key":"occurredAt","type":"datetime","required":true},{"key":"acceptedAt","type":"datetime","required":true}
+      ],
+      "indexDefinitions": [
+        {"key":"workout_session_revision_unique","type":"unique","columns":["sessionId","revision"]},
+        {"key":"workout_session_operation_unique","type":"unique","columns":["sessionId","sourceOperationId"]},
+        {"key":"workout_session_idempotency_unique","type":"unique","columns":["sessionId","idempotencyKey"]},
+        {"key":"workout_session_acceptedAt","type":"key","columns":["sessionId","acceptedAt"]}
+      ],
+      "ownershipSource": "User-owned through parent workout_session; server-only mutation",
+      "requiresReview": true
+    }
+  ]
+}

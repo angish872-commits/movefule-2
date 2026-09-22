@@ -1,0 +1,130 @@
+{
+  "stable_sample_id": "ic-001",
+  "source_dataset": "Nutrition5k (Google Research)",
+  "original_identifier": "dish_1561665452",
+  "original_source_reference": "https://storage.googleapis.com/nutrition5k_dataset/nutrition5k_dataset/imagery/realsense_overhead/dish_1561665452/rgb.png",
+  "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY 4.0",
+  "licence_evidence_reference": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+  "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+  "evidence_class": "MEASURED_DATASET",
+  "food_label": "mixed cafeteria plate (ingredient-derived: chard (6g), brown rice (25g), vinegar (1g), olive oil (9g), basil (0g), salt (1g), millet (4g), chive (0g), carrot (25g), apple (5g), chicken (249g), …)",
+  "cuisine_region": "Mixed (US cafeteria; not regional)",
+  "local_image_path": "images/ic-001.png",
+  "file_extension": "png",
+  "sha256": "bd3eace68c511d4f8e0d57c7a180a9eec7f1dbc41f3b5f3bd39f109c819a00ad",
+  "width": 640,
+  "height": 480,
+  "source_width": 640,
+  "source_height": 480,
+  "download_bytes": 428028,
+  "available_ground_truth_fields": {
+    "total_mass_g": 431.0,
+    "total_calories_kcal": 624.853943,
+    "total_fat_g": 20.266373,
+    "total_carb_g": 27.939386,
+    "total_protein_g": 81.354126,
+    "ingredient_list_grams": [
+      {
+        "name": "chard",
+        "grams": 6.231454
+      },
+      {
+        "name": "brown rice",
+        "grams": 24.925817
+      },
+      {
+        "name": "vinegar",
+        "grams": 1.090694
+      },
+      {
+        "name": "olive oil",
+        "grams": 9.129799
+      },
+      {
+        "name": "basil",
+        "grams": 0.311573
+      },
+      {
+        "name": "salt",
+        "grams": 1.382627
+      },
+      {
+        "name": "millet",
+        "grams": 4.362774
+      },
+      {
+        "name": "chive",
+        "grams": 0.311573
+      },
+      {
+        "name": "carrot",
+        "grams": 24.925817
+      },
+      {
+        "name": "apple",
+        "grams": 5.453468
+      },
+      {
+        "name": "chicken",
+        "grams": 249.258163
+      },
+      {
+        "name": "onions",
+        "grams": 2.181387
+      },
+      {
+        "name": "corn on the cob",
+        "grams": 70.0
+      },
+      {
+        "name": "lemon juice",
+        "grams": 2.025412
+      },
+      {
+        "name": "parsley",
+        "grams": 0.584246
+      },
+      {
+        "name": "rosemary",
+        "grams": 0.311573
+      },
+      {
+        "name": "garlic",
+        "grams": 1.246291
+      },
+      {
+        "name": "mixed greens",
+        "grams": 27.26734
+      }
+    ]
+  },
+  "unavailable_ground_truth_fields": [
+    "segmentation_masks",
+    "per_region_visual_portion",
+    "dish_name",
+    "fiber_g",
+    "sodium_mg",
+    "piece_counts"
+  ],
+  "allowed_metrics": [
+    "identity_top1",
+    "identity_top3",
+    "total_mass_gram_error",
+    "calorie_error",
+    "fat_error",
+    "carb_error",
+    "protein_error",
+    "latency",
+    "cost"
+  ],
+  "blocked_not_measurable_metrics": [
+    "fiber_error",
+    "sodium_error",
+    "per_region_gram_error",
+    "hidden_ingredients",
+    "oil_grams"
+  ],
+  "exclusion_reason": null
+}

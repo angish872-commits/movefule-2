@@ -1,0 +1,1060 @@
+{
+  "migrationId": "movefuel_report_lifecycle_wave_v1",
+  "schemaVersion": 13,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0#report-lifecycle",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": "userId",
+    "serverOnlyTables": [
+      "deletion_job",
+      "feature_flag",
+      "data_retention_job",
+      "report_section",
+      "report_evidence"
+    ],
+    "applyAllowed": true,
+    "note": "Owner-scoped export, deletion request, support, report, content, and muscle-load rows. Server-only lifecycle workers, flags, retention, and report child evidence. JSON fields use reduced physical Appwrite sizes (4096 for support/chart and 2048 for provenance) because the table column-size budget rejects the larger logical sizes; no artifacts, tickets, reports, or deletion rows are seeded."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "muscle_load",
+      "name": "Muscle load",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "muscleLoadId",
+        "userId",
+        "sessionId",
+        "localDate",
+        "muscleGroup",
+        "contribution",
+        "algorithmVersion"
+      ],
+      "typedColumns": [
+        {
+          "key": "muscleLoadId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "sessionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "localDate",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "muscleGroup",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "contribution",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "algorithmVersion",
+          "type": "string",
+          "size": 64,
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "session_muscle_algo_uq",
+          "type": "unique",
+          "columns": [
+            "sessionId",
+            "muscleGroup",
+            "algorithmVersion"
+          ]
+        },
+        {
+          "key": "userId_localDate_muscleGroup",
+          "type": "key",
+          "columns": [
+            "userId",
+            "localDate",
+            "muscleGroup"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "export_job",
+      "name": "Export job",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "exportJobId",
+        "userId",
+        "exportType",
+        "state",
+        "requestedAt",
+        "startedAt",
+        "completedAt",
+        "expiresAt",
+        "errorCode"
+      ],
+      "typedColumns": [
+        {
+          "key": "exportJobId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "exportType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "requestedAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "startedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "completedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "expiresAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "errorCode",
+          "type": "string",
+          "size": 128,
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_state_requestedAt",
+          "type": "key",
+          "columns": [
+            "userId",
+            "state",
+            "requestedAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "export_artifact",
+      "name": "Export artifact",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "artifactId",
+        "exportJobId",
+        "userId",
+        "bucketId",
+        "objectId",
+        "checksum",
+        "sizeBytes",
+        "expiresAt",
+        "downloadedAt",
+        "revokedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "artifactId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "exportJobId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "bucketId",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "objectId",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "checksum",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "sizeBytes",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "expiresAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "downloadedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "revokedAt",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "bucketId_objectId_unique",
+          "type": "unique",
+          "columns": [
+            "bucketId",
+            "objectId"
+          ]
+        },
+        {
+          "key": "userId_expiresAt",
+          "type": "key",
+          "columns": [
+            "userId",
+            "expiresAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "deletion_request",
+      "name": "Deletion request",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "deletionRequestId",
+        "userId",
+        "scope",
+        "state",
+        "requestedAt",
+        "executeAfter",
+        "canceledAt",
+        "recentAuthAt",
+        "reason"
+      ],
+      "typedColumns": [
+        {
+          "key": "deletionRequestId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "scope",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "requestedAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "executeAfter",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "canceledAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "recentAuthAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "reason",
+          "type": "string",
+          "size": 1024,
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_state",
+          "type": "key",
+          "columns": [
+            "userId",
+            "state"
+          ]
+        },
+        {
+          "key": "executeAfter",
+          "type": "key",
+          "columns": [
+            "executeAfter"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "deletion_job",
+      "name": "Deletion job",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "deletionJobId",
+        "deletionRequestId",
+        "domain",
+        "state",
+        "attemptCount",
+        "lastAttemptAt",
+        "completedAt",
+        "errorCode"
+      ],
+      "typedColumns": [
+        {
+          "key": "deletionJobId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "deletionRequestId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "domain",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "attemptCount",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "lastAttemptAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "completedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "errorCode",
+          "type": "string",
+          "size": 128,
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "deletionRequestId_domain_unique",
+          "type": "unique",
+          "columns": [
+            "deletionRequestId",
+            "domain"
+          ]
+        },
+        {
+          "key": "state_lastAttemptAt",
+          "type": "key",
+          "columns": [
+            "state",
+            "lastAttemptAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "support_ticket",
+      "name": "Support ticket",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "ticketId",
+        "userId",
+        "category",
+        "subject",
+        "bodyRedacted",
+        "safeContextJson",
+        "state",
+        "createdAt",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "ticketId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "category",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "subject",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "bodyRedacted",
+          "type": "string",
+          "size": 8192,
+          "required": true
+        },
+        {
+          "key": "safeContextJson",
+          "type": "string",
+          "size": 4096,
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_state",
+          "type": "key",
+          "columns": [
+            "userId",
+            "state"
+          ]
+        },
+        {
+          "key": "state_updatedAt",
+          "type": "key",
+          "columns": [
+            "state",
+            "updatedAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "content_report",
+      "name": "Content report",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "reportId",
+        "userId",
+        "contentType",
+        "contentId",
+        "reason",
+        "note",
+        "state",
+        "createdAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "reportId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "contentType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "contentId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "reason",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "note",
+          "type": "string",
+          "size": 2048,
+          "required": false
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "state_createdAt",
+          "type": "key",
+          "columns": [
+            "state",
+            "createdAt"
+          ]
+        },
+        {
+          "key": "contentId",
+          "type": "key",
+          "columns": [
+            "contentId"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "feature_flag",
+      "name": "Feature flag",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "flagId",
+        "key",
+        "environment",
+        "enabled",
+        "valueJson",
+        "rolloutPercent",
+        "minimumAppVersion",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "flagId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "key",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "environment",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "enabled",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "key": "valueJson",
+          "type": "string",
+          "size": 4096,
+          "required": true
+        },
+        {
+          "key": "rolloutPercent",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "minimumAppVersion",
+          "type": "string",
+          "size": 64,
+          "required": false
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "key_environment_unique",
+          "type": "unique",
+          "columns": [
+            "key",
+            "environment"
+          ]
+        },
+        {
+          "key": "environment_enabled",
+          "type": "key",
+          "columns": [
+            "environment",
+            "enabled"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "data_retention_job",
+      "name": "Data retention job",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "retentionJobId",
+        "policyKey",
+        "objectType",
+        "cutoffAt",
+        "state",
+        "candidateCount",
+        "deletedCount",
+        "startedAt",
+        "completedAt",
+        "errorCode"
+      ],
+      "typedColumns": [
+        {
+          "key": "retentionJobId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "policyKey",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "objectType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "cutoffAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "candidateCount",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "deletedCount",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "startedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "completedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "errorCode",
+          "type": "string",
+          "size": 128,
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "state_cutoffAt",
+          "type": "key",
+          "columns": [
+            "state",
+            "cutoffAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "report",
+      "name": "Report",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "reportId",
+        "userId",
+        "reportType",
+        "periodStart",
+        "periodEnd",
+        "status",
+        "sourceRevisionHash",
+        "createdAt",
+        "completedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "reportId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "reportType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "periodStart",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "periodEnd",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "sourceRevisionHash",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "completedAt",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "report_scope_source_uq",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "reportType",
+            "periodStart",
+            "periodEnd",
+            "sourceRevisionHash"
+          ]
+        },
+        {
+          "key": "userId_status",
+          "type": "key",
+          "columns": [
+            "userId",
+            "status"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "report_section",
+      "name": "Report section",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "sectionId",
+        "reportId",
+        "sortOrder",
+        "sectionType",
+        "title",
+        "narrative",
+        "chartSpecJson",
+        "provenanceJson"
+      ],
+      "typedColumns": [
+        {
+          "key": "sectionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "reportId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "sortOrder",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "sectionType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "narrative",
+          "type": "string",
+          "size": 8192,
+          "required": true
+        },
+        {
+          "key": "chartSpecJson",
+          "type": "string",
+          "size": 4096,
+          "required": false
+        },
+        {
+          "key": "provenanceJson",
+          "type": "string",
+          "size": 2048,
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "reportId_sortOrder",
+          "type": "key",
+          "columns": [
+            "reportId",
+            "sortOrder"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "report_evidence",
+      "name": "Report evidence",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "reportEvidenceId",
+        "reportId",
+        "sectionId",
+        "sourceType",
+        "sourceObjectId",
+        "sourceRevision",
+        "summaryJson"
+      ],
+      "typedColumns": [
+        {
+          "key": "reportEvidenceId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "reportId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "sectionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "sourceType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "sourceObjectId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "sourceRevision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "summaryJson",
+          "type": "string",
+          "size": 8192,
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "reportId",
+          "type": "key",
+          "columns": [
+            "reportId"
+          ]
+        },
+        {
+          "key": "sectionId",
+          "type": "key",
+          "columns": [
+            "sectionId"
+          ]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

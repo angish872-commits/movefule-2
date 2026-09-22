@@ -1,0 +1,457 @@
+{
+  "migrationId": "movefuel_analysis_nutrition_wave_v1",
+  "schemaVersion": 12,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0#analysis-nutrition",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": null,
+    "serverOnlyTables": [
+      "analysis_attempt",
+      "analysis_event",
+      "meal_item_revision",
+      "nutrition_source_cache",
+      "food_catalog_alias"
+    ],
+    "applyAllowed": true,
+    "note": "Server-only operational and nutrition-source metadata. No prompts, provider credentials, raw model output, or catalog rows are seeded."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "analysis_attempt",
+      "name": "Analysis attempt",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "attemptId",
+        "requestId",
+        "attemptNo",
+        "promptVersionId",
+        "modelConfigId",
+        "provider",
+        "state",
+        "inputHash",
+        "outputHash",
+        "costMicrounits",
+        "latencyMs",
+        "createdAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "attemptId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "requestId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "attemptNo",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "promptVersionId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "modelConfigId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "provider",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "inputHash",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "outputHash",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "costMicrounits",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "latencyMs",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "requestId_attemptNo_unique",
+          "type": "unique",
+          "columns": [
+            "requestId",
+            "attemptNo"
+          ]
+        },
+        {
+          "key": "state_createdAt",
+          "type": "key",
+          "columns": [
+            "state",
+            "createdAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "analysis_event",
+      "name": "Analysis event",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "eventId",
+        "requestId",
+        "attemptId",
+        "stage",
+        "userSafeCode",
+        "occurredAt",
+        "sequence"
+      ],
+      "typedColumns": [
+        {
+          "key": "eventId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "requestId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "attemptId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "stage",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "userSafeCode",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "occurredAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "sequence",
+          "type": "integer",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "requestId_sequence_unique",
+          "type": "unique",
+          "columns": [
+            "requestId",
+            "sequence"
+          ]
+        },
+        {
+          "key": "requestId_occurredAt",
+          "type": "key",
+          "columns": [
+            "requestId",
+            "occurredAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "meal_item_revision",
+      "name": "Meal item revision",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "itemRevisionId",
+        "mealRevisionId",
+        "logicalItemId",
+        "operation",
+        "dataJson",
+        "createdAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "itemRevisionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "mealRevisionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "logicalItemId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "operation",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "dataJson",
+          "type": "string",
+          "size": 8192,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "mealRevisionId_logicalItemId",
+          "type": "key",
+          "columns": [
+            "mealRevisionId",
+            "logicalItemId"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "nutrition_source_cache",
+      "name": "Nutrition source cache",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "nutritionSourceId",
+        "provider",
+        "providerRecordId",
+        "locale",
+        "description",
+        "basis100gJson",
+        "rawVersion",
+        "fetchedAt",
+        "expiresAt",
+        "checksum"
+      ],
+      "typedColumns": [
+        {
+          "key": "nutritionSourceId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "provider",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "providerRecordId",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "locale",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "size": 512,
+          "required": true
+        },
+        {
+          "key": "basis100gJson",
+          "type": "string",
+          "size": 8192,
+          "required": true
+        },
+        {
+          "key": "rawVersion",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "fetchedAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "expiresAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "checksum",
+          "type": "string",
+          "size": 128,
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "provider_record_version_uq",
+          "type": "unique",
+          "columns": [
+            "provider",
+            "providerRecordId",
+            "rawVersion"
+          ]
+        },
+        {
+          "key": "description",
+          "type": "key",
+          "columns": [
+            "description"
+          ]
+        },
+        {
+          "key": "expiresAt",
+          "type": "key",
+          "columns": [
+            "expiresAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "food_catalog_alias",
+      "name": "Food catalog alias",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "aliasId",
+        "nutritionSourceId",
+        "locale",
+        "aliasNormalized",
+        "rank",
+        "source"
+      ],
+      "typedColumns": [
+        {
+          "key": "aliasId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "nutritionSourceId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "locale",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "aliasNormalized",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "rank",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "source",
+          "type": "string",
+          "size": 64,
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "locale_aliasNormalized",
+          "type": "key",
+          "columns": [
+            "locale",
+            "aliasNormalized"
+          ]
+        },
+        {
+          "key": "nutritionSourceId",
+          "type": "key",
+          "columns": [
+            "nutritionSourceId"
+          ]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

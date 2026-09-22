@@ -1,0 +1,23 @@
+{
+  "name": "movefuel",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "MoveFuel monorepo: canonical contracts, pure algorithm engines, backend services, and Android client.",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "scripts": {
+    "test": "npm run test:algorithms && npm run test:backend",
+    "test:algorithms": "node --test algorithms/training/tests/*.test.ts",
+    "test:backend": "node --test \"services/backend/src/tests/**/*.test.ts\"",
+    "typecheck": "npm run typecheck:algorithms && npm run typecheck:backend",
+    "typecheck:algorithms": "tsc -p algorithms/training/tsconfig.json",
+    "typecheck:backend": "tsc -p services/backend/tsconfig.production.json"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.7",
+    "typescript": "5.8.3"
+  },
+  "packageManager": "npm@10.9.2"
+}

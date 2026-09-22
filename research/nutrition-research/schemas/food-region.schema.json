@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/food-region.schema.json",
+  "title": "FoodRegion",
+  "type": "object",
+  "required": [
+    "regionId",
+    "bbox",
+    "segmentationConfidence",
+    "overlapState",
+    "warnings"
+  ],
+  "properties": {
+    "regionId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bbox": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "width": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "height": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "maskReference": {
+      "type": "string"
+    },
+    "segmentationConfidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "overlapState": {
+      "enum": [
+        "NONE",
+        "PARTIAL",
+        "HEAVY"
+      ]
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "maskPolygon": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "items": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "visualPortionEstimate": {
+      "type": "object",
+      "required": ["method", "minimumGrams", "centralGrams", "maximumGrams", "confidence", "assumptions"],
+      "properties": {
+        "method": { "const": "MONOCULAR_MODEL_PRIOR" },
+        "minimumGrams": { "type": "number", "exclusiveMinimum": 0, "maximum": 5000 },
+        "centralGrams": { "type": "number", "exclusiveMinimum": 0, "maximum": 5000 },
+        "maximumGrams": { "type": "number", "exclusiveMinimum": 0, "maximum": 5000 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "assumptions": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

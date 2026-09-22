@@ -1,0 +1,11 @@
+sample_id,category,predicted_min_g,predicted_central_g,predicted_max_g,predicted_min_kcal,predicted_central_kcal,predicted_max_kcal,predicted_min_protein_g,predicted_central_protein_g,predicted_max_protein_g,predicted_min_carb_g,predicted_central_carb_g,predicted_max_carb_g,predicted_min_fat_g,predicted_central_fat_g,predicted_max_fat_g,prediction_state,algorithm_version,model_version
+ic-001,mixed_cafeteria_plate,,,,,,,,,,,,,,,,PENDING_LIVE_ALGORITHM_RUN,,
+ic-002,mixed_cafeteria_plate,,,,,,,,,,,,,,,,PENDING_LIVE_ALGORITHM_RUN,,
+ic-003,mixed_cafeteria_plate,,,,,,,,,,,,,,,,PENDING_LIVE_ALGORITHM_RUN,,
+ic-004,mixed_cafeteria_plate,,,,,,,,,,,,,,,,PENDING_LIVE_ALGORITHM_RUN,,
+ic-005,mixed_cafeteria_plate,,,,,,,,,,,,,,,,PENDING_LIVE_ALGORITHM_RUN,,
+ic-006,mixed_cafeteria_plate,,,,,,,,,,,,,,,,PENDING_LIVE_ALGORITHM_RUN,,
+ic-007,mixed_cafeteria_plate,,,,,,,,,,,,,,,,PENDING_LIVE_ALGORITHM_RUN,,
+ic-008,mixed_cafeteria_plate,,,,,,,,,,,,,,,,PENDING_LIVE_ALGORITHM_RUN,,
+ic-009,mixed_cafeteria_plate,,,,,,,,,,,,,,,,PENDING_LIVE_ALGORITHM_RUN,,
+ic-010,mixed_cafeteria_plate,,,,,,,,,,,,,,,,PENDING_LIVE_ALGORITHM_RUN,,

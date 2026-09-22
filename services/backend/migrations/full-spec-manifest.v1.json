@@ -1,0 +1,2087 @@
+{
+  "migrationId": "movefuel_full_spec_v1",
+  "schemaVersion": 4,
+  "mode": "create_missing_and_verify_existing",
+  "status": "preflight_only_logical_catalog",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": "userId",
+    "serverOnlyTables": [
+      "schema_migrations",
+      "audit_event",
+      "idempotency_key"
+    ],
+    "applyAllowed": false,
+    "note": "Canonicalized to the live schema_migrations ledger. workout_session_revision uses session-scoped idempotency and is deployed only through its dedicated additive wave after live preflight."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "user_profile",
+      "name": "User Profile",
+      "rowSecurity": true,
+      "columns": [
+        "userId",
+        "displayName",
+        "dateOfBirth",
+        "countryCode",
+        "locale",
+        "timeZone",
+        "sexForEnergyEstimate",
+        "heightMm",
+        "currentWeightG",
+        "goalWeightG",
+        "activityLevel",
+        "trainingFrequency",
+        "onboardingState",
+        "revision",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_unique",
+        "onboardingState",
+        "updatedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "user_identity",
+      "name": "User Identity",
+      "rowSecurity": true,
+      "columns": [
+        "identityId",
+        "userId",
+        "provider",
+        "providerSubjectHash",
+        "emailNormalized",
+        "emailVerified",
+        "linkedAt",
+        "lastUsedAt"
+      ],
+      "indexes": [
+        "provider_providerSubjectHash_unique",
+        "userId"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "user_session_metadata",
+      "name": "User Session Metadata",
+      "rowSecurity": true,
+      "columns": [
+        "sessionMetaId",
+        "userId",
+        "appwriteSessionIdHash",
+        "deviceId",
+        "platform",
+        "appVersion",
+        "createdAt",
+        "lastSeenAt",
+        "revokedAt"
+      ],
+      "indexes": [
+        "appwriteSessionIdHash_unique",
+        "userId_appwriteSessionIdHash",
+        "userId_lastSeenAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "onboarding_progress",
+      "name": "Onboarding Progress",
+      "rowSecurity": true,
+      "columns": [
+        "userId",
+        "currentStep",
+        "completedStepsJson",
+        "draftValuesJson",
+        "schemaVersion",
+        "revision",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_unique",
+        "updatedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "consent_record",
+      "name": "Consent Record",
+      "rowSecurity": true,
+      "columns": [
+        "consentId",
+        "userId",
+        "consentType",
+        "documentVersion",
+        "choice",
+        "jurisdiction",
+        "sourcePlatform",
+        "recordedAt",
+        "revokedAt"
+      ],
+      "indexes": [
+        "userId_consentType_documentVersion_unique",
+        "userId_recordedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "user_preference",
+      "name": "User Preference",
+      "rowSecurity": true,
+      "columns": [
+        "preferenceId",
+        "userId",
+        "key",
+        "valueJson",
+        "revision",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_key_unique",
+        "userId_updatedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "privacy_preference",
+      "name": "Privacy Preference",
+      "rowSecurity": true,
+      "columns": [
+        "userId",
+        "retainMealImages",
+        "imageRetentionDays",
+        "analyticsAllowed",
+        "modelImprovementAllowed",
+        "exportLocale",
+        "revision",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_unique",
+        "updatedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "user_goal",
+      "name": "User Goal",
+      "rowSecurity": true,
+      "columns": [
+        "goalId",
+        "userId",
+        "goalType",
+        "startDate",
+        "targetDate",
+        "targetWeightG",
+        "status",
+        "createdAt",
+        "endedAt"
+      ],
+      "indexes": [
+        "userId_status",
+        "userId_startDate"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "target_revision",
+      "name": "Target Revision",
+      "rowSecurity": true,
+      "columns": [
+        "targetRevisionId",
+        "userId",
+        "effectiveDate",
+        "energyKcal",
+        "proteinG",
+        "movementTarget",
+        "actionCategory",
+        "source",
+        "formulaVersion",
+        "userConfirmed",
+        "revision",
+        "createdAt"
+      ],
+      "indexes": [
+        "userId_effectiveDate_revision_unique",
+        "userId_effectiveDate"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "device",
+      "name": "Device",
+      "rowSecurity": true,
+      "columns": [
+        "deviceId",
+        "userId",
+        "platform",
+        "deviceClass",
+        "installationIdHash",
+        "appVersion",
+        "capabilityJson",
+        "lastSeenAt",
+        "revokedAt"
+      ],
+      "indexes": [
+        "userId_installationIdHash_unique",
+        "userId_deviceClass",
+        "userId_deviceId_unique"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "device_session",
+      "name": "Device Session",
+      "rowSecurity": true,
+      "columns": [
+        "deviceSessionId",
+        "userId",
+        "phoneDeviceId",
+        "watchDeviceId",
+        "state",
+        "issuedAt",
+        "expiresAt",
+        "revokedAt"
+      ],
+      "indexes": [
+        "phoneDeviceId_watchDeviceId_state_unique",
+        "userId_state"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "health_connection",
+      "name": "Health Connection",
+      "rowSecurity": true,
+      "columns": [
+        "connectionId",
+        "userId",
+        "platform",
+        "sourceName",
+        "permissionStateJson",
+        "lastSuccessAt",
+        "lastErrorCode",
+        "revision",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_platform_sourceName_unique",
+        "userId_updatedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "health_import_cursor",
+      "name": "Health Import Cursor",
+      "rowSecurity": true,
+      "columns": [
+        "cursorId",
+        "userId",
+        "connectionId",
+        "dataType",
+        "opaqueCursorEncrypted",
+        "lastWindowEnd",
+        "updatedAt"
+      ],
+      "indexes": [
+        "connectionId_dataType_unique",
+        "userId"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "health_sample_summary",
+      "name": "Health Sample Summary",
+      "rowSecurity": true,
+      "columns": [
+        "summaryId",
+        "userId",
+        "localDate",
+        "dataType",
+        "value",
+        "unit",
+        "sourcePlatform",
+        "sourceDevice",
+        "provenanceHash",
+        "revision",
+        "measuredStart",
+        "measuredEnd"
+      ],
+      "indexes": [
+        "userId_dataType_provenanceHash_unique",
+        "userId_localDate_dataType"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "watch_delivery",
+      "name": "Watch Delivery",
+      "rowSecurity": true,
+      "columns": [
+        "deliveryId",
+        "userId",
+        "summaryId",
+        "revision",
+        "phoneDeviceId",
+        "watchDeviceId",
+        "state",
+        "attemptCount",
+        "lastAttemptAt",
+        "payloadJson",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_summaryId_revision_watchDeviceId_unique",
+        "userId_state"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "watch_receipt",
+      "name": "Watch Receipt",
+      "rowSecurity": true,
+      "columns": [
+        "receiptId",
+        "userId",
+        "deliveryId",
+        "summaryId",
+        "revision",
+        "result",
+        "outcome",
+        "watchDeviceId",
+        "persistedAt",
+        "receivedAt",
+        "createdAt"
+      ],
+      "indexes": [
+        "watchDeviceId_summaryId_revision_result_unique",
+        "deliveryId",
+        "userId_receivedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "device_command",
+      "name": "Device Command",
+      "rowSecurity": true,
+      "columns": [
+        "commandId",
+        "userId",
+        "targetDeviceId",
+        "commandType",
+        "objectId",
+        "objectRevision",
+        "state",
+        "requestedAt",
+        "acknowledgedAt",
+        "errorCode"
+      ],
+      "indexes": [
+        "targetDeviceId_commandType_objectId_objectRevision_unique",
+        "userId_state"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "meal_draft",
+      "name": "Meal Draft",
+      "rowSecurity": true,
+      "columns": [
+        "draftId",
+        "userId",
+        "localDate",
+        "mealType",
+        "sourceType",
+        "note",
+        "state",
+        "activeRevision",
+        "imageRef",
+        "analysisRequestId",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_state_updatedAt",
+        "userId_localDate"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "meal_draft_revision",
+      "name": "Meal Draft Revision",
+      "rowSecurity": true,
+      "columns": [
+        "draftRevisionId",
+        "draftId",
+        "userId",
+        "revision",
+        "itemsJson",
+        "totalsJson",
+        "source",
+        "createdAt"
+      ],
+      "indexes": [
+        "draftId_revision_unique",
+        "userId_createdAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "meal_analysis_request",
+      "name": "Meal Analysis Request",
+      "rowSecurity": true,
+      "columns": [
+        "requestId",
+        "userId",
+        "draftId",
+        "idempotencyKey",
+        "imageObjectId",
+        "state",
+        "activeAttempt",
+        "quotaClass",
+        "createdAt",
+        "completedAt",
+        "errorCode"
+      ],
+      "indexes": [
+        "userId_idempotencyKey_unique",
+        "userId_state_createdAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "analysis_attempt",
+      "name": "Analysis Attempt",
+      "rowSecurity": true,
+      "columns": [
+        "attemptId",
+        "requestId",
+        "attemptNo",
+        "promptVersionId",
+        "modelConfigId",
+        "provider",
+        "state",
+        "inputHash",
+        "outputHash",
+        "costMicrounits",
+        "latencyMs",
+        "createdAt",
+        "completedAt"
+      ],
+      "indexes": [
+        "requestId_attemptNo_unique",
+        "state_createdAt"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "analysis_event",
+      "name": "Analysis Event",
+      "rowSecurity": true,
+      "columns": [
+        "eventId",
+        "requestId",
+        "attemptId",
+        "stage",
+        "userSafeCode",
+        "occurredAt",
+        "sequence"
+      ],
+      "indexes": [
+        "requestId_sequence_unique",
+        "requestId_occurredAt"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "meal",
+      "name": "Meal",
+      "rowSecurity": true,
+      "columns": [
+        "mealId",
+        "userId",
+        "localDate",
+        "mealType",
+        "status",
+        "currentRevision",
+        "confirmedAt",
+        "deletedAt",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_localDate_status",
+        "userId_updatedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "meal_revision",
+      "name": "Meal Revision",
+      "rowSecurity": true,
+      "columns": [
+        "mealRevisionId",
+        "mealId",
+        "userId",
+        "revision",
+        "sourceDraftId",
+        "totalEnergyKcal",
+        "totalProteinG",
+        "totalCarbG",
+        "totalFatG",
+        "totalFiberG",
+        "estimateStatus",
+        "confirmedByUser",
+        "createdAt"
+      ],
+      "indexes": [
+        "mealId_revision_unique",
+        "userId_createdAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "meal_item",
+      "name": "Meal Item",
+      "rowSecurity": true,
+      "columns": [
+        "mealItemId",
+        "mealId",
+        "mealRevisionId",
+        "userId",
+        "sortOrder",
+        "displayName",
+        "standardizedGrams",
+        "portionAmount",
+        "portionUnit",
+        "energyKcal",
+        "proteinG",
+        "carbG",
+        "fatG",
+        "fiberG",
+        "nutritionSourceId",
+        "confidence"
+      ],
+      "indexes": [
+        "mealId_sortOrder",
+        "userId_displayName"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "meal_item_revision",
+      "name": "Meal Item Revision",
+      "rowSecurity": true,
+      "columns": [
+        "itemRevisionId",
+        "mealRevisionId",
+        "logicalItemId",
+        "operation",
+        "dataJson",
+        "createdAt"
+      ],
+      "indexes": [
+        "mealRevisionId",
+        "logicalItemId"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "meal_media",
+      "name": "Meal Media",
+      "rowSecurity": true,
+      "columns": [
+        "mediaId",
+        "userId",
+        "draftId",
+        "mealId",
+        "bucketId",
+        "objectId",
+        "variant",
+        "checksum",
+        "width",
+        "height",
+        "state",
+        "deleteAfter",
+        "createdAt",
+        "deletedAt"
+      ],
+      "indexes": [
+        "bucketId_objectId_unique",
+        "userId_state_deleteAfter"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "meal_tombstone",
+      "name": "Meal Tombstone",
+      "rowSecurity": true,
+      "columns": [
+        "tombstoneId",
+        "userId",
+        "mealId",
+        "deletedRevision",
+        "reason",
+        "createdAt",
+        "purgeAfter"
+      ],
+      "indexes": [
+        "userId_mealId_deletedRevision_unique",
+        "userId_createdAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "saved_meal",
+      "name": "Saved Meal",
+      "rowSecurity": true,
+      "columns": [
+        "savedMealId",
+        "userId",
+        "name",
+        "currentRevision",
+        "totalEnergyKcal",
+        "totalProteinG",
+        "createdAt",
+        "updatedAt",
+        "deletedAt"
+      ],
+      "indexes": [
+        "userId_updatedAt",
+        "userId_name"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "saved_meal_item",
+      "name": "Saved Meal Item",
+      "rowSecurity": true,
+      "columns": [
+        "savedMealItemId",
+        "savedMealId",
+        "userId",
+        "sortOrder",
+        "foodRef",
+        "displayName",
+        "grams",
+        "portionJson",
+        "nutrientsJson"
+      ],
+      "indexes": [
+        "savedMealId_sortOrder"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "personal_food",
+      "name": "Personal Food",
+      "rowSecurity": true,
+      "columns": [
+        "personalFoodId",
+        "userId",
+        "name",
+        "basisAmount",
+        "basisUnit",
+        "energyKcal",
+        "proteinG",
+        "carbG",
+        "fatG",
+        "fiberG",
+        "provenanceNote",
+        "revision",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_name",
+        "userId_updatedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "nutrition_source_cache",
+      "name": "Nutrition Source Cache",
+      "rowSecurity": true,
+      "columns": [
+        "nutritionSourceId",
+        "provider",
+        "providerRecordId",
+        "locale",
+        "description",
+        "basis100gJson",
+        "rawVersion",
+        "fetchedAt",
+        "expiresAt",
+        "checksum"
+      ],
+      "indexes": [
+        "provider_providerRecordId_rawVersion_unique",
+        "description",
+        "expiresAt"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "food_catalog_alias",
+      "name": "Food Catalog Alias",
+      "rowSecurity": true,
+      "columns": [
+        "aliasId",
+        "nutritionSourceId",
+        "locale",
+        "aliasNormalized",
+        "rank",
+        "source"
+      ],
+      "indexes": [
+        "locale_aliasNormalized",
+        "nutritionSourceId"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "daily_aggregate",
+      "name": "Daily Aggregate",
+      "rowSecurity": true,
+      "columns": [
+        "aggregateId",
+        "userId",
+        "localDate",
+        "energyKcal",
+        "proteinG",
+        "carbG",
+        "fatG",
+        "fiberG",
+        "movementValue",
+        "movementUnit",
+        "mealCount",
+        "workoutCount",
+        "targetRevisionId",
+        "revision",
+        "sourceUpdatedAt"
+      ],
+      "indexes": [
+        "userId_localDate_unique",
+        "userId_localDate"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "day_summary",
+      "name": "Day Summary",
+      "rowSecurity": true,
+      "columns": [
+        "daySummaryId",
+        "userId",
+        "localDate",
+        "hasMeals",
+        "hasWorkout",
+        "energyStatus",
+        "proteinStatus",
+        "syncState",
+        "revision",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_localDate_unique",
+        "userId_localDate"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "daily_recommendation",
+      "name": "Daily Recommendation",
+      "rowSecurity": true,
+      "columns": [
+        "recommendationId",
+        "userId",
+        "localDate",
+        "category",
+        "title",
+        "body",
+        "ruleId",
+        "ruleVersion",
+        "state",
+        "inputRevisionHash",
+        "confidenceLabel",
+        "createdAt",
+        "supersededAt"
+      ],
+      "indexes": [
+        "userId_localDate_state",
+        "userId_localDate_state_inputRevisionHash_unique"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "recommendation_evidence",
+      "name": "Recommendation Evidence",
+      "rowSecurity": true,
+      "columns": [
+        "evidenceId",
+        "recommendationId",
+        "evidenceType",
+        "objectId",
+        "summaryJson",
+        "sourceUpdatedAt",
+        "createdAt"
+      ],
+      "indexes": [
+        "recommendationId"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "action_completion",
+      "name": "Action Completion",
+      "rowSecurity": true,
+      "columns": [
+        "completionId",
+        "userId",
+        "recommendationId",
+        "action",
+        "sourceDevice",
+        "idempotencyKey",
+        "occurredAt"
+      ],
+      "indexes": [
+        "userId_idempotencyKey_unique",
+        "recommendationId"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "wellness_checkin",
+      "name": "Wellness Checkin",
+      "rowSecurity": true,
+      "columns": [
+        "checkinId",
+        "userId",
+        "localDate",
+        "energyLevel",
+        "sorenessAreasJson",
+        "sleepPerception",
+        "note",
+        "revision",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_localDate_unique",
+        "userId_localDate"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "progress_insight",
+      "name": "Progress Insight",
+      "rowSecurity": true,
+      "columns": [
+        "insightId",
+        "userId",
+        "periodStart",
+        "periodEnd",
+        "category",
+        "resultText",
+        "evidenceHash",
+        "ruleVersion",
+        "state",
+        "createdAt"
+      ],
+      "indexes": [
+        "userId_periodStart_periodEnd",
+        "state"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "report",
+      "name": "Report",
+      "rowSecurity": true,
+      "columns": [
+        "reportId",
+        "userId",
+        "reportType",
+        "periodStart",
+        "periodEnd",
+        "status",
+        "sourceRevisionHash",
+        "createdAt",
+        "completedAt"
+      ],
+      "indexes": [
+        "userId_reportType_periodStart_periodEnd_sourceRevisionHash_unique",
+        "userId_status"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "report_section",
+      "name": "Report Section",
+      "rowSecurity": true,
+      "columns": [
+        "sectionId",
+        "reportId",
+        "sortOrder",
+        "sectionType",
+        "title",
+        "narrative",
+        "chartSpecJson",
+        "provenanceJson"
+      ],
+      "indexes": [
+        "reportId_sortOrder"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "report_evidence",
+      "name": "Report Evidence",
+      "rowSecurity": true,
+      "columns": [
+        "reportEvidenceId",
+        "reportId",
+        "sectionId",
+        "sourceType",
+        "sourceObjectId",
+        "sourceRevision",
+        "summaryJson"
+      ],
+      "indexes": [
+        "reportId",
+        "sectionId"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "exercise_catalog",
+      "name": "Exercise Catalog",
+      "rowSecurity": true,
+      "columns": [
+        "exerciseId",
+        "slug",
+        "name",
+        "instructionsJson",
+        "equipmentJson",
+        "mediaLicense",
+        "mediaObjectId",
+        "status",
+        "revision",
+        "updatedAt"
+      ],
+      "indexes": [
+        "slug_unique",
+        "status_name"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "exercise_muscle_map",
+      "name": "Exercise Muscle Map",
+      "rowSecurity": true,
+      "columns": [
+        "mapId",
+        "exerciseId",
+        "muscleGroup",
+        "role",
+        "contributionWeight",
+        "sourceVersion"
+      ],
+      "indexes": [
+        "exerciseId_muscleGroup_role_unique",
+        "muscleGroup"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "workout_plan",
+      "name": "Workout Plan",
+      "rowSecurity": true,
+      "columns": [
+        "planId",
+        "userId",
+        "ownerType",
+        "name",
+        "goalCategory",
+        "currentRevision",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_status",
+        "ownerType_status"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "workout_plan_revision",
+      "name": "Workout Plan Revision",
+      "rowSecurity": true,
+      "columns": [
+        "planRevisionId",
+        "planId",
+        "revision",
+        "name",
+        "notes",
+        "source",
+        "createdAt"
+      ],
+      "indexes": [
+        "planId_revision_unique",
+        "createdAt"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "workout_plan_step",
+      "name": "Workout Plan Step",
+      "rowSecurity": true,
+      "columns": [
+        "stepId",
+        "planRevisionId",
+        "sortOrder",
+        "exerciseId",
+        "sets",
+        "repsMin",
+        "repsMax",
+        "durationSeconds",
+        "restSeconds",
+        "loadGuidance",
+        "optional"
+      ],
+      "indexes": [
+        "planRevisionId_sortOrder"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "workout_session",
+      "name": "Workout Session",
+      "rowSecurity": true,
+      "columns": [
+        "sessionId",
+        "userId",
+        "planRevisionId",
+        "authorityDeviceId",
+        "workoutType",
+        "state",
+        "currentRevision",
+        "startedAt",
+        "endedAt",
+        "discardedAt",
+        "createdAt"
+      ],
+      "indexes": [
+        "userId_state",
+        "userId_startedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "workout_session_revision",
+      "name": "Workout Session Revision",
+      "rowSecurity": true,
+      "columns": [
+        "sessionRevisionId",
+        "sessionId",
+        "revision",
+        "state",
+        "authorityDeviceId",
+        "reason",
+        "occurredAt",
+        "idempotencyKey"
+      ],
+      "indexes": [
+        "sessionId_revision_unique",
+        "sessionId_idempotencyKey_unique",
+        "sessionId_occurredAt"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "User-owned via workout_session.sessionId; server-only mutation",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "workout_event",
+      "name": "Workout Event",
+      "rowSecurity": true,
+      "columns": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "eventType",
+        "eventSequence",
+        "payloadJson",
+        "sourceDevice",
+        "occurredAt",
+        "idempotencyKey"
+      ],
+      "indexes": [
+        "sessionId_eventSequence_unique",
+        "userId_idempotencyKey_unique",
+        "sessionId_occurredAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "workout_summary",
+      "name": "Workout Summary",
+      "rowSecurity": true,
+      "columns": [
+        "summaryId",
+        "sessionId",
+        "userId",
+        "durationSeconds",
+        "activeEnergyKcal",
+        "distanceM",
+        "steps",
+        "averageHeartRate",
+        "sourcePlatform",
+        "healthWriteState",
+        "revision",
+        "createdAt"
+      ],
+      "indexes": [
+        "sessionId_unique",
+        "userId_createdAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "muscle_load",
+      "name": "Muscle Load",
+      "rowSecurity": true,
+      "columns": [
+        "muscleLoadId",
+        "userId",
+        "sessionId",
+        "localDate",
+        "muscleGroup",
+        "contribution",
+        "algorithmVersion"
+      ],
+      "indexes": [
+        "sessionId_muscleGroup_algorithmVersion_unique",
+        "userId_localDate_muscleGroup"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "sync_operation",
+      "name": "Sync Operation",
+      "rowSecurity": true,
+      "columns": [
+        "operationId",
+        "userId",
+        "deviceId",
+        "entityType",
+        "entityId",
+        "entityRevision",
+        "operationType",
+        "payloadHash",
+        "state",
+        "attemptCount",
+        "nextAttemptAt",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        "deviceId_entityType_entityId_entityRevision_operationType_unique",
+        "userId_state_nextAttemptAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "sync_cursor",
+      "name": "Sync Cursor",
+      "rowSecurity": true,
+      "columns": [
+        "cursorId",
+        "userId",
+        "deviceId",
+        "domain",
+        "opaqueCursor",
+        "lastSyncAt",
+        "schemaVersion"
+      ],
+      "indexes": [
+        "userId_deviceId_domain_unique",
+        "userId_lastSyncAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "idempotency_key",
+      "name": "Idempotency Key",
+      "rowSecurity": true,
+      "columns": [
+        "keyId",
+        "userId",
+        "scope",
+        "keyHash",
+        "requestHash",
+        "responseRef",
+        "state",
+        "expiresAt",
+        "createdAt"
+      ],
+      "indexes": [
+        "scope_keyHash_unique",
+        "expiresAt"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "usage_ledger",
+      "name": "Usage Ledger",
+      "rowSecurity": true,
+      "columns": [
+        "usageId",
+        "userId",
+        "usageType",
+        "quantity",
+        "unit",
+        "requestId",
+        "provider",
+        "model",
+        "periodKey",
+        "occurredAt",
+        "reversalOf"
+      ],
+      "indexes": [
+        "userId_periodKey_usageType",
+        "requestId"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "prompt_template",
+      "name": "Prompt Template",
+      "rowSecurity": true,
+      "columns": [
+        "promptId",
+        "taskType",
+        "name",
+        "description",
+        "activeVersionId",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        "taskType_unique",
+        "status"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "prompt_version",
+      "name": "Prompt Version",
+      "rowSecurity": true,
+      "columns": [
+        "promptVersionId",
+        "promptId",
+        "version",
+        "systemInstructionEncrypted",
+        "jsonSchemaJson",
+        "safetyRulesJson",
+        "testSuiteVersion",
+        "checksum",
+        "state",
+        "createdAt",
+        "activatedAt",
+        "retiredAt"
+      ],
+      "indexes": [
+        "promptId_version_unique",
+        "state"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "model_configuration",
+      "name": "Model Configuration",
+      "rowSecurity": true,
+      "columns": [
+        "modelConfigId",
+        "taskType",
+        "provider",
+        "modelName",
+        "temperature",
+        "maxOutputTokens",
+        "timeoutMs",
+        "retryPolicyJson",
+        "state",
+        "createdAt"
+      ],
+      "indexes": [
+        "taskType_state"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "provider_call",
+      "name": "Provider Call",
+      "rowSecurity": true,
+      "columns": [
+        "providerCallId",
+        "userId",
+        "taskType",
+        "requestId",
+        "provider",
+        "model",
+        "promptVersionId",
+        "inputHash",
+        "outputHash",
+        "status",
+        "latencyMs",
+        "tokenIn",
+        "tokenOut",
+        "costMicrounits",
+        "errorClass",
+        "createdAt"
+      ],
+      "indexes": [
+        "requestId",
+        "status_createdAt",
+        "userId_createdAt"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "notification",
+      "name": "Notification",
+      "rowSecurity": true,
+      "columns": [
+        "notificationId",
+        "userId",
+        "type",
+        "title",
+        "body",
+        "deepLink",
+        "objectId",
+        "priority",
+        "createdAt",
+        "readAt",
+        "expiresAt"
+      ],
+      "indexes": [
+        "userId_readAt_createdAt",
+        "expiresAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "notification_delivery",
+      "name": "Notification Delivery",
+      "rowSecurity": true,
+      "columns": [
+        "deliveryId",
+        "notificationId",
+        "deviceId",
+        "provider",
+        "state",
+        "attemptCount",
+        "lastAttemptAt",
+        "providerMessageIdHash",
+        "errorCode"
+      ],
+      "indexes": [
+        "notificationId_deviceId_unique",
+        "state_lastAttemptAt"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "subscription",
+      "name": "Subscription",
+      "rowSecurity": true,
+      "columns": [
+        "subscriptionId",
+        "userId",
+        "provider",
+        "productId",
+        "originalTransactionIdHash",
+        "purchaseTokenHash",
+        "state",
+        "startAt",
+        "expiresAt",
+        "autoRenew",
+        "environment",
+        "revision",
+        "updatedAt"
+      ],
+      "indexes": [
+        "provider_originalTransactionIdHash_unique",
+        "provider_purchaseTokenHash_unique",
+        "userId_state"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "entitlement",
+      "name": "Entitlement",
+      "rowSecurity": true,
+      "columns": [
+        "entitlementId",
+        "userId",
+        "entitlementKey",
+        "state",
+        "sourceSubscriptionId",
+        "effectiveAt",
+        "expiresAt",
+        "revision",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_entitlementKey_unique",
+        "userId_state"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "purchase_event",
+      "name": "Purchase Event",
+      "rowSecurity": true,
+      "columns": [
+        "purchaseEventId",
+        "userId",
+        "provider",
+        "externalEventIdHash",
+        "eventType",
+        "productId",
+        "subscriptionId",
+        "signedPayloadHash",
+        "occurredAt",
+        "receivedAt",
+        "verificationState"
+      ],
+      "indexes": [
+        "provider_externalEventIdHash_unique",
+        "subscriptionId_occurredAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "webhook_event",
+      "name": "Webhook Event",
+      "rowSecurity": true,
+      "columns": [
+        "webhookEventId",
+        "provider",
+        "externalEventIdHash",
+        "headersHash",
+        "payloadObjectId",
+        "receivedAt",
+        "verifiedAt",
+        "state",
+        "attemptCount",
+        "errorCode"
+      ],
+      "indexes": [
+        "provider_externalEventIdHash_unique",
+        "state_receivedAt"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "export_job",
+      "name": "Export Job",
+      "rowSecurity": true,
+      "columns": [
+        "exportJobId",
+        "userId",
+        "exportType",
+        "state",
+        "requestedAt",
+        "startedAt",
+        "completedAt",
+        "expiresAt",
+        "errorCode"
+      ],
+      "indexes": [
+        "userId_state_requestedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "export_artifact",
+      "name": "Export Artifact",
+      "rowSecurity": true,
+      "columns": [
+        "artifactId",
+        "exportJobId",
+        "userId",
+        "bucketId",
+        "objectId",
+        "checksum",
+        "sizeBytes",
+        "expiresAt",
+        "downloadedAt",
+        "revokedAt"
+      ],
+      "indexes": [
+        "bucketId_objectId_unique",
+        "userId_expiresAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "deletion_request",
+      "name": "Deletion Request",
+      "rowSecurity": true,
+      "columns": [
+        "deletionRequestId",
+        "userId",
+        "scope",
+        "state",
+        "requestedAt",
+        "executeAfter",
+        "canceledAt",
+        "recentAuthAt",
+        "reason"
+      ],
+      "indexes": [
+        "userId_state",
+        "executeAfter"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "deletion_job",
+      "name": "Deletion Job",
+      "rowSecurity": true,
+      "columns": [
+        "deletionJobId",
+        "deletionRequestId",
+        "domain",
+        "state",
+        "attemptCount",
+        "lastAttemptAt",
+        "completedAt",
+        "errorCode"
+      ],
+      "indexes": [
+        "deletionRequestId_domain_unique",
+        "state_lastAttemptAt"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "audit_event",
+      "name": "Audit Event",
+      "rowSecurity": true,
+      "columns": [
+        "auditId",
+        "userId",
+        "actorType",
+        "actorIdHash",
+        "action",
+        "objectType",
+        "objectId",
+        "result",
+        "correlationId",
+        "occurredAt",
+        "metadataJson"
+      ],
+      "indexes": [
+        "userId_occurredAt",
+        "correlationId",
+        "action_occurredAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "support_ticket",
+      "name": "Support Ticket",
+      "rowSecurity": true,
+      "columns": [
+        "ticketId",
+        "userId",
+        "category",
+        "subject",
+        "bodyRedacted",
+        "safeContextJson",
+        "state",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        "userId_state",
+        "state_updatedAt"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "content_report",
+      "name": "Content Report",
+      "rowSecurity": true,
+      "columns": [
+        "reportId",
+        "userId",
+        "contentType",
+        "contentId",
+        "reason",
+        "note",
+        "state",
+        "createdAt"
+      ],
+      "indexes": [
+        "state_createdAt",
+        "contentId"
+      ],
+      "permissions": "default_deny_owner_scoped",
+      "ownerField": "userId",
+      "ownershipSource": "User-owned",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "feature_flag",
+      "name": "Feature Flag",
+      "rowSecurity": true,
+      "columns": [
+        "flagId",
+        "key",
+        "environment",
+        "enabled",
+        "valueJson",
+        "rolloutPercent",
+        "minimumAppVersion",
+        "updatedAt"
+      ],
+      "indexes": [
+        "key_environment_unique",
+        "environment_enabled"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "schema_migrations",
+      "name": "Schema Migrations",
+      "rowSecurity": true,
+      "columns": [
+        "migrationId",
+        "schemaVersion",
+        "checksum",
+        "state",
+        "resourceSummaryJson",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": [
+        "migrationId_schemaVersion_unique"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "data_retention_job",
+      "name": "Data Retention Job",
+      "rowSecurity": true,
+      "columns": [
+        "retentionJobId",
+        "policyKey",
+        "objectType",
+        "cutoffAt",
+        "state",
+        "candidateCount",
+        "deletedCount",
+        "startedAt",
+        "completedAt",
+        "errorCode"
+      ],
+      "indexes": [
+        "state_cutoffAt"
+      ],
+      "permissions": "default_deny_server_only",
+      "ownerField": null,
+      "ownershipSource": "Server-managed",
+      "columnSchemaStatus": "logical_fields_only",
+      "requiresReview": true
+    }
+  ]
+}

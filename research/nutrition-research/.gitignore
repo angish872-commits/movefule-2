@@ -1,0 +1,8 @@
+# Large downloaded/processed USDA data — never commit these.
+data/raw/
+data/processed/
+data/reports/import.log
+__pycache__/
+*.pyc
+.venv/
+venv/

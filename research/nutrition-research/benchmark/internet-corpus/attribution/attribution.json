@@ -1,0 +1,302 @@
+[
+  {
+    "stable_sample_id": "ic-001",
+    "source_dataset": "Nutrition5k (Google Research)",
+    "original_identifier": "dish_1561665452",
+    "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+    "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-002",
+    "source_dataset": "Nutrition5k (Google Research)",
+    "original_identifier": "dish_1564428515",
+    "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+    "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-003",
+    "source_dataset": "Nutrition5k (Google Research)",
+    "original_identifier": "dish_1566844850",
+    "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+    "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-004",
+    "source_dataset": "Nutrition5k (Google Research)",
+    "original_identifier": "dish_1565898158",
+    "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+    "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-005",
+    "source_dataset": "Nutrition5k (Google Research)",
+    "original_identifier": "dish_1562785184",
+    "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+    "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-006",
+    "source_dataset": "Nutrition5k (Google Research)",
+    "original_identifier": "dish_1562687299",
+    "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+    "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-007",
+    "source_dataset": "Nutrition5k (Google Research)",
+    "original_identifier": "dish_1567020054",
+    "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+    "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-008",
+    "source_dataset": "Nutrition5k (Google Research)",
+    "original_identifier": "dish_1565379251",
+    "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+    "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-009",
+    "source_dataset": "Nutrition5k (Google Research)",
+    "original_identifier": "dish_1560441511",
+    "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+    "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-010",
+    "source_dataset": "Nutrition5k (Google Research)",
+    "original_identifier": "dish_1561654326",
+    "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+    "licence": "CC BY 4.0",
+    "licence_url": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+    "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-011",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Steamed Chicken Momo with soup.jpg",
+    "author_owner": "Sirsendu.mohanta",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-012",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Fried momo.jpg",
+    "author_owner": "Dhanwanthkurup",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-013",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Vegetables Momo streamed with Jhol achar - Bhatti Pasal 2024-11-26.jpg",
+    "author_owner": "Andy Li",
+    "licence": "CC0",
+    "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "attribution_requirements": "Creative Commons Zero, Public Domain Dedication",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-014",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Dal bhat.jpg",
+    "author_owner": "Gaurav Dhwaj Khadka",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-015",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Cooked Brown rice.jpg",
+    "author_owner": "MaiDenzel",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-016",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Boiled yellow lentil tomato ginger garlic.jpg",
+    "author_owner": "CNEcija12345",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-017",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Labra tarkari-MA17.jpg",
+    "author_owner": "Rajeeb Dutta",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-018",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Chicken Curry 4.jpg",
+    "author_owner": "Gaurav Dhwaj Khadka",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-019",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Chicken Chow mein 1.jpg",
+    "author_owner": "Gaurav Dhwaj Khadka",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-020",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Chicken Thukpa.jpg",
+    "author_owner": "Gaurav Dhwaj Khadka",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-021",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Steamed momos - Tibetan cuisine.jpg",
+    "author_owner": "Sarkar Sayantan",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-022",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Momo ready for steaming.jpg",
+    "author_owner": "Krish Dulal",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-023",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Fried momos.jpg",
+    "author_owner": "Dhanwanthkurup",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-024",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Mutton Momos.jpg",
+    "author_owner": "Vikassinghbahamania",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-025",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Nepali dal-bhat-tarkari.jpg",
+    "author_owner": "Subhashish Panigrahi",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-026",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Dal Bhat Tarkari with Chicken.jpg",
+    "author_owner": "Gaurav Dhwaj Khadka",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-027",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Buff Chow Mein with Sauce.jpg",
+    "author_owner": "Gaurav Dhwaj Khadka",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-028",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Thukpa, Manali, Himachal Pradesh.JPG",
+    "author_owner": "Amanbedi1",
+    "licence": "CC BY-SA 4.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-029",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:Vegetable Curry, Dec 2013.jpg",
+    "author_owner": "Ibrahim Husain Meraj",
+    "licence": "CC BY-SA 3.0",
+    "licence_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "attribution_requirements": "Creative Commons Attribution-Share Alike 3.0",
+    "retrieval_date": "2026-08-06"
+  },
+  {
+    "stable_sample_id": "ic-030",
+    "source_dataset": "Wikimedia Commons",
+    "original_identifier": "File:A plate of cooked rice with stew.jpg",
+    "author_owner": "THE ROSE BOY",
+    "licence": "CC0",
+    "licence_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "attribution_requirements": "Creative Commons Zero, Public Domain Dedication",
+    "retrieval_date": "2026-08-06"
+  }
+]

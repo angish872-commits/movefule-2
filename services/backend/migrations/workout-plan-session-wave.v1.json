@@ -1,0 +1,595 @@
+{
+  "migrationId": "movefuel_workout_plan_session_wave_v1",
+  "schemaVersion": 9,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0#workout-plan-session",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": "userId",
+    "serverOnlyTables": [
+      "workout_plan_revision",
+      "workout_plan_step"
+    ],
+    "applyAllowed": true,
+    "note": "Six typed tables are eligible here. workout_session_revision is handled by workout-session-revision-fix-wave.v1.json, which replaces the invalid userId index with session-scoped idempotency and remains non-destructive until fresh live preflight approval."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "workout_plan",
+      "name": "Workout plan",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "planId",
+        "userId",
+        "ownerType",
+        "name",
+        "goalCategory",
+        "currentRevision",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "planId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "ownerType",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "goalCategory",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "currentRevision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "status",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_status",
+          "type": "key",
+          "columns": [
+            "userId",
+            "status"
+          ]
+        },
+        {
+          "key": "ownerType_status",
+          "type": "key",
+          "columns": [
+            "ownerType",
+            "status"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "workout_plan_revision",
+      "name": "Workout plan revision",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "planRevisionId",
+        "planId",
+        "revision",
+        "name",
+        "notes",
+        "source",
+        "createdAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "planRevisionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "planId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "notes",
+          "type": "string",
+          "size": 8192,
+          "required": false
+        },
+        {
+          "key": "source",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "planId_revision_unique",
+          "type": "unique",
+          "columns": [
+            "planId",
+            "revision"
+          ]
+        },
+        {
+          "key": "createdAt",
+          "type": "key",
+          "columns": [
+            "createdAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "workout_plan_step",
+      "name": "Workout plan step",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "stepId",
+        "planRevisionId",
+        "sortOrder",
+        "exerciseId",
+        "sets",
+        "repsMin",
+        "repsMax",
+        "durationSeconds",
+        "restSeconds",
+        "loadGuidance",
+        "optional"
+      ],
+      "typedColumns": [
+        {
+          "key": "stepId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "planRevisionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "sortOrder",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "exerciseId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "sets",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "repsMin",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "repsMax",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "durationSeconds",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "restSeconds",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "loadGuidance",
+          "type": "string",
+          "size": 256,
+          "required": false
+        },
+        {
+          "key": "optional",
+          "type": "boolean",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "planRevisionId_sortOrder",
+          "type": "key",
+          "columns": [
+            "planRevisionId",
+            "sortOrder"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "workout_session",
+      "name": "Workout session",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "sessionId",
+        "userId",
+        "planRevisionId",
+        "authorityDeviceId",
+        "workoutType",
+        "state",
+        "currentRevision",
+        "startedAt",
+        "endedAt",
+        "discardedAt",
+        "createdAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "sessionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "planRevisionId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "authorityDeviceId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "workoutType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "currentRevision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "startedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "endedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "discardedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_state",
+          "type": "key",
+          "columns": [
+            "userId",
+            "state"
+          ]
+        },
+        {
+          "key": "userId_startedAt",
+          "type": "key",
+          "columns": [
+            "userId",
+            "startedAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "workout_event",
+      "name": "Workout event",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "eventId",
+        "sessionId",
+        "userId",
+        "eventType",
+        "eventSequence",
+        "payloadJson",
+        "sourceDevice",
+        "occurredAt",
+        "idempotencyKey"
+      ],
+      "typedColumns": [
+        {
+          "key": "eventId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "sessionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "eventType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "eventSequence",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "payloadJson",
+          "type": "string",
+          "size": 8192,
+          "required": true
+        },
+        {
+          "key": "sourceDevice",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "occurredAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "idempotencyKey",
+          "type": "string",
+          "size": 128,
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "sessionId_eventSequence_unique",
+          "type": "unique",
+          "columns": [
+            "sessionId",
+            "eventSequence"
+          ]
+        },
+        {
+          "key": "userId_idempotencyKey_unique",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "idempotencyKey"
+          ]
+        },
+        {
+          "key": "sessionId_occurredAt",
+          "type": "key",
+          "columns": [
+            "sessionId",
+            "occurredAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "workout_summary",
+      "name": "Workout summary",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "summaryId",
+        "sessionId",
+        "userId",
+        "durationSeconds",
+        "activeEnergyKcal",
+        "distanceM",
+        "steps",
+        "averageHeartRate",
+        "sourcePlatform",
+        "healthWriteState",
+        "revision",
+        "createdAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "summaryId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "sessionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "durationSeconds",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "activeEnergyKcal",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "distanceM",
+          "type": "double",
+          "required": false
+        },
+        {
+          "key": "steps",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "averageHeartRate",
+          "type": "double",
+          "required": false
+        },
+        {
+          "key": "sourcePlatform",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "healthWriteState",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "sessionId_unique",
+          "type": "unique",
+          "columns": [
+            "sessionId"
+          ]
+        },
+        {
+          "key": "userId_createdAt",
+          "type": "key",
+          "columns": [
+            "userId",
+            "createdAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

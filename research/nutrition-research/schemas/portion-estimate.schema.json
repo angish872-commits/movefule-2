@@ -1,0 +1,266 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/portion-estimate.schema.json",
+  "title": "PortionEstimate",
+  "type": "object",
+  "required": [
+    "minimumGrams",
+    "centralGrams",
+    "maximumGrams",
+    "confidence",
+    "evidenceUsed",
+    "evidenceRejected",
+    "assumptions",
+    "uncertainties",
+    "estimatorVersion",
+    "requiresClarification",
+    "requiresUserConfirmation"
+  ],
+  "properties": {
+    "minimumGrams": {
+      "type": "number",
+      "minimum": 0
+    },
+    "centralGrams": {
+      "type": "number",
+      "minimum": 0
+    },
+    "maximumGrams": {
+      "type": "number",
+      "minimum": 0
+    },
+    "confidence": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "INSUFFICIENT"
+      ]
+    },
+    "evidenceUsed": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "MANUAL_GRAMS",
+          "PACKAGE_LABEL",
+          "BARCODE_SERVING",
+          "PIECE_COUNT",
+          "CONTAINER_FILL_VOLUME",
+          "CALIBRATED_DEPTH_VOLUME",
+          "CALIBRATED_VOLUME",
+          "KNOWN_PLATE_DIAMETER",
+          "KNOWN_BOWL_VOLUME",
+          "REFERENCE_CARD",
+          "SECOND_IMAGE",
+          "SIDE_IMAGE",
+          "DEVICE_DEPTH",
+          "SEGMENTATION_AREA",
+          "BOUNDING_BOX_AREA",
+          "PREVIOUS_CONFIRMED_PORTION",
+          "VISUAL_MODEL_PORTION_PRIOR",
+          "USER_SELECTED_SERVING",
+          "RECIPE_SERVING",
+          "NO_SCALE_REFERENCE"
+        ]
+      }
+    },
+    "evidenceRejected": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "MANUAL_GRAMS",
+          "PACKAGE_LABEL",
+          "BARCODE_SERVING",
+          "PIECE_COUNT",
+          "CONTAINER_FILL_VOLUME",
+          "CALIBRATED_DEPTH_VOLUME",
+          "CALIBRATED_VOLUME",
+          "KNOWN_PLATE_DIAMETER",
+          "KNOWN_BOWL_VOLUME",
+          "REFERENCE_CARD",
+          "SECOND_IMAGE",
+          "SIDE_IMAGE",
+          "DEVICE_DEPTH",
+          "SEGMENTATION_AREA",
+          "BOUNDING_BOX_AREA",
+          "PREVIOUS_CONFIRMED_PORTION",
+          "VISUAL_MODEL_PORTION_PRIOR",
+          "USER_SELECTED_SERVING",
+          "RECIPE_SERVING",
+          "NO_SCALE_REFERENCE"
+        ]
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "estimatorVersion": {
+      "type": "string"
+    },
+    "requiresClarification": {
+      "type": "boolean"
+    },
+    "requiresUserConfirmation": {
+      "type": "boolean"
+    },
+    "rangeCalibrated": {
+      "type": "boolean"
+    },
+    "calibrationProfileId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fusionMethod": {
+      "enum": [
+        "NONE",
+        "DIRECT_AUTHORITY",
+        "SINGLE_EVIDENCE",
+        "ROBUST_PRECISION_FUSION",
+        "PRIOR_ONLY"
+      ]
+    },
+    "massDistribution": {
+      "type": "object",
+      "required": [
+        "family",
+        "p10Grams",
+        "p50Grams",
+        "p90Grams",
+        "standardDeviationGrams",
+        "effectiveEvidenceCount",
+        "version"
+      ],
+      "properties": {
+        "family": {
+          "enum": [
+            "ROBUST_NORMAL_APPROX",
+            "DIRECT_INTERVAL",
+            "NO_EVIDENCE"
+          ]
+        },
+        "p10Grams": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p50Grams": {
+          "type": "number",
+          "minimum": 0
+        },
+        "p90Grams": {
+          "type": "number",
+          "minimum": 0
+        },
+        "standardDeviationGrams": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "effectiveEvidenceCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "physicalEvidenceGraph": {
+      "type": "object",
+      "required": [
+        "version",
+        "nodes",
+        "conflicts",
+        "containsDirectMass",
+        "containsPhysicalMeasurement",
+        "containsBehavioralPrior"
+      ],
+      "properties": {
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "evidenceType",
+              "reliabilityTier",
+              "validationState",
+              "role",
+              "centralGrams",
+              "minimumGrams",
+              "maximumGrams",
+              "baseWeight"
+            ],
+            "properties": {
+              "evidenceType": {
+                "type": "string"
+              },
+              "reliabilityTier": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "validationState": {
+                "type": "string"
+              },
+              "role": {
+                "enum": [
+                  "DIRECT",
+                  "PHYSICAL",
+                  "CONVERSION",
+                  "BEHAVIORAL_PRIOR"
+                ]
+              },
+              "centralGrams": {
+                "type": "number",
+                "minimum": 0
+              },
+              "minimumGrams": {
+                "type": "number",
+                "minimum": 0
+              },
+              "maximumGrams": {
+                "type": "number",
+                "minimum": 0
+              },
+              "baseWeight": {
+                "type": "number",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "conflicts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "containsDirectMass": {
+          "type": "boolean"
+        },
+        "containsPhysicalMeasurement": {
+          "type": "boolean"
+        },
+        "containsBehavioralPrior": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "validationVersion": "movefuel-target-reference-v4-2",
+  "generatedAt": "2026-08-12T08:53:53.075Z",
+  "referenceBasis": [
+    "NASEM 2023 EER equations: independently transcribed parity check",
+    "MoveFuel goal deltas remain provisional product rules and are validated as behavior, not as universal physiological truth",
+    "Protein general planning band: 1.2-1.6 g/kg/day; muscle/performance/weight-loss central starts at 1.6 g/kg/day"
+  ],
+  "parity": {
+    "cases": 240,
+    "failures": 0,
+    "passed": true,
+    "failureExamples": []
+  },
+  "goalMatrix": {
+    "cases": 960,
+    "failures": 0,
+    "passed": true,
+    "failureExamples": []
+  },
+  "goalChecks": [
+    {
+      "goal": "Lose weight",
+      "maintenanceEnergyKcal": 3014,
+      "suggestedEnergyKcal": 2760,
+      "energyRangeKcal": {
+        "minimum": 2350,
+        "maximum": 3170
+      },
+      "proteinG": 120,
+      "proteinRangeG": {
+        "minimum": 90,
+        "maximum": 120
+      },
+      "carbohydrateG": 363,
+      "fatG": 92,
+      "fiberG": 39,
+      "supported": true
+    },
+    {
+      "goal": "Maintain weight",
+      "maintenanceEnergyKcal": 3014,
+      "suggestedEnergyKcal": 3010,
+      "energyRangeKcal": {
+        "minimum": 2560,
+        "maximum": 3460
+      },
+      "proteinG": 105,
+      "proteinRangeG": {
+        "minimum": 90,
+        "maximum": 120
+      },
+      "carbohydrateG": 423,
+      "fatG": 100,
+      "fiberG": 42,
+      "supported": true
+    },
+    {
+      "goal": "Gain muscle",
+      "maintenanceEnergyKcal": 3014,
+      "suggestedEnergyKcal": 3210,
+      "energyRangeKcal": {
+        "minimum": 2730,
+        "maximum": 3690
+      },
+      "proteinG": 120,
+      "proteinRangeG": {
+        "minimum": 90,
+        "maximum": 120
+      },
+      "carbohydrateG": 442,
+      "fatG": 107,
+      "fiberG": 45,
+      "supported": true
+    },
+    {
+      "goal": "Improve performance",
+      "maintenanceEnergyKcal": 3014,
+      "suggestedEnergyKcal": 3010,
+      "energyRangeKcal": {
+        "minimum": 2560,
+        "maximum": 3460
+      },
+      "proteinG": 120,
+      "proteinRangeG": {
+        "minimum": 90,
+        "maximum": 120
+      },
+      "carbohydrateG": 408,
+      "fatG": 100,
+      "fiberG": 42,
+      "supported": true
+    }
+  ],
+  "goalInvariants": {
+    "maintenanceEqualsRoundedEer": true,
+    "loseStartsBelowMaintenance": true,
+    "gainStartsAboveMaintenance": true,
+    "performanceStartsAtRoundedMaintenance": true,
+    "muscleProteinAtUpperGeneralBand": true,
+    "allRequireSupportedTargets": true
+  },
+  "passed": true
+}

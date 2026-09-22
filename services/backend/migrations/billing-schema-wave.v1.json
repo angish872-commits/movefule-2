@@ -1,0 +1,558 @@
+{
+  "migrationId": "movefuel_billing_schema_wave_v1",
+  "schemaVersion": 16,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0#T057-T067",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": null,
+    "serverOnlyTables": [
+      "purchase_event",
+      "webhook_event"
+    ],
+    "applyAllowed": true,
+    "note": "Create-only typed schema wave. No purchase rows, webhook payloads, provider credentials, or entitlement grants are seeded. The existing schema_migrations ledger is not replaced or modified by this manifest."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "usage_ledger",
+      "name": "Usage Ledger",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "usageId",
+        "userId",
+        "usageType",
+        "quantity",
+        "unit",
+        "requestId",
+        "provider",
+        "model",
+        "periodKey",
+        "occurredAt",
+        "reversalOf"
+      ],
+      "typedColumns": [
+        {
+          "key": "usageId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "usageType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "quantity",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "unit",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "requestId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "provider",
+          "type": "string",
+          "size": 64,
+          "required": false
+        },
+        {
+          "key": "model",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "periodKey",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "occurredAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "reversalOf",
+          "type": "string",
+          "size": 128,
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_periodKey_usageType",
+          "type": "key",
+          "columns": [
+            "userId",
+            "periodKey",
+            "usageType"
+          ]
+        },
+        {
+          "key": "requestId",
+          "type": "key",
+          "columns": [
+            "requestId"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "subscription",
+      "name": "Subscription",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "subscriptionId",
+        "userId",
+        "provider",
+        "productId",
+        "originalTransactionIdHash",
+        "purchaseTokenHash",
+        "state",
+        "startAt",
+        "expiresAt",
+        "autoRenew",
+        "environment",
+        "revision",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "subscriptionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "provider",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "productId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "originalTransactionIdHash",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "purchaseTokenHash",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "startAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "expiresAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "autoRenew",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "key": "environment",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "provider_orig_tx_uq",
+          "logicalKey": "provider_originalTransactionIdHash_unique",
+          "type": "unique",
+          "columns": [
+            "provider",
+            "originalTransactionIdHash"
+          ]
+        },
+        {
+          "key": "provider_token_uq",
+          "logicalKey": "provider_purchaseTokenHash_unique",
+          "type": "unique",
+          "columns": [
+            "provider",
+            "purchaseTokenHash"
+          ]
+        },
+        {
+          "key": "user_state",
+          "logicalKey": "userId_state",
+          "type": "key",
+          "columns": [
+            "userId",
+            "state"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "entitlement",
+      "name": "Entitlement",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "entitlementId",
+        "userId",
+        "entitlementKey",
+        "state",
+        "sourceSubscriptionId",
+        "effectiveAt",
+        "expiresAt",
+        "revision",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "entitlementId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "entitlementKey",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "sourceSubscriptionId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "effectiveAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "expiresAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "user_ent_key_uq",
+          "logicalKey": "userId_entitlementKey_unique",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "entitlementKey"
+          ]
+        },
+        {
+          "key": "user_state",
+          "logicalKey": "userId_state",
+          "type": "key",
+          "columns": [
+            "userId",
+            "state"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "purchase_event",
+      "name": "Purchase Event",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "purchaseEventId",
+        "userId",
+        "provider",
+        "externalEventIdHash",
+        "eventType",
+        "productId",
+        "subscriptionId",
+        "signedPayloadHash",
+        "occurredAt",
+        "receivedAt",
+        "verificationState"
+      ],
+      "typedColumns": [
+        {
+          "key": "purchaseEventId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "provider",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "externalEventIdHash",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "eventType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "productId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "subscriptionId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "signedPayloadHash",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "occurredAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "receivedAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "verificationState",
+          "type": "string",
+          "size": 32,
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "provider_event_uq",
+          "logicalKey": "provider_externalEventIdHash_unique",
+          "type": "unique",
+          "columns": [
+            "provider",
+            "externalEventIdHash"
+          ]
+        },
+        {
+          "key": "subscription_time",
+          "logicalKey": "subscriptionId_occurredAt",
+          "type": "key",
+          "columns": [
+            "subscriptionId",
+            "occurredAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "webhook_event",
+      "name": "Webhook Event",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "webhookEventId",
+        "provider",
+        "externalEventIdHash",
+        "headersHash",
+        "payloadObjectId",
+        "receivedAt",
+        "verifiedAt",
+        "state",
+        "attemptCount",
+        "errorCode"
+      ],
+      "typedColumns": [
+        {
+          "key": "webhookEventId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "provider",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "externalEventIdHash",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "headersHash",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "payloadObjectId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "receivedAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "verifiedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "attemptCount",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "errorCode",
+          "type": "string",
+          "size": 128,
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "provider_event_uq",
+          "logicalKey": "provider_externalEventIdHash_unique",
+          "type": "unique",
+          "columns": [
+            "provider",
+            "externalEventIdHash"
+          ]
+        },
+        {
+          "key": "state_received_at",
+          "logicalKey": "state_receivedAt",
+          "type": "key",
+          "columns": [
+            "state",
+            "receivedAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

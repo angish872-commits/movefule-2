@@ -1,0 +1,42 @@
+{
+  "stable_sample_id": "ic-017",
+  "source_dataset": "Wikimedia Commons",
+  "original_identifier": "File:Labra tarkari-MA17.jpg",
+  "original_source_reference": "  (original file: https://upload.wikimedia.org/wikipedia/commons/f/f0/Labra_tarkari-MA17.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original)",
+  "author_owner": "Rajeeb Dutta",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY-SA 4.0",
+  "licence_evidence_reference": "https://creativecommons.org/licenses/by-sa/4.0",
+  "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+  "evidence_class": "LABELLED_IDENTITY_ONLY",
+  "food_label": "labra tarkari (mixed vegetable curry)",
+  "cuisine_region": "Nepali/South Asian",
+  "local_image_path": "images/ic-017.jpg",
+  "file_extension": "jpg",
+  "sha256": "84b9e4e650a197e8aa40768692e2cc507dadfede22b6332de7a2a3bcd5c47e78",
+  "width": 1280,
+  "height": 960,
+  "source_width": 4032,
+  "source_height": 3024,
+  "download_bytes": 300548,
+  "available_ground_truth_fields": {
+    "food_label": "labra tarkari (mixed vegetable curry)"
+  },
+  "unavailable_ground_truth_fields": [
+    "total_mass_g",
+    "total_calories_kcal",
+    "ingredient_grams",
+    "segmentation_masks"
+  ],
+  "allowed_metrics": [
+    "identity_top1",
+    "identity_top3"
+  ],
+  "blocked_not_measurable_metrics": [
+    "gram_error",
+    "calorie_error",
+    "nutrient_error",
+    "per_region_gram_error"
+  ],
+  "exclusion_reason": null
+}

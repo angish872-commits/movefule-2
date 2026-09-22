@@ -1,0 +1,289 @@
+{
+  "schema_version": "1.0",
+  "corpus": "MoveFuel licensed internet image corpus",
+  "retrieval_date": "2026-08-06",
+  "total_images": 30,
+  "total_download_bytes": 9424310,
+  "source_limit_gb": 3.0,
+  "evidence_class_counts": {
+    "MEASURED_DATASET": 10,
+    "LABELLED_IDENTITY_ONLY": 10,
+    "REFERENCE_ONLY": 10
+  },
+  "sources": [
+    {
+      "name": "Nutrition5k (Google Research)",
+      "licence": "CC BY 4.0",
+      "count": 10
+    },
+    {
+      "name": "Wikimedia Commons",
+      "licence": "multiple (CC0 / CC BY 3.0 / CC BY-SA 4.0)",
+      "count": 20
+    }
+  ],
+  "real_camera_pilot_AWAITING_COLLECTION": [
+    {
+      "item": "banana",
+      "status": "AWAITING_COLLECTION"
+    },
+    {
+      "item": "cooked rice",
+      "status": "AWAITING_COLLECTION"
+    },
+    {
+      "item": "steamed momo",
+      "status": "AWAITING_COLLECTION"
+    },
+    {
+      "item": "dal bhat",
+      "status": "AWAITING_COLLECTION"
+    },
+    {
+      "item": "packaged food with nutrition label",
+      "status": "AWAITING_COLLECTION"
+    }
+  ],
+  "samples": [
+    {
+      "stable_sample_id": "ic-001",
+      "evidence_class": "MEASURED_DATASET",
+      "food_label": "mixed cafeteria plate (ingredient-derived: chard (6g), brown rice (25g), vinegar (1g), olive oil (9g), basil (0g), salt (1g), millet (4g), chive (0g), carrot (25g), apple (5g), chicken (249g), …)",
+      "licence": "CC BY 4.0",
+      "image_path": "images/ic-001.png",
+      "sha256": "bd3eace68c511d4f8e0d57c7a180a9eec7f1dbc41f3b5f3bd39f109c819a00ad"
+    },
+    {
+      "stable_sample_id": "ic-002",
+      "evidence_class": "MEASURED_DATASET",
+      "food_label": "mixed cafeteria plate (ingredient-derived: pears (12g), shallots (0g), parsley (2g), onions (7g), cabbage (11g), mayonnaise (2g), pork (79g), jalapenos (0g), arugula (8g), vinegar (5g), cherry …)",
+      "licence": "CC BY 4.0",
+      "image_path": "images/ic-002.png",
+      "sha256": "97111d9e18efb39d3d19f9309cc34f4ec0516b0e5cf051886fe489f5be90930f"
+    },
+    {
+      "stable_sample_id": "ic-003",
+      "evidence_class": "MEASURED_DATASET",
+      "food_label": "mixed cafeteria plate (ingredient-derived: cabbage (11g), pepper (0g), wheat berry (11g), pork (86g), mayonnaise (2g), jalapenos (0g), pepperoni pizza (63g), parsley (1g), olive oil (1g), lemon…)",
+      "licence": "CC BY 4.0",
+      "image_path": "images/ic-003.png",
+      "sha256": "9075555210be53f345dc8cdcd7c700b5e43bec614a54e599c35b28b256507626"
+    },
+    {
+      "stable_sample_id": "ic-004",
+      "evidence_class": "MEASURED_DATASET",
+      "food_label": "mixed cafeteria plate (ingredient-derived: cilantro (1g), ginger (0g), spinach (raw) (5g), jalapenos (1g), lemon juice (1g), lime (0g), salt (0g), onions (2g), shallots (3g), garlic (3g), salmo…)",
+      "licence": "CC BY 4.0",
+      "image_path": "images/ic-004.png",
+      "sha256": "ab4eceecc12d57ae08cd89f73a066e8bf9a301acb5a87b7dbeda72b16fb23f8a"
+    },
+    {
+      "stable_sample_id": "ic-005",
+      "evidence_class": "MEASURED_DATASET",
+      "food_label": "mixed cafeteria plate (ingredient-derived: salt (1g), green onions (2g), garlic (1g), caesar salad (123g), country rice (30g), olive oil (4g), onions (6g), eggplant (74g), fish (150g)…)",
+      "licence": "CC BY 4.0",
+      "image_path": "images/ic-005.png",
+      "sha256": "a25b52018572ede708ea9f2acd70463442526baae4f4fee1f633eff1968269db"
+    },
+    {
+      "stable_sample_id": "ic-006",
+      "evidence_class": "MEASURED_DATASET",
+      "food_label": "mixed cafeteria plate (ingredient-derived: berries (80g), bell peppers (15g), salt (0g), mustard (1g), cucumbers (15g), garlic (1g), olive oil (12g), vinegar (6g), radishes (12g), honeydew melo…)",
+      "licence": "CC BY 4.0",
+      "image_path": "images/ic-006.png",
+      "sha256": "f6de15e5b6a3a2e76a98fe7790c74829675026cc380e6638cabb807d6e748b9a"
+    },
+    {
+      "stable_sample_id": "ic-007",
+      "evidence_class": "MEASURED_DATASET",
+      "food_label": "mixed cafeteria plate (ingredient-derived: shallots (1g), garlic (0g), parsley (1g), salt (0g), kale (3g), brussels sprouts (54g), lemon juice (1g), olive oil (3g), wheat berry (13g), chive (0g…)",
+      "licence": "CC BY 4.0",
+      "image_path": "images/ic-007.png",
+      "sha256": "5d38bda4aa8b25cc6d8adb19ce6a47df2247caecc5be6dbd2daf359e8601d1eb"
+    },
+    {
+      "stable_sample_id": "ic-008",
+      "evidence_class": "MEASURED_DATASET",
+      "food_label": "mixed cafeteria plate (ingredient-derived: salt (0g), pepper (0g), olive oil (1g), carrot (66g)…)",
+      "licence": "CC BY 4.0",
+      "image_path": "images/ic-008.png",
+      "sha256": "3d5283b42fede40520646a6aa9075d56c9d197f24da1ad0feb794c9c1e5aa176"
+    },
+    {
+      "stable_sample_id": "ic-009",
+      "evidence_class": "MEASURED_DATASET",
+      "food_label": "mixed cafeteria plate (ingredient-derived: watermelon (35g), cantaloupe (38g), berries (50g)…)",
+      "licence": "CC BY 4.0",
+      "image_path": "images/ic-009.png",
+      "sha256": "5a1e19fdfb75786508c99ebb3ea202ca765f4660a73a33e77921a13263ca7a4d"
+    },
+    {
+      "stable_sample_id": "ic-010",
+      "evidence_class": "MEASURED_DATASET",
+      "food_label": "mixed cafeteria plate (ingredient-derived: vinaigrette (3g), granola (7g), blackberries (3g), mixed greens (30g), raspberries (3g)…)",
+      "licence": "CC BY 4.0",
+      "image_path": "images/ic-010.png",
+      "sha256": "2e60a84f2abedd76356d2d5c0e3de9aecd78b1a1a7d879001dc63de7e3a21a48"
+    },
+    {
+      "stable_sample_id": "ic-011",
+      "evidence_class": "LABELLED_IDENTITY_ONLY",
+      "food_label": "steamed chicken momo",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-011.jpg",
+      "sha256": "edceb430a2efc77565cf1f2ce0b71cb67c20b869e831d53ad149171aa11f4bef"
+    },
+    {
+      "stable_sample_id": "ic-012",
+      "evidence_class": "LABELLED_IDENTITY_ONLY",
+      "food_label": "fried momo",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-012.jpg",
+      "sha256": "d75ec7da8c150e115b8d93f4e45cbfd4d76c48e08e23b8f7e05bb7b7ebf04a12"
+    },
+    {
+      "stable_sample_id": "ic-013",
+      "evidence_class": "LABELLED_IDENTITY_ONLY",
+      "food_label": "momo with jhol achar",
+      "licence": "CC0",
+      "image_path": "images/ic-013.jpg",
+      "sha256": "66286883788c474dc10aff39df72d4141a803e322dfaed46a867ac4d118d3505"
+    },
+    {
+      "stable_sample_id": "ic-014",
+      "evidence_class": "LABELLED_IDENTITY_ONLY",
+      "food_label": "dal bhat",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-014.jpg",
+      "sha256": "c2587e50a1b42b02090a1c5a1cdee235adbd5f705472f9b93d96f145c528b393"
+    },
+    {
+      "stable_sample_id": "ic-015",
+      "evidence_class": "LABELLED_IDENTITY_ONLY",
+      "food_label": "cooked brown rice",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-015.jpg",
+      "sha256": "d8989267ab3d9e8285cfd0afdbe4474cada8f174e1c366c02e7701f27019f0c9"
+    },
+    {
+      "stable_sample_id": "ic-016",
+      "evidence_class": "LABELLED_IDENTITY_ONLY",
+      "food_label": "boiled yellow lentil (dal)",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-016.jpg",
+      "sha256": "9d21a95c4036ba4839d0607af39dc7b8087162f4f965f6f311fca7596d4a2b00"
+    },
+    {
+      "stable_sample_id": "ic-017",
+      "evidence_class": "LABELLED_IDENTITY_ONLY",
+      "food_label": "labra tarkari (mixed vegetable curry)",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-017.jpg",
+      "sha256": "84b9e4e650a197e8aa40768692e2cc507dadfede22b6332de7a2a3bcd5c47e78"
+    },
+    {
+      "stable_sample_id": "ic-018",
+      "evidence_class": "LABELLED_IDENTITY_ONLY",
+      "food_label": "chicken curry",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-018.jpg",
+      "sha256": "0e6c494dafcef720084d1ef918a214585bf8534943b985d57549b33f675d4630"
+    },
+    {
+      "stable_sample_id": "ic-019",
+      "evidence_class": "LABELLED_IDENTITY_ONLY",
+      "food_label": "chicken chow mein",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-019.jpg",
+      "sha256": "9df944b9bf6ea16261b9b663238bf6016156875cbaa75aa260d21a0ca0d2aa31"
+    },
+    {
+      "stable_sample_id": "ic-020",
+      "evidence_class": "LABELLED_IDENTITY_ONLY",
+      "food_label": "chicken thukpa",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-020.jpg",
+      "sha256": "175bdada8a59d9d66324261457294f9c5b14ed231180aab804e11b937751213e"
+    },
+    {
+      "stable_sample_id": "ic-021",
+      "evidence_class": "REFERENCE_ONLY",
+      "food_label": "steamed momos (Tibetan)",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-021.jpg",
+      "sha256": "748ac1d53a23e4d6810bba09ee41279f950735f4b95e074d14f4b7c2b54404f5"
+    },
+    {
+      "stable_sample_id": "ic-022",
+      "evidence_class": "REFERENCE_ONLY",
+      "food_label": "momo ready for steaming",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-022.jpg",
+      "sha256": "7acca57a305f3ebe97d6384046e4ad3ac4a5431312f4f7a253565115268e7ae1"
+    },
+    {
+      "stable_sample_id": "ic-023",
+      "evidence_class": "REFERENCE_ONLY",
+      "food_label": "fried momos",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-023.jpg",
+      "sha256": "1a9e68303bba9e45553fef28a329b113c61bf931e8fdfbd42d8ba1d94cc03260"
+    },
+    {
+      "stable_sample_id": "ic-024",
+      "evidence_class": "REFERENCE_ONLY",
+      "food_label": "mutton momos with achar",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-024.jpg",
+      "sha256": "2c2559962e5059c18548a83c7ba7adcf410967d09ef9bdae381cfff5d230177c"
+    },
+    {
+      "stable_sample_id": "ic-025",
+      "evidence_class": "REFERENCE_ONLY",
+      "food_label": "Nepali dal bhat tarkari",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-025.jpg",
+      "sha256": "1b2aff7e7eaf981157de7e9f7e5fff2bc2e35174bf86ca4bf6cae03de8039932"
+    },
+    {
+      "stable_sample_id": "ic-026",
+      "evidence_class": "REFERENCE_ONLY",
+      "food_label": "dal bhat tarkari with chicken",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-026.jpg",
+      "sha256": "ba6a82fc0f5082114885dfc33a492948285cbab01e17b11e3a07d72381c2a1cc"
+    },
+    {
+      "stable_sample_id": "ic-027",
+      "evidence_class": "REFERENCE_ONLY",
+      "food_label": "buff chow mein with sauce",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-027.jpg",
+      "sha256": "da50306f384af4fa498c98ff2a96669409259d00db4eaa88328ab7411c7208a6"
+    },
+    {
+      "stable_sample_id": "ic-028",
+      "evidence_class": "REFERENCE_ONLY",
+      "food_label": "thukpa (Manali)",
+      "licence": "CC BY-SA 4.0",
+      "image_path": "images/ic-028.jpg",
+      "sha256": "3fe62d1d85c7f7f8acd1acb42fa9225e2a2a8fa3fbfbff4992b1675cc71dc085"
+    },
+    {
+      "stable_sample_id": "ic-029",
+      "evidence_class": "REFERENCE_ONLY",
+      "food_label": "vegetable curry (tarkari)",
+      "licence": "CC BY-SA 3.0",
+      "image_path": "images/ic-029.jpg",
+      "sha256": "8806aa58469d3ba223e303d948d9c02fefc6c6cd301a6409f8d7b47addff0845"
+    },
+    {
+      "stable_sample_id": "ic-030",
+      "evidence_class": "REFERENCE_ONLY",
+      "food_label": "cooked rice with stew",
+      "licence": "CC0",
+      "image_path": "images/ic-030.jpg",
+      "sha256": "6aa1173b4849b25720ec8baf47417cee99c1517fe934ad665c26f099db60f94b"
+    }
+  ]
+}

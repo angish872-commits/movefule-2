@@ -1,0 +1,74 @@
+{
+  "stable_sample_id": "ic-008",
+  "source_dataset": "Nutrition5k (Google Research)",
+  "original_identifier": "dish_1565379251",
+  "original_source_reference": "https://storage.googleapis.com/nutrition5k_dataset/nutrition5k_dataset/imagery/realsense_overhead/dish_1565379251/rgb.png",
+  "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY 4.0",
+  "licence_evidence_reference": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+  "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+  "evidence_class": "MEASURED_DATASET",
+  "food_label": "mixed cafeteria plate (ingredient-derived: salt (0g), pepper (0g), olive oil (1g), carrot (66g)…)",
+  "cuisine_region": "Mixed (US cafeteria; not regional)",
+  "local_image_path": "images/ic-008.png",
+  "file_extension": "png",
+  "sha256": "3d5283b42fede40520646a6aa9075d56c9d197f24da1ad0feb794c9c1e5aa176",
+  "width": 640,
+  "height": 480,
+  "source_width": 640,
+  "source_height": 480,
+  "download_bytes": 283947,
+  "available_ground_truth_fields": {
+    "total_mass_g": 67.0,
+    "total_calories_kcal": 32.936092,
+    "total_fat_g": 0.792689,
+    "total_carb_g": 6.608891,
+    "total_protein_g": 0.59528,
+    "ingredient_list_grams": [
+      {
+        "name": "salt",
+        "grams": 0.247689
+      },
+      {
+        "name": "pepper",
+        "grams": 0.041282
+      },
+      {
+        "name": "olive oil",
+        "grams": 0.660505
+      },
+      {
+        "name": "carrot",
+        "grams": 66.050522
+      }
+    ]
+  },
+  "unavailable_ground_truth_fields": [
+    "segmentation_masks",
+    "per_region_visual_portion",
+    "dish_name",
+    "fiber_g",
+    "sodium_mg",
+    "piece_counts"
+  ],
+  "allowed_metrics": [
+    "identity_top1",
+    "identity_top3",
+    "total_mass_gram_error",
+    "calorie_error",
+    "fat_error",
+    "carb_error",
+    "protein_error",
+    "latency",
+    "cost"
+  ],
+  "blocked_not_measurable_metrics": [
+    "fiber_error",
+    "sodium_error",
+    "per_region_gram_error",
+    "hidden_ingredients",
+    "oil_grams"
+  ],
+  "exclusion_reason": null
+}

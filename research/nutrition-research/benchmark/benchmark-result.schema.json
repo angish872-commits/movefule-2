@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/benchmark/benchmark-result.schema.json",
+  "title": "BenchmarkResult",
+  "type": "object",
+  "required": ["schemaVersion", "runId", "sampleIds", "providerMetrics", "comparison"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "const": 1 },
+    "runId": { "type": "string", "minLength": 1 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "sampleIds": { "type": "array", "items": { "type": "string" } },
+    "excludedSampleIds": { "type": "array", "items": { "type": "string" } },
+    "providerMetrics": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/providerMetrics" }
+    },
+    "comparison": {
+      "type": "object",
+      "required": ["sameSampleSetForAllProviders", "noCrossProviderLeakage", "replayKey", "metricsVersion"],
+      "properties": {
+        "sameSampleSetForAllProviders": { "type": "boolean" },
+        "noCrossProviderLeakage": { "type": "boolean" },
+        "replayKey": { "type": "string" },
+        "metricsVersion": { "type": "integer" }
+      }
+    }
+  },
+  "definitions": {
+    "metricResult": {
+      "anyOf": [
+        {
+          "type": "object",
+          "required": ["measurable"],
+          "properties": { "measurable": { "const": true }, "value": { "type": "number" } }
+        },
+        {
+          "type": "object",
+          "required": ["measurable"],
+          "properties": { "measurable": { "const": false }, "reason": { "type": "string" } }
+        }
+      ]
+    },
+    "providerMetrics": {
+      "type": "object",
+      "required": ["providerId", "providerName", "providerVersion", "adapterType"],
+      "properties": {
+        "providerId": { "type": "string" },
+        "providerName": { "type": "string" },
+        "providerVersion": { "type": "string" },
+        "adapterType": { "type": "string" },
+        "quality": {
+          "type": "object",
+          "properties": {
+            "acceptRejectCorrectness": { "$ref": "#/definitions/metricResult" },
+            "retakeRequiredCorrectness": { "$ref": "#/definitions/metricResult" }
+          }
+        },
+        "segmentation": {
+          "type": "object",
+          "properties": {
+            "regionPrecision": { "$ref": "#/definitions/metricResult" },
+            "regionRecall": { "$ref": "#/definitions/metricResult" },
+            "meanIoU": { "$ref": "#/definitions/metricResult" },
+            "missedFoodRate": { "$ref": "#/definitions/metricResult" },
+            "duplicateRegionRate": { "$ref": "#/definitions/metricResult" }
+          }
+        },
+        "identity": {
+          "type": "object",
+          "properties": {
+            "top1": { "$ref": "#/definitions/metricResult" },
+            "top3": { "$ref": "#/definitions/metricResult" },
+            "unknownFoodHandling": { "$ref": "#/definitions/metricResult" },
+            "foodTypeAccuracy": { "$ref": "#/definitions/metricResult" }
+          }
+        },
+        "sourceResolution": {
+          "type": "object",
+          "properties": {
+            "correctSourceRate": { "$ref": "#/definitions/metricResult" },
+            "unresolvedSourceRate": { "$ref": "#/definitions/metricResult" },
+            "incorrectSourceRate": { "$ref": "#/definitions/metricResult" }
+          }
+        },
+        "portion": {
+          "type": "object",
+          "properties": {
+            "gramMae": { "$ref": "#/definitions/metricResult" },
+            "gramMedianAbsoluteError": { "$ref": "#/definitions/metricResult" },
+            "gramMape": { "$ref": "#/definitions/metricResult" },
+            "intervalCoverage": { "$ref": "#/definitions/metricResult" },
+            "centralBias": { "$ref": "#/definitions/metricResult" },
+            "pieceCountError": { "$ref": "#/definitions/metricResult" }
+          }
+        },
+        "nutrition": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "absoluteError": { "$ref": "#/definitions/metricResult" },
+              "percentageError": { "$ref": "#/definitions/metricResult" }
+            }
+          }
+        },
+        "interaction": {
+          "type": "object",
+          "properties": {
+            "clarificationQuestionCount": { "$ref": "#/definitions/metricResult" },
+            "unnecessaryQuestionRate": { "$ref": "#/definitions/metricResult" },
+            "correctionRate": { "$ref": "#/definitions/metricResult" },
+            "manualEntryFallbackRate": { "$ref": "#/definitions/metricResult" }
+          }
+        },
+        "operational": {
+          "type": "object",
+          "properties": {
+            "schemaValidOutputRate": { "$ref": "#/definitions/metricResult" },
+            "malformedResponseRate": { "$ref": "#/definitions/metricResult" },
+            "providerFailureRate": { "$ref": "#/definitions/metricResult" },
+            "latencyMedianMs": { "$ref": "#/definitions/metricResult" },
+            "latencyP95Ms": { "$ref": "#/definitions/metricResult" },
+            "costPerImageUsd": { "$ref": "#/definitions/metricResult" },
+            "costPerConfirmedMealUsd": { "$ref": "#/definitions/metricResult" }
+          }
+        },
+        "categoryScores": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["category", "score"],
+            "properties": {
+              "category": { "type": "string" },
+              "score": { "$ref": "#/definitions/metricResult" },
+              "measurableSamples": { "type": "integer" }
+            }
+          }
+        },
+        "decisionMatrix": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["criterion", "value"],
+            "properties": {
+              "criterion": { "type": "string" },
+              "value": { "type": ["string", "number"] },
+              "evidence": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

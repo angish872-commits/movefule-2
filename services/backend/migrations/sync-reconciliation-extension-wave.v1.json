@@ -1,0 +1,142 @@
+{
+  "migrationId": "movefuel_sync_reconciliation_extension_wave_v1",
+  "schemaVersion": 19,
+  "mode": "verify_existing_and_stop_for_review",
+  "status": "typed_additive_existing_resource_wave",
+  "source": "MoveFuel final sync/offline reconciliation audit 2026-08-29",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": "userId",
+    "applyAllowed": false,
+    "note": "Extends existing sync resources only. It must never create a replacement outbox/cursor/event/delivery table. Apply remains disabled until live schema crosswalk verifies every listed table already exists."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "sync_operation",
+      "existingResourcePolicy": "inspect_existing_empty_table_and_stop_for_review",
+      "requiresReview": true,
+      "columns": [
+        "operationId", "userId", "deviceId", "deviceSessionId", "sourcePlatform",
+        "entityType", "entityId", "entityRevision", "expectedEntityRevision", "clientSequence",
+        "operationType", "idempotencyKey", "requestHash", "payloadHash", "outcome",
+        "conflictCode", "errorCode", "canonicalRevision", "canonicalEventId", "canonicalCursor",
+        "retryClass", "occurredAtUtc", "occurredLocalDate", "timezone", "receivedAt", "schemaVersion", "createdAt"
+      ],
+      "typedColumns": [
+        { "key": "deviceSessionId", "type": "string", "size": 128, "required": false },
+        { "key": "sourcePlatform", "type": "string", "size": 32, "required": false },
+        { "key": "expectedEntityRevision", "type": "integer", "required": false },
+        { "key": "clientSequence", "type": "integer", "required": false },
+        { "key": "conflictCode", "type": "string", "size": 64, "required": false },
+        { "key": "errorCode", "type": "string", "size": 128, "required": false },
+        { "key": "canonicalRevision", "type": "integer", "required": false },
+        { "key": "canonicalEventId", "type": "string", "size": 128, "required": false },
+        { "key": "canonicalCursor", "type": "string", "size": 512, "required": false },
+        { "key": "retryClass", "type": "string", "size": 32, "required": false },
+        { "key": "occurredAtUtc", "type": "datetime", "required": false },
+        { "key": "occurredLocalDate", "type": "string", "size": 10, "required": false },
+        { "key": "timezone", "type": "string", "size": 128, "required": false },
+        { "key": "receivedAt", "type": "datetime", "required": false },
+        { "key": "schemaVersion", "type": "integer", "required": false }
+      ],
+      "indexDefinitions": [
+        { "key": "userId_deviceId_idempotency_unique", "type": "unique", "columns": ["userId", "deviceId", "idempotencyKey"] },
+        { "key": "userId_deviceSession_clientSequence", "type": "key", "columns": ["userId", "deviceSessionId", "clientSequence"] },
+        { "key": "userId_entity_receivedAt", "type": "key", "columns": ["userId", "entityType", "entityId", "receivedAt"] }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "sync_cursor",
+      "existingResourcePolicy": "inspect_existing_empty_table_and_stop_for_review",
+      "requiresReview": true,
+      "columns": [
+        "cursorId", "userId", "deviceId", "deviceSessionId", "domain", "stream",
+        "opaqueCursor", "lastAckedOperationId", "lastSyncAt", "updatedAt", "schemaVersion"
+      ],
+      "typedColumns": [
+        { "key": "deviceSessionId", "type": "string", "size": 128, "required": false },
+        { "key": "stream", "type": "string", "size": 64, "required": false },
+        { "key": "lastAckedOperationId", "type": "string", "size": 128, "required": false },
+        { "key": "updatedAt", "type": "datetime", "required": false }
+      ],
+      "indexDefinitions": [
+        { "key": "userId_deviceId_domain_unique", "type": "unique", "columns": ["userId", "deviceId", "domain"] },
+        { "key": "userId_device_session_stream", "type": "key", "columns": ["userId", "deviceId", "deviceSessionId", "stream"] }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "workout_event",
+      "existingResourcePolicy": "inspect_existing_empty_table_and_stop_for_review",
+      "requiresReview": true,
+      "columns": [
+        "eventId", "sessionId", "userId", "eventType", "eventSequence", "payloadJson",
+        "sourceDevice", "sourceDeviceSessionId", "clientSequence", "semanticStepId",
+        "correctionOfEventId", "occurredAt", "idempotencyKey"
+      ],
+      "typedColumns": [
+        { "key": "sourceDeviceSessionId", "type": "string", "size": 128, "required": false },
+        { "key": "clientSequence", "type": "integer", "required": false },
+        { "key": "semanticStepId", "type": "string", "size": 128, "required": false },
+        { "key": "correctionOfEventId", "type": "string", "size": 128, "required": false }
+      ],
+      "indexDefinitions": [
+        { "key": "sessionId_eventSequence_unique", "type": "unique", "columns": ["sessionId", "eventSequence"] },
+        { "key": "userId_idempotencyKey_unique", "type": "unique", "columns": ["userId", "idempotencyKey"] },
+        { "key": "session_deviceSession_clientSequence", "type": "unique", "columns": ["sessionId", "sourceDeviceSessionId", "clientSequence"] }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "watch_delivery",
+      "existingResourcePolicy": "inspect_existing_empty_table_and_stop_for_review",
+      "requiresReview": true,
+      "columns": [
+        "deliveryId", "userId", "deviceId", "summaryId", "revision", "state", "sentAt", "acceptedAt", "createdAt",
+        "payloadType", "payloadSchemaVersion", "payloadHash", "entityType", "entityId", "entityRevision", "supersededAt"
+      ],
+      "typedColumns": [
+        { "key": "payloadType", "type": "string", "size": 64, "required": false },
+        { "key": "payloadSchemaVersion", "type": "integer", "required": false },
+        { "key": "payloadHash", "type": "string", "size": 128, "required": false },
+        { "key": "entityType", "type": "string", "size": 64, "required": false },
+        { "key": "entityId", "type": "string", "size": 128, "required": false },
+        { "key": "entityRevision", "type": "integer", "required": false },
+        { "key": "supersededAt", "type": "datetime", "required": false }
+      ],
+      "indexDefinitions": [
+        { "key": "delivery_user_summary_rev_uq", "type": "unique", "columns": ["userId", "deviceId", "summaryId", "revision"] },
+        { "key": "userId_entity_revision", "type": "key", "columns": ["userId", "entityType", "entityId", "entityRevision"] }
+      ]
+    },
+    {
+      "kind": "table",
+      "id": "watch_receipt",
+      "existingResourcePolicy": "inspect_existing_empty_table_and_stop_for_review",
+      "requiresReview": true,
+      "columns": [
+        "receiptId", "userId", "deviceId", "summaryId", "revision", "outcome", "updatedAt", "createdAt",
+        "deliveryId", "payloadHash", "entityType", "entityId", "entityRevision", "receivedAt"
+      ],
+      "typedColumns": [
+        { "key": "deliveryId", "type": "string", "size": 128, "required": false },
+        { "key": "payloadHash", "type": "string", "size": 128, "required": false },
+        { "key": "entityType", "type": "string", "size": 64, "required": false },
+        { "key": "entityId", "type": "string", "size": 128, "required": false },
+        { "key": "entityRevision", "type": "integer", "required": false },
+        { "key": "receivedAt", "type": "datetime", "required": false }
+      ],
+      "indexDefinitions": [
+        { "key": "receipt_user_summary_rev_outcome_uq", "type": "unique", "columns": ["userId", "deviceId", "summaryId", "revision", "outcome"] },
+        { "key": "userId_deliveryId", "type": "key", "columns": ["userId", "deliveryId"] }
+      ]
+    }
+  ]
+}

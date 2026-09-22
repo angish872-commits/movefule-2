@@ -1,0 +1,404 @@
+{
+  "migrationId": "movefuel_health_device_wave_v1",
+  "schemaVersion": 7,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0#health-device-provenance",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": "userId",
+    "applyAllowed": true,
+    "note": "Additive create-only wave. Health values remain user-scoped and provenance-bearing; no provider credentials or raw health samples are stored."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "health_connection",
+      "name": "Health connection",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "connectionId",
+        "userId",
+        "platform",
+        "sourceName",
+        "permissionStateJson",
+        "lastSuccessAt",
+        "lastErrorCode",
+        "revision",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "connectionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "platform",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "sourceName",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "permissionStateJson",
+          "type": "string",
+          "size": 8192,
+          "required": true
+        },
+        {
+          "key": "lastSuccessAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "lastErrorCode",
+          "type": "string",
+          "size": 64,
+          "required": false
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_platform_sourceName_unique",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "platform",
+            "sourceName"
+          ]
+        },
+        {
+          "key": "userId_updatedAt",
+          "type": "key",
+          "columns": [
+            "userId",
+            "updatedAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "health_import_cursor",
+      "name": "Health import cursor",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "cursorId",
+        "userId",
+        "connectionId",
+        "dataType",
+        "opaqueCursorEncrypted",
+        "lastWindowEnd",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "cursorId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "connectionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "dataType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "opaqueCursorEncrypted",
+          "type": "string",
+          "size": 8192,
+          "required": false
+        },
+        {
+          "key": "lastWindowEnd",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "connectionId_dataType_unique",
+          "type": "unique",
+          "columns": [
+            "connectionId",
+            "dataType"
+          ]
+        },
+        {
+          "key": "userId",
+          "type": "key",
+          "columns": [
+            "userId"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "health_sample_summary",
+      "name": "Health sample summary",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "summaryId",
+        "userId",
+        "localDate",
+        "dataType",
+        "value",
+        "unit",
+        "sourcePlatform",
+        "sourceDevice",
+        "provenanceHash",
+        "revision",
+        "measuredStart",
+        "measuredEnd"
+      ],
+      "typedColumns": [
+        {
+          "key": "summaryId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "localDate",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "dataType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "value",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "unit",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "sourcePlatform",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "sourceDevice",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "provenanceHash",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "measuredStart",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "measuredEnd",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_dataType_provenanceHash_uq",
+          "logicalKey": "userId_dataType_provenanceHash_unique",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "dataType",
+            "provenanceHash"
+          ]
+        },
+        {
+          "key": "userId_localDate_dataType",
+          "type": "key",
+          "columns": [
+            "userId",
+            "localDate",
+            "dataType"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "device_command",
+      "name": "Device command",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "commandId",
+        "userId",
+        "targetDeviceId",
+        "commandType",
+        "objectId",
+        "objectRevision",
+        "state",
+        "requestedAt",
+        "acknowledgedAt",
+        "errorCode"
+      ],
+      "typedColumns": [
+        {
+          "key": "commandId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "targetDeviceId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "commandType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "objectId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "objectRevision",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "requestedAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "acknowledgedAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "errorCode",
+          "type": "string",
+          "size": 64,
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "targetDevice_command_object_rev_uq",
+          "logicalKey": "targetDeviceId_commandType_objectId_objectRevision_unique",
+          "type": "unique",
+          "columns": [
+            "targetDeviceId",
+            "commandType",
+            "objectId",
+            "objectRevision"
+          ]
+        },
+        {
+          "key": "userId_state",
+          "type": "key",
+          "columns": [
+            "userId",
+            "state"
+          ]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

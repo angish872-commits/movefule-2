@@ -1,0 +1,111 @@
+{
+  "migrationId": "movefuel_watch_sync_persistence_wave_v1",
+  "schemaVersion": 18,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel watch delivery and receipt durability hardening 2026-08-18",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": "userId",
+    "applyAllowed": true,
+    "note": "Additive owner-scoped hardening for durable watch delivery attempts, payloads, and idempotent receipts. No destructive operations or seeded user rows."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "watch_delivery",
+      "name": "Watch deliveries",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "deliveryId", "userId", "summaryId", "revision", "phoneDeviceId", "watchDeviceId",
+        "state", "attemptCount", "lastAttemptAt", "payloadJson", "createdAt", "updatedAt"
+      ],
+      "typedColumns": [
+        { "key": "deliveryId", "type": "string", "size": 128, "required": true },
+        { "key": "userId", "type": "string", "size": 128, "required": true },
+        { "key": "summaryId", "type": "string", "size": 128, "required": true },
+        { "key": "revision", "type": "integer", "required": true },
+        { "key": "phoneDeviceId", "type": "string", "size": 128, "required": true },
+        { "key": "watchDeviceId", "type": "string", "size": 128, "required": true },
+        { "key": "state", "type": "string", "size": 32, "required": true },
+        { "key": "attemptCount", "type": "integer", "required": true },
+        { "key": "lastAttemptAt", "type": "datetime", "required": false },
+        { "key": "payloadJson", "type": "longtext", "required": true },
+        { "key": "createdAt", "type": "datetime", "required": true },
+        { "key": "updatedAt", "type": "datetime", "required": true }
+      ],
+      "indexes": [
+        "userId_summaryId_revision_watchDeviceId_unique",
+        "userId_state"
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_summaryId_revision_watchDeviceId_unique",
+          "type": "unique",
+          "columns": ["userId", "summaryId", "revision", "watchDeviceId"]
+        },
+        {
+          "key": "userId_state",
+          "type": "key",
+          "columns": ["userId", "state"]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "watch_receipt",
+      "name": "Watch receipts",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "receiptId", "userId", "deliveryId", "summaryId", "revision", "result", "outcome",
+        "watchDeviceId", "persistedAt", "receivedAt", "createdAt"
+      ],
+      "typedColumns": [
+        { "key": "receiptId", "type": "string", "size": 128, "required": true },
+        { "key": "userId", "type": "string", "size": 128, "required": true },
+        { "key": "deliveryId", "type": "string", "size": 128, "required": true },
+        { "key": "summaryId", "type": "string", "size": 128, "required": true },
+        { "key": "revision", "type": "integer", "required": true },
+        { "key": "result", "type": "string", "size": 32, "required": true },
+        { "key": "outcome", "type": "string", "size": 32, "required": true },
+        { "key": "watchDeviceId", "type": "string", "size": 128, "required": true },
+        { "key": "persistedAt", "type": "datetime", "required": false },
+        { "key": "receivedAt", "type": "datetime", "required": true },
+        { "key": "createdAt", "type": "datetime", "required": true }
+      ],
+      "indexes": [
+        "watchDeviceId_summaryId_revision_result_unique",
+        "deliveryId",
+        "userId_receivedAt"
+      ],
+      "indexDefinitions": [
+        {
+          "key": "watchDeviceId_summaryId_revision_result_unique",
+          "type": "unique",
+          "columns": ["watchDeviceId", "summaryId", "revision", "result"]
+        },
+        {
+          "key": "deliveryId",
+          "type": "key",
+          "columns": ["deliveryId"]
+        },
+        {
+          "key": "userId_receivedAt",
+          "type": "key",
+          "columns": ["userId", "receivedAt"]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

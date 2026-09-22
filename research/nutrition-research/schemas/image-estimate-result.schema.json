@@ -1,0 +1,477 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/image-estimate-result.schema.json",
+  "title": "ImageEstimateResult",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "resultId",
+    "requestId",
+    "correlationId",
+    "ownerUserId",
+    "state",
+    "imageQuality",
+    "items",
+    "requiresUserConfirmation",
+    "confirmed",
+    "createdAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "resultId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requestId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "correlationId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "ownerUserId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "state": {
+      "enum": [
+        "COMPLETED_NEEDS_CONFIRMATION",
+        "NEEDS_CLARIFICATION",
+        "NEEDS_USER_REVIEW",
+        "NUTRITION_SOURCE_NOT_RESOLVED",
+        "PORTION_INSUFFICIENT",
+        "IMAGE_RETAKE_REQUIRED",
+        "PROVIDER_UNAVAILABLE",
+        "INVALID_REQUEST"
+      ]
+    },
+    "imageQuality": {
+      "$ref": "image-quality.schema.json"
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ImageEstimateItem"
+      }
+    },
+    "requiresUserConfirmation": {
+      "type": "boolean"
+    },
+    "confirmed": {
+      "const": false
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "definitions": {
+    "ImageEstimateItem": {
+      "type": "object",
+      "required": [
+        "itemId",
+        "regionId",
+        "foodType",
+        "candidates",
+        "selectedSource",
+        "portion",
+        "nutrients",
+        "clarificationQuestions",
+        "uncertainties",
+        "requiresUserConfirmation",
+        "confidence"
+      ],
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "regionId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "segmentation": {
+          "$ref": "food-region.schema.json"
+        },
+        "foodType": {
+          "enum": [
+            "BASIC",
+            "PACKAGED",
+            "PREPARED",
+            "MIXED_DISH",
+            "LIQUID",
+            "UNCLEAR"
+          ]
+        },
+        "candidates": {
+          "type": "array",
+          "items": {
+            "$ref": "food-candidate.schema.json"
+          }
+        },
+        "selectedSource": {
+          "anyOf": [
+            {
+              "type": "object",
+              "required": [
+                "source",
+                "fdcId",
+                "recipeRevisionId",
+                "dataType",
+                "description"
+              ],
+              "properties": {
+                "source": {
+                  "enum": [
+                    "USDA_FDC",
+                    "MOVEFUEL_RECIPE"
+                  ]
+                },
+                "fdcId": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "recipeRevisionId": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "dataType": {
+                  "enum": [
+                    "FOUNDATION",
+                    "FNDDS",
+                    "BRANDED",
+                    "SR_LEGACY",
+                    "EXPERIMENTAL",
+                    "REVIEWED_RECIPE_ESTIMATE",
+                    "UNREVIEWED_RECIPE_ESTIMATE"
+                  ]
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "portion": {
+          "anyOf": [
+            {
+              "$ref": "portion-estimate.schema.json"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nutrients": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/NutrientSet"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "clarificationQuestions": {
+          "type": "array",
+          "items": {
+            "$ref": "clarification-question.schema.json"
+          }
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requiresUserConfirmation": {
+          "type": "boolean"
+        },
+        "confidence": {
+          "$ref": "#/definitions/EstimateConfidenceReport"
+        },
+        "selectedCandidateIndex": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "selectedPreparation": {
+          "anyOf": [
+            {
+              "type": "object",
+              "required": [
+                "label",
+                "confidence"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "confidence": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              }
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "nutrientDistribution": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/SourceBackedNutrientDistribution"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "NutrientRange": {
+      "type": "object",
+      "required": [
+        "minimum",
+        "central",
+        "maximum"
+      ],
+      "properties": {
+        "minimum": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "central": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "maximum": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "NutrientSet": {
+      "type": "object",
+      "required": [
+        "energyKcal",
+        "proteinG",
+        "carbG",
+        "fatG",
+        "fiberG",
+        "sodiumMg"
+      ],
+      "properties": {
+        "energyKcal": {
+          "$ref": "#/definitions/NutrientRange"
+        },
+        "proteinG": {
+          "$ref": "#/definitions/NutrientRange"
+        },
+        "carbG": {
+          "$ref": "#/definitions/NutrientRange"
+        },
+        "fatG": {
+          "$ref": "#/definitions/NutrientRange"
+        },
+        "fiberG": {
+          "$ref": "#/definitions/NutrientRange"
+        },
+        "sodiumMg": {
+          "$ref": "#/definitions/NutrientRange"
+        }
+      }
+    },
+    "EstimateConfidenceReport": {
+      "type": "object",
+      "required": [
+        "imageQuality",
+        "segmentation",
+        "identity",
+        "portionEvidence",
+        "preparationCertainty",
+        "nutritionSourceMatch",
+        "recipeReviewStatus",
+        "finalPolicyVersion",
+        "overall",
+        "cappedBy"
+      ],
+      "properties": {
+        "imageQuality": {
+          "enum": [
+            "ACCEPTABLE",
+            "REVIEW_RECOMMENDED",
+            "RETAKE_REQUIRED",
+            "INVALID_IMAGE",
+            "UNSUPPORTED"
+          ]
+        },
+        "segmentation": {
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "INSUFFICIENT"
+          ]
+        },
+        "identity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "portionEvidence": {
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "INSUFFICIENT"
+          ]
+        },
+        "preparationCertainty": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "nutritionSourceMatch": {
+          "enum": [
+            "RESOLVED",
+            "NEEDS_USER_REVIEW",
+            "NOT_ATTEMPTED"
+          ]
+        },
+        "recipeReviewStatus": {
+          "enum": [
+            "REVIEWED",
+            "UNREVIEWED",
+            "N/A"
+          ]
+        },
+        "finalPolicyVersion": {
+          "type": "integer"
+        },
+        "overall": {
+          "enum": [
+            "HIGH",
+            "MEDIUM",
+            "LOW",
+            "INSUFFICIENT"
+          ]
+        },
+        "cappedBy": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "NutrientDistributionRange": {
+      "type": "object",
+      "required": [
+        "p10",
+        "p50",
+        "p90"
+      ],
+      "properties": {
+        "p10": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "p50": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "p90": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "SourceBackedNutrientDistribution": {
+      "type": "object",
+      "required": [
+        "basis",
+        "massDistributionVersion",
+        "nutrients"
+      ],
+      "properties": {
+        "basis": {
+          "const": "PER_100_G_SOURCE_X_MASS_DISTRIBUTION"
+        },
+        "massDistributionVersion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nutrients": {
+          "type": "object",
+          "required": [
+            "energyKcal",
+            "proteinG",
+            "carbG",
+            "fatG",
+            "fiberG",
+            "sodiumMg"
+          ],
+          "properties": {
+            "energyKcal": {
+              "$ref": "#/definitions/NutrientDistributionRange"
+            },
+            "proteinG": {
+              "$ref": "#/definitions/NutrientDistributionRange"
+            },
+            "carbG": {
+              "$ref": "#/definitions/NutrientDistributionRange"
+            },
+            "fatG": {
+              "$ref": "#/definitions/NutrientDistributionRange"
+            },
+            "fiberG": {
+              "$ref": "#/definitions/NutrientDistributionRange"
+            },
+            "sodiumMg": {
+              "$ref": "#/definitions/NutrientDistributionRange"
+            }
+          }
+        }
+      }
+    }
+  }
+}

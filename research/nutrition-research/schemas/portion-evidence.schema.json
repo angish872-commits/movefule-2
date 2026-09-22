@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/portion-evidence.schema.json",
+  "title": "PortionEvidenceRecord",
+  "type": "object",
+  "required": [
+    "evidenceType",
+    "suppliedValue",
+    "unit",
+    "source",
+    "reliabilityTier",
+    "collectedAt",
+    "assumptions",
+    "validationState"
+  ],
+  "properties": {
+    "evidenceType": {
+      "enum": [
+        "MANUAL_GRAMS",
+        "PACKAGE_LABEL",
+        "BARCODE_SERVING",
+        "PIECE_COUNT",
+        "CONTAINER_FILL_VOLUME",
+        "CALIBRATED_DEPTH_VOLUME",
+        "CALIBRATED_VOLUME",
+        "KNOWN_PLATE_DIAMETER",
+        "KNOWN_BOWL_VOLUME",
+        "REFERENCE_CARD",
+        "SECOND_IMAGE",
+        "SIDE_IMAGE",
+        "DEVICE_DEPTH",
+        "SEGMENTATION_AREA",
+        "BOUNDING_BOX_AREA",
+        "PREVIOUS_CONFIRMED_PORTION",
+        "VISUAL_MODEL_PORTION_PRIOR",
+        "USER_SELECTED_SERVING",
+        "RECIPE_SERVING",
+        "NO_SCALE_REFERENCE"
+      ]
+    },
+    "suppliedValue": {
+      "type": "number",
+      "minimum": 0
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "string"
+    },
+    "reliabilityTier": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 7
+    },
+    "collectedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "validationState": {
+      "enum": [
+        "CONFIRMED",
+        "REVIEWED",
+        "ESTIMATED",
+        "UNVERIFIED",
+        "REJECTED"
+      ]
+    },
+    "minimumValue": {
+      "type": "number",
+      "minimum": 0
+    },
+    "maximumValue": {
+      "type": "number",
+      "minimum": 0
+    },
+    "calibrationId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceRevision": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

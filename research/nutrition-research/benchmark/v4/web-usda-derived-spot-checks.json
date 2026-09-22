@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "retrieval_date": "2026-08-10",
+  "purpose": "Small web spot-check of deterministic nutrient scaling. These displays identify their values as USDA FoodData Central data; production authority remains direct USDA FDC ingestion/API, not these secondary display sites.",
+  "formula": "nutrient = per_100_g_value * selected_grams / 100",
+  "samples": [
+    {
+      "food": "Bananas, raw",
+      "fdc_id_displayed": 173944,
+      "source_display": "WhatYouEat USDA-linked nutrition display",
+      "source_reference": "https://whatyoueat.io/foods/173944-bananas",
+      "per_100_g": {"calories_kcal": 89, "protein_g": 1.09, "fat_g": 0.33, "carbohydrate_g": 22.84},
+      "selected_grams": 118,
+      "expected": {"calories_kcal": 105.02, "protein_g": 1.2862}
+    },
+    {
+      "food": "Rice, white, long-grain, cooked",
+      "fdc_id_displayed": 168878,
+      "source_display": "MyFoodData USDA-derived nutrition display",
+      "source_reference": "https://tools.myfooddata.com/recipe-nutrition-calculator/168878/100g/1/1",
+      "per_100_g": {"calories_kcal": 130, "protein_g": 2.7, "fat_g": 0.28, "carbohydrate_g": 28.2},
+      "selected_grams": 185,
+      "expected": {"calories_kcal": 240.5, "protein_g": 4.995}
+    },
+    {
+      "food": "Chicken breast, cooked, roasted",
+      "fdc_id_displayed": 171477,
+      "source_display": "MyFoodData USDA-derived nutrition display",
+      "source_reference": "https://nodetools.myfooddata.com/nutrition-comparison/171477/100g/1",
+      "per_100_g": {"calories_kcal": 165, "protein_g": 31, "fat_g": 3.6, "carbohydrate_g": 0},
+      "selected_grams": 150,
+      "expected": {"calories_kcal": 247.5, "protein_g": 46.5}
+    },
+    {
+      "food": "Egg, whole, cooked, hard-boiled",
+      "fdc_id_displayed": 173424,
+      "source_display": "NutriDB USDA FoodData Central public-domain display",
+      "source_reference": "https://nutri-db.com/en/foods/173424",
+      "per_100_g": {"calories_kcal": 155, "protein_g": 12.6, "fat_g": 10.6, "carbohydrate_g": 1.1},
+      "selected_grams": 50,
+      "expected": {"calories_kcal": 77.5, "protein_g": 6.3}
+    },
+    {
+      "food": "Yogurt, plain, whole milk",
+      "fdc_id_displayed": 171284,
+      "source_display": "WhatYouEat USDA-linked nutrition display",
+      "source_reference": "https://whatyoueat.io/foods/171284-whole-milk-plain-yogurt",
+      "per_100_g": {"calories_kcal": 61, "protein_g": 3.47, "fat_g": 3.25, "carbohydrate_g": 4.66},
+      "selected_grams": 170,
+      "expected": {"calories_kcal": 103.7, "protein_g": 5.899}
+    }
+  ]
+}

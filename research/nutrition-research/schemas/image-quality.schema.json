@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/image-quality.schema.json",
+  "title": "ImageQualityResult",
+  "type": "object",
+  "required": ["state", "issueCodes", "userMessage", "retryRecommendation", "safeFallback", "evidenceSource", "analyserVersion", "validationMode"],
+  "properties": {
+    "state": {
+      "enum": ["ACCEPTABLE", "REVIEW_RECOMMENDED", "RETAKE_REQUIRED", "INVALID_IMAGE", "UNSUPPORTED"]
+    },
+    "issueCodes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "UNSUPPORTED_MIME_TYPE",
+          "CORRUPT_IMAGE",
+          "IMAGE_TOO_SMALL",
+          "IMAGE_TOO_LARGE",
+          "EXCESSIVE_BLUR",
+          "UNDEREXPOSED",
+          "OVEREXPOSED",
+          "GLARE",
+          "FOOD_NOT_VISIBLE",
+          "FOOD_HEAVILY_OBSTRUCTED",
+          "TOO_MANY_OVERLAPPING_ITEMS",
+          "ORIENTATION_UNAVAILABLE",
+          "ANALYSIS_PROVIDER_UNAVAILABLE"
+        ]
+      }
+    },
+    "userMessage": { "type": "string" },
+    "retryRecommendation": { "enum": ["RETRY", "RETAKE", "NO_RETRY"] },
+    "safeFallback": { "enum": ["MANUAL_ENTRY", "SKIP_ITEM", "USE_METADATA_ONLY"] },
+    "evidenceSource": { "type": "string" },
+    "analyserVersion": { "type": "string" },
+    "validationMode": { "enum": ["METADATA_ONLY", "PIXEL_MODEL", "PROVIDER_BASED"] }
+  }
+}

@@ -1,0 +1,645 @@
+{
+  "migrationId": "movefuel_personal_dashboard_wave_v1",
+  "schemaVersion": 10,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0#personal-food-dashboard",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": "userId",
+    "applyAllowed": true,
+    "note": "Owner-scoped personal food, dashboard, recommendation, check-in, and progress tables. Recommendation and insight text are server-authored projections; no rows are seeded."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "personal_food",
+      "name": "Personal food",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "personalFoodId",
+        "userId",
+        "name",
+        "basisAmount",
+        "basisUnit",
+        "energyKcal",
+        "proteinG",
+        "carbG",
+        "fatG",
+        "fiberG",
+        "provenanceNote",
+        "revision",
+        "createdAt",
+        "updatedAt",
+        "deletedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "personalFoodId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "basisAmount",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "basisUnit",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "energyKcal",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "proteinG",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "carbG",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "fatG",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "fiberG",
+          "type": "double",
+          "required": true
+        },
+        {
+          "key": "provenanceNote",
+          "type": "string",
+          "size": 1024,
+          "required": false
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "deletedAt",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_name",
+          "type": "key",
+          "columns": [
+            "userId",
+            "name"
+          ]
+        },
+        {
+          "key": "userId_updatedAt",
+          "type": "key",
+          "columns": [
+            "userId",
+            "updatedAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "day_summary",
+      "name": "Day summary",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "daySummaryId",
+        "userId",
+        "localDate",
+        "hasMeals",
+        "hasWorkout",
+        "energyStatus",
+        "proteinStatus",
+        "syncState",
+        "revision",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "daySummaryId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "localDate",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "hasMeals",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "key": "hasWorkout",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "key": "energyStatus",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "proteinStatus",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "syncState",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_localDate_unique",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "localDate"
+          ]
+        },
+        {
+          "key": "userId_localDate",
+          "type": "key",
+          "columns": [
+            "userId",
+            "localDate"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "daily_recommendation",
+      "name": "Daily recommendation",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "recommendationId",
+        "userId",
+        "localDate",
+        "category",
+        "title",
+        "body",
+        "ruleId",
+        "ruleVersion",
+        "state",
+        "inputRevisionHash",
+        "confidenceLabel",
+        "createdAt",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "recommendationId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "localDate",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "category",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "body",
+          "type": "string",
+          "size": 4096,
+          "required": true
+        },
+        {
+          "key": "ruleId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "ruleVersion",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "inputRevisionHash",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "confidenceLabel",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_localDate_state",
+          "type": "key",
+          "columns": [
+            "userId",
+            "localDate",
+            "state"
+          ]
+        },
+        {
+          "key": "userId_localDate_state_input_uq",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "localDate",
+            "state",
+            "inputRevisionHash"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "action_completion",
+      "name": "Action completion",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "completionId",
+        "userId",
+        "recommendationId",
+        "action",
+        "sourceDevice",
+        "idempotencyKey",
+        "occurredAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "completionId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "recommendationId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "action",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "sourceDevice",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "idempotencyKey",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "occurredAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_idempotencyKey_unique",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "idempotencyKey"
+          ]
+        },
+        {
+          "key": "recommendationId",
+          "type": "key",
+          "columns": [
+            "recommendationId"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "wellness_checkin",
+      "name": "Wellness check-in",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "checkinId",
+        "userId",
+        "localDate",
+        "energyLevel",
+        "sorenessAreasJson",
+        "sleepPerception",
+        "note",
+        "revision",
+        "createdAt",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "checkinId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "localDate",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "energyLevel",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "sorenessAreasJson",
+          "type": "string",
+          "size": 4096,
+          "required": true
+        },
+        {
+          "key": "sleepPerception",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "note",
+          "type": "string",
+          "size": 2048,
+          "required": false
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_localDate_unique",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "localDate"
+          ]
+        },
+        {
+          "key": "userId_localDate",
+          "type": "key",
+          "columns": [
+            "userId",
+            "localDate"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "progress_insight",
+      "name": "Progress insight",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "insightId",
+        "userId",
+        "periodStart",
+        "periodEnd",
+        "category",
+        "resultText",
+        "evidenceHash",
+        "ruleVersion",
+        "state",
+        "createdAt",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "insightId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "periodStart",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "periodEnd",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "category",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "resultText",
+          "type": "string",
+          "size": 4096,
+          "required": true
+        },
+        {
+          "key": "evidenceHash",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "ruleVersion",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_periodStart_periodEnd",
+          "type": "key",
+          "columns": [
+            "userId",
+            "periodStart",
+            "periodEnd"
+          ]
+        },
+        {
+          "key": "state",
+          "type": "key",
+          "columns": [
+            "state"
+          ]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

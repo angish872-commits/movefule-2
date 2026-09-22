@@ -1,0 +1,730 @@
+{
+  "migrationId": "movefuel_algorithm_calibration_wave_v1",
+  "schemaVersion": 17,
+  "mode": "catalog_only_not_deployed",
+  "status": "algorithm_v2_additive_design",
+  "source": "MoveFuel Engineering Series 01 - density, confidence calibration, personal serving priors",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": null,
+    "serverOnlyTables": [
+      "food_density_revision",
+      "portion_calibration_profile",
+      "vision_benchmark_result",
+      "physical_scale_calibration",
+      "weighed_portion_benchmark"
+    ],
+    "applyAllowed": false,
+    "note": "Algorithm-only design artifact. No live Appwrite mutation is authorized by this manifest. Review provenance, retention and indexes before deployment. No provider credentials or user health data are seeded."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "food_density_revision",
+      "name": "Food Density Revision",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "densityId",
+        "foodKey",
+        "preparation",
+        "physicalForm",
+        "densityCentralGPerMl",
+        "densityMinGPerMl",
+        "densityMaxGPerMl",
+        "sourceId",
+        "sourceRevision",
+        "evidenceQuality",
+        "sampleCount",
+        "regionCuisine",
+        "effectiveFrom",
+        "retiredAt",
+        "createdAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "densityId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "foodKey",
+          "type": "string",
+          "size": 192,
+          "required": true
+        },
+        {
+          "key": "preparation",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "physicalForm",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "densityCentralGPerMl",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "densityMinGPerMl",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "densityMaxGPerMl",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "sourceId",
+          "type": "string",
+          "size": 192,
+          "required": true
+        },
+        {
+          "key": "sourceRevision",
+          "type": "string",
+          "size": 96,
+          "required": true
+        },
+        {
+          "key": "evidenceQuality",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "sampleCount",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "regionCuisine",
+          "type": "string",
+          "size": 96,
+          "required": false
+        },
+        {
+          "key": "effectiveFrom",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "retiredAt",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "density_id_uq",
+          "logicalKey": "densityId_unique",
+          "type": "unique",
+          "columns": [
+            "densityId"
+          ]
+        },
+        {
+          "key": "food_prep_form",
+          "logicalKey": "foodKey_preparation_physicalForm",
+          "type": "key",
+          "columns": [
+            "foodKey",
+            "preparation",
+            "physicalForm"
+          ]
+        }
+      ],
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "portion_calibration_profile",
+      "name": "Portion Calibration Profile",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "profileId",
+        "scopeKey",
+        "algorithmVersion",
+        "targetCoverage",
+        "lowerMultiplier",
+        "upperMultiplier",
+        "medianMultiplier",
+        "sampleCount",
+        "benchmarkVersion",
+        "calibratedAt",
+        "active",
+        "revision"
+      ],
+      "typedColumns": [
+        {
+          "key": "profileId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "scopeKey",
+          "type": "string",
+          "size": 192,
+          "required": true
+        },
+        {
+          "key": "algorithmVersion",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "targetCoverage",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "lowerMultiplier",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "upperMultiplier",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "medianMultiplier",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "sampleCount",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "benchmarkVersion",
+          "type": "string",
+          "size": 96,
+          "required": true
+        },
+        {
+          "key": "calibratedAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "active",
+          "type": "boolean",
+          "required": true
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "profile_id_uq",
+          "logicalKey": "profileId_unique",
+          "type": "unique",
+          "columns": [
+            "profileId"
+          ]
+        },
+        {
+          "key": "scope_active",
+          "logicalKey": "scopeKey_active",
+          "type": "key",
+          "columns": [
+            "scopeKey",
+            "active"
+          ]
+        }
+      ],
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "user_food_portion_stat",
+      "name": "User Food Portion Stat",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "statId",
+        "userId",
+        "foodKey",
+        "preparation",
+        "sampleCount",
+        "medianGrams",
+        "p10Grams",
+        "p90Grams",
+        "madGrams",
+        "lastConfirmedAt",
+        "revision",
+        "updatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "statId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "foodKey",
+          "type": "string",
+          "size": 192,
+          "required": true
+        },
+        {
+          "key": "preparation",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "sampleCount",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "medianGrams",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "p10Grams",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "p90Grams",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "madGrams",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "lastConfirmedAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "updatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "stat_id_uq",
+          "logicalKey": "statId_unique",
+          "type": "unique",
+          "columns": [
+            "statId"
+          ]
+        },
+        {
+          "key": "user_food_prep_uq",
+          "logicalKey": "userId_foodKey_preparation_unique",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "foodKey",
+            "preparation"
+          ]
+        }
+      ],
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "vision_benchmark_result",
+      "name": "Vision Benchmark Result",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "resultId",
+        "benchmarkVersion",
+        "sampleId",
+        "provider",
+        "model",
+        "algorithmVersion",
+        "identityTop1Correct",
+        "identityTop3Correct",
+        "segmentationIou",
+        "predictedMassCentralG",
+        "actualMassG",
+        "intervalCovered",
+        "latencyMs",
+        "recordedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "resultId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "benchmarkVersion",
+          "type": "string",
+          "size": 96,
+          "required": true
+        },
+        {
+          "key": "sampleId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "provider",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "model",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "algorithmVersion",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "identityTop1Correct",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "key": "identityTop3Correct",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "key": "segmentationIou",
+          "type": "float",
+          "required": false
+        },
+        {
+          "key": "predictedMassCentralG",
+          "type": "float",
+          "required": false
+        },
+        {
+          "key": "actualMassG",
+          "type": "float",
+          "required": false
+        },
+        {
+          "key": "intervalCovered",
+          "type": "boolean",
+          "required": false
+        },
+        {
+          "key": "latencyMs",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "recordedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "result_id_uq",
+          "logicalKey": "resultId_unique",
+          "type": "unique",
+          "columns": [
+            "resultId"
+          ]
+        },
+        {
+          "key": "bench_sample",
+          "logicalKey": "benchmarkVersion_sampleId",
+          "type": "key",
+          "columns": [
+            "benchmarkVersion",
+            "sampleId"
+          ]
+        }
+      ],
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "physical_scale_calibration",
+      "name": "Physical Scale Calibration",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "calibrationId",
+        "deviceFamily",
+        "method",
+        "sourceId",
+        "sourceRevision",
+        "minimumCmPerPixel",
+        "centralCmPerPixel",
+        "maximumCmPerPixel",
+        "quality",
+        "benchmarkVersion",
+        "effectiveFrom",
+        "retiredAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "calibrationId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "deviceFamily",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "method",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "sourceId",
+          "type": "string",
+          "size": 192,
+          "required": true
+        },
+        {
+          "key": "sourceRevision",
+          "type": "string",
+          "size": 96,
+          "required": true
+        },
+        {
+          "key": "minimumCmPerPixel",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "centralCmPerPixel",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "maximumCmPerPixel",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "quality",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "benchmarkVersion",
+          "type": "string",
+          "size": 96,
+          "required": true
+        },
+        {
+          "key": "effectiveFrom",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "retiredAt",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "physical_cal_id_uq",
+          "logicalKey": "calibrationId_unique",
+          "type": "unique",
+          "columns": [
+            "calibrationId"
+          ]
+        },
+        {
+          "key": "device_method_active",
+          "logicalKey": "deviceFamily_method_effectiveFrom",
+          "type": "key",
+          "columns": [
+            "deviceFamily",
+            "method",
+            "effectiveFrom"
+          ]
+        }
+      ],
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "weighed_portion_benchmark",
+      "name": "Weighed Portion Benchmark",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "sampleId",
+        "benchmarkVersion",
+        "foodKey",
+        "preparation",
+        "regionCuisine",
+        "deviceFamily",
+        "captureProtocol",
+        "actualMassG",
+        "actualVolumeMl",
+        "groundTruthMethod",
+        "datasetSplit",
+        "consentScope",
+        "recordedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "sampleId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "benchmarkVersion",
+          "type": "string",
+          "size": 96,
+          "required": true
+        },
+        {
+          "key": "foodKey",
+          "type": "string",
+          "size": 192,
+          "required": true
+        },
+        {
+          "key": "preparation",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "regionCuisine",
+          "type": "string",
+          "size": 96,
+          "required": false
+        },
+        {
+          "key": "deviceFamily",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "captureProtocol",
+          "type": "string",
+          "size": 96,
+          "required": true
+        },
+        {
+          "key": "actualMassG",
+          "type": "float",
+          "required": true
+        },
+        {
+          "key": "actualVolumeMl",
+          "type": "float",
+          "required": false
+        },
+        {
+          "key": "groundTruthMethod",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "datasetSplit",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "consentScope",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "recordedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "weighed_sample_id_uq",
+          "logicalKey": "sampleId_unique",
+          "type": "unique",
+          "columns": [
+            "sampleId"
+          ]
+        },
+        {
+          "key": "benchmark_split_food",
+          "logicalKey": "benchmarkVersion_datasetSplit_foodKey",
+          "type": "key",
+          "columns": [
+            "benchmarkVersion",
+            "datasetSplit",
+            "foodKey"
+          ]
+        }
+      ],
+      "requiresReview": true
+    }
+  ]
+}

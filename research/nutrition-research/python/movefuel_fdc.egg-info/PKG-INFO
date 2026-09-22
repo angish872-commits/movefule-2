@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: movefuel-fdc
+Version: 0.1.0
+Summary: MoveFuel USDA FoodData Central ingestion, normalization and benchmarking toolkit
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: openpyxl<4,>=3.1
+Provides-Extra: test
+Requires-Dist: pytest<10,>=8; extra == "test"
+Provides-Extra: vision
+Requires-Dist: opencv-python-headless<5,>=4.10; extra == "vision"
+Requires-Dist: numpy<3,>=2; extra == "vision"
+
+MoveFuel nutrition-data ingestion, normalization, and benchmarking toolkit.

@@ -1,0 +1,29 @@
+{
+  "projectId": "REPLACE_WITH_STAGING_OR_PRODUCTION_PROJECT_ID",
+  "endpoint": "https://REPLACE_WITH_EU_REGION.cloud.appwrite.io/v1",
+  "functions": [
+    {
+      "$id": "movefuel_api",
+      "name": "MoveFuel public API",
+      "runtime": "node-22",
+      "path": "../..",
+      "entrypoint": "services/backend/functions/api/src/main.ts",
+      "commands": "cd services/backend && npm install",
+      "execute": [],
+      "events": [],
+      "schedule": "",
+      "timeout": 30,
+      "enabled": true,
+      "logging": true,
+      "ignore": ["node_modules", ".git", "coverage", ".env*"],
+      "scopes": [
+        "files.read",
+        "files.write",
+        "rows.read",
+        "rows.write",
+        "users.write"
+      ],
+      "vars": []
+    }
+  ]
+}

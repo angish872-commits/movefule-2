@@ -1,0 +1,70 @@
+{
+  "stable_sample_id": "ic-009",
+  "source_dataset": "Nutrition5k (Google Research)",
+  "original_identifier": "dish_1560441511",
+  "original_source_reference": "https://storage.googleapis.com/nutrition5k_dataset/nutrition5k_dataset/imagery/realsense_overhead/dish_1560441511/rgb.png",
+  "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY 4.0",
+  "licence_evidence_reference": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+  "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+  "evidence_class": "MEASURED_DATASET",
+  "food_label": "mixed cafeteria plate (ingredient-derived: watermelon (35g), cantaloupe (38g), berries (50g)…)",
+  "cuisine_region": "Mixed (US cafeteria; not regional)",
+  "local_image_path": "images/ic-009.png",
+  "file_extension": "png",
+  "sha256": "5a1e19fdfb75786508c99ebb3ea202ca765f4660a73a33e77921a13263ca7a4d",
+  "width": 640,
+  "height": 480,
+  "source_width": 640,
+  "source_height": 480,
+  "download_bytes": 480987,
+  "available_ground_truth_fields": {
+    "total_mass_g": 123.0,
+    "total_calories_kcal": 51.919998,
+    "total_fat_g": 0.296,
+    "total_carb_g": 12.7,
+    "total_protein_g": 0.864,
+    "ingredient_list_grams": [
+      {
+        "name": "watermelon",
+        "grams": 35.0
+      },
+      {
+        "name": "cantaloupe",
+        "grams": 38.0
+      },
+      {
+        "name": "berries",
+        "grams": 50.0
+      }
+    ]
+  },
+  "unavailable_ground_truth_fields": [
+    "segmentation_masks",
+    "per_region_visual_portion",
+    "dish_name",
+    "fiber_g",
+    "sodium_mg",
+    "piece_counts"
+  ],
+  "allowed_metrics": [
+    "identity_top1",
+    "identity_top3",
+    "total_mass_gram_error",
+    "calorie_error",
+    "fat_error",
+    "carb_error",
+    "protein_error",
+    "latency",
+    "cost"
+  ],
+  "blocked_not_measurable_metrics": [
+    "fiber_error",
+    "sodium_error",
+    "per_region_gram_error",
+    "hidden_ingredients",
+    "oil_grams"
+  ],
+  "exclusion_reason": null
+}

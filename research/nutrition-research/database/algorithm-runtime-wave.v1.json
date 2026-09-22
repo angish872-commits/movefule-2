@@ -1,0 +1,80 @@
+{
+  "migrationId": "movefuel_algorithm_runtime_wave_v1",
+  "schemaVersion": 18,
+  "mode": "catalog_only_not_deployed",
+  "status": "canonical_algorithm_additive_design",
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "applyAllowed": false,
+    "note": "Algorithm-v3 provenance and acceptance design only. No live Appwrite mutation is authorized by this manifest."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "vision_model_revision",
+      "name": "Vision Model Revision",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "typedColumns": [
+        {"key":"modelRevisionId","type":"string","size":128,"required":true},
+        {"key":"provider","type":"string","size":96,"required":true},
+        {"key":"modelId","type":"string","size":192,"required":true},
+        {"key":"task","type":"string","size":64,"required":true},
+        {"key":"licenseId","type":"string","size":96,"required":true},
+        {"key":"artifactSha256","type":"string","size":64,"required":false},
+        {"key":"sourceRevision","type":"string","size":128,"required":true},
+        {"key":"enabled","type":"boolean","required":true},
+        {"key":"effectiveFrom","type":"datetime","required":true}
+      ],
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "physical_measurement_trace",
+      "name": "Physical Measurement Trace",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "typedColumns": [
+        {"key":"traceId","type":"string","size":128,"required":true},
+        {"key":"userId","type":"string","size":128,"required":true},
+        {"key":"mealDraftId","type":"string","size":128,"required":true},
+        {"key":"regionId","type":"string","size":128,"required":true},
+        {"key":"method","type":"string","size":64,"required":true},
+        {"key":"calibrationId","type":"string","size":128,"required":false},
+        {"key":"volumeMinMl","type":"float","required":false},
+        {"key":"volumeCentralMl","type":"float","required":false},
+        {"key":"volumeMaxMl","type":"float","required":false},
+        {"key":"densityId","type":"string","size":128,"required":false},
+        {"key":"massMinG","type":"float","required":false},
+        {"key":"massCentralG","type":"float","required":false},
+        {"key":"massMaxG","type":"float","required":false},
+        {"key":"algorithmVersion","type":"string","size":32,"required":true},
+        {"key":"createdAt","type":"datetime","required":true}
+      ],
+      "requiresReview": true
+    },
+    {
+      "kind": "table",
+      "id": "algorithm_acceptance_run",
+      "name": "Algorithm Acceptance Run",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "typedColumns": [
+        {"key":"runId","type":"string","size":128,"required":true},
+        {"key":"algorithmVersion","type":"string","size":32,"required":true},
+        {"key":"benchmarkVersion","type":"string","size":96,"required":true},
+        {"key":"sampleCount","type":"integer","required":true},
+        {"key":"gramMae","type":"float","required":false},
+        {"key":"gramMape","type":"float","required":false},
+        {"key":"intervalCoverage","type":"float","required":false},
+        {"key":"calorieMae","type":"float","required":false},
+        {"key":"passed","type":"boolean","required":true},
+        {"key":"createdAt","type":"datetime","required":true}
+      ],
+      "requiresReview": true
+    }
+  ]
+}

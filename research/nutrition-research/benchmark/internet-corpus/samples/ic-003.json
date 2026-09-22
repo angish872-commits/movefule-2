@@ -1,0 +1,114 @@
+{
+  "stable_sample_id": "ic-003",
+  "source_dataset": "Nutrition5k (Google Research)",
+  "original_identifier": "dish_1566844850",
+  "original_source_reference": "https://storage.googleapis.com/nutrition5k_dataset/nutrition5k_dataset/imagery/realsense_overhead/dish_1566844850/rgb.png",
+  "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY 4.0",
+  "licence_evidence_reference": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+  "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+  "evidence_class": "MEASURED_DATASET",
+  "food_label": "mixed cafeteria plate (ingredient-derived: cabbage (11g), pepper (0g), wheat berry (11g), pork (86g), mayonnaise (2g), jalapenos (0g), pepperoni pizza (63g), parsley (1g), olive oil (1g), lemon…)",
+  "cuisine_region": "Mixed (US cafeteria; not regional)",
+  "local_image_path": "images/ic-003.png",
+  "file_extension": "png",
+  "sha256": "9075555210be53f345dc8cdcd7c700b5e43bec614a54e599c35b28b256507626",
+  "width": 640,
+  "height": 480,
+  "source_width": 640,
+  "source_height": 480,
+  "download_bytes": 440627,
+  "available_ground_truth_fields": {
+    "total_mass_g": 345.0,
+    "total_calories_kcal": 491.235168,
+    "total_fat_g": 25.456135,
+    "total_carb_g": 30.58173,
+    "total_protein_g": 35.928123,
+    "ingredient_list_grams": [
+      {
+        "name": "cabbage",
+        "grams": 11.45631
+      },
+      {
+        "name": "pepper",
+        "grams": 0.286408
+      },
+      {
+        "name": "wheat berry",
+        "grams": 11.45631
+      },
+      {
+        "name": "pork",
+        "grams": 85.922325
+      },
+      {
+        "name": "mayonnaise",
+        "grams": 2.291262
+      },
+      {
+        "name": "jalapenos",
+        "grams": 0.143204
+      },
+      {
+        "name": "pepperoni pizza",
+        "grams": 63.0
+      },
+      {
+        "name": "parsley",
+        "grams": 0.572816
+      },
+      {
+        "name": "olive oil",
+        "grams": 0.572816
+      },
+      {
+        "name": "lemon juice",
+        "grams": 1.145631
+      },
+      {
+        "name": "garlic",
+        "grams": 1.145631
+      },
+      {
+        "name": "caesar salad",
+        "grams": 164.0
+      },
+      {
+        "name": "carrot",
+        "grams": 2.864078
+      },
+      {
+        "name": "salt",
+        "grams": 0.143204
+      }
+    ]
+  },
+  "unavailable_ground_truth_fields": [
+    "segmentation_masks",
+    "per_region_visual_portion",
+    "dish_name",
+    "fiber_g",
+    "sodium_mg",
+    "piece_counts"
+  ],
+  "allowed_metrics": [
+    "identity_top1",
+    "identity_top3",
+    "total_mass_gram_error",
+    "calorie_error",
+    "fat_error",
+    "carb_error",
+    "protein_error",
+    "latency",
+    "cost"
+  ],
+  "blocked_not_measurable_metrics": [
+    "fiber_error",
+    "sodium_error",
+    "per_region_gram_error",
+    "hidden_ingredients",
+    "oil_grams"
+  ],
+  "exclusion_reason": null
+}

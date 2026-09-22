@@ -1,0 +1,44 @@
+{
+  "stable_sample_id": "ic-023",
+  "source_dataset": "Wikimedia Commons",
+  "original_identifier": "File:Fried momos.jpg",
+  "original_source_reference": "  (original file: https://upload.wikimedia.org/wikipedia/commons/0/09/Fried_momos.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original)",
+  "author_owner": "Dhanwanthkurup",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY-SA 4.0",
+  "licence_evidence_reference": "https://creativecommons.org/licenses/by-sa/4.0",
+  "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+  "evidence_class": "REFERENCE_ONLY",
+  "food_label": "fried momos",
+  "cuisine_region": "Nepali/South Asian",
+  "local_image_path": "images/ic-023.jpg",
+  "file_extension": "jpg",
+  "sha256": "1a9e68303bba9e45553fef28a329b113c61bf931e8fdfbd42d8ba1d94cc03260",
+  "width": 1280,
+  "height": 853,
+  "source_width": 5472,
+  "source_height": 3648,
+  "download_bytes": 157414,
+  "available_ground_truth_fields": {},
+  "unavailable_ground_truth_fields": [
+    "total_mass_g",
+    "total_calories_kcal",
+    "ingredient_grams",
+    "segmentation_masks"
+  ],
+  "allowed_metrics": [
+    "segmentation",
+    "candidate_generation",
+    "clarification",
+    "workflow",
+    "latency"
+  ],
+  "blocked_not_measurable_metrics": [
+    "gram_error",
+    "calorie_error",
+    "nutrient_error",
+    "hidden_ingredients",
+    "oil_grams"
+  ],
+  "exclusion_reason": null
+}

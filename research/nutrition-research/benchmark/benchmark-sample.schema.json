@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/benchmark/benchmark-sample.schema.json",
+  "title": "BenchmarkSample",
+  "type": "object",
+  "required": ["sampleId", "mealId", "category", "foodNames", "reviewStatus", "privacyConsent"],
+  "properties": {
+    "sampleId": { "type": "string", "minLength": 1 },
+    "mealId": { "type": "string", "minLength": 1 },
+    "captureDate": { "type": "string", "format": "date-time" },
+    "region": { "type": "string" },
+    "category": { "type": "string", "minLength": 1 },
+    "foodNames": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "foodType": { "enum": ["BASIC", "PACKAGED", "PREPARED", "MIXED_DISH", "LIQUID", "UNCLEAR"] },
+    "preparationMethod": { "type": "string" },
+    "ingredients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "fdcId": { "type": "integer", "minimum": 1 },
+          "rawWeightG": { "type": "number", "minimum": 0 },
+          "cookedWeightG": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "finalCookedWeightG": { "type": "number", "minimum": 0 },
+    "portionServedWeightG": { "type": "number", "minimum": 0 },
+    "plateDiameterCm": { "type": "number", "exclusiveMinimum": 0 },
+    "bowlCupVolumeMl": { "type": "number", "exclusiveMinimum": 0 },
+    "pieceCount": { "type": "integer", "minimum": 1 },
+    "addedOilGheeButterSauceG": { "type": "number", "minimum": 0 },
+    "images": {
+      "type": "object",
+      "required": ["front"],
+      "properties": {
+        "front": { "type": "string", "minLength": 1 },
+        "side": { "type": "string", "minLength": 1 },
+        "secondAngle": { "type": "string", "minLength": 1 },
+        "widthPx": { "type": "integer", "minimum": 1 },
+        "heightPx": { "type": "integer", "minimum": 1 },
+        "referenceObject": { "type": "string" }
+      }
+    },
+    "groundTruthRegions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["regionId", "bbox", "foodNames"],
+        "properties": {
+          "regionId": { "type": "string", "minLength": 1 },
+          "bbox": { "$ref": "#/definitions/normalizedBBox" },
+          "foodNames": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    },
+    "reviewer": { "type": "string" },
+    "reviewStatus": { "enum": ["AWAITING_COLLECTION", "COLLECTED", "REVIEWED", "EXCLUDED"] },
+    "corrections": { "type": "array", "items": { "type": "string" } },
+    "exclusions": { "type": "array", "items": { "type": "string" } },
+    "privacyConsent": { "enum": ["CONSENTED", "DECLINED", "PENDING"] },
+    "groundTruthSource": {
+      "type": "object",
+      "properties": {
+        "fdcId": { "type": "integer", "minimum": 1 },
+        "recipeId": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" }
+      }
+    },
+    "groundTruthNutrients": {
+      "type": "object",
+      "properties": {
+        "energyKcal": { "type": "number", "minimum": 0 },
+        "proteinG": { "type": "number", "minimum": 0 },
+        "carbG": { "type": "number", "minimum": 0 },
+        "fatG": { "type": "number", "minimum": 0 },
+        "fiberG": { "type": "number", "minimum": 0 },
+        "sodiumMg": { "type": "number", "minimum": 0 }
+      }
+    }
+  },
+  "definitions": {
+    "normalizedBBox": {
+      "type": "object",
+      "required": ["x", "y", "width", "height"],
+      "properties": {
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 },
+        "width": { "type": "number", "minimum": 0, "maximum": 1 },
+        "height": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

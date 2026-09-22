@@ -1,0 +1,349 @@
+{
+  "migrationId": "movefuel_meal_media_aggregate_wave_v1",
+  "schemaVersion": 8,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0#meal-media-lifecycle-aggregate",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": "userId",
+    "applyAllowed": true,
+    "note": "Create-only private media metadata, tombstone, and confirmed-summary projection wave. Raw image bytes remain in private storage and no rows are seeded."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "meal_media",
+      "name": "Meal media",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "mediaId",
+        "userId",
+        "draftId",
+        "mealId",
+        "bucketId",
+        "objectId",
+        "variant",
+        "checksum",
+        "width",
+        "height",
+        "state",
+        "deleteAfter",
+        "createdAt",
+        "deletedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "mediaId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "draftId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "mealId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "bucketId",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "objectId",
+          "type": "string",
+          "size": 256,
+          "required": true
+        },
+        {
+          "key": "variant",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "checksum",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "width",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "height",
+          "type": "integer",
+          "required": false
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "deleteAfter",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "deletedAt",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "bucketId_objectId_unique",
+          "type": "unique",
+          "columns": [
+            "bucketId",
+            "objectId"
+          ]
+        },
+        {
+          "key": "userId_state_deleteAfter",
+          "type": "key",
+          "columns": [
+            "userId",
+            "state",
+            "deleteAfter"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "meal_tombstone",
+      "name": "Meal tombstone",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "tombstoneId",
+        "userId",
+        "mealId",
+        "deletedRevision",
+        "reason",
+        "createdAt",
+        "purgeAfter"
+      ],
+      "typedColumns": [
+        {
+          "key": "tombstoneId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "mealId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "deletedRevision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "reason",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "purgeAfter",
+          "type": "datetime",
+          "required": false
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_mealId_deletedRevision_unique",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "mealId",
+            "deletedRevision"
+          ]
+        },
+        {
+          "key": "userId_createdAt",
+          "type": "key",
+          "columns": [
+            "userId",
+            "createdAt"
+          ]
+        }
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind": "table",
+      "id": "daily_aggregate",
+      "name": "Daily aggregate",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": "userId",
+      "columns": [
+        "aggregateId",
+        "userId",
+        "localDate",
+        "energyKcal",
+        "proteinG",
+        "carbG",
+        "fatG",
+        "fiberG",
+        "movementValue",
+        "movementUnit",
+        "mealCount",
+        "workoutCount",
+        "targetRevisionId",
+        "revision",
+        "sourceUpdatedAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "aggregateId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "localDate",
+          "type": "string",
+          "size": 32,
+          "required": true
+        },
+        {
+          "key": "energyKcal",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "proteinG",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "carbG",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "fatG",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "fiberG",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "movementValue",
+          "type": "double",
+          "required": false
+        },
+        {
+          "key": "movementUnit",
+          "type": "string",
+          "size": 32,
+          "required": false
+        },
+        {
+          "key": "mealCount",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "workoutCount",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "targetRevisionId",
+          "type": "string",
+          "size": 128,
+          "required": false
+        },
+        {
+          "key": "revision",
+          "type": "integer",
+          "required": true
+        },
+        {
+          "key": "sourceUpdatedAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "userId_localDate_unique",
+          "type": "unique",
+          "columns": [
+            "userId",
+            "localDate"
+          ]
+        },
+        {
+          "key": "userId_localDate",
+          "type": "key",
+          "columns": [
+            "userId",
+            "localDate"
+          ]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "manifestVersion": 1,
+  "name": "MoveFuel weighed-food benchmark (planned)",
+  "status": "PLANNED",
+  "totalPlannedSamples": 30,
+  "categories": [
+    { "category": "BASIC", "count": 6, "sampleIds": [] },
+    { "category": "PIECE_BASED", "count": 3, "sampleIds": [] },
+    { "category": "MIXED", "count": 7, "sampleIds": [] },
+    { "category": "LIQUID", "count": 5, "sampleIds": [] },
+    { "category": "PACKAGED", "count": 3, "sampleIds": [] },
+    { "category": "HARD_CASE", "count": 6, "sampleIds": [] }
+  ],
+  "samples": []
+}

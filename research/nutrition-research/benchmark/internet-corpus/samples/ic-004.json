@@ -1,0 +1,118 @@
+{
+  "stable_sample_id": "ic-004",
+  "source_dataset": "Nutrition5k (Google Research)",
+  "original_identifier": "dish_1565898158",
+  "original_source_reference": "https://storage.googleapis.com/nutrition5k_dataset/nutrition5k_dataset/imagery/realsense_overhead/dish_1565898158/rgb.png",
+  "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY 4.0",
+  "licence_evidence_reference": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+  "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+  "evidence_class": "MEASURED_DATASET",
+  "food_label": "mixed cafeteria plate (ingredient-derived: cilantro (1g), ginger (0g), spinach (raw) (5g), jalapenos (1g), lemon juice (1g), lime (0g), salt (0g), onions (2g), shallots (3g), garlic (3g), salmo…)",
+  "cuisine_region": "Mixed (US cafeteria; not regional)",
+  "local_image_path": "images/ic-004.png",
+  "file_extension": "png",
+  "sha256": "ab4eceecc12d57ae08cd89f73a066e8bf9a301acb5a87b7dbeda72b16fb23f8a",
+  "width": 640,
+  "height": 480,
+  "source_width": 640,
+  "source_height": 480,
+  "download_bytes": 352832,
+  "available_ground_truth_fields": {
+    "total_mass_g": 194.0,
+    "total_calories_kcal": 240.425751,
+    "total_fat_g": 10.293161,
+    "total_carb_g": 10.249402,
+    "total_protein_g": 25.324493,
+    "ingredient_list_grams": [
+      {
+        "name": "cilantro",
+        "grams": 0.971895
+      },
+      {
+        "name": "ginger",
+        "grams": 0.485947
+      },
+      {
+        "name": "spinach (raw)",
+        "grams": 4.859474
+      },
+      {
+        "name": "jalapenos",
+        "grams": 0.971895
+      },
+      {
+        "name": "lemon juice",
+        "grams": 0.971895
+      },
+      {
+        "name": "lime",
+        "grams": 0.121487
+      },
+      {
+        "name": "salt",
+        "grams": 0.242974
+      },
+      {
+        "name": "onions",
+        "grams": 1.94379
+      },
+      {
+        "name": "shallots",
+        "grams": 2.915684
+      },
+      {
+        "name": "garlic",
+        "grams": 2.915684
+      },
+      {
+        "name": "salmon",
+        "grams": 97.189484
+      },
+      {
+        "name": "green beans",
+        "grams": 58.5
+      },
+      {
+        "name": "brown rice",
+        "grams": 19.437897
+      },
+      {
+        "name": "olive oil",
+        "grams": 2.228921
+      },
+      {
+        "name": "chili",
+        "grams": 0.242974
+      }
+    ]
+  },
+  "unavailable_ground_truth_fields": [
+    "segmentation_masks",
+    "per_region_visual_portion",
+    "dish_name",
+    "fiber_g",
+    "sodium_mg",
+    "piece_counts"
+  ],
+  "allowed_metrics": [
+    "identity_top1",
+    "identity_top3",
+    "total_mass_gram_error",
+    "calorie_error",
+    "fat_error",
+    "carb_error",
+    "protein_error",
+    "latency",
+    "cost"
+  ],
+  "blocked_not_measurable_metrics": [
+    "fiber_error",
+    "sodium_error",
+    "per_region_gram_error",
+    "hidden_ingredients",
+    "oil_grams"
+  ],
+  "exclusion_reason": null
+}

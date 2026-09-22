@@ -566,7 +566,7 @@ fun MoveFuelNavGraph(navController: NavHostController) {
         composable(MoveFuelRoute.PRO_002.path) { PRO002PersonalDetailsScreen(navigate) }
         composable(MoveFuelRoute.PRO_003.path) { PRO003TargetsAndGoalsScreen(navigate) }
         composable(MoveFuelRoute.PRO_004.path) { PRO004EditTargetScreen(navigate) }
-        composable(MoveFuelRoute.PRO_005.path) { PRO005TargetPreviewScreen(navigate) }
+        composable(MoveFuelRoute.PRO_005.path) { PRO005TargetPreviewScreen(navigate, state = canonicalState) }
         composable(MoveFuelRoute.PRO_006.path) { PRO006TargetRevisionHistoryScreen(navigate) }
         composable(MoveFuelRoute.PRO_007.path) { PRO007UnitsScreen(navigate) }
         composable(MoveFuelRoute.PRO_008.path) { PRO008LanguageAndRegionScreen(navigate) }

@@ -1,0 +1,116 @@
+{
+  "sample_count": 10,
+  "samples": [
+    {
+      "category": "mixed_cafeteria_plate",
+      "checksum": "bd3eace68c511d4f8e0d57c7a180a9eec7f1dbc41f3b5f3bd39f109c819a00ad",
+      "dataset": "Nutrition5k",
+      "dish_id": "dish_1561665452",
+      "height_px": 480,
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-001.png",
+      "mime_type": "image/png",
+      "sample_id": "ic-001",
+      "width_px": 640
+    },
+    {
+      "category": "mixed_cafeteria_plate",
+      "checksum": "97111d9e18efb39d3d19f9309cc34f4ec0516b0e5cf051886fe489f5be90930f",
+      "dataset": "Nutrition5k",
+      "dish_id": "dish_1564428515",
+      "height_px": 480,
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-002.png",
+      "mime_type": "image/png",
+      "sample_id": "ic-002",
+      "width_px": 640
+    },
+    {
+      "category": "mixed_cafeteria_plate",
+      "checksum": "9075555210be53f345dc8cdcd7c700b5e43bec614a54e599c35b28b256507626",
+      "dataset": "Nutrition5k",
+      "dish_id": "dish_1566844850",
+      "height_px": 480,
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-003.png",
+      "mime_type": "image/png",
+      "sample_id": "ic-003",
+      "width_px": 640
+    },
+    {
+      "category": "mixed_cafeteria_plate",
+      "checksum": "ab4eceecc12d57ae08cd89f73a066e8bf9a301acb5a87b7dbeda72b16fb23f8a",
+      "dataset": "Nutrition5k",
+      "dish_id": "dish_1565898158",
+      "height_px": 480,
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-004.png",
+      "mime_type": "image/png",
+      "sample_id": "ic-004",
+      "width_px": 640
+    },
+    {
+      "category": "mixed_cafeteria_plate",
+      "checksum": "a25b52018572ede708ea9f2acd70463442526baae4f4fee1f633eff1968269db",
+      "dataset": "Nutrition5k",
+      "dish_id": "dish_1562785184",
+      "height_px": 480,
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-005.png",
+      "mime_type": "image/png",
+      "sample_id": "ic-005",
+      "width_px": 640
+    },
+    {
+      "category": "mixed_cafeteria_plate",
+      "checksum": "f6de15e5b6a3a2e76a98fe7790c74829675026cc380e6638cabb807d6e748b9a",
+      "dataset": "Nutrition5k",
+      "dish_id": "dish_1562687299",
+      "height_px": 480,
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-006.png",
+      "mime_type": "image/png",
+      "sample_id": "ic-006",
+      "width_px": 640
+    },
+    {
+      "category": "mixed_cafeteria_plate",
+      "checksum": "5d38bda4aa8b25cc6d8adb19ce6a47df2247caecc5be6dbd2daf359e8601d1eb",
+      "dataset": "Nutrition5k",
+      "dish_id": "dish_1567020054",
+      "height_px": 480,
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-007.png",
+      "mime_type": "image/png",
+      "sample_id": "ic-007",
+      "width_px": 640
+    },
+    {
+      "category": "mixed_cafeteria_plate",
+      "checksum": "3d5283b42fede40520646a6aa9075d56c9d197f24da1ad0feb794c9c1e5aa176",
+      "dataset": "Nutrition5k",
+      "dish_id": "dish_1565379251",
+      "height_px": 480,
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-008.png",
+      "mime_type": "image/png",
+      "sample_id": "ic-008",
+      "width_px": 640
+    },
+    {
+      "category": "mixed_cafeteria_plate",
+      "checksum": "5a1e19fdfb75786508c99ebb3ea202ca765f4660a73a33e77921a13263ca7a4d",
+      "dataset": "Nutrition5k",
+      "dish_id": "dish_1560441511",
+      "height_px": 480,
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-009.png",
+      "mime_type": "image/png",
+      "sample_id": "ic-009",
+      "width_px": 640
+    },
+    {
+      "category": "mixed_cafeteria_plate",
+      "checksum": "2e60a84f2abedd76356d2d5c0e3de9aecd78b1a1a7d879001dc63de7e3a21a48",
+      "dataset": "Nutrition5k",
+      "dish_id": "dish_1561654326",
+      "height_px": 480,
+      "image_path": "nutrition-research/benchmark/internet-corpus/images/ic-010.png",
+      "mime_type": "image/png",
+      "sample_id": "ic-010",
+      "width_px": 640
+    }
+  ],
+  "schema": "movefuel-blind-inference-manifest-v1"
+}

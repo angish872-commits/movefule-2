@@ -1,0 +1,40 @@
+id,area,old_path,new_status,import_decision,priority,notes
+U01,core-model,apps/android/MoveFuelAndroid/core-model/src/main/java/com/movefuel/core/model,NOT_PRESENT,PORT,high,Pure Kotlin serialization domain models; add kotlinx-serialization dep; WorkoutStateMachine/WorkoutElapsed first
+U02,workout state machine,core-model/.../WorkoutStateMachine.kt,IMPORTED,IMPORTED_DONE,high,Ported to Mufil-2 domain/workout with JUnit tests
+U03,workout elapsed,core-model/.../WorkoutElapsed.kt,IMPORTED,IMPORTED_DONE,high,Ported to Mufil-2 domain/workout with JUnit tests
+U04,watch protocols,core-model/.../WatchConnectionProtocol.kt; SummaryDeliveryProtocol.kt; SummaryReceipt.kt,NOT_PRESENT,PORT,medium,Serializable protocol models; enables sync later
+U05,target engine,app/.../product/PersonalTargetEngine.kt,IMPORTED,IMPORTED_DONE,high,Ported to Mufil-2 domain/target with JUnit tests
+U06,progress signals,app/.../product/ProgressSignals.kt,IMPORTED,IMPORTED_DONE,high,Ported to Mufil-2 domain/progress with JUnit tests
+U07,wellness report,app/.../product/WellnessReport.kt,IMPORTED,IMPORTED_DONE,medium,Ported to Mufil-2 domain/progress with JUnit tests
+U08,meal nutrition math,app/.../meal/MealNutritionMath.kt,IMPORTED,IMPORTED_DONE,high,Ported to Mufil-2 domain/meal with JUnit tests
+U09,meal type resolver,app/.../meal/MealTypeResolver.kt,IMPORTED,IMPORTED_DONE,high,Ported to Mufil-2 domain/meal with JUnit tests
+U10,meal draft model,app/.../meal/MealDraft.kt; MealEstimate.kt,NOT_PRESENT,PORT_AND_ADAPT,high,Meal draft/estimate domain types used by Fuel screens
+U11,meal analysis workflow,app/.../meal/MealAnalysisWorkflow.kt; MealAnalyzer.kt; MealCaptureCoordinator.kt,NOT_PRESENT,PORT_AND_ADAPT,high,Needs backend client; keep workflow state machine portable
+U12,meal media,app/.../meal/MealMediaReader.kt; MealMediaCache.kt; MealMediaEdit.kt,NOT_PRESENT,DEFER,medium,Android camera/bitmap specific
+U13,meal stores,app/.../meal/MealDraftStore.kt; product/SavedMealStore.kt,NOT_PRESENT,PORT_AND_ADAPT,high,Room + DataStore; wire into canonical state
+U14,workout stores,app/.../workout/PhoneCanonicalTrainingStore.kt; WorkoutHistoryStore.kt; PhoneWorkoutSnapshotStore.kt,NOT_PRESENT,PORT_AND_ADAPT,high,Structured offline data stays in Room
+U15,workout restore,app/.../workout/PhoneWorkoutStateRestorer.kt,NOT_PRESENT,PORT_AND_ADAPT,medium,Depends on U01
+U16,workout plan catalog,app/.../workout/WorkoutPlanCatalog.kt,NOT_PRESENT,PORT_AND_ADAPT,medium,Presentation mapping from plan envelope
+U17,training presentation,app/.../workout/CanonicalTrainingPresentationMapper.kt,NOT_PRESENT,PORT_AND_ADAPT,high,Maps TS TrainingPlanEnvelope to Train screens
+U18,today reducer,app/.../today/TodayDashboardReducer.kt; TodayDashboardState.kt; CanonicalTodayState.kt,NOT_PRESENT,PORT_AND_ADAPT,high,Canonical Today decision projection
+U19,calendar,app/.../calendar/PhoneCanonicalCalendar.kt,NOT_PRESENT,PORT_AND_ADAPT,medium,Calendar constraints/availability
+U20,offline queue,app/.../offline/SummaryQueuePolicy.kt; SummaryRetryPolicy.kt; SummaryRetryScheduler.kt,NOT_PRESENT,PORT_AND_ADAPT,medium,Retry/idempotency policy is pure and portable
+U21,offline database,app/.../offline/PhoneOfflineDatabase.kt,NOT_PRESENT,PORT_AND_ADAPT,medium,Room; requires KSP plugin
+U22,health connect,app/.../health/HealthConnectProvider.kt; HealthModels.kt,NOT_PRESENT,DEFER,low,Health Connect permissions/runtime
+U23,datalayer wear,app/.../datalayer/*,NOT_PRESENT,DEFER,low,Play Services Wearable; separate phone+wear effort
+U24,auth,app/.../auth/*,NOT_PRESENT,DEFER,low,Appwrite auth/session
+U25,backend transport,app/.../backend/*,NOT_PRESENT,DEFER,medium,Appwrite function transport; depends on services/backend import
+U26,profile stores,app/.../product/ProfilePreferenceStore.kt; PrivacyPreferenceStore.kt; OnboardingStore.kt,NOT_PRESENT,PORT_AND_ADAPT,high,DataStore UI prefs vs Room structured data
+U27,progress store,app/.../product/ProgressSignals.kt; PhoneProductStore.kt,NOT_PRESENT,PORT_AND_ADAPT,medium,Progress signals -> Progress master dashboard
+U28,notifications,app/.../product/LocalNotificationScheduler.kt,NOT_PRESENT,DEFER,low,WorkManager + channels
+U29,billing,app/.../product/billing/EntitlementProvider.kt,NOT_PRESENT,DEFER,low,Play Billing
+U30,feature fuel,app/.../feature/fuel/*,UI_ONLY_STATIC,PORT_UI_WIRING,high,Wire FNO_* screens to meal domain + stores
+U31,feature train,app/.../feature/train/*,UI_ONLY_STATIC,PORT_UI_WIRING,high,Wire TRN_* screens to training domain
+U32,feature today,app/.../feature/today/*,UI_ONLY_STATIC,PORT_UI_WIRING,high,Wire TOD_* screens to Today reducer
+U33,feature progress,app/.../feature/progress/*,UI_ONLY_STATIC,PORT_UI_WIRING,medium,Wire PRG_* screens to progress signals
+U34,feature profile,app/.../feature/profile/*,PARTIAL,PORT_UI_WIRING,medium,PRO_005 target preview wired to PersonalTargetEngine via CanonicalAppState; remaining PRO_* screens pending
+U35,feature calendar,app/.../feature/calendar/*,UI_ONLY_STATIC,PORT_UI_WIRING,medium,Wire CAL_* screens to calendar
+U36,feature meal capture/review,app/.../feature/meal/{capture,review,history}/*,UI_ONLY_STATIC,PORT_UI_WIRING,high,Wire CAM_/RC_* screens to meal workflow
+U37,shell/dashboard,app/.../dashboard/*,ALREADY_MIRRORED_AS_SCREENS,KEEP,low,Mufil-2 shell (428 kt) is the visual target; add domain wiring only
+U38,ui kit,app/.../ui/*,ALREADY_MIRRORED_AS_DESIGN,KEEP,low,Mufil-2 ui/design + ui/components replace old ui kit
+U39,wear app,apps/android/MoveFuelAndroid/wear/*,NOT_PRESENT,DEFER,low,Separate Wear module; depends on U23

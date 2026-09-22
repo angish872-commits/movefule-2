@@ -1,0 +1,44 @@
+{
+  "stable_sample_id": "ic-030",
+  "source_dataset": "Wikimedia Commons",
+  "original_identifier": "File:A plate of cooked rice with stew.jpg",
+  "original_source_reference": "  (original file: https://upload.wikimedia.org/wikipedia/commons/b/b7/A_plate_of_cooked_rice_with_stew.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original)",
+  "author_owner": "THE ROSE BOY",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC0",
+  "licence_evidence_reference": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "attribution_requirements": "Creative Commons Zero, Public Domain Dedication",
+  "evidence_class": "REFERENCE_ONLY",
+  "food_label": "cooked rice with stew",
+  "cuisine_region": "South Asian",
+  "local_image_path": "images/ic-030.jpg",
+  "file_extension": "jpg",
+  "sha256": "6aa1173b4849b25720ec8baf47417cee99c1517fe934ad665c26f099db60f94b",
+  "width": 1280,
+  "height": 960,
+  "source_width": 4608,
+  "source_height": 3456,
+  "download_bytes": 215843,
+  "available_ground_truth_fields": {},
+  "unavailable_ground_truth_fields": [
+    "total_mass_g",
+    "total_calories_kcal",
+    "ingredient_grams",
+    "segmentation_masks"
+  ],
+  "allowed_metrics": [
+    "segmentation",
+    "candidate_generation",
+    "clarification",
+    "workflow",
+    "latency"
+  ],
+  "blocked_not_measurable_metrics": [
+    "gram_error",
+    "calorie_error",
+    "nutrient_error",
+    "hidden_ingredients",
+    "oil_grams"
+  ],
+  "exclusion_reason": null
+}

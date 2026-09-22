@@ -1,0 +1,114 @@
+{
+  "stable_sample_id": "ic-007",
+  "source_dataset": "Nutrition5k (Google Research)",
+  "original_identifier": "dish_1567020054",
+  "original_source_reference": "https://storage.googleapis.com/nutrition5k_dataset/nutrition5k_dataset/imagery/realsense_overhead/dish_1567020054/rgb.png",
+  "author_owner": "Google Research (Thames et al., CVPR 2021) — dataset creators",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY 4.0",
+  "licence_evidence_reference": "https://github.com/google-research-datasets/Nutrition5k#license--contact and https://creativecommons.org/licenses/by/4.0/",
+  "attribution_requirements": "Attribute Google Research / cite Thames et al. 2021; CC BY 4.0 allows commercial use with attribution",
+  "evidence_class": "MEASURED_DATASET",
+  "food_label": "mixed cafeteria plate (ingredient-derived: shallots (1g), garlic (0g), parsley (1g), salt (0g), kale (3g), brussels sprouts (54g), lemon juice (1g), olive oil (3g), wheat berry (13g), chive (0g…)",
+  "cuisine_region": "Mixed (US cafeteria; not regional)",
+  "local_image_path": "images/ic-007.png",
+  "file_extension": "png",
+  "sha256": "5d38bda4aa8b25cc6d8adb19ce6a47df2247caecc5be6dbd2daf359e8601d1eb",
+  "width": 640,
+  "height": 480,
+  "source_width": 640,
+  "source_height": 480,
+  "download_bytes": 317650,
+  "available_ground_truth_fields": {
+    "total_mass_g": 145.0,
+    "total_calories_kcal": 122.001411,
+    "total_fat_g": 11.540041,
+    "total_carb_g": 7.937456,
+    "total_protein_g": 14.210079,
+    "ingredient_list_grams": [
+      {
+        "name": "shallots",
+        "grams": 1.262604
+      },
+      {
+        "name": "garlic",
+        "grams": 0.039456
+      },
+      {
+        "name": "parsley",
+        "grams": 0.631302
+      },
+      {
+        "name": "salt",
+        "grams": 0.428428
+      },
+      {
+        "name": "kale",
+        "grams": 3.15651
+      },
+      {
+        "name": "brussels sprouts",
+        "grams": 54.120541
+      },
+      {
+        "name": "lemon juice",
+        "grams": 1.262604
+      },
+      {
+        "name": "olive oil",
+        "grams": 3.066414
+      },
+      {
+        "name": "wheat berry",
+        "grams": 12.626041
+      },
+      {
+        "name": "chive",
+        "grams": 0.157826
+      },
+      {
+        "name": "chard",
+        "grams": 2.525208
+      },
+      {
+        "name": "pepper",
+        "grams": 0.067651
+      },
+      {
+        "name": "fish",
+        "grams": 63.130203
+      },
+      {
+        "name": "cherry tomatoes",
+        "grams": 2.525208
+      }
+    ]
+  },
+  "unavailable_ground_truth_fields": [
+    "segmentation_masks",
+    "per_region_visual_portion",
+    "dish_name",
+    "fiber_g",
+    "sodium_mg",
+    "piece_counts"
+  ],
+  "allowed_metrics": [
+    "identity_top1",
+    "identity_top3",
+    "total_mass_gram_error",
+    "calorie_error",
+    "fat_error",
+    "carb_error",
+    "protein_error",
+    "latency",
+    "cost"
+  ],
+  "blocked_not_measurable_metrics": [
+    "fiber_error",
+    "sodium_error",
+    "per_region_gram_error",
+    "hidden_ingredients",
+    "oil_grams"
+  ],
+  "exclusion_reason": null
+}

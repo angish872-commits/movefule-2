@@ -1,0 +1,44 @@
+{
+  "stable_sample_id": "ic-025",
+  "source_dataset": "Wikimedia Commons",
+  "original_identifier": "File:Nepali dal-bhat-tarkari.jpg",
+  "original_source_reference": "  (original file: https://upload.wikimedia.org/wikipedia/commons/6/60/Nepali_dal-bhat-tarkari.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original)",
+  "author_owner": "Subhashish Panigrahi",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY-SA 4.0",
+  "licence_evidence_reference": "https://creativecommons.org/licenses/by-sa/4.0",
+  "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+  "evidence_class": "REFERENCE_ONLY",
+  "food_label": "Nepali dal bhat tarkari",
+  "cuisine_region": "Nepali",
+  "local_image_path": "images/ic-025.jpg",
+  "file_extension": "jpg",
+  "sha256": "1b2aff7e7eaf981157de7e9f7e5fff2bc2e35174bf86ca4bf6cae03de8039932",
+  "width": 1280,
+  "height": 960,
+  "source_width": 3264,
+  "source_height": 2448,
+  "download_bytes": 290042,
+  "available_ground_truth_fields": {},
+  "unavailable_ground_truth_fields": [
+    "total_mass_g",
+    "total_calories_kcal",
+    "ingredient_grams",
+    "segmentation_masks"
+  ],
+  "allowed_metrics": [
+    "segmentation",
+    "candidate_generation",
+    "clarification",
+    "workflow",
+    "latency"
+  ],
+  "blocked_not_measurable_metrics": [
+    "gram_error",
+    "calorie_error",
+    "nutrient_error",
+    "hidden_ingredients",
+    "oil_grams"
+  ],
+  "exclusion_reason": null
+}

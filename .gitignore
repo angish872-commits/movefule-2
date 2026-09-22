@@ -14,6 +14,10 @@ secrets.*
 .vscode/
 .DS_Store
 
+# Node dependencies / TS build output
+node_modules/
+dist/
+
 # Gradle / Android build output
 .gradle/
 **/build/

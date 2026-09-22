@@ -1,0 +1,126 @@
+{
+  "migrationId": "movefuel_training_exercise_catalog_hardening_v1",
+  "schemaVersion": 12,
+  "mode": "verify_existing_and_create_missing_columns_only",
+  "status": "typed_additive_wave",
+  "source": "Training Engine 5 canonical exercise provenance requirements",
+  "database": { "id": "movefuel_mvp", "name": "MoveFuel MVP", "verification": "existing_database_only" },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "newTableIds": [],
+    "extendedTableIds": ["exercise_catalog", "workout_plan_revision", "workout_plan_step"],
+    "applyAllowed": true,
+    "note": "Adds provenance/version fields to existing Training resources only. No table is created."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "exercise_catalog",
+      "name": "Exercise catalog",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": ["exerciseId","slug","name","instructionsJson","equipmentJson","mediaLicense","mediaObjectId","status","revision","updatedAt","aliasesJson","movementPattern","primaryMusclesJson","secondaryMusclesJson","environmentJson","minimumExperience","skillLevel","progressionJson","substitutionGroup","contraindicationJson","fatigueCost","sourceProvider","sourceRecordId","sourceVersion","sourceLicense","sourceLicenseReference","sourceLicenseVerified"],
+      "typedColumns": [
+        {"key":"exerciseId","type":"string","size":128,"required":true},
+        {"key":"slug","type":"string","size":128,"required":true},
+        {"key":"name","type":"string","size":256,"required":true},
+        {"key":"instructionsJson","type":"string","size":8192,"required":true},
+        {"key":"equipmentJson","type":"string","size":4096,"required":true},
+        {"key":"mediaLicense","type":"string","size":256,"required":false},
+        {"key":"mediaObjectId","type":"string","size":256,"required":false},
+        {"key":"status","type":"string","size":32,"required":true},
+        {"key":"revision","type":"integer","required":true},
+        {"key":"updatedAt","type":"datetime","required":true},
+        {"key":"aliasesJson","type":"string","size":4096,"required":false},
+        {"key":"movementPattern","type":"string","size":32,"required":false},
+        {"key":"primaryMusclesJson","type":"string","size":4096,"required":false},
+        {"key":"secondaryMusclesJson","type":"string","size":4096,"required":false},
+        {"key":"environmentJson","type":"string","size":2048,"required":false},
+        {"key":"minimumExperience","type":"string","size":32,"required":false},
+        {"key":"skillLevel","type":"string","size":32,"required":false},
+        {"key":"progressionJson","type":"string","size":2048,"required":false},
+        {"key":"substitutionGroup","type":"string","size":128,"required":false},
+        {"key":"contraindicationJson","type":"string","size":4096,"required":false},
+        {"key":"fatigueCost","type":"double","required":false},
+        {"key":"sourceProvider","type":"string","size":128,"required":false},
+        {"key":"sourceRecordId","type":"string","size":128,"required":false},
+        {"key":"sourceVersion","type":"string","size":128,"required":false},
+        {"key":"sourceLicense","type":"string","size":256,"required":false},
+        {"key":"sourceLicenseReference","type":"string","size":1024,"required":false},
+        {"key":"sourceLicenseVerified","type":"boolean","required":false}
+      ],
+      "indexDefinitions": [
+        {"key":"slug_unique","type":"unique","columns":["slug"]},
+        {"key":"status_name","type":"key","columns":["status","name"]},
+        {"key":"source_provider_record","type":"key","columns":["sourceProvider","sourceRecordId"]}
+      ],
+      "requiresReview": false
+    },
+    {
+      "kind":"table",
+      "id":"workout_plan_revision",
+      "name":"Workout plan revision",
+      "rowSecurity":true,
+      "permissions":[],
+      "ownerField":null,
+      "columns":["planRevisionId","planId","revision","name","notes","source","createdAt","envelopeJson","envelopeHash","algorithmBundleVersion","profileRevision","historySnapshotHash","idempotencyKey","requestHash"],
+      "typedColumns":[
+        {"key":"planRevisionId","type":"string","size":128,"required":true},
+        {"key":"planId","type":"string","size":128,"required":true},
+        {"key":"revision","type":"integer","required":true},
+        {"key":"name","type":"string","size":128,"required":true},
+        {"key":"notes","type":"string","size":8192,"required":false},
+        {"key":"source","type":"string","size":32,"required":true},
+        {"key":"createdAt","type":"datetime","required":true},
+        {"key":"envelopeJson","type":"string","size":65535,"required":false},
+        {"key":"envelopeHash","type":"string","size":64,"required":false},
+        {"key":"algorithmBundleVersion","type":"string","size":128,"required":false},
+        {"key":"profileRevision","type":"integer","required":false},
+        {"key":"historySnapshotHash","type":"string","size":128,"required":false},
+        {"key":"idempotencyKey","type":"string","size":128,"required":false},
+        {"key":"requestHash","type":"string","size":64,"required":false}
+      ],
+      "indexDefinitions":[
+        {"key":"planId_revision_unique","type":"unique","columns":["planId","revision"]},
+        {"key":"createdAt","type":"key","columns":["createdAt"]},
+        {"key":"envelopeHash","type":"key","columns":["envelopeHash"]},
+        {"key":"planId_idempotency","type":"key","columns":["planId","idempotencyKey"]}
+      ],
+      "requiresReview":false
+    },
+    {
+      "kind":"table",
+      "id":"workout_plan_step",
+      "name":"Workout plan step",
+      "rowSecurity":true,
+      "permissions":[],
+      "ownerField":null,
+      "columns":["stepId","planRevisionId","sortOrder","exerciseId","sets","repsMin","repsMax","durationSeconds","restSeconds","loadGuidance","optional","semanticSessionId","sessionLocalDate","sessionPurpose","substitutionIdsJson","progressionContextJson","reasonCodesJson"],
+      "typedColumns":[
+        {"key":"stepId","type":"string","size":128,"required":true},
+        {"key":"planRevisionId","type":"string","size":128,"required":true},
+        {"key":"sortOrder","type":"integer","required":true},
+        {"key":"exerciseId","type":"string","size":128,"required":true},
+        {"key":"sets","type":"integer","required":false},
+        {"key":"repsMin","type":"integer","required":false},
+        {"key":"repsMax","type":"integer","required":false},
+        {"key":"durationSeconds","type":"integer","required":false},
+        {"key":"restSeconds","type":"integer","required":false},
+        {"key":"loadGuidance","type":"string","size":256,"required":false},
+        {"key":"optional","type":"boolean","required":true},
+        {"key":"semanticSessionId","type":"string","size":128,"required":false},
+        {"key":"sessionLocalDate","type":"string","size":16,"required":false},
+        {"key":"sessionPurpose","type":"string","size":64,"required":false},
+        {"key":"substitutionIdsJson","type":"string","size":4096,"required":false},
+        {"key":"progressionContextJson","type":"string","size":2048,"required":false},
+        {"key":"reasonCodesJson","type":"string","size":4096,"required":false}
+      ],
+      "indexDefinitions":[
+        {"key":"planRevisionId_sortOrder","type":"key","columns":["planRevisionId","sortOrder"]},
+        {"key":"semanticSessionId_sortOrder","type":"key","columns":["semanticSessionId","sortOrder"]}
+      ],
+      "requiresReview":false
+    }
+  ]
+}

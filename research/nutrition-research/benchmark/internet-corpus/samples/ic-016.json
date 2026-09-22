@@ -1,0 +1,42 @@
+{
+  "stable_sample_id": "ic-016",
+  "source_dataset": "Wikimedia Commons",
+  "original_identifier": "File:Boiled yellow lentil tomato ginger garlic.jpg",
+  "original_source_reference": "  (original file: https://upload.wikimedia.org/wikipedia/commons/8/8c/Boiled_yellow_lentil_tomato_ginger_garlic.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original)",
+  "author_owner": "CNEcija12345",
+  "retrieval_date": "2026-08-06",
+  "licence": "CC BY-SA 4.0",
+  "licence_evidence_reference": "https://creativecommons.org/licenses/by-sa/4.0",
+  "attribution_requirements": "Creative Commons Attribution-Share Alike 4.0",
+  "evidence_class": "LABELLED_IDENTITY_ONLY",
+  "food_label": "boiled yellow lentil (dal)",
+  "cuisine_region": "Nepali/South Asian",
+  "local_image_path": "images/ic-016.jpg",
+  "file_extension": "jpg",
+  "sha256": "9d21a95c4036ba4839d0607af39dc7b8087162f4f965f6f311fca7596d4a2b00",
+  "width": 1280,
+  "height": 981,
+  "source_width": 3475,
+  "source_height": 2662,
+  "download_bytes": 312660,
+  "available_ground_truth_fields": {
+    "food_label": "boiled yellow lentil (dal)"
+  },
+  "unavailable_ground_truth_fields": [
+    "total_mass_g",
+    "total_calories_kcal",
+    "ingredient_grams",
+    "segmentation_masks"
+  ],
+  "allowed_metrics": [
+    "identity_top1",
+    "identity_top3"
+  ],
+  "blocked_not_measurable_metrics": [
+    "gram_error",
+    "calorie_error",
+    "nutrient_error",
+    "per_region_gram_error"
+  ],
+  "exclusion_reason": null
+}

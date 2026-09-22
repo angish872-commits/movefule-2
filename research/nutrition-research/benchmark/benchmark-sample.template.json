@@ -1,0 +1,40 @@
+{
+  "sampleId": "bs-TBD",
+  "mealId": "meal-TBD",
+  "captureDate": null,
+  "region": "NPL",
+  "category": "BASIC",
+  "foodNames": ["<food name, e.g. rice>"],
+  "foodType": "BASIC",
+  "preparationMethod": "<e.g. boiled>",
+  "ingredients": [
+    {
+      "name": "<ingredient>",
+      "fdcId": null,
+      "rawWeightG": null,
+      "cookedWeightG": null
+    }
+  ],
+  "finalCookedWeightG": null,
+  "portionServedWeightG": null,
+  "plateDiameterCm": null,
+  "bowlCupVolumeMl": null,
+  "pieceCount": null,
+  "addedOilGheeButterSauceG": null,
+  "images": {
+    "front": "ref://<sample-id>/front.jpg",
+    "side": null,
+    "secondAngle": null,
+    "widthPx": null,
+    "heightPx": null,
+    "referenceObject": "<e.g. standard card / coin>"
+  },
+  "groundTruthRegions": [],
+  "reviewer": null,
+  "reviewStatus": "AWAITING_COLLECTION",
+  "corrections": [],
+  "exclusions": [],
+  "privacyConsent": "PENDING",
+  "groundTruthSource": null,
+  "groundTruthNutrients": null
+}

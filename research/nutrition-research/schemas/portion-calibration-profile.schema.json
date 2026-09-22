@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/portion-calibration-profile.schema.json",
+  "title": "PortionCalibrationProfile",
+  "type": "object",
+  "required": [
+    "profileId",
+    "scopeKey",
+    "portionEstimatorVersion",
+    "targetCoverage",
+    "lowerMultiplier",
+    "upperMultiplier",
+    "medianMultiplier",
+    "sampleCount",
+    "benchmarkVersion",
+    "calibratedAt"
+  ],
+  "properties": {
+    "profileId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scopeKey": {
+      "type": "string",
+      "minLength": 1
+    },
+    "portionEstimatorVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "targetCoverage": {
+      "type": "number",
+      "exclusiveMinimum": 0.5,
+      "exclusiveMaximum": 1
+    },
+    "lowerMultiplier": {
+      "type": "number",
+      "minimum": 0
+    },
+    "upperMultiplier": {
+      "type": "number",
+      "minimum": 0
+    },
+    "medianMultiplier": {
+      "type": "number",
+      "minimum": 0
+    },
+    "sampleCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "benchmarkVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "calibratedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

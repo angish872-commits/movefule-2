@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/food-candidate.schema.json",
+  "title": "FoodCandidate",
+  "type": "object",
+  "required": ["name", "searchTerms", "foodType", "preparationCandidates", "providerConfidence", "modelProviderVersion", "uncertaintyNotes"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1 },
+    "searchTerms": { "type": "array", "items": { "type": "string" } },
+    "foodType": { "enum": ["BASIC", "PACKAGED", "PREPARED", "MIXED_DISH", "LIQUID", "UNCLEAR"] },
+    "preparationCandidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["label", "confidence"],
+        "properties": {
+          "label": { "type": "string" },
+          "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+        }
+      }
+    },
+    "providerConfidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "modelProviderVersion": { "type": "string" },
+    "uncertaintyNotes": { "type": "array", "items": { "type": "string" } }
+  }
+}

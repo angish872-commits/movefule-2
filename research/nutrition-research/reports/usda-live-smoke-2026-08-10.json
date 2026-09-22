@@ -1,0 +1,6 @@
+{
+  "status": "FAILED",
+  "source": "USDA FoodData Central API",
+  "errorType": "URLError",
+  "error": "network_unavailable"
+}

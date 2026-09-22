@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "movefuel/schemas/physical-volume-estimate.schema.json",
+  "title": "VolumeReconstructionResult",
+  "type": "object",
+  "required": [
+    "minimumMl",
+    "centralMl",
+    "maximumMl",
+    "confidence",
+    "sampleCount",
+    "validCoverageFraction",
+    "calibrationId",
+    "sourceId",
+    "sourceRevision",
+    "provider",
+    "providerVersion",
+    "algorithmVersion",
+    "uncertainties"
+  ],
+  "properties": {
+    "minimumMl": {
+      "type": "number",
+      "minimum": 0
+    },
+    "centralMl": {
+      "type": "number",
+      "minimum": 0
+    },
+    "maximumMl": {
+      "type": "number",
+      "minimum": 0
+    },
+    "confidence": {
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "INSUFFICIENT"
+      ]
+    },
+    "sampleCount": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "validCoverageFraction": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "calibrationId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourceRevision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "providerVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "algorithmVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

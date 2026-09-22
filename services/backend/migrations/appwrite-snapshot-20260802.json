@@ -1,0 +1,720 @@
+{
+  "projectId": "6a6cc4b20007b4445e93",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP"
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "user_profile",
+      "columns": ["userId", "displayName", "dateOfBirth", "countryCode", "locale", "timeZone", "sexForEnergyEstimate", "heightMm", "currentWeightG", "goalWeightG", "activityLevel", "trainingFrequency", "onboardingState", "revision", "createdAt", "updatedAt"],
+      "indexes": ["userId_unique", "onboardingState", "updatedAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "user_identity",
+      "columns": ["identityId", "userId", "provider", "providerSubjectHash", "emailNormalized", "emailVerified", "linkedAt", "lastUsedAt"],
+      "indexes": ["provider_subject_unique", "userId"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "user_session_metadata",
+      "columns": ["sessionMetaId", "userId", "appwriteSessionIdHash", "deviceId", "platform", "appVersion", "createdAt", "lastSeenAt", "revokedAt"],
+      "indexes": ["appwriteSessionIdHash_unique", "userId_lastSeenAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "onboarding_progress",
+      "columns": ["userId", "currentStep", "completedStepsJson", "draftValuesJson", "schemaVersion", "revision", "updatedAt"],
+      "indexes": ["userId_unique", "updatedAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "consent_record",
+      "columns": ["consentId", "userId", "consentType", "documentVersion", "choice", "jurisdiction", "sourcePlatform", "recordedAt", "revokedAt"],
+      "indexes": ["user_consent_version_unique", "userId_recordedAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "user_preference",
+      "columns": ["preferenceId", "userId", "key", "valueJson", "revision", "updatedAt"],
+      "indexes": ["user_key_unique", "userId_updatedAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "privacy_preference",
+      "columns": ["userId", "retainMealImages", "imageRetentionDays", "analyticsAllowed", "modelImprovementAllowed", "exportLocale", "revision", "updatedAt"],
+      "indexes": ["userId_unique", "updatedAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "user_goal",
+      "columns": ["goalId", "userId", "goalType", "startDate", "targetDate", "targetWeightG", "status", "createdAt", "endedAt"],
+      "indexes": ["userId_status", "userId_startDate"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "target_revision",
+      "columns": ["targetRevisionId", "userId", "effectiveDate", "energyKcal", "proteinG", "movementTarget", "actionCategory", "source", "formulaVersion", "userConfirmed", "revision", "createdAt"],
+      "indexes": ["user_effective_revision_unique", "userId_effectiveDate"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "device_session",
+      "columns": ["deviceSessionId", "userId", "phoneDeviceId", "watchDeviceId", "state", "issuedAt", "expiresAt", "revokedAt"],
+      "indexes": ["phone_watch_state_unique", "userId_state"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "audit_event",
+      "columns": ["auditId", "userId", "actorType", "actorIdHash", "action", "objectType", "objectId", "result", "correlationId", "occurredAt", "metadataJson"],
+      "indexes": ["userId_occurredAt", "correlationId", "action_occurredAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "idempotency_key",
+      "columns": ["keyId", "userId", "scope", "keyHash", "requestHash", "responseRef", "state", "expiresAt", "createdAt"],
+      "indexes": ["scope_keyHash_unique", "expiresAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "device",
+      "columns": ["deviceId", "userId", "platform", "deviceClass", "installationIdHash", "appVersion", "capabilityJson", "lastSeenAt", "revokedAt"],
+      "indexes": ["user_installation_unique", "userId_deviceClass"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "health_connection",
+      "columns": ["connectionId", "userId", "platform", "sourceName", "permissionStateJson", "lastSuccessAt", "lastErrorCode", "revision", "updatedAt"],
+      "indexes": ["userId_platform_sourceName_unique", "userId_updatedAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "health_import_cursor",
+      "columns": ["cursorId", "userId", "connectionId", "dataType", "opaqueCursorEncrypted", "lastWindowEnd", "updatedAt"],
+      "indexes": ["connectionId_dataType_unique", "userId"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "health_sample_summary",
+      "columns": ["summaryId", "userId", "localDate", "dataType", "value", "unit", "sourcePlatform", "sourceDevice", "provenanceHash", "revision", "measuredStart", "measuredEnd"],
+      "indexes": ["userId_localDate_dataType", "userId_dataType_provenanceHash_uq"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "device_command",
+      "columns": ["commandId", "userId", "targetDeviceId", "commandType", "objectId", "objectRevision", "state", "requestedAt", "acknowledgedAt", "errorCode"],
+      "indexes": ["userId_state", "targetDevice_command_object_rev_uq"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "meal_media",
+      "columns": ["mediaId", "userId", "draftId", "mealId", "bucketId", "objectId", "variant", "checksum", "width", "height", "state", "deleteAfter", "createdAt", "deletedAt"],
+      "indexes": ["bucketId_objectId_unique", "userId_state_deleteAfter"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "meal_tombstone",
+      "columns": ["tombstoneId", "userId", "mealId", "deletedRevision", "reason", "createdAt", "purgeAfter"],
+      "indexes": ["userId_mealId_deletedRevision_unique", "userId_createdAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "daily_aggregate",
+      "columns": ["aggregateId", "userId", "localDate", "energyKcal", "proteinG", "carbG", "fatG", "fiberG", "movementValue", "movementUnit", "mealCount", "workoutCount", "targetRevisionId", "revision", "sourceUpdatedAt"],
+      "indexes": ["userId_localDate_unique", "userId_localDate"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "workout_plan",
+      "columns": ["planId", "userId", "ownerType", "name", "goalCategory", "currentRevision", "status", "createdAt", "updatedAt"],
+      "indexes": ["userId_status", "ownerType_status"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "workout_plan_revision",
+      "columns": ["planRevisionId", "planId", "revision", "name", "notes", "source", "createdAt"],
+      "indexes": ["planId_revision_unique", "createdAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "workout_plan_step",
+      "columns": ["stepId", "planRevisionId", "sortOrder", "exerciseId", "sets", "repsMin", "repsMax", "durationSeconds", "restSeconds", "loadGuidance", "optional"],
+      "indexes": ["planRevisionId_sortOrder"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "workout_session",
+      "columns": ["sessionId", "userId", "planRevisionId", "authorityDeviceId", "workoutType", "state", "currentRevision", "startedAt", "endedAt", "discardedAt", "createdAt"],
+      "indexes": ["userId_state", "userId_startedAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "workout_event",
+      "columns": ["eventId", "sessionId", "userId", "eventType", "eventSequence", "payloadJson", "sourceDevice", "occurredAt", "idempotencyKey"],
+      "indexes": ["sessionId_eventSequence_unique", "userId_idempotencyKey_unique", "sessionId_occurredAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "workout_summary",
+      "columns": ["summaryId", "sessionId", "userId", "durationSeconds", "activeEnergyKcal", "distanceM", "steps", "averageHeartRate", "sourcePlatform", "healthWriteState", "revision", "createdAt"],
+      "indexes": ["sessionId_unique", "userId_createdAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "meal_draft",
+      "columns": ["draftId", "userId", "deviceId", "mediaId", "status", "createdAt", "updatedAt"],
+      "indexes": ["userId_updatedAt", "userId_draftId_unique"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "meal_draft_revision",
+      "columns": ["draftRevisionId", "draftId", "userId", "revision", "payloadJson", "createdAt"],
+      "indexes": ["userId_draftId_revision_unique", "userId_createdAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "meal_analysis_request",
+      "columns": ["requestId", "draftId", "userId", "provider", "status", "attempts", "requestedAt", "completedAt", "errorCode"],
+      "indexes": ["userId_requestedAt", "userId_requestId_unique"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "meal",
+      "columns": ["mealId", "userId", "sourceDraftId", "confirmedAt", "createdAt", "updatedAt"],
+      "indexes": ["userId_confirmedAt", "userId_mealId_unique"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "meal_revision",
+      "columns": ["mealRevisionId", "mealId", "userId", "revision", "payloadJson", "createdAt"],
+      "indexes": ["userId_mealId_revision_unique", "userId_createdAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "meal_item",
+      "columns": ["mealItemId", "mealId", "userId", "name", "quantity", "quantityUnit", "nutritionJson", "createdAt"],
+      "indexes": ["userId_mealId", "userId_mealItemId_unique"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "daily_summary",
+      "columns": ["summaryId", "userId", "deviceId", "revision", "payloadJson", "source", "updatedAt", "createdAt"],
+      "indexes": ["userId_updatedAt", "userId_summaryId_revision_unique"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "sync_operation",
+      "columns": ["operationId", "userId", "deviceId", "entityType", "entityId", "entityRevision", "operationType", "idempotencyKey", "requestHash", "payloadHash", "outcome", "createdAt"],
+      "indexes": ["userId_deviceId_idempotency_unique", "userId_createdAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "watch_delivery",
+      "columns": ["deliveryId", "userId", "deviceId", "summaryId", "revision", "state", "sentAt", "acceptedAt", "createdAt"],
+      "indexes": ["delivery_user_summary_rev_uq", "userId_state"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "watch_receipt",
+      "columns": ["receiptId", "userId", "deviceId", "summaryId", "revision", "outcome", "updatedAt", "createdAt"],
+      "indexes": ["receipt_user_summary_rev_outcome_uq", "userId_updatedAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "saved_meal",
+      "columns": ["savedMealId", "userId", "name", "currentRevision", "totalEnergyKcal", "totalProteinG", "createdAt", "updatedAt", "deletedAt"],
+      "indexes": ["userId_updatedAt", "userId_name"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "saved_meal_item",
+      "columns": ["savedMealItemId", "savedMealId", "userId", "sortOrder", "foodRef", "displayName", "grams", "portionJson", "nutrientsJson"],
+      "indexes": ["savedMealId_sortOrder"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "personal_food",
+      "columns": ["personalFoodId", "userId", "name", "basisAmount", "basisUnit", "energyKcal", "proteinG", "carbG", "fatG", "fiberG", "provenanceNote", "revision", "createdAt", "updatedAt", "deletedAt"],
+      "indexes": ["userId_name", "userId_updatedAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "day_summary",
+      "columns": ["daySummaryId", "userId", "localDate", "hasMeals", "hasWorkout", "energyStatus", "proteinStatus", "syncState", "revision", "updatedAt"],
+      "indexes": ["userId_localDate_unique", "userId_localDate"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "daily_recommendation",
+      "columns": ["recommendationId", "userId", "localDate", "category", "title", "body", "ruleId", "ruleVersion", "state", "inputRevisionHash", "confidenceLabel", "createdAt", "updatedAt"],
+      "indexes": ["userId_localDate_state", "userId_localDate_state_input_uq"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "action_completion",
+      "columns": ["completionId", "userId", "recommendationId", "action", "sourceDevice", "idempotencyKey", "occurredAt"],
+      "indexes": ["userId_idempotencyKey_unique", "recommendationId"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "wellness_checkin",
+      "columns": ["checkinId", "userId", "localDate", "energyLevel", "sorenessAreasJson", "sleepPerception", "note", "revision", "createdAt", "updatedAt"],
+      "indexes": ["userId_localDate_unique", "userId_localDate"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "progress_insight",
+      "columns": ["insightId", "userId", "periodStart", "periodEnd", "category", "resultText", "evidenceHash", "ruleVersion", "state", "createdAt", "updatedAt"],
+      "indexes": ["userId_periodStart_periodEnd", "state"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "sync_cursor",
+      "columns": ["cursorId", "userId", "deviceId", "domain", "opaqueCursor", "lastSyncAt", "schemaVersion"],
+      "indexes": ["userId_deviceId_domain_unique", "userId_lastSyncAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "notification",
+      "columns": ["notificationId", "userId", "type", "title", "body", "deepLink", "objectId", "priority", "createdAt", "readAt", "expiresAt"],
+      "indexes": ["userId_readAt_createdAt", "expiresAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "notification_delivery",
+      "columns": ["deliveryId", "notificationId", "deviceId", "provider", "state", "attemptCount", "lastAttemptAt", "providerMessageIdHash", "errorCode"],
+      "indexes": ["notificationId_deviceId_unique", "state_lastAttemptAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "exercise_catalog",
+      "columns": ["exerciseId", "slug", "name", "instructionsJson", "equipmentJson", "mediaLicense", "mediaObjectId", "status", "revision", "updatedAt"],
+      "indexes": ["slug_unique", "status_name"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "exercise_muscle_map",
+      "columns": ["mapId", "exerciseId", "muscleGroup", "role", "contributionWeight", "sourceVersion"],
+      "indexes": ["exerciseId_muscleGroup_role_unique", "muscleGroup"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "analysis_attempt",
+      "columns": ["attemptId", "requestId", "attemptNo", "promptVersionId", "modelConfigId", "provider", "state", "inputHash", "outputHash", "costMicrounits", "latencyMs", "createdAt"],
+      "indexes": ["requestId_attemptNo_unique", "state_createdAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "analysis_event",
+      "columns": ["eventId", "requestId", "attemptId", "stage", "userSafeCode", "occurredAt", "sequence"],
+      "indexes": ["requestId_sequence_unique", "requestId_occurredAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "meal_item_revision",
+      "columns": ["itemRevisionId", "mealRevisionId", "logicalItemId", "operation", "dataJson", "createdAt"],
+      "indexes": ["mealRevisionId_logicalItemId"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "nutrition_source_cache",
+      "columns": ["nutritionSourceId", "provider", "providerRecordId", "locale", "description", "basis100gJson", "rawVersion", "fetchedAt", "expiresAt", "checksum"],
+      "indexes": ["provider_record_version_uq", "description", "expiresAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "food_catalog_alias",
+      "columns": ["aliasId", "nutritionSourceId", "locale", "aliasNormalized", "rank", "source"],
+      "indexes": ["locale_aliasNormalized", "nutritionSourceId"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "muscle_load",
+      "columns": ["muscleLoadId", "userId", "sessionId", "localDate", "muscleGroup", "contribution", "algorithmVersion"],
+      "indexes": ["session_muscle_algo_uq", "userId_localDate_muscleGroup"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "export_job",
+      "columns": ["exportJobId", "userId", "exportType", "state", "requestedAt", "startedAt", "completedAt", "expiresAt", "errorCode"],
+      "indexes": ["userId_state_requestedAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "export_artifact",
+      "columns": ["artifactId", "exportJobId", "userId", "bucketId", "objectId", "checksum", "sizeBytes", "expiresAt", "downloadedAt", "revokedAt"],
+      "indexes": ["bucketId_objectId_unique", "userId_expiresAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "deletion_request",
+      "columns": ["deletionRequestId", "userId", "scope", "state", "requestedAt", "executeAfter", "canceledAt", "recentAuthAt", "reason"],
+      "indexes": ["userId_state", "executeAfter"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "deletion_job",
+      "columns": ["deletionJobId", "deletionRequestId", "domain", "state", "attemptCount", "lastAttemptAt", "completedAt", "errorCode"],
+      "indexes": ["deletionRequestId_domain_unique", "state_lastAttemptAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "support_ticket",
+      "columns": ["ticketId", "userId", "category", "subject", "bodyRedacted", "safeContextJson", "state", "createdAt", "updatedAt"],
+      "indexes": ["userId_state", "state_updatedAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "content_report",
+      "columns": ["reportId", "userId", "contentType", "contentId", "reason", "note", "state", "createdAt"],
+      "indexes": ["state_createdAt", "contentId"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "feature_flag",
+      "columns": ["flagId", "key", "environment", "enabled", "valueJson", "rolloutPercent", "minimumAppVersion", "updatedAt"],
+      "indexes": ["key_environment_unique", "environment_enabled"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "data_retention_job",
+      "columns": ["retentionJobId", "policyKey", "objectType", "cutoffAt", "state", "candidateCount", "deletedCount", "startedAt", "completedAt", "errorCode"],
+      "indexes": ["state_cutoffAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "report",
+      "columns": ["reportId", "userId", "reportType", "periodStart", "periodEnd", "status", "sourceRevisionHash", "createdAt", "completedAt"],
+      "indexes": ["report_scope_source_uq", "userId_status"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "report_section",
+      "columns": ["sectionId", "reportId", "sortOrder", "sectionType", "title", "narrative", "chartSpecJson", "provenanceJson"],
+      "indexes": ["reportId_sortOrder"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "report_evidence",
+      "columns": ["reportEvidenceId", "reportId", "sectionId", "sourceType", "sourceObjectId", "sourceRevision", "summaryJson"],
+      "indexes": ["reportId", "sectionId"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "prompt_template",
+      "columns": ["promptId", "taskType", "name", "description", "activeVersionId", "status", "createdAt", "updatedAt"],
+      "indexes": ["taskType_unique", "status"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "prompt_version",
+      "columns": ["promptVersionId", "promptId", "version", "systemInstructionEncrypted", "jsonSchemaJson", "safetyRulesJson", "testSuiteVersion", "checksum", "state", "createdAt", "activatedAt", "retiredAt"],
+      "indexes": ["promptId_version_unique", "state"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "model_configuration",
+      "columns": ["modelConfigId", "taskType", "provider", "modelName", "temperature", "maxOutputTokens", "timeoutMs", "retryPolicyJson", "state", "createdAt", "updatedAt"],
+      "indexes": ["taskType_state"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "provider_call",
+      "columns": ["providerCallId", "userId", "taskType", "requestId", "provider", "model", "promptVersionId", "inputHash", "outputHash", "status", "latencyMs", "tokenIn", "tokenOut", "createdAt"],
+      "indexes": ["requestId", "status_createdAt", "userId_createdAt"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "recommendation_evidence",
+      "columns": ["evidenceId", "recommendationId", "evidenceType", "objectId", "summaryJson", "sourceUpdatedAt", "createdAt"],
+      "indexes": ["recommendationId"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "usage_ledger",
+      "columns": ["usageId", "userId", "usageType", "quantity", "unit", "requestId", "provider", "model", "periodKey", "occurredAt", "reversalOf"],
+      "indexes": ["userId_periodKey_usageType", "requestId"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "subscription",
+      "columns": ["subscriptionId", "userId", "provider", "productId", "originalTransactionIdHash", "purchaseTokenHash", "state", "startAt", "expiresAt", "autoRenew", "environment", "revision", "updatedAt"],
+      "indexes": ["provider_orig_tx_uq", "provider_token_uq", "user_state"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "entitlement",
+      "columns": ["entitlementId", "userId", "entitlementKey", "state", "sourceSubscriptionId", "effectiveAt", "expiresAt", "revision", "updatedAt"],
+      "indexes": ["user_ent_key_uq", "user_state"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "purchase_event",
+      "columns": ["purchaseEventId", "userId", "provider", "externalEventIdHash", "eventType", "productId", "subscriptionId", "signedPayloadHash", "occurredAt", "receivedAt", "verificationState"],
+      "indexes": ["provider_event_uq", "subscription_time"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "webhook_event",
+      "columns": ["webhookEventId", "provider", "externalEventIdHash", "headersHash", "payloadObjectId", "receivedAt", "verifiedAt", "state", "attemptCount", "errorCode"],
+      "indexes": ["provider_event_uq", "state_received_at"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 0
+    },
+    {
+      "kind": "table",
+      "id": "schema_migrations",
+      "columns": [
+        "migrationId",
+        "schemaVersion",
+        "checksum",
+        "state",
+        "resourceSummaryJson",
+        "createdAt",
+        "updatedAt"
+      ],
+      "indexes": ["migrationId_schemaVersion_unique"],
+      "rowSecurity": true,
+      "permissions": [],
+      "rowCount": 16
+    }
+  ],
+  "source": "Appwrite inspection after authorized additive billing-schema wave on 2026-08-03 02:42 +0545",
+  "storageBuckets": [
+    "meal-analysis-temp",
+    "meal-history-private",
+    "exercise-media",
+    "user-exports",
+    "webhook-envelopes",
+    "report-artifacts"
+  ],
+  "note": "Sanitized snapshot; no credentials or row data included. Migration ledger contents are represented only by rowCount. Auth-permission, health-device, health type-correction, meal-media-aggregate, workout-plan-session, personal-dashboard, notification-sync-exercise, analysis-nutrition, report-lifecycle, ai-provider-config, recommendation-evidence, and billing-schema waves are recorded; schema_migration remains held because the live schema_migrations ledger already exists, and workout_session_revision remains intentionally blocked by an ownership/index ambiguity."
+}

@@ -1,0 +1,31 @@
+{
+  "name": "movefuel-backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "MoveFuel authenticated nutrition, fitness, phone/Wear sync, and meal-analysis backend.",
+  "engines": {
+    "node": ">=22.6"
+  },
+  "scripts": {
+    "start": "node --experimental-strip-types src/server.ts",
+    "test": "node --experimental-strip-types --test $(find src/tests -name '*.test.ts' -print)",
+    "migration:dry-run": "node --experimental-strip-types migrations/dry-run.ts",
+    "migration:preflight": "node --experimental-strip-types migrations/reconciled-preflight.ts",
+    "migration:watch-preflight": "node --experimental-strip-types migrations/watch-compatibility-preflight.ts",
+    "deployment:preflight": "node --env-file=../../infra/deployment/MoveFuel-Private-Configuration.env --experimental-strip-types src/production-preflight.ts",
+    "start:configured": "node --env-file=../../infra/deployment/MoveFuel-Private-Configuration.env --experimental-strip-types src/server.ts",
+    "config:check": "node --env-file=../../infra/deployment/MoveFuel-Private-Configuration.env --experimental-strip-types src/config-check.ts",
+    "typecheck": "tsc -p tsconfig.production.json",
+    "verify": "npm run contracts:check && npm run typecheck && npm test",
+    "contracts:generate": "node ../../contracts/codegen/generate-contracts.mjs",
+    "contracts:check": "node ../../contracts/codegen/generate-contracts.mjs --check",
+    "training:catalog:import": "node --experimental-strip-types src/training/catalog-ingestion-cli.ts",
+    "nutrition:evidence:simulate": "npm run build && node dist/nutrition/evidence/simulation.js"
+  },
+  "devDependencies": {
+    "@types/node": "22.19.7",
+    "typescript": "5.8.3"
+  },
+  "packageManager": "npm@10.9.2"
+}

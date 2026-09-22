@@ -1,0 +1,29 @@
+{
+  "migrationId": "movefuel_ai_provider_routing_wave_v2",
+  "schemaVersion": 15,
+  "mode": "add_missing_columns_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Algorithm 4.1 provider routing hardening",
+  "database": { "id": "movefuel_mvp", "name": "MoveFuel MVP", "verification": "existing_database_only" },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "serverOnlyTables": ["model_configuration"],
+    "applyAllowed": true,
+    "note": "Adds routing metadata only. Provider credentials remain server secrets and MUST NOT be stored in model_configuration."
+  },
+  "resources": [{
+    "kind": "table",
+    "id": "model_configuration",
+    "name": "Model configuration",
+    "rowSecurity": true,
+    "permissions": [],
+    "ownerField": null,
+    "columns": ["modelConfigId","taskType","provider","modelName","temperature","maxOutputTokens","timeoutMs","retryPolicyJson","priority","providerOptionsJson","state","createdAt","updatedAt"],
+    "typedColumns": [
+      { "key": "priority", "type": "integer", "required": false },
+      { "key": "providerOptionsJson", "type": "string", "size": 2048, "required": false }
+    ],
+    "indexDefinitions": [{ "key": "taskType_state_priority", "type": "key", "columns": ["taskType","state","priority"] }],
+    "requiresReview": false
+  }]
+}

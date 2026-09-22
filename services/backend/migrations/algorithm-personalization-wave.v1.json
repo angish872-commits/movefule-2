@@ -1,0 +1,24 @@
+{
+  "migrationId": "movefuel_algorithm_personalization_wave_v1",
+  "schemaVersion": 18,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel canonical durable confirmed serving evidence 2026-08-29",
+  "database": { "id": "movefuel_mvp", "name": "MoveFuel MVP", "verification": "existing_database_only" },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": null,
+    "serverOnlyTables": ["serving_prior_observation"],
+    "applyAllowed": false,
+    "note": "Only explicit confirmed/corrected observations may be accepted. AI-only estimates cannot seed priors; stronger physical/package evidence remains authoritative."
+  },
+  "resources": [
+    {
+      "kind":"table","id":"serving_prior_observation","name":"Serving prior observation","rowSecurity":true,"permissions":[],"ownerField":null,
+      "columns":["observationId","ownerUserId","identityKey","sourceType","sourceReference","sourceMealId","sourceMealRevision","confirmationKind","evidenceQuality","candidateName","preparationLabel","grams","acceptedPolicyVersion","confirmedAt","createdAt","excludedAt","exclusionReasonCode"],
+      "typedColumns":[{"key":"observationId","type":"string","size":128,"required":true},{"key":"ownerUserId","type":"string","size":128,"required":true},{"key":"identityKey","type":"string","size":512,"required":true},{"key":"sourceType","type":"string","size":32,"required":true},{"key":"sourceReference","type":"string","size":256,"required":true},{"key":"sourceMealId","type":"string","size":128,"required":true},{"key":"sourceMealRevision","type":"integer","required":true},{"key":"confirmationKind","type":"string","size":32,"required":true},{"key":"evidenceQuality","type":"string","size":32,"required":true},{"key":"candidateName","type":"string","size":256,"required":true},{"key":"preparationLabel","type":"string","size":256,"required":false},{"key":"grams","type":"double","required":true,"min":0.1},{"key":"acceptedPolicyVersion","type":"string","size":64,"required":true},{"key":"confirmedAt","type":"datetime","required":true},{"key":"createdAt","type":"datetime","required":true},{"key":"excludedAt","type":"datetime","required":false},{"key":"exclusionReasonCode","type":"string","size":64,"required":false}],
+      "indexDefinitions":[{"key":"serving_prior_owner_observation_unique","type":"unique","columns":["ownerUserId","observationId"]},{"key":"serving_prior_source_revision_unique","type":"unique","columns":["ownerUserId","sourceMealId","sourceMealRevision","identityKey"]},{"key":"serving_prior_owner_identity_confirmedAt","type":"key","columns":["ownerUserId","identityKey","confirmedAt"]},{"key":"serving_prior_owner_confirmedAt","type":"key","columns":["ownerUserId","confirmedAt"]}],
+      "ownershipSource":"User-owned evidence; server-only mutation","requiresReview":false
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "profile": "pilot",
+  "country_prior": "United States",
+  "food_vision_model": "gemini-3.6-flash",
+  "minimum_free_gb": {
+    "pilot": 5,
+    "standard": 25,
+    "full": 250
+  },
+  "downloads": {
+    "allow_public_dataset_downloads": false,
+    "allow_large_usda_bundle": false,
+    "allow_full_nutrition5k_imagery": false
+  },
+  "live_api": {
+    "allow_usda": false,
+    "allow_gemini": false,
+    "usda_queries": [
+      "banana raw",
+      "rice white cooked",
+      "chicken breast cooked roasted",
+      "egg whole cooked hard-boiled",
+      "yogurt plain whole milk"
+    ]
+  },
+  "acceptance": {
+    "minimum_held_out_meals": 100,
+    "minimum_central_within_15_rate": 0.8,
+    "minimum_calorie_interval_coverage": 0.9,
+    "maximum_mean_relative_calorie_interval_width": 0.6,
+    "minimum_mass_interval_coverage": 0.85,
+    "maximum_mass_mape": 0.35
+  },
+  "launch_markets": [
+    "United States",
+    "United Kingdom",
+    "Australia"
+  ]
+}

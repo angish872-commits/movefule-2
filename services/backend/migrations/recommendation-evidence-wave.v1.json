@@ -1,0 +1,92 @@
+{
+  "migrationId": "movefuel_recommendation_evidence_wave_v1",
+  "schemaVersion": 15,
+  "mode": "create_missing_and_verify_existing",
+  "status": "typed_additive_wave",
+  "source": "MoveFuel Complete Backend and Logic Specification v1.0#recommendation-evidence",
+  "database": {
+    "id": "movefuel_mvp",
+    "name": "MoveFuel MVP",
+    "verification": "existing_database_only"
+  },
+  "resourcePolicy": {
+    "defaultDeny": true,
+    "ownerField": null,
+    "serverOnlyTables": [
+      "recommendation_evidence"
+    ],
+    "applyAllowed": true,
+    "note": "Server-only evidence child of owner-scoped daily recommendations; no evidence rows are seeded."
+  },
+  "resources": [
+    {
+      "kind": "table",
+      "id": "recommendation_evidence",
+      "name": "Recommendation evidence",
+      "rowSecurity": true,
+      "permissions": [],
+      "ownerField": null,
+      "columns": [
+        "evidenceId",
+        "recommendationId",
+        "evidenceType",
+        "objectId",
+        "summaryJson",
+        "sourceUpdatedAt",
+        "createdAt"
+      ],
+      "typedColumns": [
+        {
+          "key": "evidenceId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "recommendationId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "evidenceType",
+          "type": "string",
+          "size": 64,
+          "required": true
+        },
+        {
+          "key": "objectId",
+          "type": "string",
+          "size": 128,
+          "required": true
+        },
+        {
+          "key": "summaryJson",
+          "type": "string",
+          "size": 4096,
+          "required": true
+        },
+        {
+          "key": "sourceUpdatedAt",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "key": "createdAt",
+          "type": "datetime",
+          "required": true
+        }
+      ],
+      "indexDefinitions": [
+        {
+          "key": "recommendationId",
+          "type": "key",
+          "columns": [
+            "recommendationId"
+          ]
+        }
+      ],
+      "requiresReview": false
+    }
+  ]
+}

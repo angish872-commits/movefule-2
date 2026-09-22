@@ -1,0 +1,149 @@
+{
+  "description": "Cross-language parity fixture for the regional recipe resolver. Expected per-100g values were computed by the Python reference implementation.",
+  "expectedPer100g": {
+    "carbG": 33.767428571428574,
+    "energyKcal": 248.0857142857143,
+    "fatG": 4.574285714285713,
+    "fiberG": 1.3514285714285712,
+    "proteinG": 17.397142857142857,
+    "sodiumMg": 43.6
+  },
+  "ingredients": {
+    "172337": [
+      [
+        1008,
+        884.0
+      ],
+      [
+        1003,
+        0.0
+      ],
+      [
+        1005,
+        0.0
+      ],
+      [
+        1004,
+        100.0
+      ],
+      [
+        1079,
+        0.0
+      ],
+      [
+        1093,
+        0.0
+      ]
+    ],
+    "789890": [
+      [
+        1008,
+        364.0
+      ],
+      [
+        1003,
+        10.3
+      ],
+      [
+        1005,
+        76.3
+      ],
+      [
+        1004,
+        0.98
+      ],
+      [
+        1079,
+        2.7
+      ],
+      [
+        1093,
+        2.0
+      ]
+    ],
+    "790646": [
+      [
+        1008,
+        40.0
+      ],
+      [
+        1003,
+        1.1
+      ],
+      [
+        1005,
+        9.34
+      ],
+      [
+        1004,
+        0.1
+      ],
+      [
+        1079,
+        1.7
+      ],
+      [
+        1093,
+        4.0
+      ]
+    ],
+    "2646170": [
+      [
+        1008,
+        120.0
+      ],
+      [
+        1003,
+        22.5
+      ],
+      [
+        1005,
+        0.0
+      ],
+      [
+        1004,
+        3.5
+      ],
+      [
+        1079,
+        0.0
+      ],
+      [
+        1093,
+        74.0
+      ]
+    ]
+  },
+  "recipe": {
+    "addedOilGheeGrams": 15.0,
+    "addedWaterGrams": 30.0,
+    "finalCookedWeightGrams": 700.0,
+    "ingredients": [
+      {
+        "fdcId": 2646170,
+        "name": "chicken breast, raw",
+        "rawGrams": 400.0
+      },
+      {
+        "fdcId": 789890,
+        "name": "wheat flour, all-purpose",
+        "rawGrams": 300.0
+      },
+      {
+        "fdcId": 790646,
+        "name": "onions, yellow, raw",
+        "rawGrams": 80.0
+      },
+      {
+        "fdcId": 172337,
+        "name": "oil, mustard",
+        "rawGrams": 15.0
+      }
+    ],
+    "maximumVariantMultiplier": 1.2,
+    "minimumVariantMultiplier": 0.85,
+    "name": "Parity fixture",
+    "recipeId": "recipe-parity-fixture-v0",
+    "servings": 8
+  }
+}
